@@ -8,8 +8,6 @@ router.post('/', async (req, res) => {
     try {
         const { title, description, price, category, images, properties, stock, isStatus } = req.body;
 
-        console.log(req.body); // Debugging line
-
         const product = new Product({
             title,
             description,
@@ -20,6 +18,8 @@ router.post('/', async (req, res) => {
             stock,
             isStatus
         });
+
+        console.log("Backend Product =>", {product})
 
         await product.save();
         res.status(201).json(product);
@@ -42,15 +42,18 @@ router.get('/', async (req, res) => {
 });
 
 
+// ** GET Product by ID
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
-
     try {
         const product = await Product.findById(id).populate('category');
         if (!product) {
             return res.status(404).json({ message: 'Product not found' });
         }
-        res.json(product);
+        res.json({
+            ...product.toObject(),
+            properties: product.properties || {}
+        });
     } catch (error) {
         console.error('Error fetching product:', error);
         res.status(500).json({ message: 'Server error' });

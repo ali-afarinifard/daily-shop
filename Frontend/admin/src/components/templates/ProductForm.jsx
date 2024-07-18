@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
 
 const ProductForm = ({
@@ -13,7 +15,8 @@ const ProductForm = ({
     category: assignedCategory,
     properties: assignedProperties,
     stock: assignedStock,
-    isStatus: assignedStatus
+    isStatus: assignedStatus,
+    categories: initialCategories
 }) => {
 
     // States
@@ -26,16 +29,18 @@ const ProductForm = ({
     const [price, setPrice] = useState(existingPrice || 0);
     const [images, setImages] = useState(existingImages || []);
     const [goToProducts, setGoToProducts] = useState(false);
-    const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState(initialCategories || []);
 
     // router
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/categories').then((response) => {
-            setCategories(response.data);
-        });
-    }, []);
+        if (!initialCategories) {
+            axios.get('http://localhost:5000/api/categories').then((response) => {
+                setCategories(response.data);
+            });
+        }
+    }, [initialCategories]);
 
 
 
@@ -45,7 +50,9 @@ const ProductForm = ({
             if (selectedCategory) {
                 const defaultProperties = {};
                 selectedCategory.properties.forEach(property => {
-                    defaultProperties[property.name] = property.values[0];
+                    if (!productProperties[property.name]) {
+                        defaultProperties[property.name] = property.values[0];
+                    }
                 });
 
                 setProductProperties(prev => ({ ...prev, ...defaultProperties }));
@@ -68,8 +75,6 @@ const ProductForm = ({
             isStatus,
             properties: productProperties
         };
-
-        console.log(data);  // Debugging line
 
         try {
             if (_id) {
@@ -122,18 +127,25 @@ const ProductForm = ({
     const propertiesToFill = [];
     if (categories.length > 0 && category) {
         let catInfo = categories.find(({ _id }) => _id === category);
-        propertiesToFill.push(...catInfo.properties);
+        if (catInfo) {
+            propertiesToFill.push(...catInfo.properties);
 
-        while (catInfo?.parent?._id) {
-            const parentCat = categories.find(({ _id }) => _id === catInfo?.parent?._id);
-            propertiesToFill.push(...parentCat.properties);
-            catInfo = parentCat;
+            while (catInfo?.parent?._id) {
+                const parentCat = categories.find(({ _id }) => _id === catInfo.parent._id);
+                if (parentCat) {
+                    propertiesToFill.push(...parentCat.properties);
+                    catInfo = parentCat;
+                } else {
+                    break;
+                }
+            }
         }
-    };
+    }
 
 
     return (
         <form onSubmit={handleSubmit}>
+
             <label>نام محصول</label>
             <input
                 type="text"
@@ -155,7 +167,7 @@ const ProductForm = ({
 
             {propertiesToFill.length > 0 && propertiesToFill.map(p => (
                 <div key={p.name}>
-                    <label>{p.name[0].toUpperCase() + p.name.substring(1)}</label>
+                    <label>{p.name}</label>
                     <div>
                         <select
                             value={productProperties[p.name] || ''}
@@ -168,6 +180,7 @@ const ProductForm = ({
                     </div>
                 </div>
             ))}
+
 
             <label>عکس</label>
             <div className="mb-2 flex flex-wrap gap-1">
@@ -201,18 +214,6 @@ const ProductForm = ({
                 onChange={ev => setStock(ev.target.value)}
             />
 
-            <div className="my-3 flex items-center gap-2">
-                <label>
-                    موجود می باشد
-                </label>
-                <input
-                    type="checkbox"
-                    checked={isStatus}
-                    onChange={(ev) => setIsStatus(ev.target.checked)}
-                    className="w-fit relative top-[0.25rem]"
-                />
-            </div>
-
             <label>قیمت (تومان)</label>
             <input
                 type="number"
@@ -221,8 +222,20 @@ const ProductForm = ({
                 onChange={ev => setPrice(ev.target.value)}
             />
 
+            <div className="my-3 flex items-center gap-2">
+                <label>
+                    موجود می باشد
+                </label>
+                <input
+                    type="checkbox"
+                    checked={isStatus}
+                    onChange={(ev) => setIsStatus(ev.target.checked)}
+                    className="relative top-[0.25rem] w-4 h-4 rounded-full"
+                />
+            </div>
+
             <button className="btn-primary mt-3" type="submit">ایجاد</button>
-        </form>
+        </form >
     )
 }
 
