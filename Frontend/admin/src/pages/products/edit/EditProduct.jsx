@@ -1,37 +1,31 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ProductForm from '../../../components/templates/ProductForm'
+import { useQuery } from '@tanstack/react-query';
+import { getAllCategories, getProduct } from '../../../services/api';
+import Loader from '../../../components/modules/Loader';
 
 const EditProduct = () => {
-    const [productInfo, setProductInfo] = useState(null);
-    const [categories, setCategories] = useState([]);
     const { id } = useParams();
 
-    useEffect(() => {
-        if (!id) return;
+    const { data: productInfo, error: productError, isLoading: isProductLoading } = useQuery({
+        queryKey: ['product', id],
+        queryFn: getProduct,
+        enabled: !!id
+    });
 
-        const fetchProduct = async () => {
-            try {
-                const response = await axios.get(`http://localhost:5000/api/products/${id}`);
-                setProductInfo(response.data);
-            } catch (error) {
-                console.error('Error fetching product:', error);
-            }
-        };
 
-        const fetchCategories = async () => {
-            try {
-                const response = await axios.get('http://localhost:5000/api/categories');
-                setCategories(response.data);
-            } catch (error) {
-                console.error('Error fetching categories:', error);
-            }
-        };
+    const { data: categories, error: categoriesError, isLoading: isCategoriesLoading } = useQuery({
+        queryKey: ['categories'],
+        queryFn: getAllCategories
+    })
 
-        fetchProduct();
-        fetchCategories();
-    }, [id]);
+    if (isProductLoading || isCategoriesLoading) {
+        return <Loader />;
+    }
+
+    if (productError || categoriesError) {
+        return <div>Error loading data</div>;
+    }
 
     return (
         <div>

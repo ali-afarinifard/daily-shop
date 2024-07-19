@@ -3,17 +3,23 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { FaRegEdit } from "react-icons/fa";
+import { useQuery } from "@tanstack/react-query";
+import { getAllProducts } from "../../services/api";
+import { GrView } from "react-icons/gr";
+import Loader from "../../components/modules/Loader";
+
 
 
 const ProductPage = () => {
 
-    const [products, setProducts] = useState([]);
+    const { data, error, isLoading } = useQuery({
+        queryKey: ['products'],
+        queryFn: getAllProducts
+    });
 
-    useEffect(() => {
-        axios.get('http://localhost:5000/api/products').then((response) => {
-            setProducts(response.data);
-        });
-    }, []);
+    if (isLoading) return <Loader />;
+
+    if (error) return <div>Error...</div>
 
     return (
         <div>
@@ -35,7 +41,7 @@ const ProductPage = () => {
                 </thead>
 
                 <tbody>
-                    {products.map((product) => (
+                    {data.map((product) => (
                         <tr key={product._id}>
                             <td>{product.title}</td>
                             <td>{product.price}</td>
@@ -45,6 +51,11 @@ const ProductPage = () => {
                                 ))}
                             </td> */}
                             <td>
+                                <Link className="btn-default" to={'/products/view/' + product._id}>
+                                    <GrView size={16} />
+                                    نمایش
+                                </Link>
+
                                 <Link className="btn-default" to={'/products/edit/' + product._id}>
                                     <FaRegEdit size={16} />
                                     ویرایش

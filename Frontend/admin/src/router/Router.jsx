@@ -7,21 +7,19 @@ import PageNotFound from "../pages/404"
 import Layout from '../layout/Layout'
 import Order from "../pages/Orders"
 import AddProductPage from "../pages/products/add/AddProduct"
-import Login from "../pages/Login"
-import Register from "../pages/Register"
 import DeleteProduct from "../pages/products/delete/DeleteProduct"
 import EditProduct from "../pages/products/edit/EditProduct"
+import ProductView from "../pages/products/view/ProductView"
 
 const Router = () => {
     return (
         <Layout>
             <Routes>
                 <Route path="/" element={<Dashboard />} />
-                {/* <Route path="/register" element={<Register />} />
-                <Route path="/login" element={<Login />} /> */}
                 <Route path="/products" element={<Products />} />
                 <Route path="/products/delete/:id" element={<DeleteProduct />} />
                 <Route path="/products/edit/:id" element={<EditProduct />} />
+                <Route path="/products/view/:id" element={<ProductView />} />
                 <Route path="/products/add" element={<AddProductPage />} />
                 <Route path="/categories" element={<Categories />} />
                 <Route path="/settings" element={<Settings />} />

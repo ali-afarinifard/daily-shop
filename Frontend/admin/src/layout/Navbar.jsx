@@ -15,7 +15,7 @@ const Navbar = () => {
 
   // for text
   const inActiveLink = 'flex gap-3 s:flex-col s:items-center s:w-full p-2';
-  const activeLink = inActiveLink + ' bg-highlight text-black rounded-l-md s:rounded-xl xs:rounded-full';
+  const activeLink = inActiveLink + ' !bg-highlight text-black rounded-l-md s:rounded-xl xs:rounded-full';
 
   // for icon
   const inActiveIcon = 'w-6 h-6';
@@ -35,8 +35,8 @@ const Navbar = () => {
           <span className='xs:hidden'>پنل اصلی</span>
         </Link>
 
-        <Link to={'/products'} className={pathname.includes('/products') || pathname.includes('/products/add') ? activeLink : inActiveLink}>
-          <BsBasket className={pathname === '/products' || pathname === '/products/add' ? activeIcon : inActiveIcon} />
+        <Link to={'/products'} className={pathname.includes('/products') ? activeLink : inActiveLink}>
+          <BsBasket className={pathname.includes('/products') ? activeIcon : inActiveIcon} />
           <span className='xs:hidden'>محصولات</span>
         </Link>
 

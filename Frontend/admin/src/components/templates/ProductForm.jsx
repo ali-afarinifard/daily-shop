@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { createProduct, getAllCategories, updateProduct } from "../../services/api";
 
 
 const ProductForm = ({
@@ -34,13 +34,19 @@ const ProductForm = ({
     // router
     const navigate = useNavigate();
 
+    const { data, error, isLoading } = useQuery({
+        queryKey: ['categories'],
+        queryFn: getAllCategories,
+        initialData: initialCategories,
+        enabled: !initialCategories
+    });
+
+
     useEffect(() => {
-        if (!initialCategories) {
-            axios.get('http://localhost:5000/api/categories').then((response) => {
-                setCategories(response.data);
-            });
+        if (data) {
+            setCategories(data);
         }
-    }, [initialCategories]);
+    }, [data]);
 
 
 
@@ -61,11 +67,33 @@ const ProductForm = ({
     }, [categories, category]);
 
 
+    const createProductMutation = useMutation({
+        mutationFn: createProduct,
+        onSuccess: () => {
+            setGoToProducts(true);
+        },
+        onError: () => {
+            console.error('Error creating product:', error.response || error);
+        }
+    });
+
+
+    const updateProductMutation = useMutation({
+        mutationFn: updateProduct,
+        onSuccess: () => {
+            setGoToProducts(true);
+        },
+        onError: () => {
+            console.error('Error updating product:', error.response || error);
+        }
+    })
+
+
 
     const handleSubmit = async (ev) => {
         ev.preventDefault();
 
-        const data = {
+        const product = {
             title,
             description,
             price,
@@ -76,15 +104,10 @@ const ProductForm = ({
             properties: productProperties
         };
 
-        try {
-            if (_id) {
-                await axios.put(`http://localhost:5000/api/products/${_id}`, data);
-            } else {
-                await axios.post('http://localhost:5000/api/products', data);
-            }
-            setGoToProducts(true);
-        } catch (error) {
-            console.error('Error saving product:', error.response || error);
+        if (_id) {
+            updateProductMutation.mutate({ id: _id, product });
+        } else {
+            createProductMutation.mutate(product);
         }
     };
 

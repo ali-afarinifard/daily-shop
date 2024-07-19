@@ -1,6 +1,11 @@
+import PuffLoader from "react-spinners/PuffLoader"
+
 const Loader = () => {
     return (
-        <div>Loader</div>
+        // absolute top-[50%] left-[50%] -translate-x-[150%] -translate-y-[50%]
+        <div>
+            <PuffLoader color="#5542F6" size={45} />
+        </div>
     )
 }
 
