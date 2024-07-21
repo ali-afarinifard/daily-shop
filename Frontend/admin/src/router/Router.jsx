@@ -10,12 +10,14 @@ import AddProductPage from "../pages/products/add/AddProduct"
 import DeleteProduct from "../pages/products/delete/DeleteProduct"
 import EditProduct from "../pages/products/edit/EditProduct"
 import ProductView from "../pages/products/view/ProductView"
+import Register from "../components/templates/Register"
+import Login from "../components/templates/Login"
 
 const Router = () => {
     return (
         <Layout>
             <Routes>
-                <Route path="/" element={<Dashboard />} />
+                <Route index element={<Dashboard />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/products/delete/:id" element={<DeleteProduct />} />
                 <Route path="/products/edit/:id" element={<EditProduct />} />
