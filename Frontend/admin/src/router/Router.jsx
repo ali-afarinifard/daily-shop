@@ -12,12 +12,19 @@ import EditProduct from "../pages/products/edit/EditProduct"
 import ProductView from "../pages/products/view/ProductView"
 import Register from "../components/templates/Register"
 import Login from "../components/templates/Login"
+import ProtectedRoute from "../components/templates/ProtectedRoute"
 
 const Router = () => {
     return (
         <Layout>
             <Routes>
-                <Route index element={<Dashboard />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} />
+                <Route index element={
+                    <ProtectedRoute>
+                        <Dashboard />
+                    </ProtectedRoute>
+                } />
                 <Route path="/products" element={<Products />} />
                 <Route path="/products/delete/:id" element={<DeleteProduct />} />
                 <Route path="/products/edit/:id" element={<EditProduct />} />

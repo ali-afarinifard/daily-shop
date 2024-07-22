@@ -2,14 +2,30 @@ import axios from "axios";
 
 
 // ** Create API => Base URL
-export const api = axios.create({
-    baseURL: "http://localhost:5000/api",
-    headers: {
-        "Content-Type": "application/json"
-    },
-});
+// export const api = axios.create({
+//     baseURL: "http://localhost:5000/api",
+// });
 
 // ** Fetching Data................
+
+const API_URL = 'http://localhost:5000/api/auth';
+
+
+const register = (username, email, password) => {
+    return axios.post(`${API_URL}/register`, { username, email, password });
+};
+
+const login = (email, password) => {
+    return axios.post(`${API_URL}/login`, { email, password });
+};
+
+const refreshToken = (token) => {
+    return axios.post(`${API_URL}/token`, { token });
+};
+
+export { register, login, refreshToken };
+
+
 
 
 // ** GET All Categories
@@ -69,8 +85,8 @@ export const createProduct = async (product) => {
 export const updateProduct = async ({ id, product }) => {
     try {
 
-    const response = await api.put(`/products/${id}`, product);
-    return response.data;        
+        const response = await api.put(`/products/${id}`, product);
+        return response.data;
 
     } catch (error) {
         console.error('Error Updating product:', error);
@@ -82,8 +98,8 @@ export const updateProduct = async ({ id, product }) => {
 export const deleteProduct = async ({ id }) => {
     try {
 
-    const response = await api.delete(`/products/${id}`);
-    return response.data;        
+        const response = await api.delete(`/products/${id}`);
+        return response.data;
 
     } catch (error) {
         console.error('Error Deleting product:', error);

@@ -8,10 +8,6 @@ const Layout = ({ children }) => {
         >
             <Navbar />
             <div className="flex-grow p-4 pb-16 s:pb-20">{children}</div>
-            {/* <div className="flex gap-8">
-                <Link to="/register">Register</Link>
-                <Link to="/login">Login</Link>
-            </div> */}
         </div>
     )
 }
