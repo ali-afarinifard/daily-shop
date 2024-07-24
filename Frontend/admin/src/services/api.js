@@ -2,25 +2,24 @@ import axios from "axios";
 
 
 // ** Create API => Base URL
-// export const api = axios.create({
-//     baseURL: "http://localhost:5000/api",
-// });
+export const api = axios.create({
+    baseURL: "http://localhost:5000/api",
+});
 
 // ** Fetching Data................
 
-const API_URL = 'http://localhost:5000/api/auth';
 
-
+// ** AUTH
 const register = (username, email, password) => {
-    return axios.post(`${API_URL}/register`, { username, email, password });
+    return api.post('/auth/register', { username, email, password });
 };
 
 const login = (email, password) => {
-    return axios.post(`${API_URL}/login`, { email, password });
+    return api.post('/auth/login', { email, password });
 };
 
 const refreshToken = (token) => {
-    return axios.post(`${API_URL}/token`, { token });
+    return api.post('/auth/token', { token });
 };
 
 export { register, login, refreshToken };

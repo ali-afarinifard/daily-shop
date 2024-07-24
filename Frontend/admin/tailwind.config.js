@@ -16,7 +16,10 @@ export default {
         // => @media(max-width: 768px) {...}
         xs: {max: "440px"}
         // => @media(max-width: 400px) {...}
-      }
+      },
+      // backgroundImage: {
+      //   BackgroundImage: "url('/src/assets/images/Background.png')",
+      // }
     },
   },
   plugins: [],
