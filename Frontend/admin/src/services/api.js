@@ -25,6 +25,15 @@ const refreshToken = (token) => {
 export { register, login, refreshToken };
 
 
+export const checkUsername = (username) => {
+    return api.post('/auth/check-username', { username });
+};
+
+export const checkEmail = (email) => {
+    return api.post('/auth/check-email', { email });
+};
+
+
 
 
 // ** GET All Categories

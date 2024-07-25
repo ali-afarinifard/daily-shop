@@ -12,8 +12,7 @@ const Layout = ({ children }) => {
             className="flex s:flex-col-reverse min-h-screen"
         >
             {isAuthenticated && <Navbar />}
-            <div className={`flex-grow s:pb-20`}>{children}</div>
-            {/* ${Login ? 'p-0' : 'p-4 pb-16'} */}
+            <div className={`flex-grow p-4 pb-16 s:pb-20`}>{children}</div>
         </div>
     )
 }

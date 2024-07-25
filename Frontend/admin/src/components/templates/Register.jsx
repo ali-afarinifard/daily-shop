@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { register } from '../../services/api';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import styles from "../../styles/Register.module.css";
 import avatar from "../../assets/images/profile.png"
+
 
 const Register = () => {
     const [username, setUsername] = useState('');
@@ -27,7 +28,7 @@ const Register = () => {
 
     const handleRegister = (e) => {
         e.preventDefault();
-        setError('');  // Clear any previous error
+        setError('');
         mutation.mutate();
     };
 
@@ -59,6 +60,13 @@ const Register = () => {
                                     نام کاربری
                                 </label>
                             </div>
+
+                            {/* <TextField
+                                label="نام کاربری"
+                                placeholder="العنصر النائب"
+                                variant="outlined"
+                                sx={{ fontWeight: 'bold' }}
+                            /> */}
 
                             <div className='textbox relative'>
                                 <input className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed ${styles.textBox}`} type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />

@@ -6,6 +6,8 @@ require('dotenv').config();
 
 const router = express.Router();
 
+
+// ** Auth Register
 router.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -44,6 +46,8 @@ router.post('/register', async (req, res) => {
   }
 });
 
+
+// ** Auth Login
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -76,6 +80,8 @@ router.post('/login', async (req, res) => {
   }
 });
 
+
+// ** Token
 router.post('/token', async (req, res) => {
   const { token } = req.body;
 
@@ -109,5 +115,44 @@ router.post('/token', async (req, res) => {
     res.status(401).json({ message: 'Token is not valid' });
   }
 });
+
+
+
+// ** Check if username is available
+router.post('/check-username', async (req, res) => {
+  const { username } = req.body;
+
+  try {
+    let user = await User.findOne({ username });
+    if (user) {
+      return res.status(400).json({ message: 'Username already taken' });
+    }
+
+    res.status(200).json({ message: 'Username is available' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+
+// ** Check if email is available
+router.post('/check-email', async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    let user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({ message: 'Email already registered' });
+    }
+
+    res.status(200).json({ message: 'Email is available' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+
 
 module.exports = router;
