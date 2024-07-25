@@ -14,7 +14,11 @@ export default {
       screens: {
         s: {max: "768px"},
         // => @media(max-width: 768px) {...}
-        xs: {max: "440px"}
+        xs: {max: "440px"},
+        // => @media(max-width: 400px) {...}
+        m: {max: "550px"},
+        // => @media(max-width: 550px) {...}
+        l: {max: "900px"}
         // => @media(max-width: 400px) {...}
       },
       // backgroundImage: {

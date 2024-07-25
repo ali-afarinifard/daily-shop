@@ -25,15 +25,6 @@ const refreshToken = (token) => {
 export { register, login, refreshToken };
 
 
-export const checkUsername = (username) => {
-    return api.post('/auth/check-username', { username });
-};
-
-export const checkEmail = (email) => {
-    return api.post('/auth/check-email', { email });
-};
-
-
 
 
 // ** GET All Categories
@@ -94,6 +85,7 @@ export const updateProduct = async ({ id, product }) => {
     try {
 
         const response = await api.put(`/products/${id}`, product);
+        console.log(response.data);
         return response.data;
 
     } catch (error) {

@@ -144,7 +144,7 @@ const CategoryPage = ({ swal }) => {
             </label>
 
             <form onSubmit={handleSubmit}>
-                <div className="flex gap-5">
+                <div className="flex gap-5 l:flex-col l:gap-3">
                     <div className="flex-grow">
                         <label htmlFor="name">نام دسته :</label>
                         <input

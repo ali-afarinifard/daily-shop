@@ -14,7 +14,7 @@ const Navbar = () => {
   const { pathname } = location;
 
   // for text
-  const inActiveLink = 'flex gap-3 s:flex-col s:items-center s:w-full p-2';
+  const inActiveLink = 'flex gap-3 s:flex-col s:items-center s:w-full m:text-xs p-2';
   const activeLink = inActiveLink + ' !bg-highlight text-black rounded-l-md s:rounded-xl xs:rounded-full';
 
   // for icon
@@ -54,11 +54,6 @@ const Navbar = () => {
           <IoSettingsOutline className={pathname === '/settings' ? activeIcon : inActiveIcon} />
           <span className='xs:hidden'>تنظیمات</span>
         </Link>
-
-        <button className={inActiveLink} onClick={() => {}}>
-          <MdOutlineAccountCircle size={26} />
-          خروج
-        </button>
 
       </nav>
 

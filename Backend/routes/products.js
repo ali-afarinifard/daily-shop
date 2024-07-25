@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
             isStatus
         });
 
-        console.log("Backend Product =>", {product})
+        console.log("Backend Product =>", { product })
 
         await product.save();
         res.status(201).json(product);
@@ -63,32 +63,46 @@ router.get('/:id', async (req, res) => {
 
 
 // ** PUT Products
+// router.put('/:id', async (req, res) => {
+//     const { id } = req.params;
+//     const { name, description, price, category, properties, stock, images, isStatus } = req.body;
+
+//     try {
+//         let product = await Product.findById(id);
+//         if (!product) {
+//             return res.status(404).json({ message: 'Product not found' });
+//         }
+
+//         product.name = name;
+//         product.description = description;
+//         product.price = price;
+//         product.category = category;
+//         product.properties = properties;
+//         product.stock = stock;
+//         product.images = images;
+//         product.isStatus = isStatus;
+
+//         await product.save();
+//         res.json(product);
+//     } catch (error) {
+//         console.error('Error updating product:', error);
+//         res.status(500).json({ message: 'Server error' });
+//     }
+// });
+
+
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { name, description, price, category, properties, stock, images, isStatus } = req.body;
+    const updatedProduct = req.body;
 
     try {
-        let product = await Product.findById(id);
-        if (!product) {
-            return res.status(404).json({ message: 'Product not found' });
-        }
-
-        product.name = name;
-        product.description = description;
-        product.price = price;
-        product.category = category;
-        product.properties = properties;
-        product.stock = stock;
-        product.images = images;
-        product.isStatus = isStatus;
-
-        await product.save();
-        res.json(product);
+        const product = await Product.findByIdAndUpdate(id, updatedProduct, { new: true });
+        res.status(200).json(product);
     } catch (error) {
-        console.error('Error updating product:', error);
-        res.status(500).json({ message: 'Server error' });
+        res.status(400).json({ message: error.message });
     }
 });
+
 
 
 // ** DELETE Products

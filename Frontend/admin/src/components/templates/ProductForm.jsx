@@ -49,6 +49,11 @@ const ProductForm = ({
     }, [data]);
 
 
+    useEffect(() => {
+        console.log("Title State: ", title);
+    }, [title]);
+
+
 
     useEffect(() => {
         if (categories.length > 0 && category) {
@@ -103,6 +108,8 @@ const ProductForm = ({
             isStatus,
             properties: productProperties
         };
+
+        console.log("Product Data: ", product);
 
         if (_id) {
             updateProductMutation.mutate({ id: _id, product });
