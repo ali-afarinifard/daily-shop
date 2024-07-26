@@ -16,10 +16,13 @@ const ProductPage = () => {
         queryKey: ['products'],
         queryFn: getAllProducts
     });
+    console.log(data)
 
     if (isLoading) return <Loader />;
 
     if (error) return <div>Error...</div>
+
+    const hiddenItems = "l:hidden";
 
     return (
         <div>
@@ -35,7 +38,9 @@ const ProductPage = () => {
                 <thead>
                     <tr>
                         <td>نام</td>
-                        <td>قیمت</td>
+                        <td className="m:hidden">قیمت</td>
+                        <td className="">دسته بندی</td>
+                        <td className="">رنگ</td>
                         <td>عملیات</td>
                     </tr>
                 </thead>
@@ -44,24 +49,27 @@ const ProductPage = () => {
                     {data.map((product) => (
                         <tr key={product._id}>
                             <td>{product.title}</td>
-                            <td>{product.price}</td>
-                            {/* <td>
+                            <td className="m:hidden">{product.price}</td>
+                            <td className="">
+                                {product.category.name}
+                            </td>
+                            <td className="">
                                 {Object.entries(product.properties).map(([key, value]) => (
                                     <p key={key}>{value}</p>
                                 ))}
-                            </td> */}
-                            <td>
-                                <Link className="btn-default" to={'/products/view/' + product._id}>
+                            </td>
+                            <td className="l:flex l:flex-col l:gap-2 l:justify-center">
+                                <Link className="btn-default flex items-center justify-center" to={'/products/view/' + product._id}>
                                     <GrView size={16} />
                                     نمایش
                                 </Link>
 
-                                <Link className="btn-default" to={'/products/edit/' + product._id}>
+                                <Link className="btn-default flex items-center justify-center" to={'/products/edit/' + product._id}>
                                     <FaRegEdit size={16} />
                                     ویرایش
                                 </Link>
 
-                                <Link className="btn-default" to={'/products/delete/' + product._id}>
+                                <Link className="btn-default flex items-center justify-center" to={'/products/delete/' + product._id}>
                                     <FaRegTrashCan size={16} />
                                     حذف
                                 </Link>

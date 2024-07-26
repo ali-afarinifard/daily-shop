@@ -42,7 +42,7 @@ function App() {
           </CacheProvider>
         </BrowserRouter>
       </AuthProvider>
-      <ReactQueryDevtools />
+      {/* <ReactQueryDevtools /> */}
     </QueryClientProvider>
   )
 }

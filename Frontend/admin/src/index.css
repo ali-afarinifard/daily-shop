@@ -15,17 +15,6 @@
 }
 
 
-.MuiFormLabel-root {
-    font-weight: bold;
-    font-size: large;
-}
-
-.MuiInputLabel-formControl {
-    font-weight: bold;
-    font-size: large;
-}
-
-
 :root {
     font-family: Vazir, sans-serif !important;
     font-weight: normal;

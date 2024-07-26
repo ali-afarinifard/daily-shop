@@ -15,11 +15,11 @@ export default {
         s: {max: "768px"},
         // => @media(max-width: 768px) {...}
         xs: {max: "440px"},
-        // => @media(max-width: 400px) {...}
+        // => @media(max-width: 440px) {...}
         m: {max: "550px"},
         // => @media(max-width: 550px) {...}
-        l: {max: "900px"}
-        // => @media(max-width: 400px) {...}
+        l: {max: "910px"}
+        // => @media(max-width: 910px) {...}
       },
       // backgroundImage: {
       //   BackgroundImage: "url('/src/assets/images/Background.png')",

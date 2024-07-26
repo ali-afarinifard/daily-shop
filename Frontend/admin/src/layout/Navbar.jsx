@@ -22,13 +22,13 @@ const Navbar = () => {
   const activeIcon = inActiveIcon + ' text-primary';
 
   return (
-    <aside className={'text-gray-500 p-4 pl-0 bg-bgGray w-auto'}>
+    <aside className={'text-gray-500 p-4 pl-0 bg-bgGray w-auto z-[1000]'}>
 
       <div className='mb-8 mr-4 ml-3 s:hidden'>
         <Logo />
       </div>
 
-      <nav className='flex flex-col gap-6 s:flex-row s:gap-1 s:fixed s:left-0 s:bottom-0 s:right-0 s:bg-white s:shadow-2xl s:border-t-[1px] s:border-[#f0f0f0] w-full'>
+      <nav className='flex flex-col gap-6 s:flex-row s:gap-1 s:fixed s:left-0 s:bottom-0 s:right-0 s:bg-white s:shadow-2xl s:border-t-[1px] s:border-black s:py-4 w-full'>
 
         <Link to={'/'} className={pathname === '/' ? activeLink : inActiveLink}>
           <RxDashboard className={pathname === '/' ? activeIcon : inActiveIcon} />

@@ -249,17 +249,17 @@ const CategoryPage = ({ swal }) => {
                             return (
                                 <tr key={category._id} className="w-full border-b-[1px] border-slate-200">
                                     <td>{category.name}</td>
-                                    <td>{parentCategory ? parentCategory.name : 'None'}</td>
-                                    <td className="flex justify-center gap-4">
+                                    <td>{parentCategory ? parentCategory.name : '_'}</td>
+                                    <td className="flex justify-center gap-4 xs:flex-col">
                                         <button
-                                            className="btn-default mr-1 flex items-center gap-1"
+                                            className="btn-default flex items-center justify-center gap-1"
                                             onClick={() => editCategory(category)}
                                         >
                                             ویرایش
                                         </button>
 
                                         <button
-                                            className="btn-default flex items-center gap-1"
+                                            className="btn-default flex items-center justify-center gap-1"
                                             onClick={() => deleteCategory(category)}
                                         >
                                             حذف
