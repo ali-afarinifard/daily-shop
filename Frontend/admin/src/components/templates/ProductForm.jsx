@@ -49,11 +49,6 @@ const ProductForm = ({
     }, [data]);
 
 
-    useEffect(() => {
-        console.log("Title State: ", title);
-    }, [title]);
-
-
 
     useEffect(() => {
         if (categories.length > 0 && category) {

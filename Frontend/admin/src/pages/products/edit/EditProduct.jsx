@@ -13,7 +13,6 @@ const EditProduct = () => {
         enabled: !!id
     });
 
-
     const { data: categories, error: categoriesError, isLoading: isCategoriesLoading } = useQuery({
         queryKey: ['categories'],
         queryFn: getAllCategories
