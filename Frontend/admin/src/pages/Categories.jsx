@@ -17,6 +17,9 @@ import { MdOutlineEditNote } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 
 
+import { DataGrid } from '@mui/x-data-grid';
+
+
 const CategoryPage = ({ swal }) => {
 
     // ** States
@@ -147,6 +150,8 @@ const CategoryPage = ({ swal }) => {
     const removeProperty = (indexToRemove) => {
         setProperties(prev => [...prev].filter((p, pIndex) => pIndex !== indexToRemove));
     };
+
+
 
     return (
         <div>

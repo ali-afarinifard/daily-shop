@@ -22,7 +22,11 @@ const refreshToken = (token) => {
     return api.post('/auth/token', { token });
 };
 
-export { register, login, refreshToken };
+const logout = (token) => {
+    return api.post('/auth/logout', { token });
+};
+
+export { register, login, refreshToken, logout };
 
 
 

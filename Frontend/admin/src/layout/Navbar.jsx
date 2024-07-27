@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../components/templates/Logo";
 import { RxDashboard } from "react-icons/rx";
 import { BsBasket } from "react-icons/bs";
@@ -6,12 +6,23 @@ import { BsViewList } from "react-icons/bs";
 import { TbCategoryPlus } from "react-icons/tb";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineAccountCircle } from "react-icons/md";
+import { logout } from "../services/api";
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
 
 
 const Navbar = () => {
 
   const location = useLocation();
   const { pathname } = location;
+  const navigate = useNavigate();
+
+  const { logout } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login', { replace: true });
+  };
 
   // for text
   const inActiveLink = 'flex gap-3 s:flex-col s:items-center s:w-full m:text-xs p-2';
@@ -20,6 +31,7 @@ const Navbar = () => {
   // for icon
   const inActiveIcon = 'w-6 h-6';
   const activeIcon = inActiveIcon + ' text-primary';
+
 
   return (
     <aside className={'text-gray-500 p-4 pl-0 bg-bgGray w-auto z-[1000]'}>
@@ -54,6 +66,11 @@ const Navbar = () => {
           <IoSettingsOutline className={pathname === '/settings' ? activeIcon : inActiveIcon} />
           <span className='xs:hidden'>تنظیمات</span>
         </Link>
+
+        <button onClick={handleLogout} className={inActiveLink}>
+          <MdOutlineAccountCircle className={inActiveIcon} />
+          <span>خروج</span>
+        </button>
 
       </nav>
 
