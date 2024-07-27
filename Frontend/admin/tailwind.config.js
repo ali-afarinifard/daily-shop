@@ -12,11 +12,11 @@ export default {
         bgGray: '#fbfafd',
       },
       screens: {
-        s: {max: "768px"},
-        // => @media(max-width: 768px) {...}
+        s: {max: "850px"},
+        // => @media(max-width: 850px) {...}
         xs: {max: "440px"},
         // => @media(max-width: 440px) {...}
-        m: {max: "550px"},
+        m: {max: "570px"},
         // => @media(max-width: 550px) {...}
         l: {max: "910px"}
         // => @media(max-width: 910px) {...}

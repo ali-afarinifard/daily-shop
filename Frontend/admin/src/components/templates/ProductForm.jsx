@@ -22,7 +22,7 @@ const ProductForm = ({
     // States
     const [title, setTitle] = useState(existingTitle || '');
     const [description, setDescription] = useState(existingDescription || '');
-    const [category, setCategory] = useState(assignedCategory);
+    const [category, setCategory] = useState(assignedCategory || '');
     const [productProperties, setProductProperties] = useState(assignedProperties || {});
     const [stock, setStock] = useState(assignedStock || 0);
     const [isStatus, setIsStatus] = useState(assignedStatus || false);
@@ -49,6 +49,35 @@ const ProductForm = ({
     }, [data]);
 
 
+    useEffect(() => {
+        setTitle(existingTitle || '');
+        setDescription(existingDescription || '');
+        setCategory(assignedCategory || '');
+        setProductProperties(assignedProperties || {});
+        setStock(assignedStock || 0);
+        setIsStatus(assignedStatus || false);
+        setPrice(existingPrice || 0);
+        setImages(existingImages || []);
+    }, [existingTitle, existingDescription, existingPrice, existingImages, assignedCategory, assignedProperties, assignedStock, assignedStatus]);
+
+
+
+    // useEffect(() => {
+    //     if (categories.length > 0 && category) {
+    //         const selectedCategory = categories.find(({ _id }) => _id === category);
+    //         if (selectedCategory) {
+    //             const defaultProperties = {};
+    //             selectedCategory.properties.forEach(property => {
+    //                 if (!productProperties[property.name]) {
+    //                     defaultProperties[property.name] = property.values[0];
+    //                 }
+    //             });
+
+    //             setProductProperties(prev => ({ ...prev, ...defaultProperties }));
+    //         }
+    //     }
+    // }, [categories, category]);
+
 
     useEffect(() => {
         if (categories.length > 0 && category) {
@@ -64,7 +93,7 @@ const ProductForm = ({
                 setProductProperties(prev => ({ ...prev, ...defaultProperties }));
             }
         }
-    }, [categories, category]);
+    }, [categories, category, productProperties]);
 
 
     const createProductMutation = useMutation({
@@ -259,7 +288,7 @@ const ProductForm = ({
                 />
             </div>
 
-            <button className="btn-primary mt-3" type="submit">ایجاد</button>
+            <button className="btn-primary mt-3" type="submit">{_id ? 'ویرایش' : 'ایجاد'}</button>
         </form >
     )
 }

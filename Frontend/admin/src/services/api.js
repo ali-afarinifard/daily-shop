@@ -91,7 +91,7 @@ export const updateProduct = async ({ id, product }) => {
     } catch (error) {
         console.error('Error Updating product:', error);
     }
-}
+};
 
 
 // ** DELETE

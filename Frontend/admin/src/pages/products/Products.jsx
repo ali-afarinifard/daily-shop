@@ -22,8 +22,6 @@ const ProductPage = () => {
 
     if (error) return <div>Error...</div>
 
-    const hiddenItems = "l:hidden";
-
     return (
         <div>
             <Link
