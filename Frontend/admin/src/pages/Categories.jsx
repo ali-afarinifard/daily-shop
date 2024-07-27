@@ -1,6 +1,20 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { withSwal } from 'react-sweetalert2';
+import IconButton from '@mui/material/IconButton';
+
+
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Tooltip from '@mui/material/Tooltip';
+import { Box, Typography } from "@mui/material";
+import { MdOutlineEditNote } from "react-icons/md";
+import { MdDeleteOutline } from "react-icons/md";
 
 
 const CategoryPage = ({ swal }) => {
@@ -234,44 +248,120 @@ const CategoryPage = ({ swal }) => {
             </form>
 
             {!editedCategory && (
-                <table className="basic mt-4 text-center">
-                    <thead>
-                        <tr>
-                            <td>نام</td>
-                            <td>گروه</td>
-                            <td>عملیات</td>
-                        </tr>
-                    </thead>
+                // <table className="basic mt-4 text-center">
+                //     <thead>
+                //         <tr>
+                //             <td>نام</td>
+                //             <td>گروه</td>
+                //             <td>عملیات</td>
+                //         </tr>
+                //     </thead>
 
-                    <tbody>
-                        {categories.length > 0 && categories.map((category) => {
-                            const parentCategory = categories.find(cat => cat._id === category.parent);
-                            return (
-                                <tr key={category._id} className="w-full border-b-[1px] border-slate-200">
-                                    <td>{category.name}</td>
-                                    <td>{parentCategory ? parentCategory.name : '_'}</td>
-                                    <td className="flex justify-center gap-4 xs:flex-col">
-                                        <button
-                                            className="btn-default flex items-center justify-center gap-1"
-                                            onClick={() => editCategory(category)}
-                                        >
-                                            ویرایش
-                                        </button>
+                //     <tbody>
+                //         {categories.length > 0 && categories.map((category) => {
+                //             const parentCategory = categories.find(cat => cat._id === category.parent);
+                //             return (
+                //                 <tr key={category._id} className="w-full border-b-[1px] border-slate-200">
+                //                     <td>{category.name}</td>
+                //                     <td>{parentCategory ? parentCategory.name : '_'}</td>
+                //                     <td className="flex justify-center gap-4 xs:flex-col">
+                //                         <button
+                //                             className="btn-default flex items-center justify-center gap-1"
+                //                             onClick={() => editCategory(category)}
+                //                         >
+                //                             ویرایش
+                //                         </button>
 
-                                        <button
-                                            className="btn-default flex items-center justify-center gap-1"
-                                            onClick={() => deleteCategory(category)}
-                                        >
-                                            حذف
-                                        </button>
-                                    </td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>
-            )}
-        </div>
+                //                         <button
+                //                             className="btn-default flex items-center justify-center gap-1"
+                //                             onClick={() => deleteCategory(category)}
+                //                         >
+                //                             حذف
+                //                         </button>
+                //                     </td>
+                //                 </tr>
+                //             )
+                //         })}
+                //     </tbody>
+                // </table>
+
+
+                <TableContainer component={Paper}>
+                    <Table sx={{ width: '100%' }} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell sx={{ fontFamily: 'Vazir', fontWeight: 'bold' }}>نام</TableCell>
+                                <TableCell sx={{ fontFamily: 'Vazir', fontWeight: 'bold' }}>گروه</TableCell>
+                                <TableCell sx={{ fontFamily: 'Vazir', fontWeight: 'bold' }} align="center">عملیات</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {categories.length > 0 && categories.map((category) => {
+                                const parentCategory = categories.find(cat => cat._id === category.parent);
+                                return (
+                                    <TableRow
+                                        key={category._id}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                        <TableCell component="th" scope="row" sx={{ fontFamily: 'Vazir' }}>
+                                            {category.name}
+                                        </TableCell>
+                                        <TableCell sx={{ fontFamily: 'Vazir' }}>
+                                            {parentCategory ? parentCategory.name : '_'}
+                                        </TableCell>
+                                        <TableCell>
+                                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
+                                                <Tooltip
+                                                    title="حذف"
+                                                    sx={{
+                                                        fontFamily: 'Vazir',
+                                                        paddingY: '0.25rem',
+                                                        paddingX: '1rem',
+                                                        borderRadius: '0.375rem',
+                                                        backgroundColor: '#4b5563',
+                                                        color: '#fff',
+                                                        "&.MuiButtonBase-root:hover": {
+                                                            backgroundColor: "#4b5563"
+                                                        }
+                                                    }}
+
+                                                >
+                                                    <IconButton onClick={() => editCategory(category)}>
+                                                        <MdOutlineEditNote size={24} />
+                                                        <Typography sx={{ fontFamily: 'Vazir', fontSize: '0.8rem' }}>ویرایش</Typography>
+                                                    </IconButton>
+                                                </Tooltip>
+
+                                                <Tooltip title="ویرایش" sx={{ fontFamily: 'Vazir' }}>
+                                                    <IconButton
+                                                        onClick={() => deleteCategory(category)}
+                                                        sx={{
+                                                            fontFamily: 'Vazir',
+                                                            paddingY: '0.25rem',
+                                                            paddingX: '1rem',
+                                                            borderRadius: '0.375rem',
+                                                            backgroundColor: '#4b5563',
+                                                            color: '#fff',
+                                                            "&.MuiButtonBase-root:hover": {
+                                                                backgroundColor: "#4b5563"
+                                                            }
+                                                        }}
+                                                    >
+                                                        <MdDeleteOutline size={24} />
+                                                        <Typography sx={{ fontFamily: 'Vazir', fontSize: '0.8rem' }}>حذف</Typography>
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </Box>
+                                        </TableCell>
+                                    </TableRow>
+                                )
+                            })}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            )
+            }
+        </div >
     )
 }
 
