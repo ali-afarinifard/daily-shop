@@ -40,7 +40,7 @@ const Navbar = () => {
         <Logo />
       </div>
 
-      <nav className='flex flex-col gap-6 s:flex-row s:gap-1 s:fixed s:left-0 s:bottom-0 s:right-0 s:bg-white s:shadow-2xl s:border-t-[1px] s:border-black s:py-4 w-full'>
+      <nav className='flex flex-col gap-6 s:flex-row s:gap-1 s:fixed s:left-0 s:bottom-0 s:right-0 s:bg-white s:shadow-2xl s:py-4 w-full'>
 
         <Link to={'/'} className={pathname === '/' ? activeLink : inActiveLink}>
           <RxDashboard className={pathname === '/' ? activeIcon : inActiveIcon} />
@@ -69,7 +69,7 @@ const Navbar = () => {
 
         <button onClick={handleLogout} className={inActiveLink}>
           <MdOutlineAccountCircle className={inActiveIcon} />
-          <span>خروج</span>
+          <span className='xs:hidden'>خروج</span>
         </button>
 
       </nav>
