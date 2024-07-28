@@ -62,7 +62,6 @@ const ProductPage = () => {
                             <TableCell sx={{ fontFamily: 'Vazir', fontWeight: 'bold' }}>نام</TableCell>
                             <TableCell sx={{ fontFamily: 'Vazir', fontWeight: 'bold' }}>قیمت&nbsp;(تومان)</TableCell>
                             <TableCell sx={{ fontFamily: 'Vazir', fontWeight: 'bold' }}>دسته بندی</TableCell>
-                            <TableCell sx={{ fontFamily: 'Vazir', fontWeight: 'bold' }}>رنگ</TableCell>
                             <TableCell sx={{ fontFamily: 'Vazir', fontWeight: 'bold' }} align="center">عملیات</TableCell>
                         </TableRow>
                     </TableHead>
@@ -77,11 +76,11 @@ const ProductPage = () => {
                                 </TableCell>
                                 <TableCell sx={{ fontFamily: 'Vazir' }}>{product.price}</TableCell>
                                 <TableCell sx={{ fontFamily: 'Vazir' }}>{product.category ? product.category.name : "حذف شده"}</TableCell>
-                                <TableCell sx={{ fontFamily: 'Vazir' }}>
+                                {/* <TableCell sx={{ fontFamily: 'Vazir' }}>
                                     {Object.entries(product.properties).map(([key, value]) => (
                                         <p key={key}>{value}</p>
                                     ))}
-                                </TableCell>
+                                </TableCell> */}
                                 <TableCell>
                                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
                                         <Tooltip title="حذف" sx={{ fontFamily: 'Vazir' }}>

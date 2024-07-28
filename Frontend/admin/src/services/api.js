@@ -30,7 +30,7 @@ export { register, login, refreshToken, logout };
 
 
 
-
+// ** Categories______________________
 // ** GET All Categories
 export const getAllCategories = async () => {
     try {
@@ -70,7 +70,7 @@ export const updateCategory = async ({ updatedCategory, id }) => {
 };
 
 
-// ** DELETE
+// ** DELETE Category
 export const deleteCategory = async (id) => {
     try {
 
@@ -83,7 +83,7 @@ export const deleteCategory = async (id) => {
 };
 
 
-// ** Products__________
+// ** Products______________________
 // ** GET
 export const getAllProducts = async () => {
     try {

@@ -2,6 +2,7 @@
 import Header from "../components/templates/dashboard/Header"
 import ProductDashboard from "../components/templates/dashboard/ProductDashboard"
 import CategoryDashboard from "../components/templates/dashboard/CategoryDashboard"
+import OrderDashboard from "../components/templates/dashboard/OrderDashboard"
 
 const DashboardPage = () => {
     return (
@@ -24,6 +25,10 @@ const DashboardPage = () => {
                     <CategoryDashboard />
                 </div>
             
+            </div>
+
+            <div className="w-full">
+                <OrderDashboard />
             </div>
         </div>
     )

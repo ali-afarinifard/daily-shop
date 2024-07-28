@@ -6,6 +6,11 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { createProduct, getAllCategories, updateProduct } from "../../services/api";
 
 
+
+
+const sizesOptions = [38, 39, 40, 41, 42, 43, 44, 45, 46];
+
+
 const ProductForm = ({
     _id,
     title: existingTitle,
@@ -13,23 +18,25 @@ const ProductForm = ({
     price: existingPrice,
     images: existingImages,
     category: assignedCategory,
-    properties: assignedProperties,
+    // properties: assignedProperties,
     stock: assignedStock,
     isStatus: assignedStatus,
-    categories: initialCategories
+    categories: initialCategories,
+    sizes: existingSizes
 }) => {
 
     // States
     const [title, setTitle] = useState(existingTitle || '');
     const [description, setDescription] = useState(existingDescription || '');
     const [category, setCategory] = useState(assignedCategory || '');
-    const [productProperties, setProductProperties] = useState(assignedProperties || {});
+    // const [productProperties, setProductProperties] = useState(assignedProperties || {});
     const [stock, setStock] = useState(assignedStock || 0);
     const [isStatus, setIsStatus] = useState(assignedStatus || false);
     const [price, setPrice] = useState(existingPrice || 0);
     const [images, setImages] = useState(existingImages || []);
-    const [goToProducts, setGoToProducts] = useState(false);
     const [categories, setCategories] = useState(initialCategories || []);
+    const [sizes, setSizes] = useState(existingSizes || []);
+    const [goToProducts, setGoToProducts] = useState(false);
 
     // router
     const navigate = useNavigate();
@@ -53,15 +60,17 @@ const ProductForm = ({
         setTitle(existingTitle || '');
         setDescription(existingDescription || '');
         setCategory(assignedCategory || '');
-        setProductProperties(assignedProperties || {});
+        // setProductProperties(assignedProperties || {});
         setStock(assignedStock || 0);
         setIsStatus(assignedStatus || false);
         setPrice(existingPrice || 0);
         setImages(existingImages || []);
-    }, [existingTitle, existingDescription, existingPrice, existingImages, assignedCategory, assignedProperties, assignedStock, assignedStatus]);
+        setSizes(existingSizes || []);
+    }, [existingTitle, existingDescription, existingPrice, existingImages, existingSizes, assignedCategory, assignedStock, assignedStatus]);
 
 
 
+    // ** OLD
     // useEffect(() => {
     //     if (categories.length > 0 && category) {
     //         const selectedCategory = categories.find(({ _id }) => _id === category);
@@ -78,22 +87,22 @@ const ProductForm = ({
     //     }
     // }, [categories, category]);
 
+    // ** NEW
+    // useEffect(() => {
+    //     if (categories.length > 0 && category) {
+    //         const selectedCategory = categories.find(({ _id }) => _id === category);
+    //         if (selectedCategory) {
+    //             const defaultProperties = {};
+    //             selectedCategory.properties.forEach(property => {
+    //                 if (!productProperties[property.name]) {
+    //                     defaultProperties[property.name] = property.values[0];
+    //                 }
+    //             });
 
-    useEffect(() => {
-        if (categories.length > 0 && category) {
-            const selectedCategory = categories.find(({ _id }) => _id === category);
-            if (selectedCategory) {
-                const defaultProperties = {};
-                selectedCategory.properties.forEach(property => {
-                    if (!productProperties[property.name]) {
-                        defaultProperties[property.name] = property.values[0];
-                    }
-                });
-
-                setProductProperties(prev => ({ ...prev, ...defaultProperties }));
-            }
-        }
-    }, [categories, category, productProperties]);
+    //             setProductProperties(prev => ({ ...prev, ...defaultProperties }));
+    //         }
+    //     }
+    // }, [categories, category, productProperties]);
 
 
     const createProductMutation = useMutation({
@@ -130,7 +139,8 @@ const ProductForm = ({
             images,
             stock,
             isStatus,
-            properties: productProperties
+            sizes
+            // properties: productProperties
         };
 
         console.log("Product Data: ", product);
@@ -169,32 +179,42 @@ const ProductForm = ({
     };
 
 
-    function setProductProp(propName, value) {
-        setProductProperties(prev => {
-            const newProductProps = { ...prev };
-            newProductProps[propName] = value;
-            return newProductProps;
-        });
+    const handleSizeChange = (ev) => {
+        const size = parseInt(ev.target.value);
+        if (ev.target.checked) {
+            setSizes([...sizes, size]);
+        } else {
+            setSizes(sizes.filter(s => s !== size));
+        }
     };
 
 
-    const propertiesToFill = [];
-    if (categories.length > 0 && category) {
-        let catInfo = categories.find(({ _id }) => _id === category);
-        if (catInfo) {
-            propertiesToFill.push(...catInfo.properties);
+    // function setProductProp(propName, value) {
+    //     setProductProperties(prev => {
+    //         const newProductProps = { ...prev };
+    //         newProductProps[propName] = value;
+    //         return newProductProps;
+    //     });
+    // };
 
-            while (catInfo?.parent?._id) {
-                const parentCat = categories.find(({ _id }) => _id === catInfo.parent._id);
-                if (parentCat) {
-                    propertiesToFill.push(...parentCat.properties);
-                    catInfo = parentCat;
-                } else {
-                    break;
-                }
-            }
-        }
-    }
+
+    // const propertiesToFill = [];
+    // if (categories.length > 0 && category) {
+    //     let catInfo = categories.find(({ _id }) => _id === category);
+    //     if (catInfo) {
+    //         propertiesToFill.push(...catInfo.properties);
+
+    //         while (catInfo?.parent?._id) {
+    //             const parentCat = categories.find(({ _id }) => _id === catInfo.parent._id);
+    //             if (parentCat) {
+    //                 propertiesToFill.push(...parentCat.properties);
+    //                 catInfo = parentCat;
+    //             } else {
+    //                 break;
+    //             }
+    //         }
+    //     }
+    // }
 
 
     return (
@@ -219,7 +239,7 @@ const ProductForm = ({
                 ))}
             </select>
 
-            {propertiesToFill.length > 0 && propertiesToFill.map(p => (
+            {/* {propertiesToFill.length > 0 && propertiesToFill.map(p => (
                 <div key={p.name}>
                     <label>{p.name}</label>
                     <div>
@@ -233,7 +253,23 @@ const ProductForm = ({
                         </select>
                     </div>
                 </div>
-            ))}
+            ))} */}
+
+
+            <label>سایزها</label>
+            <div className="mb-2 flex flex-wrap gap-1">
+                {sizesOptions.map(size => (
+                    <label key={size} className="mr-2">
+                        <input
+                            type="checkbox"
+                            value={size}
+                            checked={sizes.includes(size)}
+                            onChange={handleSizeChange}
+                        />
+                        {size}
+                    </label>
+                ))}
+            </div>
 
 
             <label>عکس</label>

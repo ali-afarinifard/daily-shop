@@ -48,7 +48,6 @@ const ProductDashboard = () => {
                         <TableCell sx={{ fontFamily: 'Vazir', fontWeight: 'bold' }}>نام</TableCell>
                         <TableCell align="right" sx={{ fontFamily: 'Vazir', fontWeight: 'bold' }}>قیمت</TableCell>
                         <TableCell align="right" sx={{ fontFamily: 'Vazir', fontWeight: 'bold' }}>دسته بندی</TableCell>
-                        <TableCell align="right" sx={{ fontFamily: 'Vazir', fontWeight: 'bold' }}>رنگ</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -62,11 +61,11 @@ const ProductDashboard = () => {
                             </TableCell>
                             <TableCell align="right" sx={{ fontFamily: 'Vazir' }}>{product.price}</TableCell>
                             <TableCell align="right" sx={{ fontFamily: 'Vazir' }}>{product.category.name}</TableCell>
-                            <TableCell align="right" sx={{ fontFamily: 'Vazir' }}>
+                            {/* <TableCell align="right" sx={{ fontFamily: 'Vazir' }}>
                                 {Object.entries(product.properties).map(([key, value]) => (
                                     <p key={key}>{value}</p>
                                 ))}
-                            </TableCell>
+                            </TableCell> */}
                         </TableRow>
                     ))}
                 </TableBody>

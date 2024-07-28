@@ -23,11 +23,12 @@ const CategoryPage = ({ swal }) => {
     const [name, setName] = useState('');
     const [parent, setParent] = useState('');
     const [editedCategory, setEditedCategory] = useState(null);
-    const [properties, setProperties] = useState([]);
+    // const [properties, setProperties] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
     const handleChangePage = (event, newPage) => setPage(newPage);
+
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
@@ -55,13 +56,18 @@ const CategoryPage = ({ swal }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        // const data = {
+        //     name,
+        //     parent,
+        //     properties: properties.map(p => ({
+        //         name: p.name,
+        //         values: p.values.split('-')
+        //     }))
+        // };
+
         const data = {
             name,
-            parent,
-            properties: properties.map(p => ({
-                name: p.name,
-                values: p.values.split('-')
-            }))
+            parent
         };
 
         if (editedCategory) {
@@ -73,19 +79,26 @@ const CategoryPage = ({ swal }) => {
 
         setName('');
         setParent('');
-        setProperties([]);
+        // setProperties([]);
     };
+
+    // const editCategory = (category) => {
+    //     setEditedCategory(category);
+    //     setName(category.name);
+    //     setParent(category.parent ? category.parent._id : '');
+    //     setProperties(
+    //         category.properties.map(({ name, values }) => ({
+    //             name,
+    //             values: values.join('-')
+    //         }))
+    //     );
+    // };
+
 
     const editCategory = (category) => {
         setEditedCategory(category);
         setName(category.name);
         setParent(category.parent ? category.parent._id : '');
-        setProperties(
-            category.properties.map(({ name, values }) => ({
-                name,
-                values: values.join('-')
-            }))
-        );
     };
 
     const handleDeleteCategory = (category) => {
@@ -104,29 +117,29 @@ const CategoryPage = ({ swal }) => {
         });
     };
 
-    const addProperty = () => {
-        setProperties(prev => [...prev, { name: '', values: '' }]);
-    };
+    // const addProperty = () => {
+    //     setProperties(prev => [...prev, { name: '', values: '' }]);
+    // };
 
-    const handlePropertyNameChange = (index, property, newName) => {
-        setProperties(prev => {
-            const properties = [...prev];
-            properties[index].name = newName;
-            return properties;
-        });
-    };
+    // const handlePropertyNameChange = (index, property, newName) => {
+    //     setProperties(prev => {
+    //         const properties = [...prev];
+    //         properties[index].name = newName;
+    //         return properties;
+    //     });
+    // };
 
-    const handlePropertyValuesChange = (index, property, newValues) => {
-        setProperties(prev => {
-            const properties = [...prev];
-            properties[index].values = newValues;
-            return properties;
-        });
-    };
+    // const handlePropertyValuesChange = (index, property, newValues) => {
+    //     setProperties(prev => {
+    //         const properties = [...prev];
+    //         properties[index].values = newValues;
+    //         return properties;
+    //     });
+    // };
 
-    const removeProperty = (indexToRemove) => {
-        setProperties(prev => [...prev].filter((_, pIndex) => pIndex !== indexToRemove));
-    };
+    // const removeProperty = (indexToRemove) => {
+    //     setProperties(prev => [...prev].filter((_, pIndex) => pIndex !== indexToRemove));
+    // };
 
     const paginatedData = (categories || []).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
@@ -171,7 +184,8 @@ const CategoryPage = ({ swal }) => {
                     </div>
                 </div>
 
-                <div>
+                {/* Properties */}
+                {/* <div>
                     <button
                         type="button"
                         className="btn-default text-sm mb-2 mt-1"
@@ -209,7 +223,7 @@ const CategoryPage = ({ swal }) => {
                             </button>
                         </div>
                     ))}
-                </div>
+                </div> */}
 
                 <div className="flex gap-1 mb-4">
                     {editedCategory && (
