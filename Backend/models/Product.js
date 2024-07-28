@@ -10,7 +10,8 @@ const productSchema = new Schema({
     // properties: { type: Map, of: String },  // Ensure this matches your properties format
     stock: { type: Number, required: true },
     isStatus: { type: Boolean, default: false },
-    sizes: [{ type: Number }]
+    sizes: [{ type: Number, required: true }],
+    colors: [{ type: String, required: true }]
 }, { timestamps: true });
 
 const Product = mongoose.model('Product', productSchema);

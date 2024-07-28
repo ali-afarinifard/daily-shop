@@ -22,7 +22,8 @@ const ProductForm = ({
     stock: assignedStock,
     isStatus: assignedStatus,
     categories: initialCategories,
-    sizes: existingSizes
+    sizes: existingSizes,
+    colors: existingColors
 }) => {
 
     // States
@@ -37,6 +38,7 @@ const ProductForm = ({
     const [categories, setCategories] = useState(initialCategories || []);
     const [sizes, setSizes] = useState(existingSizes || []);
     const [goToProducts, setGoToProducts] = useState(false);
+    const [colors, setColors] = useState(existingColors?.join('-') || '');
 
     // router
     const navigate = useNavigate();
@@ -66,7 +68,8 @@ const ProductForm = ({
         setPrice(existingPrice || 0);
         setImages(existingImages || []);
         setSizes(existingSizes || []);
-    }, [existingTitle, existingDescription, existingPrice, existingImages, existingSizes, assignedCategory, assignedStock, assignedStatus]);
+        setColors(existingColors?.join('-') || '');
+    }, [existingTitle, existingDescription, existingPrice, existingImages, existingSizes, existingColors, assignedCategory, assignedStock, assignedStatus]);
 
 
 
@@ -139,7 +142,8 @@ const ProductForm = ({
             images,
             stock,
             isStatus,
-            sizes
+            sizes,
+            colors: colors.split('-').filter(Boolean)
             // properties: productProperties
         };
 
@@ -270,6 +274,15 @@ const ProductForm = ({
                     </label>
                 ))}
             </div>
+
+
+            <label>رنگ‌ها (هر رنگ را با یک خط تیره - جدا کنید)</label>
+            <input
+                type="text"
+                placeholder="مثال: قرمز-آبی-سبز"
+                value={colors}
+                onChange={(ev) => setColors(ev.target.value)}
+            />
 
 
             <label>عکس</label>

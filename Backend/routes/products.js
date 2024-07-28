@@ -126,7 +126,7 @@ const Product = require('../models/Product');
 // ** POST Products
 router.post('/', async (req, res) => {
     try {
-        const { title, description, price, category, images, stock, isStatus, sizes } = req.body;
+        const { title, description, price, category, images, stock, isStatus, sizes, colors } = req.body;
 
         const product = new Product({
             title,
@@ -136,7 +136,8 @@ router.post('/', async (req, res) => {
             images,
             stock,
             isStatus,
-            sizes
+            sizes,
+            colors
         });
 
         console.log("Backend Product =>", { product })
