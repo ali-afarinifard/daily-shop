@@ -6,7 +6,7 @@ export const api = axios.create({
     baseURL: "http://localhost:5000/api",
 });
 
-// ** Fetching Data................
+// ** Fetching Data..................................
 
 
 // ** AUTH
@@ -40,6 +40,45 @@ export const getAllCategories = async () => {
 
     } catch (error) {
         console.error('Error fetching product:', error);
+    }
+};
+
+
+// ** POST Category
+export const createCategory = async (newCategory) => {
+    try {
+
+        const response = await api.post("/categories", newCategory);
+        return response.data;
+
+    } catch (error) {
+        console.error('Error fetching product:', error);
+    }
+};
+
+
+// ** PUT Category
+export const updateCategory = async ({ updatedCategory, id }) => {
+    try {
+
+        const response = await api.put(`/categories/${id}`, updatedCategory);
+        return response.data;
+
+    } catch (error) {
+        console.error('Error fetching product:', error);
+    }
+};
+
+
+// ** DELETE
+export const deleteCategory = async (id) => {
+    try {
+
+        const response = await api.delete(`/categories/${id}`);
+        return response.data;
+
+    } catch (error) {
+        console.error('Error Deleting product:', error);
     }
 };
 

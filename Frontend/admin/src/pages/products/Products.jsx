@@ -1,11 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { FaRegTrashCan } from "react-icons/fa6";
-import { FaRegEdit } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProducts } from "../../services/api";
-import { GrView } from "react-icons/gr";
 import Loader from "../../components/modules/Loader";
 
 
@@ -17,7 +13,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Tooltip from '@mui/material/Tooltip';
-import { Box, Typography } from "@mui/material";
+import { Box, TablePagination, Typography } from "@mui/material";
 import { MdOutlineEditNote } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
@@ -25,11 +21,26 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 
 const ProductPage = () => {
 
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
+
+
     const { data, error, isLoading } = useQuery({
         queryKey: ['products'],
         queryFn: getAllProducts
     });
-    console.log(data)
+
+    const paginatedData = (data || []).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
     if (isLoading) return <Loader />;
 
@@ -44,53 +55,6 @@ const ProductPage = () => {
                 ایجاد
             </Link>
 
-            {/* <table className="basic mt-2 text-center">
-
-                <thead>
-                    <tr>
-                        <td>نام</td>
-                        <td className="m:hidden">قیمت</td>
-                        <td className="">دسته بندی</td>
-                        <td className="">رنگ</td>
-                        <td>عملیات</td>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {data.map((product) => (
-                        <tr key={product._id}>
-                            <td>{product.title}</td>
-                            <td className="m:hidden">{product.price}</td>
-                            <td className="">
-                                {product.category.name}
-                            </td>
-                            <td className="">
-                                {Object.entries(product.properties).map(([key, value]) => (
-                                    <p key={key}>{value}</p>
-                                ))}
-                            </td>
-                            <td className="l:flex l:flex-col l:gap-2 l:justify-center">
-                                <Link className="btn-default flex items-center justify-center" to={'/products/view/' + product._id}>
-                                    <GrView size={16} />
-                                    نمایش
-                                </Link>
-
-                                <Link className="btn-default flex items-center justify-center" to={'/products/edit/' + product._id}>
-                                    <FaRegEdit size={16} />
-                                    ویرایش
-                                </Link>
-
-                                <Link className="btn-default flex items-center justify-center" to={'/products/delete/' + product._id}>
-                                    <FaRegTrashCan size={16} />
-                                    حذف
-                                </Link>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-
-            </table> */}
-
             <TableContainer component={Paper}>
                 <Table sx={{ width: '100%' }} aria-label="simple table">
                     <TableHead>
@@ -103,7 +67,7 @@ const ProductPage = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data.map((product) => (
+                        {paginatedData.map((product) => (
                             <TableRow
                                 key={product._id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -112,7 +76,7 @@ const ProductPage = () => {
                                     {product.title}
                                 </TableCell>
                                 <TableCell sx={{ fontFamily: 'Vazir' }}>{product.price}</TableCell>
-                                <TableCell sx={{ fontFamily: 'Vazir' }}>{product.category.name}</TableCell>
+                                <TableCell sx={{ fontFamily: 'Vazir' }}>{product.category ? product.category.name : "حذف شده"}</TableCell>
                                 <TableCell sx={{ fontFamily: 'Vazir' }}>
                                     {Object.entries(product.properties).map(([key, value]) => (
                                         <p key={key}>{value}</p>
@@ -146,6 +110,30 @@ const ProductPage = () => {
                         ))}
                     </TableBody>
                 </Table>
+
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={data.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    labelRowsPerPage="تعداد نمایش :"
+                    labelDisplayedRows={({ from, to, count }) => `صفحه ${page + 1}: ${from}-${to} از ${count}`}
+                    sx={{
+                        "& .MuiTablePagination-toolbar": {
+                            fontFamily: 'Vazir', // Apply custom font to toolbar
+                        },
+                        "& .MuiTablePagination-selectLabel": {
+                            fontFamily: 'Vazir', // Apply custom font to select label
+                            fontWeight: 'bold'  // Apply bold font weight to select label
+                        },
+                        "& .MuiTablePagination-displayedRows": {
+                            fontFamily: 'Vazir', // Apply custom font to displayed rows text
+                        }
+                    }}
+                />
             </TableContainer>
         </div>
     )

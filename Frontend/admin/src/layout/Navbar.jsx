@@ -6,9 +6,9 @@ import { BsViewList } from "react-icons/bs";
 import { TbCategoryPlus } from "react-icons/tb";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineAccountCircle } from "react-icons/md";
-import { logout } from "../services/api";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
+import { MdLogout } from "react-icons/md";
 
 
 const Navbar = () => {
@@ -57,18 +57,18 @@ const Navbar = () => {
           <span className='xs:hidden'>دسته بندی ها</span>
         </Link>
 
+        <Link to={'/account'} className={`${pathname.includes('/settings') ? activeLink : inActiveLink} xs:hidden`}>
+          <IoSettingsOutline className={pathname === '/settings' ? activeIcon : inActiveIcon} />
+          <span className='xs:hidden'>حساب کاربری</span>
+        </Link>
+
         <Link to={'/orders'} className={pathname.includes('/orders') ? activeLink : inActiveLink}>
           <BsViewList className={pathname === '/orders' ? activeIcon : inActiveIcon} />
           <span className='xs:hidden'>سفارشات</span>
         </Link>
 
-        <Link to={'/settings'} className={`${pathname.includes('/settings') ? activeLink : inActiveLink} xs:hidden`}>
-          <IoSettingsOutline className={pathname === '/settings' ? activeIcon : inActiveIcon} />
-          <span className='xs:hidden'>تنظیمات</span>
-        </Link>
-
         <button onClick={handleLogout} className={inActiveLink}>
-          <MdOutlineAccountCircle className={inActiveIcon} />
+          <MdLogout className={inActiveIcon} />
           <span className='xs:hidden'>خروج</span>
         </button>
 

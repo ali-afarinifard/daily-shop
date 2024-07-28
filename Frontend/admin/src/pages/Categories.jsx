@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { withSwal } from 'react-sweetalert2';
 import IconButton from '@mui/material/IconButton';
-
-
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,42 +10,50 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Tooltip from '@mui/material/Tooltip';
-import { Box, Typography } from "@mui/material";
+import { Box, TablePagination, Typography } from "@mui/material";
 import { MdOutlineEditNote } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
-
-
-import { DataGrid } from '@mui/x-data-grid';
-
+import { getAllCategories, createCategory, updateCategory, deleteCategory } from '../services/api';
+import Loader from "../components/modules/Loader";
 
 const CategoryPage = ({ swal }) => {
+    const queryClient = useQueryClient();
 
-    // ** States
+    // States
     const [name, setName] = useState('');
     const [parent, setParent] = useState('');
-    const [categories, setCategories] = useState([]);
     const [editedCategory, setEditedCategory] = useState(null);
     const [properties, setProperties] = useState([]);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
-
-    useEffect(() => {
-        fetchCategories();
-    }, []);
-
-
-    // ** Fetch Categories
-    const fetchCategories = async () => {
-        try {
-            const response = await axios.get('http://localhost:5000/api/categories');
-            setCategories(response.data);
-        } catch (error) {
-            console.error('There was an error fetching the categories!', error);
-        }
+    const handleChangePage = (event, newPage) => setPage(newPage);
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
     };
 
+    const { data: categories = [], isLoading, error } = useQuery({
+        queryKey: ['categories'],
+        queryFn: getAllCategories,
+    });
 
-    // ** handleSubmit
-    const handleSubmit = async (e) => {
+    const createCategoryMutation = useMutation({
+        mutationFn: createCategory,
+        onSuccess: () => queryClient.invalidateQueries(['categories']),
+    });
+
+    const updateCategoryMutation = useMutation({
+        mutationFn: updateCategory,
+        onSuccess: () => queryClient.invalidateQueries(['categories']),
+    });
+
+    const deleteCategoryMutation = useMutation({
+        mutationFn: deleteCategory,
+        onSuccess: () => queryClient.invalidateQueries(['categories']),
+    });
+
+    const handleSubmit = (e) => {
         e.preventDefault();
         const data = {
             name,
@@ -59,22 +65,10 @@ const CategoryPage = ({ swal }) => {
         };
 
         if (editedCategory) {
-            try {
-                const response = await axios.put(`http://localhost:5000/api/categories/${editedCategory._id}`, data);
-                setCategories(categories.map(cat => cat._id === editedCategory._id ? response.data : cat));
-                setEditedCategory(null);
-            } catch (error) {
-                console.error('There was an error editing the category!', error);
-            }
+            updateCategoryMutation.mutate({ id: editedCategory._id, updatedCategory: data });
+            setEditedCategory(null);
         } else {
-            try {
-                const response = await axios.post('http://localhost:5000/api/categories', data);
-                setCategories([...categories, response.data]);
-                console.log({ response })
-                console.log({ data })
-            } catch (error) {
-                console.error('There was an error creating the category!', error);
-            }
+            createCategoryMutation.mutate(data);
         }
 
         setName('');
@@ -82,8 +76,6 @@ const CategoryPage = ({ swal }) => {
         setProperties([]);
     };
 
-
-    // ** editCategory
     const editCategory = (category) => {
         setEditedCategory(category);
         setName(category.name);
@@ -94,10 +86,9 @@ const CategoryPage = ({ swal }) => {
                 values: values.join('-')
             }))
         );
-    }
+    };
 
-    // ** deleteCategory
-    const deleteCategory = (category) => {
+    const handleDeleteCategory = (category) => {
         swal.fire({
             title: 'مطمئن هستید؟',
             text: `دسته بندی ${category.name} پاک شود؟`,
@@ -106,27 +97,17 @@ const CategoryPage = ({ swal }) => {
             confirmButtonText: 'حذف',
             confirmButtonColor: '#d55',
             reverseButtons: true,
-        }).then(async result => {
+        }).then(result => {
             if (result.isConfirmed) {
-                const { _id } = category;
-                try {
-                    await axios.delete(`http://localhost:5000/api/categories/${_id}`);
-                    fetchCategories(); // Update the categories list
-                } catch (error) {
-                    console.error('There was an error deleting the category!', error);
-                }
+                deleteCategoryMutation.mutate(category._id);
             }
-        })
-    }
+        });
+    };
 
-
-    // ** deleteCategory
     const addProperty = () => {
         setProperties(prev => [...prev, { name: '', values: '' }]);
-    }
+    };
 
-
-    // ** handlePropertyNameChange
     const handlePropertyNameChange = (index, property, newName) => {
         setProperties(prev => {
             const properties = [...prev];
@@ -135,8 +116,6 @@ const CategoryPage = ({ swal }) => {
         });
     };
 
-
-    // ** handlePropertyValuesChange
     const handlePropertyValuesChange = (index, property, newValues) => {
         setProperties(prev => {
             const properties = [...prev];
@@ -145,13 +124,14 @@ const CategoryPage = ({ swal }) => {
         });
     };
 
-
-    // ** removeProperty
     const removeProperty = (indexToRemove) => {
-        setProperties(prev => [...prev].filter((p, pIndex) => pIndex !== indexToRemove));
+        setProperties(prev => [...prev].filter((_, pIndex) => pIndex !== indexToRemove));
     };
 
+    const paginatedData = (categories || []).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
+    if (isLoading) return <Loader />;
+    if (error) return <div>Error loading categories</div>;
 
     return (
         <div>
@@ -191,7 +171,6 @@ const CategoryPage = ({ swal }) => {
                     </div>
                 </div>
 
-                {/* Properties */}
                 <div>
                     <button
                         type="button"
@@ -253,44 +232,6 @@ const CategoryPage = ({ swal }) => {
             </form>
 
             {!editedCategory && (
-                // <table className="basic mt-4 text-center">
-                //     <thead>
-                //         <tr>
-                //             <td>نام</td>
-                //             <td>گروه</td>
-                //             <td>عملیات</td>
-                //         </tr>
-                //     </thead>
-
-                //     <tbody>
-                //         {categories.length > 0 && categories.map((category) => {
-                //             const parentCategory = categories.find(cat => cat._id === category.parent);
-                //             return (
-                //                 <tr key={category._id} className="w-full border-b-[1px] border-slate-200">
-                //                     <td>{category.name}</td>
-                //                     <td>{parentCategory ? parentCategory.name : '_'}</td>
-                //                     <td className="flex justify-center gap-4 xs:flex-col">
-                //                         <button
-                //                             className="btn-default flex items-center justify-center gap-1"
-                //                             onClick={() => editCategory(category)}
-                //                         >
-                //                             ویرایش
-                //                         </button>
-
-                //                         <button
-                //                             className="btn-default flex items-center justify-center gap-1"
-                //                             onClick={() => deleteCategory(category)}
-                //                         >
-                //                             حذف
-                //                         </button>
-                //                     </td>
-                //                 </tr>
-                //             )
-                //         })}
-                //     </tbody>
-                // </table>
-
-
                 <TableContainer component={Paper}>
                     <Table sx={{ width: '100%' }} aria-label="simple table">
                         <TableHead>
@@ -301,7 +242,11 @@ const CategoryPage = ({ swal }) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {categories.length > 0 && categories.map((category) => {
+                            {paginatedData.length > 0 && paginatedData.map((category) => {
+                                if (!category || !category._id) {
+                                    console.error('Invalid category or category ID is undefined:', category);
+                                    return null;
+                                }
                                 const parentCategory = categories.find(cat => cat._id === category.parent);
                                 return (
                                     <TableRow
@@ -317,6 +262,26 @@ const CategoryPage = ({ swal }) => {
                                         <TableCell>
                                             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
                                                 <Tooltip
+                                                    title="ویرایش"
+                                                    sx={{
+                                                        fontFamily: 'Vazir',
+                                                        paddingY: '0.25rem',
+                                                        paddingX: '1rem',
+                                                        borderRadius: '0.375rem',
+                                                        backgroundColor: '#4b5563',
+                                                        color: '#fff',
+                                                        "&.MuiButtonBase-root:hover": {
+                                                            backgroundColor: "#4b5563"
+                                                        }
+                                                    }}
+                                                >
+                                                    <IconButton onClick={() => editCategory(category)}>
+                                                        <MdOutlineEditNote size={24} />
+                                                        <Typography sx={{ fontFamily: 'Vazir', fontSize: '0.8rem' }}>ویرایش</Typography>
+                                                    </IconButton>
+                                                </Tooltip>
+
+                                                <Tooltip
                                                     title="حذف"
                                                     sx={{
                                                         fontFamily: 'Vazir',
@@ -329,29 +294,8 @@ const CategoryPage = ({ swal }) => {
                                                             backgroundColor: "#4b5563"
                                                         }
                                                     }}
-
                                                 >
-                                                    <IconButton onClick={() => editCategory(category)}>
-                                                        <MdOutlineEditNote size={24} />
-                                                        <Typography sx={{ fontFamily: 'Vazir', fontSize: '0.8rem' }}>ویرایش</Typography>
-                                                    </IconButton>
-                                                </Tooltip>
-
-                                                <Tooltip title="ویرایش" sx={{ fontFamily: 'Vazir' }}>
-                                                    <IconButton
-                                                        onClick={() => deleteCategory(category)}
-                                                        sx={{
-                                                            fontFamily: 'Vazir',
-                                                            paddingY: '0.25rem',
-                                                            paddingX: '1rem',
-                                                            borderRadius: '0.375rem',
-                                                            backgroundColor: '#4b5563',
-                                                            color: '#fff',
-                                                            "&.MuiButtonBase-root:hover": {
-                                                                backgroundColor: "#4b5563"
-                                                            }
-                                                        }}
-                                                    >
+                                                    <IconButton onClick={() => handleDeleteCategory(category)}>
                                                         <MdDeleteOutline size={24} />
                                                         <Typography sx={{ fontFamily: 'Vazir', fontSize: '0.8rem' }}>حذف</Typography>
                                                     </IconButton>
@@ -363,12 +307,35 @@ const CategoryPage = ({ swal }) => {
                             })}
                         </TableBody>
                     </Table>
+
+                    <TablePagination
+                        rowsPerPageOptions={[2, 10, 25]}
+                        component="div"
+                        count={categories.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        labelRowsPerPage="تعداد نمایش :"
+                        labelDisplayedRows={({ from, to, count }) => `صفحه ${page + 1}: ${from}-${to} از ${count}`}
+                        sx={{
+                            "& .MuiTablePagination-toolbar": {
+                                fontFamily: 'Vazir', // Apply custom font to toolbar
+                            },
+                            "& .MuiTablePagination-selectLabel": {
+                                fontFamily: 'Vazir', // Apply custom font to select label
+                                fontWeight: 'bold'  // Apply bold font weight to select label
+                            },
+                            "& .MuiTablePagination-displayedRows": {
+                                fontFamily: 'Vazir', // Apply custom font to displayed rows text
+                            }
+                        }}
+                    />
                 </TableContainer>
-            )
-            }
-        </div >
-    )
-}
+            )}
+        </div>
+    );
+};
 
 export default withSwal(({ swal }, ref) => (
     <CategoryPage swal={swal} />

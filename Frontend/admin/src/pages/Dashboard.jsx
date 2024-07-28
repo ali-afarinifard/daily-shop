@@ -1,3 +1,4 @@
+// ** Components
 import Header from "../components/templates/dashboard/Header"
 import ProductDashboard from "../components/templates/dashboard/ProductDashboard"
 import CategoryDashboard from "../components/templates/dashboard/CategoryDashboard"

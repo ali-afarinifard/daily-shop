@@ -24,6 +24,13 @@
 }
 
 
+.muirtl-pdct74-MuiTablePagination-selectLabel,
+.MuiTablePagination-selectLabel {
+    font-family: Vazir;
+    font-weight: bold
+}
+
+
 input,
 textarea,
 select {
