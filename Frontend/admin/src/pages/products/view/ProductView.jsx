@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { getProduct } from "../../../services/api"
+import { getProduct } from "../../../services/apiUrls"
 import { Link, useParams } from "react-router-dom";
 import { FiChevronLeft } from "react-icons/fi";
 import { useState } from "react";

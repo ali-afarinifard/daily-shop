@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { login } from '../../services/api';
+import { login } from '../../services/apiUrls';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { useMutation } from '@tanstack/react-query';

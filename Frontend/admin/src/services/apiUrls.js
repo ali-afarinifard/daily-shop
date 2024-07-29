@@ -1,12 +1,5 @@
 import axios from "axios";
-
-
-// ** Create API => Base URL
-export const api = axios.create({
-    baseURL: "http://localhost:5000/api",
-});
-
-// ** Fetching Data..................................
+import api from "../config/api";
 
 
 // ** AUTH
@@ -26,7 +19,12 @@ const logout = (token) => {
     return api.post('/auth/logout', { token });
 };
 
-export { register, login, refreshToken, logout };
+const updateUser = async (userData) => {
+    const response = await api.put('/auth/user', userData);
+    return response.data;
+}
+
+export { register, login, refreshToken, logout, updateUser };
 
 
 

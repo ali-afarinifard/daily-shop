@@ -29,8 +29,10 @@ const AuthProvider = ({ children }) => {
                 }
             });
             setUser(res.data);
+            setIsAuthenticated(true);
         } catch (error) {
             console.error('Error fetching user:', error);
+            setIsAuthenticated(false);
         }
     };
 
@@ -48,8 +50,14 @@ const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
+
+    const updateUserInContext = (updatedUser) => {
+        setUser(updatedUser);
+    };
+
+
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout, user }}>
+        <AuthContext.Provider value={{ isAuthenticated, login, logout, updateUserInContext, user }}>
             {children}
         </AuthContext.Provider>
     );

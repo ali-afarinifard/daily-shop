@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createProduct, getAllCategories, updateProduct } from "../../services/api";
+import { createProduct, getAllCategories, updateProduct } from "../../services/apiUrls";
 
 
 

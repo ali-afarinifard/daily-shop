@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { getAllProducts } from "../../../services/api";
+import { getAllProducts } from "../../../services/apiUrls";
 import Loader from "../../modules/Loader";
 
 

@@ -120,7 +120,7 @@ router.get('/user', async (req, res) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.user.id).select('-password -refreshToken');
-    
+
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -129,6 +129,35 @@ router.get('/user', async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(401).json({ message: 'Token is not valid' });
+  }
+});
+
+
+// ** PUT
+router.put('/user', async (req, res) => {
+  const { userId, username, email, password } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    user.username = username || user.username;
+    user.email = email || user.email;
+
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(password, salt);
+    }
+
+    await user.save();
+
+    res.status(200).json({ message: 'User updated successfully', user });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
   }
 });
 

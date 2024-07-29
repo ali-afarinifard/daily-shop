@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { Box, TablePagination, Typography } from "@mui/material";
 import { MdOutlineEditNote } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
-import { getAllCategories, createCategory, updateCategory, deleteCategory } from '../services/api';
+import { getAllCategories, createCategory, updateCategory, deleteCategory } from '../services/apiUrls';
 import Loader from "../components/modules/Loader";
 
 const CategoryPage = ({ swal }) => {

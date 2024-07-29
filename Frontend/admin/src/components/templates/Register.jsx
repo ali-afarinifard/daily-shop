@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { register } from '../../services/api';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { register } from '../../services/apiUrls';
+import { useMutation } from '@tanstack/react-query';
 import styles from "../../styles/Register.module.css";
 import avatar from "../../assets/images/profile.png"
 

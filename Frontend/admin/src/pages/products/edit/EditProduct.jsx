@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import ProductForm from '../../../components/templates/ProductForm'
 import { useQuery } from '@tanstack/react-query';
-import { getAllCategories, getProduct } from '../../../services/api';
+import { getAllCategories, getProduct } from '../../../services/apiUrls';
 import Loader from '../../../components/modules/Loader';
 
 const EditProduct = () => {
