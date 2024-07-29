@@ -183,12 +183,11 @@ const ProductForm = ({
     };
 
 
-    const handleSizeChange = (ev) => {
-        const size = parseInt(ev.target.value);
-        if (ev.target.checked) {
-            setSizes([...sizes, size]);
-        } else {
+    const handleSizeChange = (size) => {
+        if (sizes.includes(size)) {
             setSizes(sizes.filter(s => s !== size));
+        } else {
+            setSizes([...sizes, size]);
         }
     };
 
@@ -243,24 +242,8 @@ const ProductForm = ({
                 ))}
             </select>
 
-            {/* {propertiesToFill.length > 0 && propertiesToFill.map(p => (
-                <div key={p.name}>
-                    <label>{p.name}</label>
-                    <div>
-                        <select
-                            value={productProperties[p.name] || ''}
-                            onChange={ev => setProductProp(p.name, ev.target.value)}
-                        >
-                            {p.values.map(v => (
-                                <option key={v} value={v}>{v}</option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
-            ))} */}
 
-
-            <label>سایزها</label>
+            {/* <label>سایزها</label>
             <div className="mb-2 flex flex-wrap gap-1">
                 {sizesOptions.map(size => (
                     <label key={size} className="mr-2">
@@ -272,6 +255,20 @@ const ProductForm = ({
                         />
                         {size}
                     </label>
+                ))}
+            </div> */}
+
+
+            <label>سایزها</label>
+            <div className="mb-2 flex flex-wrap gap-3">
+                {sizesOptions.map(size => (
+                    <div
+                        key={size}
+                        onClick={() => handleSizeChange(size)}
+                        className={`mr-2 p-2 border rounded cursor-pointer ${sizes.includes(size) ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
+                    >
+                        {size}
+                    </div>
                 ))}
             </div>
 

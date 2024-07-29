@@ -109,6 +109,31 @@ router.post('/logout', async (req, res) => {
 
 
 
+// ** GET
+router.get('/user', async (req, res) => {
+  const token = req.header('Authorization').replace('Bearer ', '');
+
+  if (!token) {
+    return res.status(401).json({ message: 'No token provided' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.user.id).select('-password -refreshToken');
+    
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(401).json({ message: 'Token is not valid' });
+  }
+});
+
+
+
 // ** Token
 router.post('/token', async (req, res) => {
   const { token } = req.body;

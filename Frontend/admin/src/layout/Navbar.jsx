@@ -57,8 +57,8 @@ const Navbar = () => {
           <span className='xs:hidden'>دسته بندی ها</span>
         </Link>
 
-        <Link to={'/account'} className={`${pathname.includes('/settings') ? activeLink : inActiveLink} xs:hidden`}>
-          <IoSettingsOutline className={pathname === '/settings' ? activeIcon : inActiveIcon} />
+        <Link to={'/account'} className={`${pathname.includes('/account') ? activeLink : inActiveLink} xs:hidden`}>
+          <IoSettingsOutline className={pathname === '/account' ? activeIcon : inActiveIcon} />
           <span className='xs:hidden'>حساب کاربری</span>
         </Link>
 
