@@ -6,9 +6,11 @@ import api from '../config/api';
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
+
     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('accessToken') && !!localStorage.getItem('refreshToken'));
 
     const [user, setUser] = useState(null);
+
 
     useEffect(() => {
         const token = localStorage.getItem('accessToken');

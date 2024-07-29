@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { login } from '../../services/apiUrls';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
@@ -11,9 +11,17 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const { login: authLogin } = useContext(AuthContext);
+    const { login: authLogin, isAuthenticated } = useContext(AuthContext);
 
     const navigate = useNavigate();
+
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/');
+        }
+    }, [isAuthenticated, navigate]);
+    
 
     const mutation = useMutation({
         mutationFn: ({ email, password }) => login(email, password),
@@ -72,7 +80,7 @@ const Login = () => {
                             </div>
                             <div className='flex items-center justify-center'>
                                 <button className={styles.btn} type='submit'>
-                                {mutation.isLoading ? 'لودینگ' : 'بزن بریم'}
+                                    {mutation.isLoading ? 'لودینگ' : 'بزن بریم'}
                                 </button>
                             </div>
                         </div>

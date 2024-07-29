@@ -72,42 +72,6 @@ const ProductForm = ({
     }, [existingTitle, existingDescription, existingPrice, existingImages, existingSizes, existingColors, assignedCategory, assignedStock, assignedStatus]);
 
 
-
-    // ** OLD
-    // useEffect(() => {
-    //     if (categories.length > 0 && category) {
-    //         const selectedCategory = categories.find(({ _id }) => _id === category);
-    //         if (selectedCategory) {
-    //             const defaultProperties = {};
-    //             selectedCategory.properties.forEach(property => {
-    //                 if (!productProperties[property.name]) {
-    //                     defaultProperties[property.name] = property.values[0];
-    //                 }
-    //             });
-
-    //             setProductProperties(prev => ({ ...prev, ...defaultProperties }));
-    //         }
-    //     }
-    // }, [categories, category]);
-
-    // ** NEW
-    // useEffect(() => {
-    //     if (categories.length > 0 && category) {
-    //         const selectedCategory = categories.find(({ _id }) => _id === category);
-    //         if (selectedCategory) {
-    //             const defaultProperties = {};
-    //             selectedCategory.properties.forEach(property => {
-    //                 if (!productProperties[property.name]) {
-    //                     defaultProperties[property.name] = property.values[0];
-    //                 }
-    //             });
-
-    //             setProductProperties(prev => ({ ...prev, ...defaultProperties }));
-    //         }
-    //     }
-    // }, [categories, category, productProperties]);
-
-
     const createProductMutation = useMutation({
         mutationFn: createProduct,
         onSuccess: () => {
@@ -192,135 +156,113 @@ const ProductForm = ({
     };
 
 
-    // function setProductProp(propName, value) {
-    //     setProductProperties(prev => {
-    //         const newProductProps = { ...prev };
-    //         newProductProps[propName] = value;
-    //         return newProductProps;
-    //     });
-    // };
-
-
-    // const propertiesToFill = [];
-    // if (categories.length > 0 && category) {
-    //     let catInfo = categories.find(({ _id }) => _id === category);
-    //     if (catInfo) {
-    //         propertiesToFill.push(...catInfo.properties);
-
-    //         while (catInfo?.parent?._id) {
-    //             const parentCat = categories.find(({ _id }) => _id === catInfo.parent._id);
-    //             if (parentCat) {
-    //                 propertiesToFill.push(...parentCat.properties);
-    //                 catInfo = parentCat;
-    //             } else {
-    //                 break;
-    //             }
-    //         }
-    //     }
-    // }
-
-
     return (
         <form onSubmit={handleSubmit}>
 
-            <label>نام محصول</label>
-            <input
-                type="text"
-                placeholder="نام محصول"
-                value={title}
-                onChange={(ev) => setTitle(ev.target.value)}
-            />
-
-            <label>دسته بندی</label>
-            <select
-                value={category}
-                onChange={ev => setCategory(ev.target.value)}
-            >
-                <option value=''>انتخاب کنید</option>
-                {categories.length > 0 && categories.map(c => (
-                    <option key={c._id} value={c._id}>{c.name}</option>
-                ))}
-            </select>
-
-
-            {/* <label>سایزها</label>
-            <div className="mb-2 flex flex-wrap gap-1">
-                {sizesOptions.map(size => (
-                    <label key={size} className="mr-2">
-                        <input
-                            type="checkbox"
-                            value={size}
-                            checked={sizes.includes(size)}
-                            onChange={handleSizeChange}
-                        />
-                        {size}
-                    </label>
-                ))}
-            </div> */}
-
-
-            <label>سایزها</label>
-            <div className="mb-2 flex flex-wrap gap-3">
-                {sizesOptions.map(size => (
-                    <div
-                        key={size}
-                        onClick={() => handleSizeChange(size)}
-                        className={`mr-2 p-2 border rounded cursor-pointer ${sizes.includes(size) ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
-                    >
-                        {size}
-                    </div>
-                ))}
+            {/* Name */}
+            <div className="flex flex-col gap-1">
+                <label>نام محصول</label>
+                <input
+                    type="text"
+                    placeholder="نام محصول"
+                    value={title}
+                    onChange={(ev) => setTitle(ev.target.value)}
+                />
             </div>
 
+            {/* Categories */}
+            <div>
+                <label>دسته بندی</label>
+                <select
+                    value={category}
+                    onChange={ev => setCategory(ev.target.value)}
+                >
+                    <option value=''>انتخاب کنید</option>
+                    {categories.length > 0 && categories.map(c => (
+                        <option key={c._id} value={c._id}>{c.name}</option>
+                    ))}
+                </select>
+            </div>
 
-            <label>رنگ‌ها (هر رنگ را با یک خط تیره - جدا کنید)</label>
-            <input
-                type="text"
-                placeholder="مثال: قرمز-آبی-سبز"
-                value={colors}
-                onChange={(ev) => setColors(ev.target.value)}
-            />
-
-
-            <label>عکس</label>
-            <div className="mb-2 flex flex-wrap gap-1">
-                <div className="flex items-center gap-3 mb-4">
-                    {images.length > 0 && images.map((img, index) => (
-                        <div className="h-fit w-fit bg-white p-4 shadow-sm rounded-sm border border-gray-200" key={index}>
-                            <img src={`http://localhost:5000/${img}`} alt="" className="h-24 w-full" />
+            {/* Sizes */}
+            <div className="flex flex-col gap-2 py-2">
+                <label>سایز محصول را انتخاب کنید</label>
+                <div className="mb-2 flex flex-wrap gap-3">
+                    {sizesOptions.map(size => (
+                        <div
+                            key={size}
+                            onClick={() => handleSizeChange(size)}
+                            className={`mr-2 p-2 border rounded cursor-pointer ${sizes.includes(size) ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
+                        >
+                            {size}
                         </div>
                     ))}
                 </div>
-
-                <label className="w-[8rem] h-[8rem] flex flex-col items-center justify-center gap-2 cursor-pointer text-gray-600 rounded-lg bg-white shadow-sm border border-gray-200">
-                    <IoCloudUploadOutline size={33} />
-                    <div className="text-[1rem] font-[500]">Upload</div>
-                    <input type="file" name="images" id="images" className="hidden" onChange={uploadImages} multiple />
-                </label>
             </div>
 
-            <label>توضیحات</label>
-            <textarea
-                placeholder="توضیحات"
-                value={description}
-                onChange={ev => setDescription(ev.target.value)}
-            ></textarea>
 
-            <label>تعداد</label>
-            <input
-                type="number"
-                placeholder="تعداد"
-                value={stock}
-                onChange={ev => setStock(ev.target.value)}
-            />
+            {/* Colors */}
+            <div className="flex flex-col gap-1 pt-1">
+                <label>رنگ‌ها (هر رنگ را با یک خط تیره - جدا کنید)</label>
+                <input
+                    type="text"
+                    placeholder="مثال: قرمز-آبی-سبز"
+                    value={colors}
+                    onChange={(ev) => setColors(ev.target.value)}
+                />
+            </div>
 
-            <label>قیمت (تومان)</label>
-            <input
-                type="number"
-                placeholder="قیمت"
-                value={price}
-                onChange={ev => setPrice(ev.target.value)}
-            />
+            {/* Image */}
+            <div className="flex flex-col gap-1">
+                <label>عکس محصول</label>
+                <div className="mb-2 flex flex-wrap gap-1">
+                    <div className="flex items-center gap-3 mb-4">
+                        {images.length > 0 && images.map((img, index) => (
+                            <div className="h-fit w-fit bg-white p-4 shadow-sm rounded-sm border border-gray-200" key={index}>
+                                <img src={`http://localhost:5000/${img}`} alt="" className="h-24 w-full" />
+                            </div>
+                        ))}
+                    </div>
+
+                    <label className="w-[8rem] h-[8rem] flex flex-col items-center justify-center gap-2 cursor-pointer text-gray-600 rounded-lg bg-white shadow-sm border border-gray-200">
+                        <IoCloudUploadOutline size={33} />
+                        <div className="text-[1rem] font-[500]">Upload</div>
+                        <input type="file" name="images" id="images" className="hidden" onChange={uploadImages} multiple />
+                    </label>
+                </div>
+            </div>
+
+            {/* Description */}
+            <div className="flex flex-col gap-1">
+                <label>توضیحات</label>
+                <textarea
+                    placeholder="توضیحات"
+                    value={description}
+                    onChange={ev => setDescription(ev.target.value)}
+                ></textarea>
+            </div>
+
+            {/* Stock */}
+            <div className="flex flex-col gap-1">
+                <label>تعداد</label>
+                <input
+                    type="number"
+                    placeholder="تعداد"
+                    value={stock}
+                    onChange={ev => setStock(ev.target.value)}
+                />
+            </div>
+
+            {/* Price */}
+            <div className="flex flex-col gap-1">
+                <label>قیمت (تومان)</label>
+                <input
+                    type="number"
+                    placeholder="قیمت"
+                    value={price}
+                    onChange={ev => setPrice(ev.target.value)}
+                />
+            </div>
 
             <div className="my-3 flex items-center gap-2">
                 <label>
@@ -330,7 +272,7 @@ const ProductForm = ({
                     type="checkbox"
                     checked={isStatus}
                     onChange={(ev) => setIsStatus(ev.target.checked)}
-                    className="relative top-[0.25rem] w-4 h-4 rounded-full"
+                    className="relative top-[0.25rem] w-4 h-4 rounded-full cursor-pointer"
                 />
             </div>
 

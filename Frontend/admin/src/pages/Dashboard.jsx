@@ -14,7 +14,7 @@ const DashboardPage = () => {
             <hr className="my-3" />
 
             <div
-                className="flex items-center justify-between gap-8 m:flex-col m:gap-4"
+                className="flex items-center justify-between gap-8 xl:flex-col xl:gap-4"
             >
 
                 <div className="w-full">

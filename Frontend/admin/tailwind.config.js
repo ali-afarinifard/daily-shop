@@ -18,7 +18,9 @@ export default {
         // => @media(max-width: 440px) {...}
         m: {max: "675px"},
         // => @media(max-width: 675px) {...}
-        l: {max: "910px"}
+        l: {max: "910px"},
+        // => @media(max-width: 910px) {...}
+        xl: {max: "1100px"}
         // => @media(max-width: 910px) {...}
       },
       // backgroundImage: {
