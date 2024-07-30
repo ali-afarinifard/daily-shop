@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+    font-family: 'Vazir';
+    src: url('../../public/fonts/Vazirmatn-Thin.ttf') format('ttf'),
+        url('../../public/fonts/Vazirmatn-Regular.ttf') format('ttf'),
+        url('../../public/fonts/Vazirmatn-Medium.ttf') format('ttf'),
+        url('../../public/fonts/Vazirmatn-ExtraBold.ttf') format('ttf'),
+        url('../../public/fonts/Vazirmatn-Bold.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+:root {
+    font-family: "Vazir", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    line-height: 1.5;
+}
