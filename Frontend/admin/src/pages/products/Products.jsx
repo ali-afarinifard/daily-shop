@@ -55,7 +55,7 @@ const ProductPage = () => {
                 ایجاد
             </Link>
 
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} sx={{ marginTop: '1rem' }}>
                 <Table sx={{ width: '100%' }} aria-label="simple table">
                     <TableHead>
                         <TableRow>

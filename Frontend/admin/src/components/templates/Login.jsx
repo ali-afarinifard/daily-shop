@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { useMutation } from '@tanstack/react-query';
 import styles from "../../styles/Login.module.css";
-import avatar from "../../assets/images/profile.png"
+import avatar from "../../assets/images/profile.png";
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -94,27 +94,6 @@ const Login = () => {
                 </div>
             </div>
         </div>
-
-
-
-        // <div>
-        //     <h1>Login</h1>
-        //     <form onSubmit={handleLogin}>
-        //         <div>
-        //             <label>Email</label>
-        //             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        //         </div>
-        //         <div>
-        //             <label>Password</label>
-        //             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        //         </div>
-        //         {error && <p>{error}</p>}
-        //         {message && <p>{message}</p>}
-        //         <button type="submit" disabled={mutation.isLoading}>
-        //             {mutation.isLoading ? 'Logging in...' : 'Login'}
-        //         </button>
-        //     </form>
-        // </div>
     );
 };
 

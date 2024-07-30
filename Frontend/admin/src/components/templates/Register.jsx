@@ -42,7 +42,7 @@ const Register = () => {
                 <div className={`${styles.glass}`}>
 
                     <div className='flex flex-col items-center justify-center'>
-                        <h4 className='text-5xl font-bold pb-6'>ثبت نام</h4>
+                        <h4 className='text-5xl font-bold pb-6'>عضویت</h4>
                         <span className='text-slate-400'>پنل کاربری ادمین</span>
                     </div>
 

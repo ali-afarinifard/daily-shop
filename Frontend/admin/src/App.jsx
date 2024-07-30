@@ -1,5 +1,5 @@
 // ** React
-import { BrowserRouter } from "react-router-dom"
+import { BrowserRouter, useNavigate } from "react-router-dom"
 
 // ** React Query
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -40,8 +40,8 @@ function App() {
   return (
 
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <BrowserRouter>
+      <BrowserRouter>
+        <AuthProvider>
           <CacheProvider value={cacheRtl}>
             <ThemeProvider theme={theme}>
               <Layout>
@@ -49,8 +49,8 @@ function App() {
               </Layout>
             </ThemeProvider>
           </CacheProvider>
-        </BrowserRouter>
-      </AuthProvider>
+        </AuthProvider>
+      </BrowserRouter>
       {/* <ReactQueryDevtools /> */}
     </QueryClientProvider>
   )

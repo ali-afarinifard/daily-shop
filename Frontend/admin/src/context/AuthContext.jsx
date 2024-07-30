@@ -1,15 +1,20 @@
 // ** React
 import React, { createContext, useState, useEffect } from 'react';
 import api from '../config/api';
+import { useNavigate } from 'react-router-dom';
 
 // ** Create Context
 const AuthContext = createContext();
 
+
 const AuthProvider = ({ children }) => {
+
+    // const navigate = useNavigate();
 
     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('accessToken') && !!localStorage.getItem('refreshToken'));
 
     const [user, setUser] = useState(null);
+
 
 
     useEffect(() => {
@@ -35,6 +40,7 @@ const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error('Error fetching user:', error);
             setIsAuthenticated(false);
+            // navigate('/login'); 
         }
     };
 
@@ -50,6 +56,7 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem('refreshToken');
         setIsAuthenticated(false);
         setUser(null);
+        // navigate('/login');
     };
 
 
