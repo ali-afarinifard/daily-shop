@@ -25,7 +25,7 @@ const CategoryPage = ({ swal }) => {
     const [editedCategory, setEditedCategory] = useState(null);
     // const [properties, setProperties] = useState([]);
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [rowsPerPage, setRowsPerPage] = useState(6);
 
     const handleChangePage = (event, newPage) => setPage(newPage);
 
@@ -56,14 +56,6 @@ const CategoryPage = ({ swal }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // const data = {
-        //     name,
-        //     parent,
-        //     properties: properties.map(p => ({
-        //         name: p.name,
-        //         values: p.values.split('-')
-        //     }))
-        // };
 
         const data = {
             name,
@@ -79,20 +71,7 @@ const CategoryPage = ({ swal }) => {
 
         setName('');
         setParent('');
-        // setProperties([]);
     };
-
-    // const editCategory = (category) => {
-    //     setEditedCategory(category);
-    //     setName(category.name);
-    //     setParent(category.parent ? category.parent._id : '');
-    //     setProperties(
-    //         category.properties.map(({ name, values }) => ({
-    //             name,
-    //             values: values.join('-')
-    //         }))
-    //     );
-    // };
 
 
     const editCategory = (category) => {
@@ -116,30 +95,6 @@ const CategoryPage = ({ swal }) => {
             }
         });
     };
-
-    // const addProperty = () => {
-    //     setProperties(prev => [...prev, { name: '', values: '' }]);
-    // };
-
-    // const handlePropertyNameChange = (index, property, newName) => {
-    //     setProperties(prev => {
-    //         const properties = [...prev];
-    //         properties[index].name = newName;
-    //         return properties;
-    //     });
-    // };
-
-    // const handlePropertyValuesChange = (index, property, newValues) => {
-    //     setProperties(prev => {
-    //         const properties = [...prev];
-    //         properties[index].values = newValues;
-    //         return properties;
-    //     });
-    // };
-
-    // const removeProperty = (indexToRemove) => {
-    //     setProperties(prev => [...prev].filter((_, pIndex) => pIndex !== indexToRemove));
-    // };
 
     const paginatedData = (categories || []).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
@@ -183,47 +138,6 @@ const CategoryPage = ({ swal }) => {
                         </select>
                     </div>
                 </div>
-
-                {/* Properties */}
-                {/* <div>
-                    <button
-                        type="button"
-                        className="btn-default text-sm mb-2 mt-1"
-                        onClick={addProperty}
-                    >
-                        ایجاد ویژگی
-                    </button>
-
-                    {properties.length > 0 && properties.map((property, index) => (
-                        <div className="flex gap-1 mb-2" key={index}>
-                            <input
-                                type="text"
-                                dir="rtl"
-                                placeholder="رنگ، برند و..."
-                                className="mb-0"
-                                value={property.name}
-                                onChange={ev => handlePropertyNameChange(index, property, ev.target.value)}
-                            />
-
-                            <input
-                                type="text"
-                                dir="rtl"
-                                placeholder="مقدار"
-                                className="mb-0"
-                                value={property.values}
-                                onChange={ev => handlePropertyValuesChange(index, property, ev.target.value)}
-                            />
-
-                            <button
-                                type="button"
-                                className="btn-red"
-                                onClick={() => removeProperty(index)}
-                            >
-                                حذف
-                            </button>
-                        </div>
-                    ))}
-                </div> */}
 
                 <div className="flex gap-1 mb-4">
                     {editedCategory && (
@@ -323,7 +237,7 @@ const CategoryPage = ({ swal }) => {
                     </Table>
 
                     <TablePagination
-                        rowsPerPageOptions={[2, 10, 25]}
+                        rowsPerPageOptions={[3, 4, 6]}
                         component="div"
                         count={categories.length}
                         rowsPerPage={rowsPerPage}

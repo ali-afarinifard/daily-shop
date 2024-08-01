@@ -111,7 +111,6 @@ const ProductForm = ({
             sizes,
             gender,
             colors: colors.split('-').filter(Boolean)
-            // properties: productProperties
         };
 
         console.log("Product Data: ", product);
@@ -165,73 +164,82 @@ const ProductForm = ({
     return (
         <form onSubmit={handleSubmit}>
 
-            {/* Name */}
-            <div className="flex flex-col gap-1">
-                <label>نام محصول</label>
-                <input
-                    type="text"
-                    placeholder="نام محصول"
-                    value={title}
-                    onChange={(ev) => setTitle(ev.target.value)}
-                />
-            </div>
+            {/* Name */} {/* Categories */}
+            <div className="flex items-center justify-center gap-4 mb-3">
 
-            {/* Categories */}
-            <div>
-                <label>دسته بندی</label>
-                <select
-                    value={category}
-                    onChange={ev => setCategory(ev.target.value)}
-                >
-                    <option value=''>انتخاب کنید</option>
-                    {categories.length > 0 && categories.map(c => (
-                        <option key={c._id} value={c._id}>{c.name}</option>
-                    ))}
-                </select>
-            </div>
-
-            {/* Sizes */}
-            <div>
-                <label>جنسیت</label>
-                <select
-                    value={gender}
-                    onChange={ev => setGender(ev.target.value)}
-                >
-                    <option value=''>انتخاب کنید</option>
-                    <option value='men'>مردانه</option>
-                    <option value='women'>زنانه</option>
-                </select>
-            </div>
-
-
-            {gender && (
-                <div className="flex flex-col gap-2 py-2">
-                    <label>سایز محصول را انتخاب کنید</label>
-                    <div className="mb-2 flex flex-wrap gap-3">
-                        {sizeOptions.map(size => (
-                            <div
-                                key={size}
-                                onClick={() => handleSizeChange(size)}
-                                className={`mr-2 p-2 border rounded cursor-pointer ${sizes.includes(size) ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
-                            >
-                                {size}
-                            </div>
-                        ))}
-                    </div>
+                <div className="flex flex-col gap-1 w-full">
+                    <label>نام محصول</label>
+                    <input
+                        type="text"
+                        placeholder="نام محصول"
+                        value={title}
+                        onChange={(ev) => setTitle(ev.target.value)}
+                    />
                 </div>
-            )}
 
 
-            {/* Colors */}
-            <div className="flex flex-col gap-1 pt-1">
-                <label>رنگ‌ها (هر رنگ را با یک خط تیره - جدا کنید)</label>
-                <input
-                    type="text"
-                    placeholder="مثال: قرمز-آبی-سبز"
-                    value={colors}
-                    onChange={(ev) => setColors(ev.target.value)}
-                />
+                <div className="w-full">
+                    <label>دسته بندی</label>
+                    <select
+                        value={category}
+                        onChange={ev => setCategory(ev.target.value)}
+                    >
+                        <option value=''>انتخاب کنید</option>
+                        {categories.length > 0 && categories.map(c => (
+                            <option key={c._id} value={c._id}>{c.name}</option>
+                        ))}
+                    </select>
+                </div>
+
             </div>
+
+
+            {/* Sizes */}   {/* Colors */}
+            <div className="flex justify-center gap-4 mb-3">
+
+                <div className="w-full">
+                    <label>جنسیت</label>
+                    <select
+                        value={gender}
+                        onChange={ev => setGender(ev.target.value)}
+                    >
+                        <option value=''>انتخاب کنید</option>
+                        <option value='men'>مردانه</option>
+                        <option value='women'>زنانه</option>
+                    </select>
+
+                    {gender && (
+                        <div className="flex flex-col gap-2 pt-3">
+                            <label>سایز محصول را انتخاب کنید</label>
+                            <div className="mb-2 flex flex-wrap gap-3">
+                                {sizeOptions.map(size => (
+                                    <div
+                                        key={size}
+                                        onClick={() => handleSizeChange(size)}
+                                        className={`mr-2 p-2 border rounded cursor-pointer ${sizes.includes(size) ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
+                                    >
+                                        {size}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+
+                <div className="flex flex-col gap-1 pt-1 w-full">
+                    <label>رنگ‌ها (هر رنگ را با یک خط تیره - جدا کنید)</label>
+                    <input
+                        type="text"
+                        placeholder="مثال: قرمز-آبی-سبز"
+                        value={colors}
+                        onChange={(ev) => setColors(ev.target.value)}
+                    />
+                </div>
+
+            </div>
+
+
 
             {/* Image */}
             <div className="flex flex-col gap-1">
@@ -253,8 +261,9 @@ const ProductForm = ({
                 </div>
             </div>
 
+
             {/* Description */}
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 mb-3">
                 <label>توضیحات</label>
                 <textarea
                     placeholder="توضیحات"
@@ -263,31 +272,38 @@ const ProductForm = ({
                 ></textarea>
             </div>
 
-            {/* Stock */}
-            <div className="flex flex-col gap-1">
-                <label>تعداد</label>
-                <input
-                    type="number"
-                    placeholder="تعداد"
-                    value={stock}
-                    onChange={ev => setStock(ev.target.value)}
-                />
+
+            {/* Stock */}  {/* Price */}
+            <div className="flex items-center justify-center gap-4">
+
+                <div className="flex flex-col gap-1 w-full">
+                    <label>تعداد</label>
+                    <input
+                        type="number"
+                        placeholder="تعداد"
+                        value={stock}
+                        onChange={ev => setStock(ev.target.value)}
+                    />
+                </div>
+
+
+                <div className="flex flex-col gap-1 w-full">
+                    <label>قیمت (تومان)</label>
+                    <input
+                        type="number"
+                        placeholder="قیمت"
+                        value={price}
+                        onChange={ev => setPrice(ev.target.value)}
+                    />
+                </div>
+
             </div>
 
-            {/* Price */}
-            <div className="flex flex-col gap-1">
-                <label>قیمت (تومان)</label>
-                <input
-                    type="number"
-                    placeholder="قیمت"
-                    value={price}
-                    onChange={ev => setPrice(ev.target.value)}
-                />
-            </div>
+
 
             <div className="my-3 flex items-center gap-2">
                 <label>
-                    موجود می باشد
+                    محصول موجود می باشد
                 </label>
                 <input
                     type="checkbox"
