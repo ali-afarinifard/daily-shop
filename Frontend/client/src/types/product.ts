@@ -6,6 +6,7 @@ type ProductType = {
     category: string;
     images: string[];
     stock: number;
+    gender: string;
     sizes: number[];
     colors: string[];
 };

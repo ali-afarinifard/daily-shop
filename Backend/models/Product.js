@@ -9,8 +9,8 @@ const productSchema = new Schema({
     images: [{ type: String }],
     stock: { type: Number, required: true },
     isStatus: { type: Boolean, default: false },
-    womenSizes: [{ type: Number }],
-    menSizes: [{ type: String }],
+    sizes: [{ type: String, required: true }],
+    gender: { type: String, enum: ['men', 'women'], required: true },
     colors: [{ type: String, required: true }]
 }, { timestamps: true });
 
