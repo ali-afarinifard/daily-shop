@@ -7,10 +7,10 @@ const productSchema = new Schema({
     price: { type: Number, required: true },
     category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
     images: [{ type: String }],
-    // properties: { type: Map, of: String },  // Ensure this matches your properties format
     stock: { type: Number, required: true },
     isStatus: { type: Boolean, default: false },
-    sizes: [{ type: Number, required: true }],
+    womenSizes: [{ type: Number }],
+    menSizes: [{ type: String }],
     colors: [{ type: String, required: true }]
 }, { timestamps: true });
 

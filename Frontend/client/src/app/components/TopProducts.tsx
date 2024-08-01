@@ -1,15 +1,15 @@
 'use client'
 
 import { getAllProducts } from "@/libs/apiUrls";
-import Product from "@/types/product";
 import { useEffect, useState } from "react";
 import Heading from "./Heading";
-import ProductCard from "./products/ProductCard";
+import ProductType from "@/types/product";
+import ProductBox from "./products/ProductBox";
 
 
 const TopProducts = () => {
 
-    const [products, setProducts] = useState<Product[]>([]);
+    const [products, setProducts] = useState<ProductType[]>([]);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -27,16 +27,16 @@ const TopProducts = () => {
     console.log(products)
 
     return (
-        <div className="mt-28">
+        <div className="mt-10">
             <div>
                 <div className="relative w-fit">
-                    <Heading title="پرفروش ترین ها" />
+                    <Heading title="پرفروش ترین محصولات" />
                     <span className="w-full h-[2px] bg-slate-400 absolute left-0 -bottom-2"></span>
                 </div>
 
                 <div className="mt-10">
                     {products.map((product) => (
-                        <ProductCard product={product} />
+                        <ProductBox product={product} />
                     ))}
                 </div>
             </div>

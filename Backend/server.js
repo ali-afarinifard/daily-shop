@@ -1,6 +1,7 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors');
+const path = require('path');
 // const dotenv = require('dotenv');
 require('dotenv').config();
 
@@ -23,7 +24,9 @@ const uploadRoutes = require('./routes/uploads');
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/categories', categoryRoutes);
 app.use('/api/products', productRoutes);
-app.use('/uploads', express.static('uploads'));
+// **! Check & Fix it later..... (uploads)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// app.use('/uploads', express.static('uploads'));
 app.use('/api', uploadRoutes);
 
 // Root route for testing

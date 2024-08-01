@@ -8,7 +8,9 @@ import { createProduct, getAllCategories, updateProduct } from "../../services/a
 
 
 
-const sizesOptions = [38, 39, 40, 41, 42, 43, 44, 45, 46];
+// const sizesOptions = [38, 39, 40, 41, 42, 43, 44, 45, 46];
+const sizesOptionsWomen = [1, 2, 3];
+const sizesOptionsMen = ['S', 'M', 'L', 'XL', '2XL'];
 
 
 const ProductForm = ({
@@ -18,25 +20,25 @@ const ProductForm = ({
     price: existingPrice,
     images: existingImages,
     category: assignedCategory,
-    // properties: assignedProperties,
     stock: assignedStock,
     isStatus: assignedStatus,
     categories: initialCategories,
-    sizes: existingSizes,
-    colors: existingColors
+    colors: existingColors,
+    womenSizes: existingWomenSizes,
+    menSizes: existingMenSizes
 }) => {
 
     // States
     const [title, setTitle] = useState(existingTitle || '');
     const [description, setDescription] = useState(existingDescription || '');
     const [category, setCategory] = useState(assignedCategory || '');
-    // const [productProperties, setProductProperties] = useState(assignedProperties || {});
     const [stock, setStock] = useState(assignedStock || 0);
     const [isStatus, setIsStatus] = useState(assignedStatus || false);
     const [price, setPrice] = useState(existingPrice || 0);
     const [images, setImages] = useState(existingImages || []);
     const [categories, setCategories] = useState(initialCategories || []);
-    const [sizes, setSizes] = useState(existingSizes || []);
+    const [womenSizes, setWomenSizes] = useState(existingWomenSizes || []);
+    const [menSizes, setMenSizes] = useState(existingMenSizes || []);
     const [goToProducts, setGoToProducts] = useState(false);
     const [colors, setColors] = useState(existingColors?.join('-') || '');
 
@@ -62,14 +64,14 @@ const ProductForm = ({
         setTitle(existingTitle || '');
         setDescription(existingDescription || '');
         setCategory(assignedCategory || '');
-        // setProductProperties(assignedProperties || {});
         setStock(assignedStock || 0);
         setIsStatus(assignedStatus || false);
         setPrice(existingPrice || 0);
         setImages(existingImages || []);
-        setSizes(existingSizes || []);
+        setWomenSizes(existingWomenSizes || []);
+        setMenSizes(existingMenSizes || []);
         setColors(existingColors?.join('-') || '');
-    }, [existingTitle, existingDescription, existingPrice, existingImages, existingSizes, existingColors, assignedCategory, assignedStock, assignedStatus]);
+    }, [existingTitle, existingDescription, existingPrice, existingImages, existingWomenSizes, existingMenSizes, existingColors, assignedCategory, assignedStock, assignedStatus]);
 
 
     const createProductMutation = useMutation({
@@ -106,7 +108,8 @@ const ProductForm = ({
             images,
             stock,
             isStatus,
-            sizes,
+            womenSizes,
+            menSizes,
             colors: colors.split('-').filter(Boolean)
             // properties: productProperties
         };
@@ -147,11 +150,20 @@ const ProductForm = ({
     };
 
 
-    const handleSizeChange = (size) => {
-        if (sizes.includes(size)) {
-            setSizes(sizes.filter(s => s !== size));
+    const handleWomenSizeChange = (size) => {
+        if (womenSizes.includes(size)) {
+            setWomenSizes(womenSizes.filter(s => s !== size));
         } else {
-            setSizes([...sizes, size]);
+            setWomenSizes([...womenSizes, size]);
+        }
+    };
+
+
+    const handleMenSizeChange = (size) => {
+        if (menSizes.includes(size)) {
+            setMenSizes(menSizes.filter(s => s !== size));
+        } else {
+            setMenSizes([...menSizes, size]);
         }
     };
 
@@ -186,13 +198,28 @@ const ProductForm = ({
 
             {/* Sizes */}
             <div className="flex flex-col gap-2 py-2">
-                <label>سایز محصول را انتخاب کنید</label>
+                <label>سایز محصول را انتخاب کنید (زنانه)</label>
                 <div className="mb-2 flex flex-wrap gap-3">
-                    {sizesOptions.map(size => (
+                    {sizesOptionsWomen.map(size => (
                         <div
                             key={size}
-                            onClick={() => handleSizeChange(size)}
-                            className={`mr-2 p-2 border rounded cursor-pointer ${sizes.includes(size) ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
+                            onClick={() => handleWomenSizeChange(size)}
+                            className={`mr-2 p-2 border rounded cursor-pointer ${womenSizes.includes(size) ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
+                        >
+                            {size}
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <div className="flex flex-col gap-2 py-2">
+                <label>سایز محصول را انتخاب کنید (مردانه)</label>
+                <div className="mb-2 flex flex-wrap gap-3">
+                    {sizesOptionsMen.map(size => (
+                        <div
+                            key={size}
+                            onClick={() => handleMenSizeChange(size)}
+                            className={`mr-2 p-2 border rounded cursor-pointer ${menSizes.includes(size) ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
                         >
                             {size}
                         </div>

@@ -91,13 +91,6 @@ const ProductView = () => {
                                 <span className="text-lg">{product.category.name}</span>
                             </div>
 
-                            {Object.entries(product.properties).map(([key, value]) => (
-                                <div key={key} className="flex items-center justify-center gap-1">
-                                    <span>{key} : </span>
-                                    <span className="text-lg">{value}</span>
-                                </div>
-                            ))}
-
 
                         </div>
 
