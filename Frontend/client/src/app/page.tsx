@@ -4,6 +4,7 @@ import Container from "./components/Container";
 import Features from "./components/features/Features";
 import TopProducts from "./components/TopProducts";
 import Guidance from "./components/guidance/Guidance";
+import Banner from "./components/banner/Banner";
 
 export default function Home() {
 
@@ -11,6 +12,7 @@ export default function Home() {
     <div>
       <div className="pb-10">
         <Container>
+          <Banner />
           <CategoryList />
           <TopProducts />
           <Features />

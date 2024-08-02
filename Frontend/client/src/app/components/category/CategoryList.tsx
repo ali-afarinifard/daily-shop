@@ -3,7 +3,7 @@ import Link from "next/link"
 
 const CategoryList = () => {
     return (
-        <div className="mt-28 grid grid-cols-4 gap-4">
+        <div className="mt-20 grid grid-cols-4 gap-4">
             {/* #1 */}
             <Link href={'/category'} className="bg-bgCategory1 flex items-center justify-center py-8 rounded-xl">
 

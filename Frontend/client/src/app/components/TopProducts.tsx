@@ -37,11 +37,10 @@ const TopProducts = () => {
     console.log(products)
 
     return (
-        <div className="mt-10">
+        <div className="mt-20">
             <div>
-                <div className="relative w-fit">
+                <div className="flex items-center justify-start">
                     <Heading title="پرفروش ترین محصولات" />
-                    <span className="w-full h-[2px] bg-slate-400 absolute left-0 -bottom-2"></span>
                 </div>
 
                 <div className="relative ___swiper-container mt-10" dir="ltr">
