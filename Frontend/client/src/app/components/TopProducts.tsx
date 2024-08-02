@@ -4,15 +4,15 @@ import { getAllProducts } from "@/libs/apiUrls";
 import { useEffect, useRef, useState } from "react";
 import Heading from "./Heading";
 import ProductType from "@/types/product";
-import ProductBox from "./products/ProductBox";
 
 // ** Swiper
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Swiper as SwiperType } from 'swiper';
-import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css'
 import 'swiper/css/pagination'
+
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import TopProductBox from "./products/TopProductBox";
 
 
 const TopProducts = () => {
@@ -57,7 +57,7 @@ const TopProducts = () => {
                         {products.map((product) => (
                             <>
                                 <SwiperSlide key={product._id}>
-                                    <ProductBox product={product} />
+                                    <TopProductBox product={product} />
                                 </SwiperSlide>
                             </>
                         ))}

@@ -3,12 +3,12 @@ import Image from "next/image"
 import Link from "next/link";
 
 
-interface ProductBoxProps {
+interface TopProductBoxProps {
     product: Product
 }
 
 
-const ProductBox: React.FC<ProductBoxProps> = ({ product }) => {
+const TopProductBox: React.FC<TopProductBoxProps> = ({ product }) => {
 
     const firstImage = product.images[0];
     const secondImage = product.images[1];
@@ -51,4 +51,4 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product }) => {
     )
 }
 
-export default ProductBox
+export default TopProductBox
