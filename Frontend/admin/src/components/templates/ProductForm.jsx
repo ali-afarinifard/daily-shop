@@ -195,7 +195,7 @@ const ProductForm = ({
 
 
             {/* Sizes */}   {/* Colors */}
-            <div className="flex justify-center gap-4 mb-3">
+            <div className="flex justify-center gap-4 mb-3 xs:flex-col">
 
                 <div className="w-full">
                     <label>جنسیت</label>
@@ -245,7 +245,7 @@ const ProductForm = ({
             <div className="flex flex-col gap-1">
                 <label>عکس محصول</label>
                 <div className="mb-2 flex flex-wrap gap-1">
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex flex-wrap items-center gap-3 mb-4">
                         {images.length > 0 && images.map((img, index) => (
                             <div className="h-fit w-fit bg-white p-4 shadow-sm rounded-sm border border-gray-200" key={index}>
                                 <img src={`http://localhost:5000/${img}`} alt="" className="h-24 w-full" />

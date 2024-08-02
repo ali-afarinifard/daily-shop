@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // POST endpoint for uploading images
-router.post('/upload', upload.array('images', 10), (req, res) => {
+router.post('/upload', upload.array('images', 20), (req, res) => {
     const imagePaths = req.files.map(file => file.path);
     res.status(201).json({ images: imagePaths });
 });

@@ -14,8 +14,8 @@ export default {
       screens: {
         s: {max: "850px"},
         // => @media(max-width: 850px) {...}
-        xs: {max: "550px"},
-        // => @media(max-width: 440px) {...}
+        xs: {max: "580px"},
+        // => @media(max-width: 580px) {...}
         m: {max: "675px"},
         // => @media(max-width: 675px) {...}
         l: {max: "910px"},
