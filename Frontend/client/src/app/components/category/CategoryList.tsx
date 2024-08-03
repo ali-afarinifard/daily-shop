@@ -1,36 +1,82 @@
+'use client'
+
+import Image from "next/image"
 import Link from "next/link"
+
+import mainCategory1 from "../../../../public/images/category/main/main-category-1.webp"
+import mainCategory2 from "../../../../public/images/category/main/main-category-2.webp"
+import mainCategory3 from "../../../../public/images/category/main/main-category-3.webp"
+import { useEffect, useState } from "react"
+import CategoryType from "@/types/category"
+import { getAllCategories } from "@/libs/apiUrls"
 
 
 const CategoryList = () => {
+
+    const [categories, setCategories] = useState<CategoryType[]>([]);
+
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            const allCategories = await getAllCategories();
+            setCategories(allCategories);
+        };
+
+        fetchCategories();
+    }, []);
+
+
     return (
-        <div className="mt-20 grid grid-cols-4 gap-4">
-            {/* #1 */}
-            <Link href={'/category'} className="bg-bgCategory1 flex items-center justify-center py-8 rounded-xl">
+        // <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6">
+        //     {/* #1 */}
+        //     <Link href={'/category/womens'}>
+        //         <div className="w-full h-full">
+        //             <Image
+        //                 src={mainCategory1}
+        //                 alt="دسته بندی مردانه"
+        //                 objectFit="cover"
+        //                 className="rounded-lg shadow-lg"
+        //             />
+        //         </div>
+        //     </Link>
 
-                <h1 className="text-white text-xl">ست</h1>
+        //     {/* #2 */}
+        //     <Link href={'/category/men'}>
+        //         <div className="w-full h-full">
+        //             <Image
+        //                 src={mainCategory2}
+        //                 alt="دسته بندی زنانه"
+        //                 objectFit="cover"
+        //                 className="rounded-lg shadow-lg"
+        //             />
+        //         </div>
+        //     </Link>
 
-            </Link>
+        //     {/* #3 */}
+        //     <Link href={'/category/kids'}>
+        //         <div className="w-full h-full">
+        //             <Image
+        //                 src={mainCategory3}
+        //                 alt="دسته بندی کودک"
+        //                 objectFit="cover"
+        //                 className="rounded-lg shadow-lg"
+        //             />
+        //         </div>
+        //     </Link>
+        // </div>
 
-            {/* #2 */}
-            <Link href={'/category'} className="bg-bgCategory2 flex items-center justify-center py-8 rounded-xl">
-
-                <h1 className="text-white text-xl">مانتو</h1>
-
-            </Link>
-
-            {/* #3 */}
-            <Link href={'/category'} className="bg-bgCategory3 flex items-center justify-center py-8 rounded-xl">
-
-                <h1 className="text-white text-xl">دانشجویی و اداری</h1>
-
-            </Link>
-
-            {/* #4 */}
-            <Link href={'/category'} className="bg-bgCategory4 flex items-center justify-center py-8 rounded-xl">
-
-                <h1 className="text-white text-xl">شلوار</h1>
-
-            </Link>
+        <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {categories.map(category => (
+                <Link
+                    key={category._id} // Assuming `_id` is the unique identifier
+                    href={`/category/${category._id}`} // Using the category's unique ID in the URL
+                    className="relative block aspect-w-1 aspect-h-1"
+                >
+                    <span className="block p-4 border rounded shadow-lg">
+                        <h2 className="text-lg font-bold">{category.name}</h2>
+                    </span>
+                </Link>
+            ))}
         </div>
     )
 }

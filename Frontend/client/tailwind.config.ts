@@ -9,10 +9,9 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        'bgCategory1': "url('/images/category/category_1.webp')",
-        'bgCategory2': "url('/images/category/category_2.webp')",
-        'bgCategory3': "url('/images/category/category_3.webp')",
-        'bgCategory4': "url('/images/category/category_4.webp')",
+        'bgCategory1': "url('/images/category/main/main-category_1.webp')",
+        'bgCategory2': "url('/images/category/main/main-category_2.webp')",
+        'bgCategory3': "url('/images/category/main/main-category_3.webp')",
       },
     },
   },

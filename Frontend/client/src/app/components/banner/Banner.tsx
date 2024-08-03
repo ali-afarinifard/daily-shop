@@ -43,19 +43,17 @@ const Banner = () => {
                 className="w-full mySwiper"
             >
                 {data.map((img) => (
-                    <>
-                        <SwiperSlide key={img.id}>
-                            <div
-                                className="flex h-96 w-full items-center justify-center rounded-md overflow-hidden"
-                            >
-                                <Image
-                                    src={img.image}
-                                    alt={img.alt}
-                                    className="block h-96 w-full object-cover"
-                                />
-                            </div>
-                        </SwiperSlide>
-                    </>
+                    <SwiperSlide key={img.id}>
+                        <div
+                            className="flex h-96 w-full items-center justify-center rounded-md overflow-hidden"
+                        >
+                            <Image
+                                src={img.image}
+                                alt={img.alt}
+                                className="block h-96 w-full object-cover"
+                            />
+                        </div>
+                    </SwiperSlide>
                 ))}
             </Swiper>
 

@@ -27,14 +27,12 @@ const TopProducts = () => {
             if (allProducts) {
                 // Shuffle and select 10 random products
                 const shuffledProducts = allProducts.sort(() => 0.5 - Math.random());
-                setProducts(shuffledProducts.slice(0, 10));
+                setProducts(shuffledProducts.slice(0, 6));
             }
         };
 
         fetchProducts();
     }, []);
-
-    console.log(products)
 
     return (
         <div className="mt-20">

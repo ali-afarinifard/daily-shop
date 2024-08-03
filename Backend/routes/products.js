@@ -155,7 +155,15 @@ router.post('/', async (req, res) => {
 // ** GET Products
 router.get('/', async (req, res) => {
     try {
-        const products = await Product.find().populate('category');
+        const { category } = req.query;
+
+        let filter = {};
+
+        if (category) {
+            filter.category = category; // If category is provided, add it to the filter
+        }
+
+        const products = await Product.find(filter).populate('category');
         res.json(products);
     } catch (error) {
         console.error('Error fetching products:', error);
