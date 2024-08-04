@@ -37,7 +37,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product }) => {
 
     return (
         <div className="w-full rounded-md overflow-hidden shadow-md">
-            <Link href={'/product'}>
+            <Link href={`/product/${product._id}`}>
 
                 <div className="relative w-full h-80 group">
                     {firstImage && (

@@ -20,6 +20,13 @@ export const getAllProducts = async () => {
 export const getProductsByCategory = async (categoryId: string): Promise<ProductType[]> => {
     const response = await api.get(`/products?category=${categoryId}`);
     return response.data;
+};
+
+
+export const getProductById = async (productId: string): Promise<ProductType> => {
+    const response = await api.get(`/products/${productId}`);
+    console.log(response.data);
+    return response.data;
 }
 
 
