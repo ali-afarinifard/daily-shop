@@ -12,7 +12,7 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import TopProductBox from "./products/TopProductBox";
+import ProductBox from "./products/ProductBox";
 
 
 const TopProducts = () => {
@@ -54,7 +54,7 @@ const TopProducts = () => {
                         {products.map((product) => (
                             <>
                                 <SwiperSlide key={product._id}>
-                                    <TopProductBox product={product} />
+                                    <ProductBox product={product} />
                                 </SwiperSlide>
                             </>
                         ))}

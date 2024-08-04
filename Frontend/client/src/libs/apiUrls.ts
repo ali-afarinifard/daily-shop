@@ -1,5 +1,6 @@
 import ProductType from "@/types/product";
 import api from "./api"
+import CategoryType from "@/types/category";
 
 
 
@@ -33,3 +34,9 @@ export const getAllCategories = async () => {
         console.log(error)
     }
 };
+
+
+export const getCategoryById = async (categoryId: string): Promise<CategoryType> => {
+    const response = await api.get(`/categories/${categoryId}`);
+    return response.data;
+}

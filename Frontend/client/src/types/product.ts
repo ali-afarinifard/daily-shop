@@ -1,9 +1,11 @@
+import CategoryType from "./category";
+
 type ProductType = {
     _id: string;
     title: string;
     description: string;
     price: number;
-    category: string;
+    category: CategoryType;
     images: string[];
     stock: number;
     gender: string;
