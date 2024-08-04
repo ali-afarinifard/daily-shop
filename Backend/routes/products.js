@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
+const Category = require('../models/Category');
 
 
 // // ** POST Products
@@ -159,8 +160,14 @@ router.get('/', async (req, res) => {
 
         let filter = {};
 
+        // if (category) {
+        //     filter.category = category; // If category is provided, add it to the filter
+        // }
+
         if (category) {
-            filter.category = category; // If category is provided, add it to the filter
+            // Find all parent categories recursively
+            const categoryIds = await getAllCategoryIdsWithParents(category);
+            filter.category = { $in: categoryIds };
         }
 
         const products = await Product.find(filter).populate('category');
@@ -170,6 +177,21 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
+
+
+// Helper function to get all category IDs, including parents recursively
+async function getAllCategoryIdsWithParents(categoryId) {
+    const category = await Category.findById(categoryId);
+    let categories = [categoryId];
+
+    if (category && category.parent) {
+        const parentCategories = await getAllCategoryIdsWithParents(category.parent);
+        categories = categories.concat(parentCategories);
+    }
+
+    return categories;
+}
+
 
 
 // ** GET Product by ID
