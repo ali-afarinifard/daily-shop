@@ -11,7 +11,7 @@ const router = express.Router();
 
 // ** USER_________________ **
 // ** Auth Register
-router.post('/register', async (req, res) => {
+router.post('/user/register', async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
@@ -51,7 +51,7 @@ router.post('/register', async (req, res) => {
 
 
 // ** Auth Login
-router.post('/login', async (req, res) => {
+router.post('/user/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -85,7 +85,7 @@ router.post('/login', async (req, res) => {
 
 
 // ** Logout
-router.post('/logout', async (req, res) => {
+router.post('/user/logout', async (req, res) => {
   const { token } = req.body;
 
   if (!token) {
@@ -167,7 +167,7 @@ router.put('/user', async (req, res) => {
 
 
 // ** Token
-router.post('/token', async (req, res) => {
+router.post('/user/token', async (req, res) => {
   const { token } = req.body;
 
   if (!token) {
