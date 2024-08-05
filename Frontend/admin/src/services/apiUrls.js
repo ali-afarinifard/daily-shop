@@ -3,23 +3,23 @@ import api from "../config/api";
 
 // ** AUTH
 const register = (username, email, password) => {
-    return api.post('/auth/register', { username, email, password });
+    return api.post('/auth/admin/register', { username, email, password });
 };
 
 const login = (email, password) => {
-    return api.post('/auth/login', { email, password });
+    return api.post('/auth/admin/login', { email, password });
 };
 
 const refreshToken = (token) => {
-    return api.post('/auth/token', { token });
+    return api.post('/auth/admin/token', { token });
 };
 
 const logout = (token) => {
-    return api.post('/auth/logout', { token });
+    return api.post('/auth/admin/logout', { token });
 };
 
-const updateUser = async (userData) => {
-    const response = await api.put('/auth/user', userData);
+const updateUser = async (adminData) => {
+    const response = await api.put('/auth/admin', adminData);
     return response.data;
 }
 

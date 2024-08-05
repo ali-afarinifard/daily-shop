@@ -5,18 +5,18 @@ import { AuthContext } from '../../../context/AuthContext';
 
 const Header = () => {
 
-    const { user } = useContext(AuthContext);
+    const { admin } = useContext(AuthContext);
 
     return (
         <div className="flex items-center justify-between gap-2">
 
-            {user && (
+            {admin && (
                 <div className='flex items-center gap-4'>
                     <div className='w-12 h-12'>
                         <img src={avatar} alt="avatar" className='w-full h-full' />
                     </div>
 
-                    <div>{user.username}</div>
+                    <div>{admin.username}</div>
                 </div>
             )}
 

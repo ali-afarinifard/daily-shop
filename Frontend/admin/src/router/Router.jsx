@@ -15,7 +15,7 @@ import Register from "../components/templates/Register"
 import Login from "../components/templates/Login"
 import ProtectedRoute from "../components/templates/ProtectedRoute"
 import RedirectIfAuthenticated from "../components/templates/RedirectIfAuthenticated"
-import UserAccount from "../pages/UserAccount"
+import AdminAccount from "../pages/AdminAccount"
 
 
 const Router = () => {
@@ -29,7 +29,7 @@ const Router = () => {
             <Route path="/products/view/:id" element={<ProtectedRoute><ProductView /></ProtectedRoute>} />
             <Route path="/products/add" element={<ProtectedRoute><AddProductPage /></ProtectedRoute>} />
             <Route path="/categories" element={<ProtectedRoute><Categories /></ProtectedRoute>} />
-            <Route path="/account" element={<ProtectedRoute><UserAccount /></ProtectedRoute>} />
+            <Route path="/account" element={<ProtectedRoute><AdminAccount /></ProtectedRoute>} />
             <Route path="/orders" element={<ProtectedRoute><Order /></ProtectedRoute>} />
             <Route path="/login" element={<RedirectIfAuthenticated><Login /></RedirectIfAuthenticated>} />
             <Route path="/register" element={<RedirectIfAuthenticated><Register /></RedirectIfAuthenticated>} />

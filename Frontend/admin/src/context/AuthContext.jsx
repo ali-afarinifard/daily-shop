@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('accessToken') && !!localStorage.getItem('refreshToken'));
 
-    const [user, setUser] = useState(null);
+    const [admin, setAdmin] = useState(null);
 
 
 
@@ -24,18 +24,18 @@ const AuthProvider = ({ children }) => {
 
         if (token && refreshToken) {
             setIsAuthenticated(true);
-            fetchUser(token);
+            fetchAdmin(token);
         }
     }, []);
 
-    const fetchUser = async (token) => {
+    const fetchAdmin = async (token) => {
         try {
-            const res = await api.get('/auth/user', {
+            const res = await api.get('/auth/admin', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            setUser(res.data);
+            setAdmin(res.data);
             setIsAuthenticated(true);
         } catch (error) {
             console.error('Error fetching user:', error);
@@ -48,25 +48,25 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
         setIsAuthenticated(true);
-        fetchUser(accessToken);
+        fetchAdmin(accessToken);
     };
 
     const logout = () => {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         setIsAuthenticated(false);
-        setUser(null);
+        setAdmin(null);
         // navigate('/login');
     };
 
 
-    const updateUserInContext = (updatedUser) => {
-        setUser(updatedUser);
+    const updateAdminInContext = (updatedUser) => {
+        setAdmin(updatedUser);
     };
 
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout, updateUserInContext, user }}>
+        <AuthContext.Provider value={{ isAuthenticated, login, logout, updateAdminInContext, admin }}>
             {children}
         </AuthContext.Provider>
     );

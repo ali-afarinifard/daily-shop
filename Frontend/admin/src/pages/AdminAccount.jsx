@@ -4,33 +4,33 @@ import { AuthContext } from "../context/AuthContext";
 import { updateUser } from "../services/apiUrls";
 import avatar from "../assets/images/profile.png"
 
-const UserAccount = () => {
-    const { user, updateUserInContext } = useContext(AuthContext);
+const AdminAccount = () => {
+    const { admin, updateAdminInContext } = useContext(AuthContext);
 
     const [formData, setFormData] = useState({
-        userId: '',
+        adminId: '',
         username: '',
         email: '',
         password: ''
     });
 
     useEffect(() => {
-        if (user) {
+        if (admin) {
             setFormData({
-                userId: user._id,
-                username: user.username,
-                email: user.email,
+                adminId: admin._id,
+                username: admin.username,
+                email: admin.email,
                 password: ''
             });
         }
-    }, [user]);
+    }, [admin]);
 
-    const updateUserMutation = useMutation({
+    const updateAdminMutation = useMutation({
         mutationFn: updateUser,
         onSuccess: (data) => {
-            alert('User updated successfully!');
+            alert('Admin updated successfully!');
             // Update the user in context
-            updateUserInContext(data.user);
+            updateAdminInContext(data.admin);
         },
         onError: (error) => {
             alert('Error updating user information.');
@@ -44,7 +44,7 @@ const UserAccount = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        updateUserMutation.mutate(formData);
+        updateAdminMutation.mutate(formData);
     };
 
     return (
@@ -94,4 +94,4 @@ const UserAccount = () => {
     );
 };
 
-export default UserAccount;
+export default AdminAccount;
