@@ -65,7 +65,7 @@ const CategoryList = () => {
         //     </Link>
         // </div>
 
-        <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 gap-6">
             {categories.map(category => (
                 <Link
                     key={category._id} // Assuming `_id` is the unique identifier

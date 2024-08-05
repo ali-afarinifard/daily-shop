@@ -158,7 +158,7 @@ const ProductPage = () => {
 
                             <p>توجه! ❌ حتما راهنمای سایز مطالعه شود. ❌</p>
 
-                            <div className="flex flex-col items-start gap-8 xl:gap-1 xl:fixed xl:left-0 xl:bottom-0 xl:right-0 xl:w-full xl:bg-[#f0f0f0] xl:flex xl:flex-row-reverse xl:z-[1000] xl:py-4 xl:px-2 xl:items-center xl:rounded-t-lg xl:shadow-xl">
+                            <div className="flex flex-col items-start gap-8 xl:gap-1 xl:fixed xl:left-0 xl:bottom-0 xl:right-0 xl:w-full xl:bg-[#f0f0f0] xl:flex xl:flex-row xl:z-[1000] xl:py-4 xl:px-2 xl:items-center xl:rounded-t-lg xl:shadow-xl">
 
                                 <div className="flex items-center gap-4 xl:gap-1 w-[30rem] 2xl:w-full xl:flex-row xl:w-full">
 
@@ -213,7 +213,7 @@ const ProductPage = () => {
                     </div>
 
                     {/* bottom */}
-                    <div className="mt-16 w-full max-w-[60rem]">
+                    <div className="mt-16 w-full max-w-[60rem] leading-[1.75rem] text-justify">
                         <p>{product?.description}</p>
                     </div>
                 </div>

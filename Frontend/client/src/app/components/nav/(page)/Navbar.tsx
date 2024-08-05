@@ -16,7 +16,7 @@ const Navbar = () => {
             <div className="pb-4">
                 <Container>
                     <div
-                        className="flex items-center justify-between gap-3 md:gap-0"
+                        className="flex items-center justify-between gap-3 md:gap-1"
                     >
 
                         <Link href={'/'} className={`text-3xl`}>My~Shop</Link>

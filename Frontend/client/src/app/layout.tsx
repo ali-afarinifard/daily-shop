@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className="text-slate-700">
         <div className="flex flex-col min-h-screen">
           <Navbar />
-          <main className="flex-grow pt-[4.5rem]">
+          <main className="flex-grow mt-[4.5rem]">
             {children}
           </main>
           <Footer />
