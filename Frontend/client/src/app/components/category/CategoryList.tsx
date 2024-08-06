@@ -66,15 +66,18 @@ const CategoryList = () => {
         // </div>
 
         <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {categories.map(category => (
+            {categories.slice(0, 2).map(category => (
                 <Link
                     key={category._id} // Assuming `_id` is the unique identifier
-                    href={`/category/${category._id}`} // Using the category's unique ID in the URL
+                    href={`/category/${category._id}`}
                     className="relative block aspect-w-1 aspect-h-1"
                 >
+
                     <span className="block p-4 border rounded shadow-lg">
                         <h2 className="text-lg font-bold">{category.name}</h2>
                     </span>
+
+
                 </Link>
             ))}
         </div>

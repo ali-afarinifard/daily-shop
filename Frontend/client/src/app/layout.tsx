@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "./components/nav/(page)/Navbar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Footer from "./components/footer/Footer";
+import CartProvider from "@/providers/CartProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,13 +22,15 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl">
       <body className="text-slate-700">
-        <div className="flex flex-col min-h-screen">
-          <Navbar />
-          <main className="flex-grow mt-[4.5rem]">
-            {children}
-          </main>
-          <Footer />
-        </div>
+        <CartProvider>
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <main className="flex-grow mt-[4.5rem]">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </CartProvider>
       </body>
     </html>
   );
