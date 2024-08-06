@@ -5,19 +5,35 @@ import Container from "@/app/components/Container";
 import { getProductById } from "@/libs/apiUrls";
 import ProductType from "@/types/product";
 import Image from "next/image";
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react";
 import { TbRulerMeasure } from "react-icons/tb";
-import { MdOutlineShoppingCartCheckout } from "react-icons/md";
+import { MdCheckCircle, MdOutlineShoppingCartCheckout } from "react-icons/md";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { useCart } from "@/hooks/useCart";
+import Button from "../Button";
+import SetQuantity from "./SetQuantity";
+import toast from "react-hot-toast";
+
+
+
+const Horizontal = () => {
+    return (
+        <hr className="w-[30%] my-2" />
+    )
+}
+
 
 const ProductDetails = () => {
 
     const pathname = usePathname();
     const productId = pathname.split('/').pop();
+
+    const { handleAddProductToCart, cartProducts } = useCart();
+    const [isProductInCart, setIsProductInCart] = useState(false);
 
     const [product, setProduct] = useState<ProductType | null>(null);
     const [loading, setLoading] = useState(true);
@@ -25,6 +41,10 @@ const ProductDetails = () => {
     const [selectedSize, setSelectedSize] = useState<string | null>(null);
     const [selectedColor, setSelectedColor] = useState<string | null>(null);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const [quantity, setQuantity] = useState<number>(1);
+
+
+    const router = useRouter();
 
 
     useEffect(() => {
@@ -52,8 +72,48 @@ const ProductDetails = () => {
     }, [productId]);
 
 
+
+    useEffect(() => {
+        if (cartProducts && product) {
+            const isProductInCart = cartProducts.some(item => item._id === product._id);
+            setIsProductInCart(isProductInCart);
+        }
+    }, [cartProducts, product]);
+
+
+
     const handleImageClick = (image: string) => {
         setSelectedImage(`http://localhost:5000/${image.replace(/\\/g, '/')}`);
+    };
+
+
+    const handleQtyIncrease = () => {
+        if (quantity < (product?.stock || 0)) {
+            setQuantity(quantity + 1);
+        } else if (quantity === 90) {
+            toast.error('نمی توانید بیشتر از 90 محصول انتخاب کنید');
+        }
+    };
+
+    const handleQtyDecrease = () => {
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+        } else if (quantity === 1) {
+            toast.error('می توانید حداقل یک محصول را انتخاب کنید');
+        }
+    };
+
+
+    const handleAddToCart = () => {
+        if (product && selectedSize && selectedColor) {
+            handleAddProductToCart({
+                ...product,
+                quantity
+            });
+            setIsProductInCart(true);
+        } else {
+            toast.error('سایز و رنگ محصول را انتخاب کنید');
+        }
     };
 
 
@@ -119,7 +179,7 @@ const ProductDetails = () => {
 
 
                     {/* Left */}
-                    <div className="mt-7 flex flex-col gap-10">
+                    <div className="mt-7 flex flex-col gap-8">
                         <h1 className="text-3xl font-bold">{product?.title}</h1>
 
                         <h3 className="flex items-center gap-1">
@@ -127,10 +187,21 @@ const ProductDetails = () => {
                             <span className="text-md">تومان</span>
                         </h3>
 
-                        <p className="flex items-center gap-1">
-                            <span>تعداد : </span>
-                            <span className="font-bold">{product?.stock}</span>
-                        </p>
+                        <div className="flex items-center gap-6">
+                            <p className="flex items-center gap-1">
+                                <span>تعداد : </span>
+                                <span className="font-bold">{product?.stock}</span>
+                            </p>
+
+                            <hr className="w-[1px] h-[1.1rem] bg-slate-300" />
+
+                            <div className="flex items-center gap-1">
+                                <span className="font-semibold">وضعیت : </span>
+                                <div className={product?.isStatus ? 'text-teal-400' : 'text-rose-400'}>
+                                    {product?.isStatus ? 'موجود' : 'ناموجود'}
+                                </div>
+                            </div>
+                        </div>
 
                         <div className="flex flex-col items-start gap-1">
                             <span>راهنمای انتخاب سایز حتما مطالعه شود.</span>
@@ -143,9 +214,148 @@ const ProductDetails = () => {
 
                         <p>توجه! ❌ حتما راهنمای سایز مطالعه شود. ❌</p>
 
-                        <div className="flex flex-col items-start gap-8 xl:gap-1 xl:fixed xl:left-0 xl:bottom-0 xl:right-0 xl:w-full xl:bg-[#f0f0f0] xl:flex xl:flex-row xl:z-[1000] xl:py-4 xl:px-2 xl:items-center xl:rounded-t-lg xl:shadow-xl">
 
-                            <div className="flex items-center gap-4 xl:gap-1 w-[30rem] 2xl:w-full xl:flex-row xl:w-full">
+                        {/* <div className="flex items-center gap-4 xl:gap-1 w-[30rem] 2xl:w-full xl:flex-row xl:w-full">
+
+                            <div className="flex flex-col gap-1 w-full">
+                                <label htmlFor="size-select" className="xl:hidden">سایز</label>
+                                <select
+                                    name="size"
+                                    id="size-select"
+                                    value={selectedSize ?? ""}
+                                    onChange={(e) => setSelectedSize(e.target.value)}
+                                    className="p-2 border border-slate-300 rounded outline-none"
+                                >
+                                    <option value="">انتخاب سایز</option>
+                                    {product?.sizes.map((size, index) => (
+                                        <option key={index} value={size}>
+                                            {size}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className="flex flex-col gap-1 w-full">
+                                <label htmlFor="color-select" className="xl:hidden">رنگ</label>
+                                <select
+                                    name="color"
+                                    id="color-select"
+                                    value={selectedColor ?? ""}
+                                    onChange={(e) => setSelectedColor(e.target.value)}
+                                    className="p-2 border border-slate-300 rounded outline-none"
+                                >
+                                    <option value="">انتخاب رنگ</option>
+                                    {product?.colors.map((color, index) => (
+                                        <option key={index} value={color}>
+                                            {color}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                        </div> */}
+
+
+                        {/* <Horizontal /> */}
+                        {isProductInCart
+                            ?
+                            <>
+                                <p className="mb-2 text-slate-500 flex items-center gap-1">
+                                    <MdCheckCircle size={20} className="text-teal-400" />
+                                    <span> کالا به سد خرید شما اضافه شد</span>
+                                </p>
+
+                                <div className="max-w-[18.75rem]">
+                                    <Button label="مشاهده سبد خرید" outline onClick={() => { router.push('/cart') }} />
+                                </div>
+                            </>
+                            :
+                            <>
+                                {product?.isStatus
+                                    ?
+                                    <>
+                                        {/* <Horizontal /> */}
+                                        <div className="flex items-center gap-4 xl:gap-1 w-[30rem] 2xl:w-full xl:flex-row xl:w-full">
+
+                                            <div className="flex flex-col gap-1 w-full">
+                                                <label htmlFor="size-select" className="xl:hidden">سایز</label>
+                                                <select
+                                                    name="size"
+                                                    id="size-select"
+                                                    value={selectedSize ?? ""}
+                                                    onChange={(e) => setSelectedSize(e.target.value)}
+                                                    className="p-2 border border-slate-300 rounded outline-none"
+                                                >
+                                                    <option value="">انتخاب سایز</option>
+                                                    {product?.sizes.map((size, index) => (
+                                                        <option key={index} value={size}>
+                                                            {size}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+
+                                            <div className="flex flex-col gap-1 w-full">
+                                                <label htmlFor="color-select" className="xl:hidden">رنگ</label>
+                                                <select
+                                                    name="color"
+                                                    id="color-select"
+                                                    value={selectedColor ?? ""}
+                                                    onChange={(e) => setSelectedColor(e.target.value)}
+                                                    className="p-2 border border-slate-300 rounded outline-none"
+                                                >
+                                                    <option value="">انتخاب رنگ</option>
+                                                    {product?.colors.map((color, index) => (
+                                                        <option key={index} value={color}>
+                                                            {color}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+
+                                        </div>
+
+                                        <SetQuantity
+                                            productType={{ ...product, quantity }}
+                                            handleQtyIncrease={handleQtyIncrease}
+                                            handleQtyDecrease={handleQtyDecrease}
+                                        />
+
+                                        {/* <Horizontal /> */}
+                                        <div className="max-w-[18.75rem]">
+                                            <Button
+                                                label="افزودن به سبد"
+                                                onClick={handleAddToCart}
+                                            />
+                                        </div>
+                                    </>
+                                    :
+                                    <>
+                                        {/* <Horizontal /> */}
+                                        <div className="max-w-[18.75rem]">
+                                            <div className="rounded-md bg-rose-500 text-white px-2 py-3 text-[1.1rem] transition w-full border-slate-700 flex items-center justify-center gap-2">ناموجود</div>
+                                        </div>
+                                    </>
+                                }
+                            </>
+                        }
+
+
+                        {/* <button className="bg-slate-700 text-white p-4 px-5 xl:p-3 rounded-xl hover:shadow-xl hover:shadow-slate-200 transition-all flex items-center gap-2">
+                            <span className="xl:hidden"><MdOutlineShoppingCartCheckout size={25} /></span>
+                            <span className="xl:hidden">افرودن به سبد خرید</span>
+                            <span className="hidden xl:block">خرید</span>
+                        </button> */}
+
+
+
+
+
+
+                        {/* <div className="flex flex-col items-start gap-8 xl:gap-1 xl:fixed xl:left-0 xl:bottom-0 xl:right-0 xl:w-full xl:bg-[#f0f0f0] xl:flex xl:flex-row xl:z-[1000] xl:py-4 xl:px-2 xl:items-center xl:rounded-t-lg xl:shadow-xl"> */}
+
+                        {/* select size and color */}
+                        {/* <div className="flex items-center gap-4 xl:gap-1 w-[30rem] 2xl:w-full xl:flex-row xl:w-full">
 
                                 <div className="flex flex-col gap-1 w-full">
                                     <label htmlFor="size-select" className="xl:hidden">سایز</label>
@@ -183,16 +393,16 @@ const ProductDetails = () => {
                                     </select>
                                 </div>
 
-                            </div>
+                            </div> */}
 
 
-                            <button className="bg-slate-700 text-white p-4 px-5 xl:p-3 rounded-xl hover:shadow-xl hover:shadow-slate-200 transition-all flex items-center gap-2">
+                        {/* <button className="bg-slate-700 text-white p-4 px-5 xl:p-3 rounded-xl hover:shadow-xl hover:shadow-slate-200 transition-all flex items-center gap-2">
                                 <span className="xl:hidden"><MdOutlineShoppingCartCheckout size={25} /></span>
                                 <span className="xl:hidden">افرودن به سبد خرید</span>
                                 <span className="hidden xl:block">خرید</span>
-                            </button>
+                            </button> */}
 
-                        </div>
+                        {/* </div> */}
                     </div>
 
                 </div>

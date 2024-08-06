@@ -9,6 +9,7 @@ type ProductType = {
     images: string[];
     stock: number;
     gender: string;
+    isStatus: boolean;
     quantity: number;
     sizes: number[];
     colors: string[];
