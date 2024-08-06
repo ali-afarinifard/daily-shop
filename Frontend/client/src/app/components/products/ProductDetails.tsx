@@ -216,49 +216,6 @@ const ProductDetails = () => {
 
                         <p>توجه! ❌ حتما راهنمای سایز مطالعه شود. ❌</p>
 
-
-                        {/* <div className="flex items-center gap-4 xl:gap-1 w-[30rem] 2xl:w-full xl:flex-row xl:w-full">
-
-                            <div className="flex flex-col gap-1 w-full">
-                                <label htmlFor="size-select" className="xl:hidden">سایز</label>
-                                <select
-                                    name="size"
-                                    id="size-select"
-                                    value={selectedSize ?? ""}
-                                    onChange={(e) => setSelectedSize(e.target.value)}
-                                    className="p-2 border border-slate-300 rounded outline-none"
-                                >
-                                    <option value="">انتخاب سایز</option>
-                                    {product?.sizes.map((size, index) => (
-                                        <option key={index} value={size}>
-                                            {size}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            <div className="flex flex-col gap-1 w-full">
-                                <label htmlFor="color-select" className="xl:hidden">رنگ</label>
-                                <select
-                                    name="color"
-                                    id="color-select"
-                                    value={selectedColor ?? ""}
-                                    onChange={(e) => setSelectedColor(e.target.value)}
-                                    className="p-2 border border-slate-300 rounded outline-none"
-                                >
-                                    <option value="">انتخاب رنگ</option>
-                                    {product?.colors.map((color, index) => (
-                                        <option key={index} value={color}>
-                                            {color}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-
-                        </div> */}
-
-
-                        {/* <Horizontal /> */}
                         {isProductInCart
                             ?
                             <>
@@ -276,7 +233,6 @@ const ProductDetails = () => {
                                 {product?.isStatus
                                     ?
                                     <>
-                                        {/* <Horizontal /> */}
                                         <div className="flex items-center gap-4 xl:gap-1 w-[30rem] 2xl:w-full xl:flex-row xl:w-full">
 
                                             <div className="flex flex-col gap-1 w-full">
@@ -323,7 +279,6 @@ const ProductDetails = () => {
                                             handleQtyDecrease={handleQtyDecrease}
                                         />
 
-                                        {/* <Horizontal /> */}
                                         <div className="max-w-[18.75rem]">
                                             <Button
                                                 label="افزودن به سبد"
@@ -333,7 +288,6 @@ const ProductDetails = () => {
                                     </>
                                     :
                                     <>
-                                        {/* <Horizontal /> */}
                                         <div className="max-w-[18.75rem]">
                                             <div className="rounded-md bg-rose-500 text-white px-2 py-3 text-[1.1rem] transition w-full border-slate-700 flex items-center justify-center gap-2">ناموجود</div>
                                         </div>
@@ -343,12 +297,13 @@ const ProductDetails = () => {
                         }
 
 
-                        {/* <button className="bg-slate-700 text-white p-4 px-5 xl:p-3 rounded-xl hover:shadow-xl hover:shadow-slate-200 transition-all flex items-center gap-2">
-                            <span className="xl:hidden"><MdOutlineShoppingCartCheckout size={25} /></span>
-                            <span className="xl:hidden">افرودن به سبد خرید</span>
-                            <span className="hidden xl:block">خرید</span>
-                        </button> */}
-
+                        <div className="max-w-[18.75rem]">
+                            <Button
+                                label="افزودن به لیست علاقه مندی ها"
+                                onClick={() => {}}
+                                custom="!bg-rose-500 !border-rose-500"
+                            />
+                        </div>
 
 
 

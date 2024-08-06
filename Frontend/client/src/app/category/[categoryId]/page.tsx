@@ -2,7 +2,9 @@
 
 import Container from '@/app/components/Container';
 import Heading from '@/app/components/Heading';
+import NullData from '@/app/components/NullData';
 import ProductBox from '@/app/components/products/ProductBox';
+import Spinner from '@/app/components/Spinner';
 import { getCategoryById, getProductsByCategory } from '@/libs/apiUrls';
 import CategoryType from '@/types/category';
 import ProductType from '@/types/product';
@@ -47,8 +49,19 @@ const CategoryPage = () => {
     }, [categoryId]);
 
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>{error}</p>;
+    if (loading) return (
+        <div className='flex items-center justify-center translate-y-[350%]'>
+            <Spinner size={30} />
+        </div>
+    );
+
+    if (!categoryId || products.length === 0) {
+        return (
+            <div>
+                <NullData title='محصولی وجود ندارد' />
+            </div>
+        )
+    }
 
 
     return (
