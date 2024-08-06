@@ -19,7 +19,7 @@ export const CartContextProvider = (props: Props) => {
 
     const [cartTotalQty, setCartTotalQty] = useState(0);
     const [cartTotalAmount, setCartTotalAmount] = useState(0);
-    const [cartProducts, setCartProducts] = useState<ProductType[] | null>(null);
+    const [cartProducts, setCartProducts] = useState<ProductType[] | null>([]);
 
 
     // useEffect(() => {
@@ -167,83 +167,100 @@ export const CartContextProvider = (props: Props) => {
 
 
 
-    const handleRemoveProductFromCart = useCallback((product: ProductType) => {
+    const handleRemoveProductFromCart = useCallback(
+        (product: ProductType) => {
+            if (cartProducts) {
+                const filteredProducts = cartProducts.filter((item) => item._id !== product._id);
 
-        if (cartProducts) {
-            const filteredProducts = cartProducts.filter((item) => {
-                return item._id !== product._id;
-            });
+                setCartProducts(filteredProducts);
+                localStorage.setItem('eShopCartItems', JSON.stringify(filteredProducts));
 
-            setCartProducts(filteredProducts);
-            toast.success('حذف شد');
-            localStorage.setItem('eShopCartItems', JSON.stringify(filteredProducts));
-        };
+                // Recalculate totals after removal
+                const newCartTotalQty = filteredProducts.reduce((acc, item) => acc + item.quantity, 0);
+                const newCartTotalAmount = filteredProducts.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
-    }, [cartProducts]);
+                setCartTotalQty(newCartTotalQty);
+                setCartTotalAmount(newCartTotalAmount);
 
-
-
-
-    const handleCartQtyIncrease = useCallback((product: ProductType) => {
-
-        let updatedCart;
-
-        if (product.quantity === 99) {
-            return toast.error("به بیشترین مقدار رسیده است");
-        };
-
-        if (cartProducts) {
-
-            updatedCart = [...cartProducts];
-
-            const existingIndex = cartProducts.findIndex((item) => item._id === product._id);
-
-            if (existingIndex > -1) {
-                updatedCart[existingIndex].quantity = updatedCart[existingIndex].quantity + 1
+                toast.success('حذف شد');
             }
-
-            setCartProducts(updatedCart);
-            localStorage.setItem('eShopCartItems', JSON.stringify(updatedCart));
-        }
-
-    }, [cartProducts]);
+        },
+        [cartProducts]
+    );
 
 
 
 
-    const handleCartQtyDecrease = useCallback((product: ProductType) => {
+    const handleCartQtyIncrease = useCallback(
+        (product: ProductType) => {
+            if (cartProducts) {
+                const updatedCart = [...cartProducts];
 
-        let updatedCart;
+                const existingIndex = updatedCart.findIndex((item) => item._id === product._id);
 
-        if (product.quantity === 1) {
-            return toast.error("به حداقل رسیده است");
-            return;
-        };
+                if (existingIndex > -1) {
+                    if (updatedCart[existingIndex].quantity === 99) {
+                        return toast.error("به بیشترین مقدار رسیده است");
+                    }
 
-        if (cartProducts) {
+                    updatedCart[existingIndex].quantity += 1;
+                }
 
-            updatedCart = [...cartProducts];
+                setCartProducts(updatedCart);
+                localStorage.setItem('eShopCartItems', JSON.stringify(updatedCart));
 
-            const existingIndex = cartProducts.findIndex((item) => item._id === product._id);
+                // Recalculate totals after increasing quantity
+                const newCartTotalQty = updatedCart.reduce((acc, item) => acc + item.quantity, 0);
+                const newCartTotalAmount = updatedCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
-            if (existingIndex > -1) {
-                updatedCart[existingIndex].quantity = updatedCart[existingIndex].quantity - 1
+                setCartTotalQty(newCartTotalQty);
+                setCartTotalAmount(newCartTotalAmount);
             }
+        },
+        [cartProducts]
+    );
 
-            setCartProducts(updatedCart);
-            localStorage.setItem('eShopCartItems', JSON.stringify(updatedCart));
-        }
 
-    }, [cartProducts]);
+
+
+    const handleCartQtyDecrease = useCallback(
+        (product: ProductType) => {
+            if (cartProducts) {
+                const updatedCart = [...cartProducts];
+
+                const existingIndex = updatedCart.findIndex((item) => item._id === product._id);
+
+                if (existingIndex > -1) {
+                    if (updatedCart[existingIndex].quantity === 1) {
+                        return toast.error("به حداقل رسیده است");
+                    }
+
+                    updatedCart[existingIndex].quantity -= 1;
+                }
+
+                setCartProducts(updatedCart);
+                localStorage.setItem('eShopCartItems', JSON.stringify(updatedCart));
+
+                // Recalculate totals after decreasing quantity
+                const newCartTotalQty = updatedCart.reduce((acc, item) => acc + item.quantity, 0);
+                const newCartTotalAmount = updatedCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+                setCartTotalQty(newCartTotalQty);
+                setCartTotalAmount(newCartTotalAmount);
+            }
+        },
+        [cartProducts]
+    );
 
 
 
 
     const handleClearCart = useCallback(() => {
 
-        setCartProducts(null);
+        setCartProducts([]);
         setCartTotalQty(0);
-        localStorage.setItem('eShopCartItems', JSON.stringify(null));
+        setCartTotalAmount(0);
+        localStorage.setItem('eShopCartItems', JSON.stringify([]));
 
     }, [cartProducts]);
 

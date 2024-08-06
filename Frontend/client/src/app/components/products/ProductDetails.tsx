@@ -108,7 +108,9 @@ const ProductDetails = () => {
         if (product && selectedSize && selectedColor) {
             handleAddProductToCart({
                 ...product,
-                quantity
+                quantity,
+                selectedColor,  // Store the selected color
+                selectedSize
             });
             setIsProductInCart(true);
         } else {

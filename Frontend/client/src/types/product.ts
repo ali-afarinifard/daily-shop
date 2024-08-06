@@ -13,6 +13,8 @@ type ProductType = {
     quantity: number;
     sizes: number[];
     colors: string[];
+    selectedColor?: string;
+    selectedSize?: string;
 };
 
 export default ProductType;

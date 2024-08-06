@@ -5,8 +5,6 @@ import Image from "next/image"
 import Link from "next/link";
 import { useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { IoCart } from "react-icons/io5";
-import { FaCheck } from "react-icons/fa6";
 
 
 interface ProductBoxProps {
@@ -66,17 +64,6 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product }) => {
                             <FaHeart className="h-6 w-6 text-red-500" /> // Filled red heart when whitelisted
                         ) : (
                             <FaRegHeart className="h-6 w-6 text-white" /> // Outlined heart when not whitelisted
-                        )}
-                    </div>
-
-                    <div
-                        className="absolute top-12 left-4 transform -translate-x-10 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500 ease-in-out"
-                        onClick={handleAddToCartClick}
-                    >
-                        {addToCart ? (
-                            <FaCheck className="h-6 w-6 text-green-500" /> // Tick icon when added to cart
-                        ) : (
-                            <IoCart className="h-6 w-6 text-white" /> // Cart icon when not added to cart
                         )}
                     </div>
 
