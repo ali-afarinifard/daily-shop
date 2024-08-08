@@ -1,19 +1,20 @@
 'use client'
 
-import Image from "next/image"
 import Link from "next/link"
-
-import mainCategory1 from "../../../../public/images/category/main/main-category-1.webp"
-import mainCategory2 from "../../../../public/images/category/main/main-category-2.webp"
-import mainCategory3 from "../../../../public/images/category/main/main-category-3.webp"
 import { useEffect, useState } from "react"
 import CategoryType from "@/types/category"
 import { getAllCategories } from "@/libs/apiUrls"
+import { useAuth } from '@/context/AuthContext';
 
 
 const CategoryList = () => {
 
     const [categories, setCategories] = useState<CategoryType[]>([]);
+    const { user, fetchUser } = useAuth();
+
+    // useEffect(() => {
+    //     fetchUser(); // Fetch user info when component mounts
+    // }, [fetchUser]);
 
 
     useEffect(() => {
@@ -80,6 +81,10 @@ const CategoryList = () => {
 
                 </Link>
             ))}
+
+            <div>
+                <h1>Welcome {user?.username}</h1>
+            </div>
         </div>
     )
 }

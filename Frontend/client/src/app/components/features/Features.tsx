@@ -1,6 +1,9 @@
+'use client'
+
 import Heading from "../Heading"
 
 const Features = () => {
+
     return (
         <div className="mt-20">
             <div className="flex flex-col items-center justify-center">

@@ -1,18 +1,21 @@
 'use client'
 
-import { useState } from 'react';
-import { useUser } from '@/context/UserContext';
+import { useContext, useState } from 'react';
 import Heading from '../Heading';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
 
 export default function RegisterPage() {
-    const { register } = useUser();
+    const { register } = useAuth();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const router = useRouter();
 
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
         await register(username, email, password);
+        router.push('/login');
     };
 
     return (
@@ -75,7 +78,7 @@ export default function RegisterPage() {
                     </label>
                 </div>
 
-                
+
                 <button
                     type="submit"
                     className={`disabled:opacity-70 disabled:cursor-not-allowed rounded-md hover:opacity-80 transition w-full border-slate-700 flex items-center justify-center gap-2 bg-slate-700 text-white text-md p-4`}

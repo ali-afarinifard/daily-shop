@@ -1,17 +1,20 @@
 'use client'
 
 import { useState } from 'react';
-import { useUser } from '@/context/UserContext';
 import Heading from '../Heading';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
 
 export default function LoginPage() {
-    const { login } = useUser();
+    const { login } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const router = useRouter();
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         await login(email, password);
+        router.push('/')
     };
 
     return (
