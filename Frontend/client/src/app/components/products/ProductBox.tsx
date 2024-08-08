@@ -44,6 +44,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product }) => {
                             alt={product.title}
                             className="object-cover rounded-t-md transition-opacity duration-500 ease-in-out group-hover:opacity-0"
                             fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                         />
                     )}
 
@@ -53,6 +54,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product }) => {
                             alt={product.title}
                             className="object-cover absolute inset-0 transition-opacity duration-500 ease-in-out opacity-0 group-hover:opacity-100"
                             fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                         />
                     )}
 

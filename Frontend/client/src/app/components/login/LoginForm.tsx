@@ -1,81 +1,67 @@
 'use client'
 
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import Input from "../input/Input";
-import Link from "next/link";
-import Button from "../Button";
-import Heading from "../Heading";
+import { useState } from 'react';
+import { useUser } from '@/context/UserContext';
+import Heading from '../Heading';
 
+export default function LoginPage() {
+    const { login } = useUser();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-const LoginForm = () => {
-
-    const [isLoading, setIsLoading] = useState(false);
-    const { register, handleSubmit, formState: { errors } } = useForm<FieldValues>({
-        defaultValues: {
-            email: "",
-            password: ""
-        },
-    });
-
-
-    const router = useRouter();
-
-    // useEffect(() => {
-    //     if (currentUser) {
-    //         router.push('/cart');
-    //         router.refresh();
-    //     }
-    // }, []);
-
-
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        setIsLoading(true);
-
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+        await login(email, password);
     };
 
-
-    // if (currentUser) {
-    //     return (
-    //         <div className="flex flex-col items-center justify-center gap-6">
-    //             <p className="text-center">وارد شدید، درحال انتقال به صفحه اصلی...</p>
-    //         </div>
-    //     );
-    // };
-
-
     return (
-        <>
-            <Heading title='ورود به Digi~Shop' center />
+        <div className='w-full'>
+            <Heading title='ورود به دیجی شاپ' center />
+            <form onSubmit={handleLogin} className='mt-10 flex flex-col gap-3'>
 
-            <Input
-                id="email"
-                label="ایمیل"
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                required
-            />
+                {/* Email */}
+                <div className='w-full relative'>
+                    <input
+                        type="email"
+                        placeholder=""
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed`}
+                    />
+                    <label
+                        htmlFor="email"
+                        className={`absolute cursor-text text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4`}
+                    >
+                        ایمیل
+                    </label>
+                </div>
 
-            <Input
-                id="password"
-                label="رمز عبور"
-                type="password"
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                required
-            />
 
-            <Button label={isLoading ? "درحال ورود..." : "ورود"} onClick={handleSubmit(onSubmit)} />
+                {/* Password */}
+                <div className='w-full relative'>
+                    <input
+                        type="password"
+                        placeholder=""
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed`}
+                    />
+                    <label
+                        htmlFor="password"
+                        className={`absolute cursor-text text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4`}
+                    >
+                        رمز عبور
+                    </label>
+                </div>
 
-            <p className="text-sm flex items-center gap-[3px]">
-                <span>حساب کاربری ندارید؟</span>
-                <Link href={'/register'} className="underline font-bold"> ثبت نام</Link>
-            </p>
-        </>
-    )
+
+                <button
+                    type="submit"
+                    className={`disabled:opacity-70 disabled:cursor-not-allowed rounded-md hover:opacity-80 transition w-full border-slate-700 flex items-center justify-center gap-2 bg-slate-700 text-white text-md p-4`}
+                >
+                    ورود
+                </button>
+            </form>
+        </div>
+    );
 }
-
-export default LoginForm

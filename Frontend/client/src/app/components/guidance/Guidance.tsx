@@ -6,13 +6,16 @@ import data from "@/utils/accordion"
 import { useState } from "react"
 
 const Guidance = () => {
+
+    const [className, setClassName] = useState("collapsed");
+
     return (
         <div className="mt-20">
             <div className="flex flex-col items-center justify-center">
                 <Heading title="سوالات پرتکرار" center />
             </div>
 
-            <div className="mt-10 w-[70rem] mx-auto">
+            <div className="mt-10 max-w-[70rem] mx-auto">
 
                 <Accordion
                     className="mt-7 border-none"
@@ -20,7 +23,6 @@ const Guidance = () => {
                     preExpanded={[0]}
                 >
                     {data.map((item, i) => {
-                        const [className, setClassName] = useState("collapsed");
                         return (
                             <AccordionItem className={`${className} p-4 px-10 bg-slate-100 rounded-lg overflow-hidden mb-6`} uuid={i} key={i}>
                                 <AccordionItemHeading>
@@ -37,8 +39,8 @@ const Guidance = () => {
                                     </AccordionItemButton>
                                 </AccordionItemHeading>
                                 <AccordionItemPanel>
-                                        <p className='text-[#8c8b8b] text-[0.9rem] leading-9'>{item.details}</p>
-                                    </AccordionItemPanel>
+                                    <p className='text-[#8c8b8b] text-[0.9rem] leading-9'>{item.details}</p>
+                                </AccordionItemPanel>
                             </AccordionItem>
                         )
                     })}

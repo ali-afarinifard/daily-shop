@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Footer from "./components/footer/Footer";
 import CartProvider from "@/providers/CartProvider";
 import { Toaster } from "react-hot-toast";
+import { UserProvider } from "@/context/UserContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,15 +31,17 @@ export default function RootLayout({
             color: '#fff',
           },
         }} />
-        <CartProvider>
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <main className="flex-grow mt-[4.5rem]">
-              {children}
-            </main>
-            <Footer />
-          </div>
-        </CartProvider>
+        <UserProvider>
+          <CartProvider>
+            <div className="flex flex-col min-h-screen">
+              <Navbar />
+              <main className="flex-grow mt-[4.5rem]">
+                {children}
+              </main>
+              <Footer />
+            </div>
+          </CartProvider>
+        </UserProvider>
       </body>
     </html>
   );

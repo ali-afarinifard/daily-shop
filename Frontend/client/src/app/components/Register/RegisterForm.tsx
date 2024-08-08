@@ -1,93 +1,88 @@
 'use client'
 
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import Button from "../Button";
-import Link from "next/link";
-import Input from "../input/Input";
-import Heading from "../Heading";
+import { useState } from 'react';
+import { useUser } from '@/context/UserContext';
+import Heading from '../Heading';
 
+export default function RegisterPage() {
+    const { register } = useUser();
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-const RegisterForm = () => {
-
-    const [isLoading, setIsLoading] = useState(false);
-    const { register, handleSubmit, formState: { errors } } = useForm<FieldValues>({
-        defaultValues: {
-            name: "",
-            email: "",
-            password: ""
-        },
-    });
-
-
-    const router = useRouter();
-
-
-    // useEffect(() => {
-    //     if (currentUser) {
-    //         router.push('/cart');
-    //         router.refresh();
-    //     }
-    // }, []);
-
-
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        setIsLoading(true);
-
-
+    const handleRegister = async (e: React.FormEvent) => {
+        e.preventDefault();
+        await register(username, email, password);
     };
 
-
-    // if (currentUser) {
-    //     return (
-    //         <div className="flex flex-col items-center justify-center gap-6">
-    //             <p className="text-center">وارد شدید، درحال انتقال به صفحه اصلی...</p>
-    //         </div>
-    //     );
-    // };
-
-
     return (
-        <>
-            <Heading title='ثبت نام در Digi~Shop' center />
+        <div className='w-full'>
+            <Heading title='عضویت در دیجی شاپ' center />
+            <form onSubmit={handleRegister} className='mt-10 flex flex-col gap-3'>
 
-            <Input
-                id="name"
-                label="نام"
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                required
-            />
+                {/* Username */}
+                <div className='w-full relative'>
+                    <input
+                        id='username'
+                        type="text"
+                        placeholder=""
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed`}
+                    />
+                    <label
+                        htmlFor="username"
+                        className={`absolute cursor-text text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4`}
+                    >
+                        نام کاربری
+                    </label>
+                </div>
 
-            <Input
-                id="email"
-                label="ایمیل"
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                required
-            />
+                {/* Email */}
+                <div className='w-full relative'>
+                    <input
+                        id='email'
+                        type="email"
+                        placeholder=""
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed`}
+                    />
+                    <label
+                        htmlFor="email"
+                        className={`absolute cursor-text text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4`}
+                    >
+                        ایمیل
+                    </label>
+                </div>
 
-            <Input
-                id="password"
-                label="رمز عبور"
-                type="password"
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                required
-            />
 
-            <Button label={isLoading ? "درحال ثبت نام...." : "ثبت نام"} onClick={handleSubmit(onSubmit)} />
+                {/* Password */}
+                <div className='w-full relative'>
+                    <input
+                        id='password'
+                        type="password"
+                        placeholder=""
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed`}
+                    />
+                    <label
+                        htmlFor="password"
+                        className={`absolute cursor-text text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4`}
+                    >
+                        رمز عبور
+                    </label>
+                </div>
 
-            <p className="text-sm flex items-center gap-[3px]">
-                <span>حساب کاربری دارید؟</span>
-                <Link href={'/login'} className="underline font-bold"> ورود</Link>
-            </p>
-        </>
-    )
+                
+                <button
+                    type="submit"
+                    className={`disabled:opacity-70 disabled:cursor-not-allowed rounded-md hover:opacity-80 transition w-full border-slate-700 flex items-center justify-center gap-2 bg-slate-700 text-white text-md p-4`}
+                >
+                    عضویت
+                </button>
+            </form>
+        </div>
+    );
 }
-
-export default RegisterForm

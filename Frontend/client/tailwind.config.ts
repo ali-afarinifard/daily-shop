@@ -20,6 +20,8 @@ const config: Config = {
         // => @media(max-width: 880px) {...}
         l: {max: "680px"},
         // => @media(max-width: 680px) {...}
+        sl: {max: "770px"},
+        // => @media(max-width: 680px) {...}
         m: {max: "460px"},
         // => @media(max-width: 460px) {...}
       },

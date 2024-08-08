@@ -14,15 +14,17 @@ connectDB();
 
 // Init Middleware
 app.use(cors());
-app.use(express.json({extended: false}));
+app.use(express.json({ extended: false }));
 
 // Import routes
+const authRoutes = require('./routes/auth');
 const categoryRoutes = require('./routes/categories');
 const productRoutes = require('./routes/products');
 const uploadRoutes = require('./routes/uploads');
 const searchRoutes = require('./routes/search');
+const wishlistRoutes = require('./routes/wishlist');
 
-app.use('/api/auth', require('./routes/auth'));
+app.use('/api/auth', authRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/products', productRoutes);
 // **! Check & Fix it later..... (uploads)
@@ -30,6 +32,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // app.use('/uploads', express.static('uploads'));
 app.use('/api', uploadRoutes);
 app.use('/api', searchRoutes);
+app.use('/api', wishlistRoutes);
 
 // Root route for testing
 app.get('/', (req, res) => {

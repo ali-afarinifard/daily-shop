@@ -51,6 +51,7 @@ const Banner = () => {
                                 src={img.image}
                                 alt={img.alt}
                                 className="block h-96 w-full object-cover"
+                                priority
                             />
                         </div>
                     </SwiperSlide>
