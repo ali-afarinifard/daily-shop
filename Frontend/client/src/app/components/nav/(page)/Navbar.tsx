@@ -2,7 +2,7 @@
 
 // ** Components
 import Link from "next/link"
-import SearchBar from "../SearchBar"
+import SearchBar from "../SearchBar/SearchBar"
 import CartCount from "../CartCount"
 import FavoriteCount from "../FavoriteCount"
 import UserMenu from "../UserMenu"
