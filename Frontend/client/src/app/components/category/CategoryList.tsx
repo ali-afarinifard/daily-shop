@@ -10,7 +10,7 @@ import { useAuth } from '@/context/AuthContext';
 const CategoryList = () => {
 
     const [categories, setCategories] = useState<CategoryType[]>([]);
-    const { user, fetchUser } = useAuth();
+    const { user } = useAuth();
 
     // useEffect(() => {
     //     fetchUser(); // Fetch user info when component mounts

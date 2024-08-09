@@ -6,9 +6,12 @@ import BackDrop from "./BackDrop";
 import { AiFillCaretDown } from "react-icons/ai";
 import MenuItem from "./MenuItem";
 import Avatar from "../Avatar";
+import { useAuth } from '@/context/AuthContext';
 
 
 const UserMenu = () => {
+
+    const { user, logout } = useAuth();
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -28,14 +31,37 @@ const UserMenu = () => {
                 {isOpen && (
                     <div className="absolute rounded-md shadow-md w-[10.63rem] bg-white overflow-hidden left-0 top-12 text-sm flex flex-col cursor-pointer">
 
-                        <div>
-                            <Link href={'/login'}>
-                                <MenuItem onClick={toggleOpen}>ورود</MenuItem>
-                            </Link>
-                            <Link href={'/register'}>
-                                <MenuItem onClick={toggleOpen}>عضویت</MenuItem>
-                            </Link>
-                        </div>
+                        {user
+                            ?
+                            (
+                                <div>
+                                    <Link href={'/orders'}>
+                                        <MenuItem onClick={toggleOpen}>سفارش ها</MenuItem>
+                                    </Link>
+                                    <Link href={'/admin'}>
+                                        <MenuItem onClick={toggleOpen}>حساب کاربری</MenuItem>
+                                    </Link>
+                                    <hr />
+                                    <MenuItem onClick={() => {
+                                        toggleOpen();
+                                        logout();
+                                    }}>
+                                        خروج
+                                    </MenuItem>
+                                </div>
+                            )
+                            :
+                            (
+                                <div>
+                                    <Link href={'/login'}>
+                                        <MenuItem onClick={toggleOpen}>ورود</MenuItem>
+                                    </Link>
+                                    <Link href={'/register'}>
+                                        <MenuItem onClick={toggleOpen}>عضویت</MenuItem>
+                                    </Link>
+                                </div>
+                            )
+                        }
 
                     </div>
                 )}
