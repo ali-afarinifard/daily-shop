@@ -1,17 +1,10 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
 const Admin = require('../models/Admin');
-const { register, login } = require('../controllers/authController');
 require('dotenv').config();
 
 const router = express.Router();
-
-// ** USER_________________ **
-router.post('/register', register);
-router.post('/login', login);
-
 
 
 

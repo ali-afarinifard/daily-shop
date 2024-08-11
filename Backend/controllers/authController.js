@@ -3,8 +3,6 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const { generateTokens } = require('../utils/generateTokens');
 
-const JWT_SECRET = process.env.JWT_SECRET;
-
 const register = async (req, res) => {
     const { username, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
