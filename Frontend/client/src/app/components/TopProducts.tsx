@@ -1,7 +1,7 @@
 'use client'
 
 import { getAllProducts } from "@/libs/apiUrls";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Heading from "./Heading";
 import ProductType from "@/types/product";
 

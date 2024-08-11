@@ -6,10 +6,8 @@ import { MdFavoriteBorder } from "react-icons/md";
 
 const FavoriteCount = () => {
 
-    const router = useRouter();
-
     return (
-        <div className="relative cursor-pointer" onClick={() => router.push('/favorites')}>
+        <div className="relative cursor-pointer">
 
             <div className="text-3xl">
                 <MdFavoriteBorder />

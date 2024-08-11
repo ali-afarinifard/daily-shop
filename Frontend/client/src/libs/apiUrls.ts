@@ -46,7 +46,7 @@ export const getAllProducts = async () => {
 
 // ** GET Product By Category
 export const getProductsByCategory = async (categoryId: string): Promise<ProductType[]> => {
-    const response = await api.get(`/ products ? category = ${categoryId}`);
+    const response = await api.get(`/products?category=${categoryId}`);
     return response.data;
 };
 
@@ -77,7 +77,7 @@ export const getAllCategories = async () => {
 
 // ** GET Category By ID
 export const getCategoryById = async (categoryId: string): Promise<CategoryType> => {
-    const response = await api.get(`/ categories / ${categoryId}`);
+    const response = await api.get(`/categories/${categoryId}`);
     return response.data;
 };
 

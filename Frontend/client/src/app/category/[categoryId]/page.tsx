@@ -51,7 +51,7 @@ const CategoryPage = () => {
 
     if (loading) return (
         <div className='flex items-center justify-center translate-y-[350%]'>
-            <Spinner size={30} />
+            <Spinner size={35} />
         </div>
     );
 

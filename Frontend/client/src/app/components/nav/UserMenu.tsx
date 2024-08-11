@@ -41,11 +41,14 @@ const UserMenu = () => {
                             ?
                             (
                                 <div>
+                                    <Link href={'/userAccount'}>
+                                        <MenuItem onClick={toggleOpen}>حساب کاربری</MenuItem>
+                                    </Link>
+                                    <Link href={'/wishlist'}>
+                                        <MenuItem onClick={toggleOpen}>علاقه مندی ها</MenuItem>
+                                    </Link>
                                     <Link href={'/orders'}>
                                         <MenuItem onClick={toggleOpen}>سفارش ها</MenuItem>
-                                    </Link>
-                                    <Link href={'/admin'}>
-                                        <MenuItem onClick={toggleOpen}>حساب کاربری</MenuItem>
                                     </Link>
                                     <hr />
                                     <MenuItem onClick={() => {
