@@ -1,19 +1,25 @@
 'use client'
 
 import Link from "next/link";
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import BackDrop from "./BackDrop";
 import { AiFillCaretDown } from "react-icons/ai";
 import MenuItem from "./MenuItem";
 import Avatar from "../Avatar";
-import { useAuth } from '@/context/AuthContext';
+import { AuthContext } from "@/context/AuthContext";
 
 
 const UserMenu = () => {
 
-    const { user, logout } = useAuth();
-
     const [isOpen, setIsOpen] = useState(false);
+
+    const authContext = useContext(AuthContext);
+
+    if (!authContext) {
+        throw new Error("AuthContext must be used within an AuthProvider");
+    }
+
+    const { user, logout } = authContext;
 
     const toggleOpen = useCallback(() => {
         setIsOpen(prev => !prev);

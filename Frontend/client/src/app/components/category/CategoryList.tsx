@@ -4,13 +4,11 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import CategoryType from "@/types/category"
 import { getAllCategories } from "@/libs/apiUrls"
-import { useAuth } from '@/context/AuthContext';
 
 
 const CategoryList = () => {
 
     const [categories, setCategories] = useState<CategoryType[]>([]);
-    const { user } = useAuth();
 
     // useEffect(() => {
     //     fetchUser(); // Fetch user info when component mounts
@@ -81,10 +79,6 @@ const CategoryList = () => {
 
                 </Link>
             ))}
-
-            <div>
-                <h1>Welcome {user?.username}</h1>
-            </div>
         </div>
     )
 }

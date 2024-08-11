@@ -18,7 +18,6 @@ app.use(express.json());
 
 // Import routes
 const authRoutes = require('./routes/auth');
-const userRoutes = require('./routes/user');
 const categoryRoutes = require('./routes/categories');
 const productRoutes = require('./routes/products');
 const uploadRoutes = require('./routes/uploads');
@@ -26,7 +25,6 @@ const searchRoutes = require('./routes/search');
 const wishlistRoutes = require('./routes/wishlist');
 
 app.use('/api/auth', authRoutes);
-app.use('/api/user', userRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/products', productRoutes);
 // **! Check & Fix it later..... (uploads)

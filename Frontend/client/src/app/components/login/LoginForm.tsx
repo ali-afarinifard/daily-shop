@@ -1,20 +1,50 @@
 'use client'
 
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Heading from '../Heading';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/context/AuthContext';
+import { AuthContext } from '@/context/AuthContext';
+import { login } from '@/libs/apiUrls';
 
 export default function LoginPage() {
-    const { login } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+
+    const authContext = useContext(AuthContext);
+
+    if (!authContext) {
+        throw new Error('AuthContext must be used within an AuthProvider');
+    }
+
+    const { login: authLogin, isAuthenticated } = authContext;
+
     const router = useRouter();
+
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            router.push('/');
+        };
+    }, [isAuthenticated, router]);
+
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        await login(email, password);
-        router.push('/')
+        setError('');
+
+        try {
+
+            const response = await login(email, password);
+            
+            localStorage.setItem('accessToken', response.data.accessToken);
+            localStorage.setItem('refreshToken', response.data.refreshToken);
+            authLogin(response.data.accessToken, response.data.refreshToken);
+            router.push('/');
+
+        } catch (error) {
+            setError('Login failed!');
+        }
     };
 
     return (

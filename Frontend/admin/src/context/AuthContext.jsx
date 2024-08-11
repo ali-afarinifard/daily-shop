@@ -1,7 +1,6 @@
 // ** React
 import React, { createContext, useState, useEffect } from 'react';
 import api from '../config/api';
-import { useNavigate } from 'react-router-dom';
 
 // ** Create Context
 const AuthContext = createContext();

@@ -5,28 +5,24 @@ import CategoryType from "@/types/category";
 
 
 // ** Auth______________________________
-// ** Register
-export const register = async (data: { username: string, email: string, password: string }) => {
-    return api.post('/auth/user/register', data);
-}
+const register = (username: string, email: string, password: string) => {
+    return api.post('/auth/user/register', { username, email, password });
+};
+
+const login = (email: string, password: string) => {
+    return api.post('/auth/user/login', { email, password });
+};
+
+const refreshToken = (token: string) => {
+    return api.post('/auth/user/token', { token });
+};
+
+const logout = (token: string) => {
+    return api.post('/auth/user/logout', { token });
+};
 
 
-// ** Login
-export const login = async (data: { email: string, password: string }) => {
-    return api.post('/auth/user/login', data);
-}
-
-
-// ** Refresh Token
-export const refreshToken = async (data: { token: string }) => {
-    return api.post('/auth/user/token', data);
-}
-
-
-// ** Logout
-export const logout = async (data: { token: string }) => {
-    return api.post('/auth/user/logout', data);
-}
+export { register, login, refreshToken, logout };
 
 
 

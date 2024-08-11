@@ -1,21 +1,30 @@
 'use client'
 
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import Heading from '../Heading';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/context/AuthContext';
+import { register } from '@/libs/apiUrls';
 
 export default function RegisterPage() {
-    const { register } = useAuth();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+
     const router = useRouter();
 
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
-        await register(username, email, password);
-        router.push('/login');
+        setError('');
+        
+        try {
+            
+            await register(username, email, password);
+            router.push('/login')
+
+        } catch (error) {
+            setError('Registration failed. Please try again.');
+        }
     };
 
     return (
