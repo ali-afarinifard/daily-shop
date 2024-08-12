@@ -27,7 +27,6 @@ const Banner = () => {
         <div className="relative ___swiper-container" dir="ltr">
             <Swiper
                 grabCursor
-                loop
                 pagination={{
                     clickable: true,
                     el: '.swiper-pagination',
@@ -36,10 +35,7 @@ const Banner = () => {
                 onBeforeInit={(swiper) => {
                     swiperRef.current = swiper;
                 }}
-                autoplay={{
-                    delay: 4500,
-                }}
-                modules={[Autoplay, Pagination]}
+                modules={[Pagination]}
                 className="w-full mySwiper"
             >
                 {data.map((img) => (
