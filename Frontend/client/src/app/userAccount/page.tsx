@@ -24,7 +24,7 @@ const UserAccount = () => {
     }
 
     return (
-        <div className='w-full shadow-md'>
+        <div>
             <Summary user={user._id} />
         </div>
     )

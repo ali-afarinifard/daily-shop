@@ -4,6 +4,7 @@ import { AuthContext } from "@/context/AuthContext";
 import { useContext } from "react";
 import UserProfileNav from "../components/userProfile/UserProfileNav";
 import Container from "../components/Container";
+import UserProfileNavMobile from "../components/userProfile/UserProfileNavMobile";
 
 
 const UserLayout = ({ children }: { children: React.ReactNode }) => {
@@ -23,9 +24,16 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
 
     return (
         <Container>
-            <div className="flex gap-10 xl:gap-4 h-full w-full py-24">
-                <UserProfileNav user={user} logout={logout} />
-                {children}
+            <div className="flex xl:flex-col gap-10 xl:gap-20 h-full w-full py-24 xl:py-14">
+                <div className="xl:hidden">
+                    <UserProfileNav user={user} logout={logout} />
+                </div>
+                <div className="hidden xl:block">
+                    <UserProfileNavMobile user={user} logout={logout} />
+                </div>
+                <div className="w-full shadow-md py-5 px-6 rounded-lg">
+                    {children}
+                </div>
             </div>
         </Container>
     )
