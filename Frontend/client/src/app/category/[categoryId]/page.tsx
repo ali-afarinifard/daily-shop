@@ -5,11 +5,12 @@ import Heading from '@/app/components/Heading';
 import NullData from '@/app/components/NullData';
 import ProductBox from '@/app/components/products/ProductBox';
 import Spinner from '@/app/components/Spinner';
+import { AuthContext } from '@/context/AuthContext';
 import { getCategoryById, getProductsByCategory } from '@/libs/apiUrls';
 import CategoryType from '@/types/category';
 import ProductType from '@/types/product';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 const CategoryPage = () => {
     const pathname = usePathname();
@@ -49,6 +50,21 @@ const CategoryPage = () => {
     }, [categoryId]);
 
 
+    const authContext = useContext(AuthContext);
+
+    if (!authContext) {
+        throw new Error("AuthContext must be used within an AuthProvider");
+    }
+
+    const { user } = authContext;
+
+
+    if (!user) {
+        return <p>Please log in to view your wishlist.</p>;
+    }
+
+
+
     if (loading) return (
         <div className='flex items-center justify-center translate-y-[350%]'>
             <Spinner size={35} />
@@ -77,7 +93,7 @@ const CategoryPage = () => {
                 <div className='grid grid-cols-4 gap-8 mt-10'>
                     {products && products.map((product) => (
                         <div key={product._id}>
-                            <ProductBox product={product} />
+                            <ProductBox product={product} userId={user?._id} />
                         </div>
                     ))}
                 </div>

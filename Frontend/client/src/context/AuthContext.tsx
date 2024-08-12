@@ -4,7 +4,7 @@ import api from "@/libs/api";
 import { createContext, useEffect, useState } from "react";
 
 
-interface User {
+export interface User {
     _id: string;
     username: string;
     email: string;

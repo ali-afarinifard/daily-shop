@@ -2,13 +2,13 @@
 
 
 import Container from "@/app/components/Container";
-import { getProductById } from "@/libs/apiUrls";
+import { addToWishlist, getProductById } from "@/libs/apiUrls";
 import ProductType from "@/types/product";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react";
 import { TbRulerMeasure } from "react-icons/tb";
-import { MdCheckCircle, MdOutlineShoppingCartCheckout } from "react-icons/md";
+import { MdCheckCircle } from "react-icons/md";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -19,15 +19,12 @@ import SetQuantity from "./SetQuantity";
 import toast from "react-hot-toast";
 
 
-
-const Horizontal = () => {
-    return (
-        <hr className="w-[30%] my-2" />
-    )
+interface ProductDetailsProps {
+    userId: string | null;
 }
 
 
-const ProductDetails = () => {
+const ProductDetails: React.FC<ProductDetailsProps> = ({ userId }) => {
 
     const pathname = usePathname();
     const productId = pathname.split('/').pop();
@@ -42,6 +39,8 @@ const ProductDetails = () => {
     const [selectedColor, setSelectedColor] = useState<string | null>(null);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const [quantity, setQuantity] = useState<number>(1);
+    const [wishlist, setWishlist] = useState<string[]>([]);
+    const [showWishlistMessage, setShowWishlistMessage] = useState(false);
 
 
     const router = useRouter();
@@ -79,6 +78,31 @@ const ProductDetails = () => {
             setIsProductInCart(isProductInCart);
         }
     }, [cartProducts, product]);
+
+
+    useEffect(() => {
+        // Retrieve the wishlist message state from localStorage on mount
+        const storedWishlistMessage = localStorage.getItem(`showWishlistMessage_${productId}`);
+        if (storedWishlistMessage === "true") {
+            setShowWishlistMessage(true);
+        }
+    }, [productId]);
+
+
+    const handleAddToWishlist = async (productId: string) => {
+        try {
+            if (!userId) {
+                console.warn("No userId available.");
+                return;
+            }
+            const updatedWishlist = await addToWishlist(userId, productId);
+            setWishlist(updatedWishlist);
+            setShowWishlistMessage(true);
+            localStorage.setItem(`showWishlistMessage_${productId}`, "true");
+        } catch (error) {
+            console.error('Error while adding wishlist', error);
+        }
+    };
 
 
 
@@ -297,69 +321,36 @@ const ProductDetails = () => {
                         }
 
 
-                        <div className="max-w-[18.75rem]">
-                            <Button
-                                label="افزودن به لیست علاقه مندی ها"
-                                onClick={() => {}}
-                                custom="!bg-rose-500 !border-rose-500"
-                            />
-                        </div>
 
+                        {showWishlistMessage ? (
+                            <>
+                                <p className="mb-2 text-slate-500 flex items-center gap-1">
+                                    <MdCheckCircle size={20} className="text-green-500" />
+                                    <span>کالا به لیست علافه مندی ها اضافه شد</span>
+                                </p>
 
-
-
-
-                        {/* <div className="flex flex-col items-start gap-8 xl:gap-1 xl:fixed xl:left-0 xl:bottom-0 xl:right-0 xl:w-full xl:bg-[#f0f0f0] xl:flex xl:flex-row xl:z-[1000] xl:py-4 xl:px-2 xl:items-center xl:rounded-t-lg xl:shadow-xl"> */}
-
-                        {/* select size and color */}
-                        {/* <div className="flex items-center gap-4 xl:gap-1 w-[30rem] 2xl:w-full xl:flex-row xl:w-full">
-
-                                <div className="flex flex-col gap-1 w-full">
-                                    <label htmlFor="size-select" className="xl:hidden">سایز</label>
-                                    <select
-                                        name="size"
-                                        id="size-select"
-                                        value={selectedSize ?? ""}
-                                        onChange={(e) => setSelectedSize(e.target.value)}
-                                        className="p-2 border border-slate-300 rounded outline-none"
-                                    >
-                                        <option value="">انتخاب سایز</option>
-                                        {product?.sizes.map((size, index) => (
-                                            <option key={index} value={size}>
-                                                {size}
-                                            </option>
-                                        ))}
-                                    </select>
+                                <div className="max-w-[18.75rem]">
+                                    <Button label="مشاهده لیست علاقه مندی ها" outline onClick={() => { router.push('/wishlist') }} />
                                 </div>
-
-                                <div className="flex flex-col gap-1 w-full">
-                                    <label htmlFor="color-select" className="xl:hidden">رنگ</label>
-                                    <select
-                                        name="color"
-                                        id="color-select"
-                                        value={selectedColor ?? ""}
-                                        onChange={(e) => setSelectedColor(e.target.value)}
-                                        className="p-2 border border-slate-300 rounded outline-none"
-                                    >
-                                        <option value="">انتخاب رنگ</option>
-                                        {product?.colors.map((color, index) => (
-                                            <option key={index} value={color}>
-                                                {color}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-
-                            </div> */}
+                            </>
+                        ) : (
+                            <div className="max-w-[18.75rem]">
+                                <Button
+                                    label="افزودن به لیست علاقه مندی ها"
+                                    onClick={() => {
+                                        if (productId) {
+                                            console.log("Button clicked!");
+                                            handleAddToWishlist(productId);
+                                        } else {
+                                            console.error("Product ID is undefined");
+                                        }
+                                    }}
+                                    custom="!bg-rose-500 !border-rose-500"
+                                />
+                            </div>
+                        )}
 
 
-                        {/* <button className="bg-slate-700 text-white p-4 px-5 xl:p-3 rounded-xl hover:shadow-xl hover:shadow-slate-200 transition-all flex items-center gap-2">
-                                <span className="xl:hidden"><MdOutlineShoppingCartCheckout size={25} /></span>
-                                <span className="xl:hidden">افرودن به سبد خرید</span>
-                                <span className="hidden xl:block">خرید</span>
-                            </button> */}
-
-                        {/* </div> */}
                     </div>
 
                 </div>

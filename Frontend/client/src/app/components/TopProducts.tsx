@@ -13,6 +13,7 @@ import 'swiper/css/pagination'
 
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import ProductBox from "./products/ProductBox";
+import { AuthContext } from "@/context/AuthContext";
 
 
 const TopProducts = () => {
@@ -33,6 +34,21 @@ const TopProducts = () => {
 
         fetchProducts();
     }, []);
+
+
+    const authContext = useContext(AuthContext);
+
+    if (!authContext) {
+        throw new Error("AuthContext must be used within an AuthProvider");
+    }
+
+    const { user } = authContext;
+
+
+    if (!user) {
+        return <p>Please log in to view your wishlist.</p>;
+    }
+
 
     return (
         <div className="mt-20">
@@ -64,7 +80,7 @@ const TopProducts = () => {
                     {products.map((product) => (
                         <div>
                             <SwiperSlide key={product._id}>
-                                <ProductBox product={product} />
+                                <ProductBox product={product} userId={user?._id} />
                             </SwiperSlide>
                         </div>
                     ))}

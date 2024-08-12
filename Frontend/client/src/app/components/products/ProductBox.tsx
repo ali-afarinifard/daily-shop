@@ -1,21 +1,23 @@
 'use client'
 
-import Product from "@/types/product"
+import ProductType from "@/types/product"
 import Image from "next/image"
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { addToWishlist, getWishlist, removeFromWishlist } from "@/libs/apiUrls";
 
 
 interface ProductBoxProps {
-    product: Product
+    product: ProductType
+    userId: string | null;
 }
 
 
-const ProductBox: React.FC<ProductBoxProps> = ({ product }) => {
+const ProductBox: React.FC<ProductBoxProps> = ({ product, userId }) => {
 
-    const [isWhitelisted, setIsWhitelisted] = useState(false);
-    const [addToCart, setAddToCart] = useState(false);
+    const [isWhitelisted, setIsWhitelisted] = useState<boolean>(false);
+    const [showWishlistMessage, setShowWishlistMessage] = useState(false);
 
     const firstImage = product.images[0];
     const secondImage = product.images[1];
@@ -27,9 +29,60 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product }) => {
     };
 
 
-    const handleAddToCartClick = (e: React.MouseEvent) => {
-        e.preventDefault();
-        setAddToCart(!addToCart);
+
+    useEffect(() => {
+        const checkWishlistStatus = async () => {
+            try {
+                if (userId) {
+                    const wishlist = await getWishlist(userId);
+                    const isInWishlist = wishlist.some((item: ProductType) => item._id === product._id);
+                    setIsWhitelisted(isInWishlist);
+                }
+            } catch (error) {
+                console.error('Error fetching wishlist status', error);
+            }
+        };
+
+        checkWishlistStatus();
+    }, [userId, product._id]);
+
+
+    useEffect(() => {
+        const storedWishlistMessage = localStorage.getItem(`showWishlistMessage_${product._id}`);
+        if (storedWishlistMessage === "true") {
+            setShowWishlistMessage(true);
+        }
+    }, [product._id]);
+
+
+
+    const handleAddToWishlist = async (productId: string) => {
+        try {
+            if (!userId) {
+                console.warn("No userId available.");
+                return;
+            }
+            await addToWishlist(userId, productId);
+            setIsWhitelisted(true);
+            localStorage.setItem(`showWishlistMessage_${productId}`, "true");
+        } catch (error) {
+            console.error('Error while adding to wishlist', error);
+        }
+    };
+
+
+    const handleRemoveFromWishlist = async (productId: string) => {
+        try {
+            if (!userId) {
+                console.warn("No userId available.");
+                return;
+            }
+            await removeFromWishlist(userId, productId);
+            setIsWhitelisted(false);
+            localStorage.removeItem(`showWishlistMessage_${productId}`);
+        } catch (error) {
+            console.error("Error while removing from wishlist", error);
+        }
     };
 
 
@@ -62,10 +115,16 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product }) => {
                         className="absolute top-4 left-4 transform -translate-x-10 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500 ease-in-out"
                         onClick={handleWhitelistClick}
                     >
+
+
                         {isWhitelisted ? (
-                            <FaHeart className="h-6 w-6 text-red-500" /> // Filled red heart when whitelisted
+                            <button onClick={() => handleRemoveFromWishlist(product._id)}>
+                                <FaHeart className="h-6 w-6 text-red-500" />
+                            </button>
                         ) : (
-                            <FaRegHeart className="h-6 w-6 text-white" /> // Outlined heart when not whitelisted
+                            <button onClick={() => handleAddToWishlist(product._id)}>
+                                <FaRegHeart className="h-6 w-6 text-white" />
+                            </button>
                         )}
                     </div>
 

@@ -4,6 +4,13 @@ import CategoryType from "@/types/category";
 
 
 
+interface WishlistResponse {
+    wishlist: string[];
+    message: string;
+}
+
+
+
 // ** Auth______________________________
 const register = (username: string, email: string, password: string) => {
     return api.post('/auth/user/register', { username, email, password });
@@ -94,6 +101,51 @@ export const getProductsBySearch = async (query: string): Promise<ProductType[]>
 
     } catch (error) {
         console.error('Error fetching search results:', error);
+        throw error;
+    }
+};
+
+
+
+
+
+
+// ** Wishlist ______________________________
+export const addToWishlist = async (userId: string, productId: string) => {
+    console.log("Adding to wishlist:", { userId, productId }); 
+    try {
+
+        const response = await api.post('/wishlist/add', { userId, productId });
+        return response.data;
+
+    } catch (error) {
+        console.error('Error adding to wishlist', error);
+        throw error;
+    }
+};
+
+
+export const removeFromWishlist = async (userId: string, productId: string) => {
+    try {
+
+        const response = await api.post('/wishlist/remove', { userId, productId });
+        return response.data;
+
+    } catch (error) {
+        console.error('Error removing from wishlist', error);
+        throw error;
+    }
+};
+
+
+export const getWishlist = async (userId: string) => {
+    try {
+
+        const response = await api.get(`/wishlist/${userId}`);
+        return response.data;
+
+    } catch (error) {
+        console.error('Error fetching wishlist', error);
         throw error;
     }
 }
