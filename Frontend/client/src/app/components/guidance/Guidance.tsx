@@ -29,10 +29,14 @@ const Guidance = () => {
                                     <AccordionItemButton className='flex items-center justify-center flex-wrap gap-8 bg-slate-100 p-4 w-full justify-self-center cursor-pointer'>
 
                                         <AccordionItemState>
-                                            {({ expanded }) => {
-                                                setClassName(expanded ? "expanded" : "collapsed");
-                                                return null;
-                                            }}
+                                            {({ expanded }) => (
+                                                <span
+                                                    className={`${expanded ? "expanded" : "collapsed"
+                                                        } text-[#1f3e72] font-bold text-[1.2rem]`}
+                                                >
+                                                    {item.heading}
+                                                </span>
+                                            )}
                                         </AccordionItemState>
                                         <span className='text-[#1f3e72] font-bold text-[1.2rem]'>{item.heading}</span>
 

@@ -78,11 +78,9 @@ const TopProducts = () => {
                     className="w-full mySwiper"
                 >
                     {products.map((product) => (
-                        <div>
-                            <SwiperSlide key={product._id}>
-                                <ProductBox product={product} userId={user?._id} />
-                            </SwiperSlide>
-                        </div>
+                        <SwiperSlide key={product._id}>
+                            <ProductBox product={product} userId={user?._id} />
+                        </SwiperSlide>
                     ))}
                 </Swiper>
 
