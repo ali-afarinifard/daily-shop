@@ -229,16 +229,16 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ userId }) => {
                             </div>
                         </div>
 
-                        <div className="flex flex-col items-start gap-1">
+                        {/* <div className="flex flex-col items-start gap-1">
                             <span>راهنمای انتخاب سایز حتما مطالعه شود.</span>
 
                             <button className="flex items-center gap-1 bg-slate-500 p-3 rounded-xl text-white hover:shadow-xl hover:shadow-slate-200 transition-all">
                                 <span><TbRulerMeasure size={22} /></span>
                                 <span>راهنمای انتخاب سایز</span>
                             </button>
-                        </div>
+                        </div> */}
 
-                        <p>توجه! ❌ حتما راهنمای سایز مطالعه شود. ❌</p>
+                        {/* <p>توجه! ❌ حتما راهنمای سایز مطالعه شود. ❌</p> */}
 
                         {isProductInCart
                             ?
@@ -321,34 +321,35 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ userId }) => {
                         }
 
 
+                        <div>
+                            {showWishlistMessage ? (
+                                <>
+                                    <p className="mb-2 text-slate-500 flex items-center gap-1">
+                                        <MdCheckCircle size={20} className="text-green-500" />
+                                        <span>کالا به لیست علافه مندی ها اضافه شد</span>
+                                    </p>
 
-                        {showWishlistMessage ? (
-                            <>
-                                <p className="mb-2 text-slate-500 flex items-center gap-1">
-                                    <MdCheckCircle size={20} className="text-green-500" />
-                                    <span>کالا به لیست علافه مندی ها اضافه شد</span>
-                                </p>
-
+                                    <div className="max-w-[18.75rem]">
+                                        <Button label="مشاهده لیست علاقه مندی ها" outline onClick={() => { router.push('/wishlist') }} />
+                                    </div>
+                                </>
+                            ) : (
                                 <div className="max-w-[18.75rem]">
-                                    <Button label="مشاهده لیست علاقه مندی ها" outline onClick={() => { router.push('/wishlist') }} />
+                                    <Button
+                                        label="افزودن به لیست علاقه مندی ها"
+                                        onClick={() => {
+                                            if (productId) {
+                                                console.log("Button clicked!");
+                                                handleAddToWishlist(productId);
+                                            } else {
+                                                console.error("Product ID is undefined");
+                                            }
+                                        }}
+                                        custom="!bg-rose-500 !border-rose-500"
+                                    />
                                 </div>
-                            </>
-                        ) : (
-                            <div className="max-w-[18.75rem]">
-                                <Button
-                                    label="افزودن به لیست علاقه مندی ها"
-                                    onClick={() => {
-                                        if (productId) {
-                                            console.log("Button clicked!");
-                                            handleAddToWishlist(productId);
-                                        } else {
-                                            console.error("Product ID is undefined");
-                                        }
-                                    }}
-                                    custom="!bg-rose-500 !border-rose-500"
-                                />
-                            </div>
-                        )}
+                            )}
+                        </div>
 
 
                     </div>
