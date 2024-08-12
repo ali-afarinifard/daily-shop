@@ -50,17 +50,6 @@ const WishlistProduct: React.FC<WishlistProductProps> = ({ product, userId, onRe
                         />
                     )}
 
-                    {/* <div
-                        className="absolute top-4 left-4 transform -translate-x-10 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500 ease-in-out"
-                        onClick={handleWhitelistClick}
-                    >
-                        {isWhitelisted ? (
-                            <FaHeart className="h-6 w-6 text-red-500" /> // Filled red heart when whitelisted
-                        ) : (
-                            <FaRegHeart className="h-6 w-6 text-white" /> // Outlined heart when not whitelisted
-                        )}
-                    </div> */}
-
                 </div>
 
                 <div className="p-4 bg-white">

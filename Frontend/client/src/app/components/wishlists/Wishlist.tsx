@@ -16,6 +16,8 @@ interface WishlistProps {
 const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
 
     const [wishlist, setWishlist] = useState<ProductType[]>([]);
+    const [isWhitelisted, setIsWhitelisted] = useState<boolean>(false);
+    const [showWishlistMessage, setShowWishlistMessage] = useState(false);
 
 
     useEffect(() => {
@@ -45,6 +47,8 @@ const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
             setWishlist((prevWishlist) =>
                 prevWishlist.filter((product) => product._id !== productId)
             );
+            setIsWhitelisted(false);
+            localStorage.removeItem(`showWishlistMessage_${productId}`);
         } catch (error) {
             console.error("Error while removing from wishlist", error);
         }
