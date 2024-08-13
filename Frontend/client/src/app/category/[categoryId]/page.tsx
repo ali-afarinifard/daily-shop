@@ -12,6 +12,10 @@ import ProductType from '@/types/product';
 import { usePathname } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
+
 const CategoryPage = () => {
     const pathname = usePathname();
 
@@ -23,6 +27,11 @@ const CategoryPage = () => {
     const [category, setCategory] = useState<CategoryType | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [filter, setFilter] = useState('all');
+
+    // Number of products per page
+    const itemsPerPage = 8;
 
     console.log("Category ID:", categoryId);
 
@@ -48,6 +57,40 @@ const CategoryPage = () => {
 
         fetchProducts();
     }, [categoryId]);
+
+
+    // Apply filtering and sorting based on selected option
+    const filteredProducts = products
+        .filter(product => {
+            if (filter === 'isStatus') {
+                return product.isStatus === true;
+            }
+            return true;
+        })
+        .sort((a, b) => {
+            if (filter === 'priceDesc') {
+                return b.price - a.price; // Sort by price descending
+            } else if (filter === 'priceAsc') {
+                return a.price - b.price; // Sort by price ascending
+            }
+            return 0; // No sorting for other options
+        });
+
+    // Log filtered and sorted products for debugging
+    console.log("Filtered and sorted products:", filteredProducts);
+
+
+    // Calculate the products to display based on the current page
+    const paginatedProducts = filteredProducts.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
+
+
+    // Handle pagination change
+    const handlePageChange = (_event: React.ChangeEvent<unknown>, page: number) => {
+        setCurrentPage(page);
+    };
 
 
     const authContext = useContext(AuthContext);
@@ -83,6 +126,7 @@ const CategoryPage = () => {
     return (
         <div className='mt-10'>
             <Container>
+                {/* Heading */}
                 <div className='w-full flex items-center justify-center'>
                     <div className='relative text-center w-fit'>
                         <h1 className='font-bold text-2xl'>{category?.name}</h1>
@@ -90,12 +134,72 @@ const CategoryPage = () => {
                     </div>
                 </div>
 
-                <div className='grid grid-cols-4 gap-8 mt-10'>
-                    {products && products.map((product) => (
-                        <div key={product._id}>
-                            <ProductBox product={product} userId={user?._id} />
+                {/* Content */}
+                <div className='flex flex-col'>
+
+                    <div className='flex items-center justify-between'>
+
+                        <div className='flex items-center gap-2'>
+                            <label htmlFor="filter">نمایش بر اساس :</label>
+                            <select
+                                name="filter"
+                                id="filter"
+                                className='border py-2 px-5 rounded-md cursor-pointer'
+                                value={filter}
+                                onChange={(e) => setFilter(e.target.value)}
+                            >
+                                <option value='all'>همه محصولات</option>
+                                <option value='isStatus'>کالاهای موجود</option>
+                                <option value='priceDesc'>گران ترین</option>
+                                <option value='priceAsc'>ارزان ترین</option>
+                            </select>
                         </div>
-                    ))}
+
+                        <div className='mt-10'>
+                            <Stack spacing={2} sx={{ direction: 'ltr' }}>
+                                <Pagination
+                                    count={Math.ceil(filteredProducts.length / itemsPerPage)}
+                                    page={currentPage}
+                                    onChange={handlePageChange}
+                                    variant="outlined"
+                                    color="primary"
+                                    sx={{
+                                        "& .MuiPagination-ul": {
+                                            justifyContent: "start", // Center the pagination
+                                        },
+                                    }}
+                                />
+                            </Stack>
+                        </div>
+
+                    </div>
+
+                    <div className='grid grid-cols-4 gap-8 my-8'>
+                        {paginatedProducts && paginatedProducts.map((product) => (
+                            <div key={product._id}>
+                                <ProductBox product={product} userId={user?._id} />
+                            </div>
+                        ))}
+                    </div>
+
+
+                    <div>
+                        <Stack spacing={2} sx={{ direction: 'ltr' }}>
+                            <Pagination
+                                count={Math.ceil(filteredProducts.length / itemsPerPage)}
+                                page={currentPage}
+                                onChange={handlePageChange}
+                                variant="outlined"
+                                color="primary"
+                                sx={{
+                                    "& .MuiPagination-ul": {
+                                        justifyContent: "center", // Center the pagination
+                                    },
+                                }}
+                            />
+                        </Stack>
+                    </div>
+
                 </div>
             </Container>
         </div>

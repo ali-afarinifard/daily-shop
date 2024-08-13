@@ -38,7 +38,6 @@ const Guidance = () => {
                                                 </span>
                                             )}
                                         </AccordionItemState>
-                                        <span className='text-[#1f3e72] font-bold text-[1.2rem]'>{item.heading}</span>
 
                                     </AccordionItemButton>
                                 </AccordionItemHeading>
