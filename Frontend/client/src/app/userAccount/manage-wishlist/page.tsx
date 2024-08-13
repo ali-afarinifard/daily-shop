@@ -8,7 +8,7 @@ import { useContext, useEffect, useState } from "react";
 
 
 const ManageWishlist = () => {
-    
+
     const authContext = useContext(AuthContext);
 
     if (!authContext) {
@@ -22,7 +22,7 @@ const ManageWishlist = () => {
     }
 
     return (
-        <div>
+        <div className="h-full">
             <GetManageWishlist userId={user._id} />
         </div>
     )

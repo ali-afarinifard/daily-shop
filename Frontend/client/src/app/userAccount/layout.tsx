@@ -24,7 +24,7 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
 
     return (
         <Container>
-            <div className="flex xl:flex-col gap-10 xl:gap-20 h-full w-full py-24 xl:py-14">
+            <div className="flex xl:flex-col gap-10 xl:gap-20 h-full w-full py-20 xl:py-14">
                 <div className="xl:hidden">
                     <UserProfileNav user={user} logout={logout} />
                 </div>
