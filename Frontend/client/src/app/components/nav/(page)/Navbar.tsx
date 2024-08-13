@@ -12,7 +12,7 @@ import Container from "../../Container"
 const Navbar = () => {
 
     return (
-        <div className="fixed top-0 w-full bg-slate-200 z-30 shadow-sm py-4 pb-0">
+        <div className="fixed top-0 w-full bg-slate-200 z-40 shadow-sm py-4 pb-0">
             <div className="pb-4">
                 <Container>
                     <div

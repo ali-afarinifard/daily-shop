@@ -74,7 +74,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                     {/* Inputs */}
                     <div className="flex flex-col gap-8">
 
-                        <div className="flex items-center justify-between gap-8">
+                        <div className="flex items-center justify-between gap-8 2xl:flex-col 2xl:justify-center 2xl:gap-4">
 
                             <div className="flex flex-col gap-1 w-full">
                                 <label htmlFor="fullName" className="text-slate-500">نام و نام خانوادگی</label>
@@ -103,7 +103,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                         </div>
 
 
-                        <div className="flex items-center justify-between gap-8">
+                        <div className="flex items-center justify-between gap-8 2xl:flex-col 2xl:justify-center 2xl:gap-4">
 
                             <div className="flex flex-col gap-1 w-full">
                                 <label htmlFor="email" className="text-slate-500">ایمیل</label>
@@ -135,7 +135,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
 
 
                     {/* Submit BTN */}
-                    <div>
+                    <div className="xl:mt-8">
                         {isLoading ? (
                             <Spinner size={30} />
                         ) : (

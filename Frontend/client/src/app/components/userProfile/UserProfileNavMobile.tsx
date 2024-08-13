@@ -29,7 +29,7 @@ const UserProfileNavMobile: React.FC<UserProfileNavMobileProps> = ({ user, logou
 
     return (
         <>
-            <div className="relative z-50 w-fit">
+            <div className="relative z-30 w-fit">
 
                 <div onClick={toggleOpen} className="p-2 px-3 border-[1px] border-slate-400 flex flex-row items-center gap-1 rounded-full cursor-pointer hover:shadow-md transition text-slate-700 bg-slate-100">
                     <CiMenuKebab size={20} />
