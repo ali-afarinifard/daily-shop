@@ -3,8 +3,7 @@
 
 import { AuthContext } from '@/context/AuthContext';
 import React, { useContext } from 'react'
-import Container from '../components/Container';
-import Summary from '../components/userProfile/Summary';
+import Summary from '../components/userProfile/user-account/Summary';
 
 
 const UserAccount = () => {

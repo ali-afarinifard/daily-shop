@@ -2,9 +2,9 @@
 
 import { AuthContext } from "@/context/AuthContext";
 import { useContext } from "react";
-import UserProfileNav from "../components/userProfile/UserProfileNav";
 import Container from "../components/Container";
-import UserProfileNavMobile from "../components/userProfile/UserProfileNavMobile";
+import UserProfileNav from "../components/userProfile/user-account/UserProfileNav";
+import UserProfileNavMobile from "../components/userProfile/user-account/UserProfileNavMobile";
 
 
 const UserLayout = ({ children }: { children: React.ReactNode }) => {

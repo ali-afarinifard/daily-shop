@@ -58,28 +58,28 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
 
                 <div className="flex flex-col gap-2 w-full">
                     {paginatedWishlist.length > 0 && paginatedWishlist.map((product) => (
-                        <>
-                            <div className="w-full h-full overflow-hidden rounded-md border border-slate-200 pl-3" key={product._id}>
-                                <ManageWishlistItem product={product} />
-                            </div>
-                        </>
+                        <div className="w-full h-full overflow-hidden rounded-md border border-slate-200 pl-3" key={product._id}>
+                            <ManageWishlistItem product={product} />
+                        </div>
                     ))}
                 </div>
 
-                <Stack spacing={2} sx={{ direction: 'ltr' }}>
-                    <Pagination
-                        count={Math.ceil(wishlist.length / itemsPerPage)}
-                        page={currentPage}
-                        onChange={handlePageChange}
-                        variant="outlined"
-                        color="primary"
-                        sx={{
-                            "& .MuiPagination-ul": {
-                                justifyContent: "center", // Center the pagination
-                            },
-                        }}
-                    />
-                </Stack>
+                <div className="xl:mt-8">
+                    <Stack spacing={2} sx={{ direction: 'ltr' }}>
+                        <Pagination
+                            count={Math.ceil(wishlist.length / itemsPerPage)}
+                            page={currentPage}
+                            onChange={handlePageChange}
+                            variant="outlined"
+                            color="primary"
+                            sx={{
+                                "& .MuiPagination-ul": {
+                                    justifyContent: "center", // Center the pagination
+                                },
+                            }}
+                        />
+                    </Stack>
+                </div>
             </div>
         </div>
     )

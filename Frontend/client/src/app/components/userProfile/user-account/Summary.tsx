@@ -5,7 +5,7 @@ import { User } from "@/context/AuthContext";
 import { updateUser } from "@/libs/apiUrls";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import Spinner from "../Spinner";
+import Spinner from "../../Spinner";
 
 
 interface SummaryProps {
