@@ -16,7 +16,7 @@ const UserAccount = () => {
         throw new Error("AuthContext must be used within an AuthProvider");
     }
 
-    const { user } = authContext;
+    const { user, updateUserInContext } = authContext;
 
 
     if (!user) {
@@ -24,8 +24,8 @@ const UserAccount = () => {
     }
 
     return (
-        <div>
-            <Summary user={user._id} />
+        <div className='w-full h-full'>
+            <Summary user={user} updateUserInContext={updateUserInContext} />
         </div>
     )
 }

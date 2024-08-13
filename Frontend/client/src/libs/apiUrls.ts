@@ -1,12 +1,21 @@
 import ProductType from "@/types/product";
 import api from "./api"
 import CategoryType from "@/types/category";
+import { User } from "@/context/AuthContext";
 
 
 
 interface WishlistResponse {
     wishlist: string[];
     message: string;
+}
+
+
+interface UpdateUserParams {
+    userId: string;
+    username: string;
+    email: string;
+    password: string;
 }
 
 
@@ -28,8 +37,13 @@ const logout = (token: string) => {
     return api.post('/auth/user/logout', { token });
 };
 
+const updateUser = async (userData: UpdateUserParams) => {
+    const response = await api.put('/auth/user', userData);
+    return response.data;
+}
 
-export { register, login, refreshToken, logout };
+
+export { register, login, refreshToken, logout, updateUser };
 
 
 
@@ -112,7 +126,7 @@ export const getProductsBySearch = async (query: string): Promise<ProductType[]>
 
 // ** Wishlist ______________________________
 export const addToWishlist = async (userId: string, productId: string) => {
-    console.log("Adding to wishlist:", { userId, productId }); 
+    console.log("Adding to wishlist:", { userId, productId });
     try {
 
         const response = await api.post('/wishlist/add', { userId, productId });
@@ -148,4 +162,4 @@ export const getWishlist = async (userId: string) => {
         console.error('Error fetching wishlist', error);
         throw error;
     }
-}
+};

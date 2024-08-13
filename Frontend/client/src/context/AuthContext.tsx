@@ -17,7 +17,7 @@ interface AuthContextType {
     isAuthenticated: boolean;
     login: (accessToken: string, refreshToken: string) => void;
     logout: () => void;
-    // updateUserInContext: (updatedUser: User | null) => void;
+    updateUserInContext: (updatedUser: User | null) => void;
     user: User | null;
 }
 
@@ -80,8 +80,13 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
 
 
+    const updateUserInContext = (updatedUser: User | null) => {
+        setUser(updatedUser);
+    };
+
+
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout, user }}>
+        <AuthContext.Provider value={{ isAuthenticated, login, logout, updateUserInContext, user }}>
             {children}
         </AuthContext.Provider>
     );
