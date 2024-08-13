@@ -20,6 +20,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
     const [formData, setFormData] = useState({
         userId: '',
         username: '',
+        fullName: '',
         email: '',
         password: ''
     });
@@ -31,6 +32,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
             setFormData({
                 userId: user._id,
                 username: user.username,
+                fullName: user.fullName,
                 email: user.email,
                 password: ''
             });
@@ -75,6 +77,18 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                         <div className="flex items-center justify-between gap-8">
 
                             <div className="flex flex-col gap-1 w-full">
+                                <label htmlFor="fullName" className="text-slate-500">نام و نام خانوادگی</label>
+                                <input
+                                    id="fullName"
+                                    type="text"
+                                    name="fullName"
+                                    value={formData.fullName}
+                                    onChange={handleChange}
+                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md"
+                                />
+                            </div>
+
+                            <div className="flex flex-col gap-1 w-full">
                                 <label htmlFor="username" className="text-slate-500">نام کاربری</label>
                                 <input
                                     id="username"
@@ -85,6 +99,11 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                                     className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md"
                                 />
                             </div>
+
+                        </div>
+
+
+                        <div className="flex items-center justify-between gap-8">
 
                             <div className="flex flex-col gap-1 w-full">
                                 <label htmlFor="email" className="text-slate-500">ایمیل</label>
@@ -98,12 +117,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                                 />
                             </div>
 
-                        </div>
-
-
-                        <div className="flex items-center justify-between gap-1">
-
-                            <div className="flex flex-col gap-1">
+                            <div className="flex flex-col gap-1 w-full">
                                 <label htmlFor="password" className="text-slate-500">رمز عبور</label>
                                 <input
                                     id="password"

@@ -57,7 +57,7 @@ const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
 
 
     if (!userId) {
-        return <div>Please log in to view your wishlist.</div>;
+        return;
     }
 
     return (

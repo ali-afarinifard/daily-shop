@@ -19,7 +19,7 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
 
 
     if (!user) {
-        return <p>Please log in to view your wishlist.</p>;
+        return;
     }
 
     return (

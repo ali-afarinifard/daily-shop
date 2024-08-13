@@ -38,7 +38,7 @@ const UserProfileNav: React.FC<UserProfileNavProps> = ({ user, logout }) => {
                             </div>
 
                             <div className="text-slate-600 text-[1.2rem]">
-                                <p className="font-bold">{user.username}</p>
+                                <p className="font-bold">{user.fullName}</p>
                             </div>
 
                         </div>
@@ -74,6 +74,7 @@ const UserProfileNav: React.FC<UserProfileNavProps> = ({ user, logout }) => {
                             <UserProfileNavItem
                                 label="خروج"
                                 icon={MdLogout}
+                                custom="text-rose-500"
                                 onClick={() => {
                                     logout();
                                     router.push('/');

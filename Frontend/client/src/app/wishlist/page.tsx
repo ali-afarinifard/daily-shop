@@ -18,7 +18,7 @@ const WishlistPage = () => {
 
 
     if (!user) {
-        return <p>Please log in to view your wishlist.</p>;
+        return;
     }
 
     return (
