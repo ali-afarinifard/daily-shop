@@ -4,13 +4,6 @@ import CategoryType from "@/types/category";
 import { User } from "@/context/AuthContext";
 
 
-
-interface WishlistResponse {
-    wishlist: string[];
-    message: string;
-}
-
-
 interface UpdateUserParams {
     userId: string;
     fullName: string;

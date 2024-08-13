@@ -1,6 +1,5 @@
 'use client'
 
-import Product from "@/types/product"
 import Image from "next/image"
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -13,7 +12,7 @@ import { getWishlist, removeFromWishlist } from "@/libs/apiUrls";
 
 
 interface WishlistProductProps {
-    product: Product;
+    product: ProductType;
     userId: string | null;
     onRemove: (productId: string) => void;
 }
