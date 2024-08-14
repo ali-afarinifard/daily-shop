@@ -15,25 +15,64 @@ interface UpdateUserParams {
 
 
 // ** Auth______________________________
-const register = (username: string, email: string, password: string) => {
-    return api.post('/auth/user/register', { username, email, password });
+const register = async (username: string, email: string, password: string) => {
+    try {
+
+        const response = await api.post('/auth/user/register', { username, email, password });
+        return response.data
+
+    } catch (error) {
+        console.error('Error Register', error);
+        throw error;
+    }
 };
 
-const login = (email: string, password: string) => {
-    return api.post('/auth/user/login', { email, password });
+const login = async (email: string, password: string) => {
+    try {
+
+        const response = await api.post('/auth/user/login', { email, password });
+        return response.data;
+
+    } catch (error) {
+        console.error('Error Login', error);
+        throw error;
+    }
 };
 
-const refreshToken = (token: string) => {
-    return api.post('/auth/user/token', { token });
+const refreshToken = async (token: string) => {
+    try {
+
+        const response = await api.post('/auth/user/token', { token });
+        return response.data;
+
+    } catch (error) {
+        console.error('Error refreshToken', error);
+        throw error;
+    }
 };
 
-const logout = (token: string) => {
-    return api.post('/auth/user/logout', { token });
+const logout = async (token: string) => {
+    try {
+
+        const response = await api.post('/auth/user/logout', { token });
+        return response.data;
+
+    } catch (error) {
+        console.error('Error logout', error);
+        throw error;
+    }
 };
 
 const updateUser = async (userData: UpdateUserParams) => {
-    const response = await api.put('/auth/user', userData);
-    return response.data;
+    try {
+
+        const response = await api.put('/auth/user', userData);
+        return response.data;
+
+    } catch (error) {
+        console.error('Error updateUser', error);
+        throw error;
+    }
 }
 
 
@@ -54,24 +93,38 @@ export const getAllProducts = async () => {
         return response.data;
 
     } catch (error) {
-        console.log(error)
+        console.error('Error fetching products', error);
+        throw error;
     }
 };
 
 
 // ** GET Product By Category
 export const getProductsByCategory = async (categoryId: string): Promise<ProductType[]> => {
-    const response = await api.get(`/products?category=${categoryId}`);
-    return response.data;
+    try {
+
+        const response = await api.get(`/products?category=${categoryId}`);
+        return response.data;
+
+    } catch (error) {
+        console.error('Error get product by Category', error);
+        throw error;
+    }
 };
 
 
 
 // ** GET Product By ID
 export const getProductById = async (productId: string): Promise<ProductType> => {
-    const response = await api.get(`/products/${productId}`);
-    console.log(response.data);
-    return response.data;
+    try {
+
+        const response = await api.get(`/products/${productId}`);
+        return response.data;
+
+    } catch (error) {
+        console.error('Error get product by Id', error);
+        throw error;
+    }
 }
 
 
@@ -85,15 +138,23 @@ export const getAllCategories = async () => {
         return response.data;
 
     } catch (error) {
-        console.log(error)
+        console.error('Error get all product', error);
+        throw error;
     }
 };
 
 
 // ** GET Category By ID
 export const getCategoryById = async (categoryId: string): Promise<CategoryType> => {
-    const response = await api.get(`/categories/${categoryId}`);
-    return response.data;
+    try {
+
+        const response = await api.get(`/categories/${categoryId}`);
+        return response.data;
+
+    } catch (error) {
+        console.error('Error get category by Id', error);
+        throw error;
+    }
 };
 
 

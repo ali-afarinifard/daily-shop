@@ -44,6 +44,7 @@ export default function LoginPage() {
             authLogin(response.data.accessToken, response.data.refreshToken);
             toast.success('وارد شدید');
             router.push('/');
+            router.refresh();
 
         } catch (error) {
             setError('Login failed!');

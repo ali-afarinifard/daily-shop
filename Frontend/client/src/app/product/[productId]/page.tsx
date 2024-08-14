@@ -7,18 +7,10 @@ import { useContext } from "react";
 
 const ProductPage = () => {
 
-    const authContext = useContext(AuthContext);
-
-    if (!authContext) {
-        throw new Error("AuthContext must be used within an AuthProvider");
-    }
-
-    const { user } = authContext;
-
     return (
         <div>
             <Container>
-                <ProductDetails user={user} />
+                <ProductDetails/>
             </Container>
         </div>
     )

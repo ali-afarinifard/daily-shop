@@ -55,11 +55,13 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
 
 
     useEffect(() => {
-        const storedWishlistMessage = localStorage.getItem(`showWishlistMessage_${product._id}`);
-        if (storedWishlistMessage === "true") {
-            setShowWishlistMessage(true);
+        if (user) {
+            const storedWishlistMessage = localStorage.getItem(`showWishlistMessage_${user._id}_${product._id}`);
+            if (storedWishlistMessage === "true") {
+                setShowWishlistMessage(true);
+            }
         }
-    }, [product._id]);
+    }, [user, product._id]);
 
 
 
@@ -69,9 +71,9 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                 console.warn("No userId available.");
                 return;
             }
-            await addToWishlist(user?._id, productId);
+            await addToWishlist(user._id, productId);
             setIsWhitelisted(true);
-            localStorage.setItem(`showWishlistMessage_${productId}`, "true");
+            localStorage.setItem(`showWishlistMessage_${user._id}_${productId}`, "true");
         } catch (error) {
             console.error('Error while adding to wishlist', error);
         }
@@ -84,9 +86,9 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                 console.warn("No userId available.");
                 return;
             }
-            await removeFromWishlist(user?._id, productId);
+            await removeFromWishlist(user._id, productId);
             setIsWhitelisted(false);
-            localStorage.removeItem(`showWishlistMessage_${productId}`);
+            localStorage.removeItem(`showWishlistMessage_${user._id}_${productId}`);
         } catch (error) {
             console.error("Error while removing from wishlist", error);
         }

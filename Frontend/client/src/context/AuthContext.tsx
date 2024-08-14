@@ -1,6 +1,7 @@
 'use client'
 
 import api from "@/libs/api";
+import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
 
 
@@ -36,6 +37,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!localStorage.getItem('accessToken') && !!localStorage.getItem('refreshToken'));
     const [user, setUser] = useState<User | null>(null);
+    const router = useRouter();
 
 
     useEffect(() => {
@@ -78,6 +80,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         localStorage.removeItem('refreshToken');
         setIsAuthenticated(false);
         setUser(null);
+        router.push('/');
     };
 
 

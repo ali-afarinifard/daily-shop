@@ -1,20 +1,17 @@
-'use client'
+'use client';  // Add this directive at the top
 
-import { useCart } from "@/hooks/useCart"
+import { useCart } from "@/hooks/useCart";
 import Image from "next/image";
 import Link from "next/link";
 import { MdArrowBack } from "react-icons/md";
-import emptyCart from "../../../../public/images/cart/empty-cart.webp"
+import emptyCart from "../../../../public/images/cart/empty-cart.webp";
 import Heading from "../Heading";
 import CartItem from "./CartItem";
 import Button from "../Button";
 
-
 const CartClient = () => {
 
     const { cartProducts, handleClearCart, cartTotalAmount, cartTotalQty } = useCart();
-
-
 
     if (!cartProducts || cartProducts.length === 0) {
         return (
@@ -31,42 +28,28 @@ const CartClient = () => {
         )
     };
 
-
-
     return (
         <div>
-
             <Heading title="سبد خرید شما" center />
 
             <div className="grid grid-cols-5 text-xs gap-4 pb-2 items-center mt-10">
-
                 <div className="col-span-2 justify-self-start flex items-center gap-[3px]">
                     <span>کالا</span>
-
                     <span>({cartTotalQty})</span>
                 </div>
-
                 <div className="justify-self-center">قیمت</div>
-
                 <div className="justify-self-center">تعداد</div>
-
                 <div className="justify-self-end flex items-center gap-[3px]">
                     <span>قیمت کالاها</span>
-
                     <span>({cartTotalQty})</span>
                 </div>
-
             </div>
-
 
             <div>
-                {cartProducts && cartProducts.map((item) => {
-                    return (
-                        <CartItem key={item._id} item={item} />
-                    )
-                })}
+                {cartProducts && cartProducts.map((item) => (
+                    <CartItem key={item._id} item={item} />
+                ))}
             </div>
-
 
             <div className="border-t-[1.5px] border-slate-200 py-4 flex justify-between gap-4 max-[450px]:flex-col max-[450px]:gap-6">
                 <div className="w-[6rem]">
@@ -74,7 +57,6 @@ const CartClient = () => {
                 </div>
 
                 <div className="text-sm flex flex-col items-start gap-1">
-
                     <div className="flex justify-between w-full text-base font-semibold mb-3">
                         <span className="font-[500]">جمع سبد خرید</span>
                         <span>{cartTotalAmount}</span>
@@ -87,12 +69,10 @@ const CartClient = () => {
                             <MdArrowBack />
                         </Link>
                     </div>
-
                 </div>
             </div>
-
         </div>
-    )
-}
+    );
+};
 
-export default CartClient
+export default CartClient;

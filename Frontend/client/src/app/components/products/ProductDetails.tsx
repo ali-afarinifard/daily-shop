@@ -1,11 +1,10 @@
-'use client'
-
+'use client';
 
 import Container from "@/app/components/Container";
 import { addToWishlist, getProductById } from "@/libs/apiUrls";
 import ProductType from "@/types/product";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { TbRulerMeasure } from "react-icons/tb";
 import { MdCheckCircle } from "react-icons/md";
@@ -17,15 +16,12 @@ import { useCart } from "@/hooks/useCart";
 import Button from "../Button";
 import SetQuantity from "./SetQuantity";
 import toast from "react-hot-toast";
-import { User } from "@/context/AuthContext";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
 
-
-interface ProductDetailsProps {
-    user: User | null;
-}
-
-
-const ProductDetails: React.FC<ProductDetailsProps> = ({ user }) => {
+const ProductDetails: React.FC = () => {
+    const authContext = useContext(AuthContext);
+    const user = authContext?.user;
 
     const pathname = usePathname();
     const productId = pathname.split('/').pop();
@@ -43,23 +39,18 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ user }) => {
     const [wishlist, setWishlist] = useState<string[]>([]);
     const [showWishlistMessage, setShowWishlistMessage] = useState(false);
 
-
     const router = useRouter();
-
 
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-
                 if (productId) {
                     const productData = await getProductById(productId);
                     setProduct(productData);
-                    console.log(productData);
                     if (productData?.images.length) {
                         setSelectedImage(`http://localhost:5000/${productData.images[0].replace(/\\/g, '/')}`);
                     }
                 }
-
             } catch (error) {
                 console.error('Error fetching product:', error);
                 setError('Failed to load product details');
@@ -71,8 +62,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ user }) => {
         fetchProduct();
     }, [productId]);
 
-
-
     useEffect(() => {
         if (cartProducts && product) {
             const isProductInCart = cartProducts.some(item => item._id === product._id);
@@ -80,38 +69,33 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ user }) => {
         }
     }, [cartProducts, product]);
 
-
     useEffect(() => {
-        // Retrieve the wishlist message state from localStorage on mount
-        const storedWishlistMessage = localStorage.getItem(`showWishlistMessage_${productId}`);
-        if (storedWishlistMessage === "true") {
-            setShowWishlistMessage(true);
+        if (user) {
+            const storedWishlistMessage = localStorage.getItem(`showWishlistMessage_${user._id}_${productId}`);
+            if (storedWishlistMessage === "true") {
+                setShowWishlistMessage(true);
+            }
         }
-    }, [productId]);
-
+    }, [user, productId]);
 
     const handleAddToWishlist = async (productId: string) => {
         try {
             if (!user?._id) {
-                console.warn("No userId available.");
-                toast('ابتدا عضو شوید')
+                toast('ابتدا عضو شوید');
                 return;
             }
             const updatedWishlist = await addToWishlist(user._id, productId);
             setWishlist(updatedWishlist);
             setShowWishlistMessage(true);
-            localStorage.setItem(`showWishlistMessage_${productId}`, "true");
+            localStorage.setItem(`showWishlistMessage_${user._id}_${productId}`, "true");
         } catch (error) {
             console.error('Error while adding wishlist', error);
         }
     };
 
-
-
     const handleImageClick = (image: string) => {
         setSelectedImage(`http://localhost:5000/${image.replace(/\\/g, '/')}`);
     };
-
 
     const handleQtyIncrease = () => {
         if (quantity < (product?.stock || 0)) {
@@ -129,7 +113,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ user }) => {
         }
     };
 
-
     const handleAddToCart = () => {
         if (product && selectedSize && selectedColor) {
             handleAddProductToCart({
@@ -144,18 +127,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ user }) => {
         }
     };
 
-
     return (
         <div className="mt-10">
-
             <div className="flex flex-col">
-                {/* Content */}
                 <div className="flex items-start xl:flex-col">
-
-                    {/* Right */}
                     <div className="w-[30rem] xl:flex xl:flex-col items-center justify-center xl:w-full">
-
-                        {/* Main Image */}
                         <div className="w-[30rem] h-full xl:flex xl:items-center xl:justify-center xl:w-full">
                             {selectedImage && (
                                 <Image
@@ -168,8 +144,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ user }) => {
                             )}
                         </div>
 
-
-                        {/* Other Images */}
                         <div className="max-w-[28rem] m:w-full mt-4 p-1 rounded-md border-[1px] border-slate-300">
                             <Swiper
                                 slidesPerView={3}
@@ -202,14 +176,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ user }) => {
                                 ))}
                             </Swiper>
                         </div>
-
                     </div>
 
-
-                    {/* Left */}
                     <div className="mt-7 flex flex-col gap-8">
                         <h1 className="text-3xl font-bold">{product?.title}</h1>
-
                         <h3 className="flex items-center gap-1">
                             <span className="text-2xl text-red-400">{product?.price}</span>
                             <span className="text-md">تومان</span>
@@ -220,9 +190,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ user }) => {
                                 <span>تعداد : </span>
                                 <span className="font-bold">{product?.stock}</span>
                             </p>
-
                             <hr className="w-[1px] h-[1.1rem] bg-slate-300" />
-
                             <div className="flex items-center gap-1">
                                 <span className="font-semibold">وضعیت : </span>
                                 <div className={product?.isStatus ? 'text-teal-400' : 'text-rose-400'}>
@@ -231,19 +199,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ user }) => {
                             </div>
                         </div>
 
-                        {/* <div className="flex flex-col items-start gap-1">
-                            <span>راهنمای انتخاب سایز حتما مطالعه شود.</span>
-
-                            <button className="flex items-center gap-1 bg-slate-500 p-3 rounded-xl text-white hover:shadow-xl hover:shadow-slate-200 transition-all">
-                                <span><TbRulerMeasure size={22} /></span>
-                                <span>راهنمای انتخاب سایز</span>
-                            </button>
-                        </div> */}
-
-                        {/* <p>توجه! ❌ حتما راهنمای سایز مطالعه شود. ❌</p> */}
-
-                        {isProductInCart
-                            ?
+                        {isProductInCart ? (
                             <>
                                 <p className="mb-2 text-slate-500 flex items-center gap-1">
                                     <MdCheckCircle size={20} className="text-teal-400" />
@@ -254,13 +210,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ user }) => {
                                     <Button label="مشاهده سبد خرید" outline onClick={() => { router.push('/cart') }} />
                                 </div>
                             </>
-                            :
+                        ) : (
                             <>
-                                {product?.isStatus
-                                    ?
+                                {product?.isStatus ? (
                                     <>
                                         <div className="flex items-center gap-4 xl:gap-1 w-[30rem] 2xl:w-full xl:flex-row xl:w-full">
-
                                             <div className="flex flex-col gap-1 w-full">
                                                 <label htmlFor="size-select" className="xl:hidden">سایز</label>
                                                 <select
@@ -296,7 +250,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ user }) => {
                                                     ))}
                                                 </select>
                                             </div>
-
                                         </div>
 
                                         <SetQuantity
@@ -312,36 +265,34 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ user }) => {
                                             />
                                         </div>
                                     </>
-                                    :
+                                ) : (
                                     <>
                                         <div className="max-w-[18.75rem]">
                                             <div className="rounded-md bg-rose-500 text-white px-2 py-3 text-[1.1rem] transition w-full border-slate-700 flex items-center justify-center gap-2">ناموجود</div>
                                         </div>
                                     </>
-                                }
+                                )}
                             </>
-                        }
-
+                        )}
 
                         <div>
                             {showWishlistMessage ? (
                                 <>
                                     <p className="mb-2 text-slate-500 flex items-center gap-1">
                                         <MdCheckCircle size={20} className="text-green-500" />
-                                        <span>کالا به لیست علافه مندی ها اضافه شد</span>
+                                        <span>کالا به لیست علاقه‌مندی‌ها اضافه شد</span>
                                     </p>
 
                                     <div className="max-w-[18.75rem]">
-                                        <Button label="مشاهده لیست علاقه مندی ها" outline onClick={() => { router.push('/wishlist') }} />
+                                        <Button label="مشاهده لیست علاقه‌مندی‌ها" outline onClick={() => { router.push('/wishlist') }} />
                                     </div>
                                 </>
                             ) : (
                                 <div className="max-w-[18.75rem]">
                                     <Button
-                                        label="افزودن به لیست علاقه مندی ها"
+                                        label="افزودن به لیست علاقه‌مندی‌ها"
                                         onClick={() => {
                                             if (productId) {
-                                                console.log("Button clicked!");
                                                 handleAddToWishlist(productId);
                                             } else {
                                                 console.error("Product ID is undefined");
@@ -352,20 +303,15 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ user }) => {
                                 </div>
                             )}
                         </div>
-
-
                     </div>
-
                 </div>
 
-                {/* bottom */}
                 <div className="mt-16 w-full max-w-[60rem] leading-[1.75rem] text-justify">
                     <p>{product?.description}</p>
                 </div>
             </div>
-
         </div>
-    )
-}
+    );
+};
 
-export default ProductDetails
+export default ProductDetails;
