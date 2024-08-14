@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Heading from '../Heading';
 import { useRouter } from 'next/navigation';
 import { register } from '@/libs/apiUrls';
+import Link from 'next/link';
 
 export default function RegisterPage() {
     const [username, setUsername] = useState('');
@@ -94,6 +95,10 @@ export default function RegisterPage() {
                 >
                     عضویت
                 </button>
+
+                <div className='text-sm text-center mt-2'>
+                    حساب کاربری دارید؟ <Link href={'/login'} className='text-rose-500'>وارد شوید</Link>
+                </div>
             </form>
         </div>
     );

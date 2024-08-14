@@ -17,14 +17,15 @@ import { useCart } from "@/hooks/useCart";
 import Button from "../Button";
 import SetQuantity from "./SetQuantity";
 import toast from "react-hot-toast";
+import { User } from "@/context/AuthContext";
 
 
 interface ProductDetailsProps {
-    userId: string | null;
+    user: User | null;
 }
 
 
-const ProductDetails: React.FC<ProductDetailsProps> = ({ userId }) => {
+const ProductDetails: React.FC<ProductDetailsProps> = ({ user }) => {
 
     const pathname = usePathname();
     const productId = pathname.split('/').pop();
@@ -91,11 +92,12 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ userId }) => {
 
     const handleAddToWishlist = async (productId: string) => {
         try {
-            if (!userId) {
+            if (!user?._id) {
                 console.warn("No userId available.");
+                toast('ابتدا عضو شوید')
                 return;
             }
-            const updatedWishlist = await addToWishlist(userId, productId);
+            const updatedWishlist = await addToWishlist(user._id, productId);
             setWishlist(updatedWishlist);
             setShowWishlistMessage(true);
             localStorage.setItem(`showWishlistMessage_${productId}`, "true");

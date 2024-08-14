@@ -13,17 +13,12 @@ const ProductPage = () => {
         throw new Error("AuthContext must be used within an AuthProvider");
     }
 
-    const { user, logout } = authContext;
-
-
-    if (!user) {
-        return;
-    }
+    const { user } = authContext;
 
     return (
         <div>
             <Container>
-                <ProductDetails userId={user._id} />
+                <ProductDetails user={user} />
             </Container>
         </div>
     )

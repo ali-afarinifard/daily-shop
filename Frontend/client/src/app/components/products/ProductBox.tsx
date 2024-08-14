@@ -6,15 +6,17 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { addToWishlist, getWishlist, removeFromWishlist } from "@/libs/apiUrls";
+import { User } from "@/context/AuthContext";
+import toast from "react-hot-toast";
 
 
 interface ProductBoxProps {
     product: ProductType
-    userId: string | null;
+    user: User | null;
 }
 
 
-const ProductBox: React.FC<ProductBoxProps> = ({ product, userId }) => {
+const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
 
     const [isWhitelisted, setIsWhitelisted] = useState<boolean>(false);
     const [showWishlistMessage, setShowWishlistMessage] = useState(false);
@@ -25,7 +27,12 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, userId }) => {
 
     const handleWhitelistClick = (e: React.MouseEvent) => {
         e.preventDefault();
-        setIsWhitelisted(!isWhitelisted)
+
+        if (user) {
+            setIsWhitelisted(!isWhitelisted)
+        } else {
+            toast('ابتدا عضو شوید');
+        };
     };
 
 
@@ -33,8 +40,8 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, userId }) => {
     useEffect(() => {
         const checkWishlistStatus = async () => {
             try {
-                if (userId) {
-                    const wishlist = await getWishlist(userId);
+                if (user?._id) {
+                    const wishlist = await getWishlist(user?._id);
                     const isInWishlist = wishlist.some((item: ProductType) => item._id === product._id);
                     setIsWhitelisted(isInWishlist);
                 }
@@ -44,7 +51,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, userId }) => {
         };
 
         checkWishlistStatus();
-    }, [userId, product._id]);
+    }, [user?._id, product._id]);
 
 
     useEffect(() => {
@@ -58,11 +65,11 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, userId }) => {
 
     const handleAddToWishlist = async (productId: string) => {
         try {
-            if (!userId) {
+            if (!user?._id) {
                 console.warn("No userId available.");
                 return;
             }
-            await addToWishlist(userId, productId);
+            await addToWishlist(user?._id, productId);
             setIsWhitelisted(true);
             localStorage.setItem(`showWishlistMessage_${productId}`, "true");
         } catch (error) {
@@ -73,11 +80,11 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, userId }) => {
 
     const handleRemoveFromWishlist = async (productId: string) => {
         try {
-            if (!userId) {
+            if (!user?._id) {
                 console.warn("No userId available.");
                 return;
             }
-            await removeFromWishlist(userId, productId);
+            await removeFromWishlist(user?._id, productId);
             setIsWhitelisted(false);
             localStorage.removeItem(`showWishlistMessage_${productId}`);
         } catch (error) {

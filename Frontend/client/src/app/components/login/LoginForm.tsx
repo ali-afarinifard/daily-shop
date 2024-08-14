@@ -5,6 +5,8 @@ import Heading from '../Heading';
 import { useRouter } from 'next/navigation';
 import { AuthContext } from '@/context/AuthContext';
 import { login } from '@/libs/apiUrls';
+import toast from 'react-hot-toast';
+import Link from 'next/link';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
@@ -36,10 +38,11 @@ export default function LoginPage() {
         try {
 
             const response = await login(email, password);
-            
+
             localStorage.setItem('accessToken', response.data.accessToken);
             localStorage.setItem('refreshToken', response.data.refreshToken);
             authLogin(response.data.accessToken, response.data.refreshToken);
+            toast.success('وارد شدید');
             router.push('/');
 
         } catch (error) {
@@ -55,8 +58,9 @@ export default function LoginPage() {
                 {/* Email */}
                 <div className='w-full relative'>
                     <input
+                        id='email'
                         type="email"
-                        placeholder=""
+                        autoComplete='off'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed`}
@@ -73,8 +77,9 @@ export default function LoginPage() {
                 {/* Password */}
                 <div className='w-full relative'>
                     <input
+                        id='password'
                         type="password"
-                        placeholder=""
+                        autoComplete='off'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed`}
@@ -94,6 +99,10 @@ export default function LoginPage() {
                 >
                     ورود
                 </button>
+
+                <div className='text-sm text-center mt-2'>
+                    حساب کاربری ندارید؟ <Link href={'/register'} className='text-rose-500'>ثبت نام کنید</Link>
+                </div>
             </form>
         </div>
     );

@@ -102,11 +102,6 @@ const CategoryPage = () => {
     const { user } = authContext;
 
 
-    if (!user) {
-        return;
-    }
-
-
 
     if (loading) return (
         <div className='flex items-center justify-center translate-y-[350%]'>
@@ -144,7 +139,7 @@ const CategoryPage = () => {
                             <select
                                 name="filter"
                                 id="filter"
-                                className='border py-2 px-5 rounded-md cursor-pointer'
+                                className='border py-2 px-5 rounded-md cursor-pointer outline-none'
                                 value={filter}
                                 onChange={(e) => setFilter(e.target.value)}
                             >
@@ -177,7 +172,7 @@ const CategoryPage = () => {
                     <div className='grid grid-cols-4 gap-8 my-8'>
                         {paginatedProducts && paginatedProducts.map((product) => (
                             <div key={product._id}>
-                                <ProductBox product={product} userId={user?._id} />
+                                <ProductBox product={product} user={user} />
                             </div>
                         ))}
                     </div>

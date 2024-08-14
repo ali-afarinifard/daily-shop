@@ -45,11 +45,6 @@ const TopProducts = () => {
     const { user } = authContext;
 
 
-    if (!user) {
-        return;
-    }
-
-
     return (
         <div className="mt-20">
             <div className="flex items-center justify-start">
@@ -79,7 +74,7 @@ const TopProducts = () => {
                 >
                     {products.map((product) => (
                         <SwiperSlide key={product._id}>
-                            <ProductBox product={product} userId={user?._id} />
+                            <ProductBox product={product} user={user} />
                         </SwiperSlide>
                     ))}
                 </Swiper>
