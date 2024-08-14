@@ -13,6 +13,10 @@ const CartClient = () => {
 
     const { cartProducts, handleClearCart, cartTotalAmount, cartTotalQty } = useCart();
 
+    // if (loading) {
+    //     return <div>Loading...</div>;
+    // }
+
     if (!cartProducts || cartProducts.length === 0) {
         return (
             <div className="flex flex-col items-center">

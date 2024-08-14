@@ -15,52 +15,20 @@ interface UpdateUserParams {
 
 
 // ** Auth______________________________
-const register = async (username: string, email: string, password: string) => {
-    try {
-
-        const response = await api.post('/auth/user/register', { username, email, password });
-        return response.data
-
-    } catch (error) {
-        console.error('Error Register', error);
-        throw error;
-    }
+const register = (username: string, email: string, password: string) => {
+    return api.post('/auth/user/register', { username, email, password });
 };
 
-const login = async (email: string, password: string) => {
-    try {
-
-        const response = await api.post('/auth/user/login', { email, password });
-        return response.data;
-
-    } catch (error) {
-        console.error('Error Login', error);
-        throw error;
-    }
+const login = (email: string, password: string) => {
+    return api.post('/auth/user/login', { email, password });
 };
 
-const refreshToken = async (token: string) => {
-    try {
-
-        const response = await api.post('/auth/user/token', { token });
-        return response.data;
-
-    } catch (error) {
-        console.error('Error refreshToken', error);
-        throw error;
-    }
+const refreshToken = (token: string) => {
+    return api.post('/auth/user/token', { token });
 };
 
 const logout = async (token: string) => {
-    try {
-
-        const response = await api.post('/auth/user/logout', { token });
-        return response.data;
-
-    } catch (error) {
-        console.error('Error logout', error);
-        throw error;
-    }
+       return api.post('/auth/user/logout', { token });
 };
 
 const updateUser = async (userData: UpdateUserParams) => {

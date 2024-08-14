@@ -9,6 +9,7 @@ type CartContextType = {
     handleCartQtyIncrease: (product: ProductType) => void;
     handleCartQtyDecrease: (product: ProductType) => void;
     handleClearCart: () => void;
+    // loading: boolean;
 };
 
 

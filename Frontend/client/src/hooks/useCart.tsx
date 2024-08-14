@@ -16,6 +16,7 @@ export const CartContextProvider = (props: Props) => {
     const authContext = useContext(AuthContext); // Get the AuthContext
     const user = authContext?.user; // Safely access the user property
 
+    // const [loading, setLoading] = useState(true);
     const [cartTotalQty, setCartTotalQty] = useState(0);
     const [cartTotalAmount, setCartTotalAmount] = useState(0);
     const [cartProducts, setCartProducts] = useState<ProductType[] | null>([]);
@@ -47,6 +48,8 @@ export const CartContextProvider = (props: Props) => {
             setCartTotalQty(qty);
             setCartTotalAmount(total);
         }
+
+        // setLoading(false);
     }, [user?._id]);
 
     const updateCartInLocalStorage = (updatedCart: ProductType[]) => {
@@ -84,9 +87,9 @@ export const CartContextProvider = (props: Props) => {
                 } else {
                     updatedCart.push(newProduct);
                 }
-                
+
                 updateCartInLocalStorage(updatedCart);
-                
+
                 return updatedCart;
             });
             toast.success('این کالا به سبد خرید اضافه شد!');
@@ -167,6 +170,7 @@ export const CartContextProvider = (props: Props) => {
         handleCartQtyIncrease,
         handleCartQtyDecrease,
         handleClearCart,
+        // loading,
     };
 
     return <CartContext.Provider value={value} {...props} />;

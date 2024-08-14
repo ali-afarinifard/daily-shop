@@ -57,7 +57,7 @@ const UserMenu = () => {
                                     <MenuItem onClick={() => {
                                         toggleOpen();
                                         logout();
-                                        
+                                        router.push('/');
                                     }}>
                                         خروج
                                     </MenuItem>
