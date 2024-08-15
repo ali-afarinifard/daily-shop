@@ -7,6 +7,7 @@ import ManageWishlistItem from "./ManageWishlistItem";
 
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import NullData from "../../NullData";
 
 
 interface GetManageWishlistProps {
@@ -50,6 +51,13 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
     const handlePageChange = (_event: React.ChangeEvent<unknown>, page: number) => {
         setCurrentPage(page);
     };
+
+
+    if (wishlist.length === 0) {
+        return (
+            <NullData title="محصولی اضافه نشده" />
+        )
+    }
 
 
     return (

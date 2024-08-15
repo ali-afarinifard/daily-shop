@@ -51,7 +51,7 @@ const CommentList: React.FC<CommentListProps> = ({ productId, commentsUpdated })
                     </>
                 ))
             ) : (
-                <p>No comments yet. Be the first to comment!</p>
+                <p>هیچ دیدگاهی ثبت نشده</p>
             )}
         </div>
     )

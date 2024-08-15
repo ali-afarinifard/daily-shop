@@ -3,6 +3,7 @@
 import { AuthContext, User } from "@/context/AuthContext";
 import { createComment } from "@/libs/apiUrls";
 import { useContext, useState } from "react";
+import toast from "react-hot-toast";
 
 
 interface CommentFormProps {
@@ -30,6 +31,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
 
         if (!isAuthenticated || !user) {
             console.error('User must be logged in to post a comment');
+            toast.error('ابتدا عضو شوید');
             return;
         }
 
