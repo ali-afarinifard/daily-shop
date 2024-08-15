@@ -5,7 +5,7 @@ import { addToWishlist, getProductById } from "@/libs/apiUrls";
 import ProductType from "@/types/product";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { TbRulerMeasure } from "react-icons/tb";
 import { MdCheckCircle } from "react-icons/md";
 
@@ -18,6 +18,9 @@ import SetQuantity from "./SetQuantity";
 import toast from "react-hot-toast";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
+import CommentForm from "./CommentForm";
+import CommentList from "./CommentList";
+import Heading from "../Heading";
 
 const ProductDetails: React.FC = () => {
     const authContext = useContext(AuthContext);
@@ -38,6 +41,7 @@ const ProductDetails: React.FC = () => {
     const [quantity, setQuantity] = useState<number>(1);
     const [wishlist, setWishlist] = useState<string[]>([]);
     const [showWishlistMessage, setShowWishlistMessage] = useState(false);
+    const [commentsUpdated, setCommentsUpdated] = useState(false);
 
     const router = useRouter();
 
@@ -126,6 +130,12 @@ const ProductDetails: React.FC = () => {
             toast.error('سایز و رنگ محصول را انتخاب کنید');
         }
     };
+
+
+    const handleCommentsUpdate = useCallback(() => {
+        setCommentsUpdated(prev => !prev);
+    }, []);
+
 
     return (
         <div className="mt-10">
@@ -308,6 +318,21 @@ const ProductDetails: React.FC = () => {
 
                 <div className="mt-16 w-full max-w-[60rem] leading-[1.75rem] text-justify">
                     <p>{product?.description}</p>
+                </div>
+
+                <div className="flex flex-col items-start gap-7 mt-10">
+                    <div className="w-fit">
+                        <Heading title="امتیاز و دیدگاه کاربران" />
+                    </div>
+                    <div className="flex gap-10 w-full">
+                        <div className="w-[23rem]">
+                            <CommentForm productId={productId} onCommentAdded={handleCommentsUpdate} />
+                        </div>
+
+                        <div className="w-full">
+                            <CommentList productId={productId} commentsUpdated={commentsUpdated} />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

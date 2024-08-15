@@ -186,3 +186,33 @@ export const getWishlist = async (userId: string) => {
         throw error;
     }
 };
+
+
+
+
+
+// ** Comments ______________________________
+export const createComment = async (userId: string, productId: string | undefined, content: string) => {
+    try {
+
+        const response = await api.post('/comment/add', {userId, productId, content});
+        return response.data
+        
+    } catch (error) {
+        console.error('Error creating comment', error);
+        throw error;
+    }
+};
+
+
+export const getComments = async (productId: string | undefined) => {
+    try {
+
+        const response = await api.get(`/comments/${productId}`);
+        return response.data;
+        
+    } catch (error) {
+        console.error('Error creating comment', error);
+        throw error;
+    }
+};
