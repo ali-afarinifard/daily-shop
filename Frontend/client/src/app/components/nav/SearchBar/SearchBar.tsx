@@ -73,7 +73,7 @@ const SearchBar = () => {
                 placeholder="جستجو"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:border-[0.5px] focus:border-slate-500 w-[24rem]"
+                className="p-2 border-[1px] border-slate-300 rounded-md outline-slate-400 w-[24rem]"
             />
             {noResults && (
                 <div className="absolute z-10 bg-white border border-gray-300 rounded-md mt-1 max-w-[24rem] w-full p-2">

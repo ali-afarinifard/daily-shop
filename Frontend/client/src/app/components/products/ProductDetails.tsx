@@ -103,10 +103,10 @@ const ProductDetails: React.FC = () => {
     };
 
     const handleQtyIncrease = () => {
-        if (quantity < (product?.stock || 0)) {
+        if (quantity < Math.min(product?.stock || 0)) {
             setQuantity(quantity + 1);
-        } else if (quantity === 90) {
-            toast.error('نمی توانید بیشتر از 90 محصول انتخاب کنید');
+        }  else {
+            toast.error('نمی‌توانید بیش از تعداد موجودی افزایش دهید');
         }
     };
 

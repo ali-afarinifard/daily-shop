@@ -118,8 +118,8 @@ export const CartContextProvider = (props: Props) => {
             const existingIndex = updatedCart.findIndex((item) => item._id === product._id);
 
             if (existingIndex > -1) {
-                if (updatedCart[existingIndex].quantity === 99) {
-                    return toast.error("به بیشترین مقدار رسیده است");
+                if (updatedCart[existingIndex].quantity >= product.stock) {
+                    return toast.error("نمی‌توانید بیش از تعداد موجودی افزایش دهید");
                 }
 
                 updatedCart[existingIndex].quantity += 1;
