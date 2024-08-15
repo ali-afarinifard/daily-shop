@@ -8,6 +8,9 @@ import ManageWishlistItem from "./ManageWishlistItem";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import NullData from "../../NullData";
+import Image from "next/image";
+
+import not_product from "../../../../../public/images/product/no-product.webp";
 
 
 interface GetManageWishlistProps {
@@ -55,7 +58,19 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
 
     if (wishlist.length === 0) {
         return (
-            <NullData title="محصولی اضافه نشده" center="!text-base" />
+            <div className="flex flex-col items-center justify-center gap-10">
+                <div className="flex items-center justify-center">
+                    <Image
+                        src={not_product}
+                        alt="لیست علاقه مندی ها خالی است"
+                        width={400}
+                        height={400}
+                        priority
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                    />
+                </div>
+                <NullData title="محصولی اضافه نشده" center="!text-base !h-full" />
+            </div>
         )
     }
 

@@ -6,6 +6,7 @@ import { updateUser } from "@/libs/apiUrls";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Spinner from "../../Spinner";
+import { useRouter } from "next/navigation";
 
 
 interface SummaryProps {
@@ -28,6 +29,8 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
         postalCode: '',
         address: ''
     });
+
+    const router = useRouter();
 
 
     useEffect(() => {
