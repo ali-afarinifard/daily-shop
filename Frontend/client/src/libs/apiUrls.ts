@@ -10,6 +10,10 @@ interface UpdateUserParams {
     username: string;
     email: string;
     password: string;
+    city: string;
+    phoneNumber: string;
+    postalCode: string;
+    address: string
 }
 
 

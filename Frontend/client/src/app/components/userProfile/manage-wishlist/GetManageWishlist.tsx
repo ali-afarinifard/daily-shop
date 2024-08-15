@@ -55,7 +55,7 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
 
     if (wishlist.length === 0) {
         return (
-            <NullData title="محصولی اضافه نشده" />
+            <NullData title="محصولی اضافه نشده" center="!text-base" />
         )
     }
 

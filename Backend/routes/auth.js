@@ -140,7 +140,7 @@ router.get('/user', async (req, res) => {
 
 // ** PUT
 router.put('/user', async (req, res) => {
-  const { userId, fullName, username, email, password } = req.body;
+  const { userId, fullName, username, email, password, city, phoneNumber, postalCode, address } = req.body;
 
   try {
     const user = await User.findById(userId);
@@ -152,6 +152,10 @@ router.put('/user', async (req, res) => {
     user.username = username || user.username;
     user.email = email || user.email;
     user.fullName = fullName || user.fullName;
+    user.city = city || user.city;
+    user.phoneNumber = phoneNumber || user.phoneNumber;
+    user.postalCode = postalCode || user.postalCode;
+    user.address = address || user.address;
 
     if (password) {
       const salt = await bcrypt.genSalt(10);

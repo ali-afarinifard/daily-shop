@@ -22,7 +22,11 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
         username: '',
         fullName: '',
         email: '',
-        password: ''
+        password: '',
+        city: '',
+        phoneNumber: '',
+        postalCode: '',
+        address: ''
     });
 
 
@@ -30,18 +34,22 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
 
         if (user) {
             setFormData({
-                userId: user._id,
-                username: user.username,
-                fullName: user.fullName,
-                email: user.email,
-                password: ''
+                userId: user._id || '',
+                username: user.username || '',
+                fullName: user.fullName || '',
+                email: user.email || '',
+                password: '' || '',
+                city: user.city || '',
+                phoneNumber: user.phoneNumber || '',
+                postalCode: user.postalCode || '',
+                address: user.address || '',
             });
         }
 
     }, [user]);
 
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
@@ -72,7 +80,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                 <div className="flex flex-col justify-between h-full">
 
                     {/* Inputs */}
-                    <div className="flex flex-col gap-8">
+                    <div className="flex flex-col gap-6 w-full">
 
                         <div className="flex items-center justify-between gap-8 2xl:flex-col 2xl:justify-center 2xl:gap-4">
 
@@ -131,11 +139,64 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
 
                         </div>
 
+                        <div className="flex items-center justify-between gap-8 2xl:flex-col 2xl:justify-center 2xl:gap-4">
+
+                            <div className="flex flex-col gap-1 w-full">
+                                <label htmlFor="city" className="text-slate-500">شهر</label>
+                                <input
+                                    id="city"
+                                    type="text"
+                                    name="city"
+                                    value={formData.city}
+                                    onChange={handleChange}
+                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md"
+                                />
+                            </div>
+
+                            <div className="flex flex-col gap-1 w-full">
+                                <label htmlFor="postalCode" className="text-slate-500">کد پستی</label>
+                                <input
+                                    id="postalCode"
+                                    type="text"
+                                    name="postalCode"
+                                    value={formData.postalCode}
+                                    onChange={handleChange}
+                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md"
+                                />
+                            </div>
+
+                            <div className="flex flex-col gap-1 w-full">
+                                <label htmlFor="phoneNumber" className="text-slate-500">شماره همراه</label>
+                                <input
+                                    id="phoneNumber"
+                                    type="number"
+                                    name="phoneNumber"
+                                    value={formData.phoneNumber}
+                                    onChange={handleChange}
+                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md"
+                                />
+                            </div>
+
+                        </div>
+
+                        <div className="max-w-[21.3rem]">
+                            <div className="flex flex-col gap-1 w-full">
+                                <label htmlFor="city" className="text-slate-500">آدرس</label>
+                                <textarea
+                                    id="address"
+                                    name="address"
+                                    value={formData.address}
+                                    onChange={handleChange}
+                                    className="resize-none text-md border-[1px] py-2 px-2 border-slate-300 outline-slate-500 rounded-md p-3 w-full"
+                                />
+                            </div>
+                        </div>
+
                     </div>
 
 
                     {/* Submit BTN */}
-                    <div className="xl:mt-8">
+                    <div className="mt-8 flex items-end justify-end">
                         {isLoading ? (
                             <Spinner size={30} />
                         ) : (

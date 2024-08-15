@@ -74,6 +74,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
             await addToWishlist(user._id, productId);
             setIsWhitelisted(true);
             localStorage.setItem(`showWishlistMessage_${user._id}_${productId}`, "true");
+            toast.success('به علاقه مندی ها اضافه شد');
         } catch (error) {
             console.error('Error while adding to wishlist', error);
         }

@@ -11,6 +11,10 @@ export interface User {
     email: string;
     password: string;
     refreshToken?: string;
+    city: string;
+    phoneNumber: string;
+    postalCode: string;
+    address: string
 }
 
 

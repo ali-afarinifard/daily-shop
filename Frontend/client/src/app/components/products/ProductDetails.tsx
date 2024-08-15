@@ -92,6 +92,7 @@ const ProductDetails: React.FC = () => {
             setWishlist(updatedWishlist);
             setShowWishlistMessage(true);
             localStorage.setItem(`showWishlistMessage_${user._id}_${productId}`, "true");
+            toast.success('به علاقه مندی ها اضافه شد');
         } catch (error) {
             console.error('Error while adding wishlist', error);
         }
@@ -118,6 +119,10 @@ const ProductDetails: React.FC = () => {
     };
 
     const handleAddToCart = () => {
+        if (!user) {
+            toast.error('ابتدا عضو شوید');
+            return;
+        }
         if (product && selectedSize && selectedColor) {
             handleAddProductToCart({
                 ...product,

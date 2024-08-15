@@ -26,7 +26,6 @@ const Banner = () => {
     return (
         <div className="relative ___swiper-container" dir="ltr">
             <Swiper
-                grabCursor
                 pagination={{
                     clickable: true,
                     el: '.swiper-pagination',

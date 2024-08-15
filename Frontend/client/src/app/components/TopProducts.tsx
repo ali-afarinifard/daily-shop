@@ -60,7 +60,7 @@ const TopProducts = () => {
                         swiperRef.current = swiper;
                     }}
                     breakpoints={{
-                        400: {
+                        300: {
                             slidesPerView: 2
                         },
                         600: {
