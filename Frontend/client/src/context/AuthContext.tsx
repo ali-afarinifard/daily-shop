@@ -82,7 +82,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         localStorage.removeItem('refreshToken');
         setIsAuthenticated(false);
         setUser(null);
-        window.location.reload();
     };
 
 

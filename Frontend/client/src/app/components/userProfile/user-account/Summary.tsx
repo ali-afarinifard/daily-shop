@@ -18,6 +18,7 @@ interface SummaryProps {
 const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
 
     const [isLoading, setIsLoading] = useState(false);
+
     const [formData, setFormData] = useState({
         userId: '',
         username: '',
@@ -25,13 +26,20 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
         email: '',
         password: '',
         city: '',
-        phoneNumber: '',
+        phoneNumber: '+98',
         postalCode: '',
         address: ''
     });
 
-    const router = useRouter();
-
+    const [errors, setErrors] = useState({
+        username: '',
+        fullName: '',
+        email: '',
+        password: '',
+        city: '',
+        phoneNumber: '',
+        postalCode: ''
+    });
 
     useEffect(() => {
 
@@ -43,7 +51,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                 email: user.email || '',
                 password: '' || '',
                 city: user.city || '',
-                phoneNumber: user.phoneNumber || '',
+                phoneNumber: user.phoneNumber ? `+98${String(user.phoneNumber).slice(2)}` : '+98',
                 postalCode: user.postalCode || '',
                 address: user.address || '',
             });
@@ -52,14 +60,91 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
     }, [user]);
 
 
+    const validateForm = () => {
+        let valid = true;
+        const newErrors: any = {
+            username: '',
+            fullName: '',
+            email: '',
+            password: '',
+            city: '',
+            phoneNumber: '',
+            postalCode: ''
+        };
+
+        if (formData.username.length < 5) {
+            newErrors.username = 'حداقل 5 حرف وارد شود';
+            valid = false;
+        };
+
+        if (formData.fullName.length < 3) {
+            newErrors.fullName = 'حداقل 3 حرف وارد شود';
+            valid = false;
+        };
+
+        if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+            newErrors.email = 'ایمیل معتبر نیست';
+            valid = false;
+        };
+
+        if (formData.password && formData.password.length < 4) {
+            newErrors.password = 'حداقل 4 حرف یا عدد وارد شود';
+            valid = false;
+        };
+
+        if (formData.city.length < 2) {
+            newErrors.city = 'حداقل 2 حرف وارد شود';
+            valid = false;
+        };
+
+        if (!/^\+98\d{10}$/.test(formData.phoneNumber)) {
+            newErrors.phoneNumber = 'شماره همراه باید 10 رقمی باشد';
+            valid = false;
+        };
+
+        if (!/^\d{9}$/.test(formData.postalCode)) {
+            newErrors.postalCode = 'کد پستی باید 9 رقمی باشد';
+            valid = false;
+        };
+
+        setErrors(newErrors);
+        return valid;
+    }
+
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+
+        if (name === "phoneNumber") {
+            // If the value starts with +98, allow it; otherwise, ignore the input
+            if (!value.startsWith('+98')) {
+                return;
+            }
+
+            // Remove the +98 prefix before validation
+            const phoneNumberWithoutPrefix = value.slice(3);
+
+            // Allow only numbers after +98
+            if (!/^\d*$/.test(phoneNumberWithoutPrefix)) {
+                return;
+            }
+
+            // Update the formData with the valid phone number
+            setFormData({ ...formData, phoneNumber: value });
+        } else {
+            setFormData({ ...formData, [name]: value });
+        }
     };
 
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsLoading(true);
+
+        if (!validateForm()) {
+            setIsLoading(false);
+            return;
+        };
 
         try {
 
@@ -69,7 +154,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
 
         } catch (error) {
             console.log('Error updating user information.', error);
-            console.error(error);
+            toast.error('خطایی رخ داده');
         } finally {
             setIsLoading(false);
         }
@@ -97,6 +182,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                                     onChange={handleChange}
                                     className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md"
                                 />
+                                {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName}</p>}
                             </div>
 
                             <div className="flex flex-col gap-1 w-full">
@@ -109,6 +195,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                                     onChange={handleChange}
                                     className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md"
                                 />
+                                {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
                             </div>
 
                         </div>
@@ -126,6 +213,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                                     onChange={handleChange}
                                     className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md"
                                 />
+                                {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
                             </div>
 
                             <div className="flex flex-col gap-1 w-full">
@@ -139,7 +227,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                                     className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md"
                                 />
                             </div>
-
+                            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
                         </div>
 
                         <div className="flex items-center justify-between gap-8 2xl:flex-col 2xl:justify-center 2xl:gap-4">
@@ -154,6 +242,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                                     onChange={handleChange}
                                     className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md"
                                 />
+                                {errors.city && <p className="text-red-500 text-sm">{errors.city}</p>}
                             </div>
 
                             <div className="flex flex-col gap-1 w-full">
@@ -166,18 +255,22 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                                     onChange={handleChange}
                                     className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md"
                                 />
+                                {errors.postalCode && <p className="text-red-500 text-sm">{errors.postalCode}</p>}
                             </div>
 
                             <div className="flex flex-col gap-1 w-full">
                                 <label htmlFor="phoneNumber" className="text-slate-500">شماره همراه</label>
                                 <input
                                     id="phoneNumber"
-                                    type="number"
+                                    type="text"
                                     name="phoneNumber"
                                     value={formData.phoneNumber}
                                     onChange={handleChange}
+                                    placeholder="+98"
+                                    dir="ltr"
                                     className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md"
                                 />
+                                {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber}</p>}
                             </div>
 
                         </div>
