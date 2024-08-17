@@ -2,6 +2,7 @@ import ProductType from "@/types/product"
 import Image from "next/image"
 import Link from "next/link"
 import { FaChevronLeft } from "react-icons/fa"
+import { IoMdClose } from "react-icons/io";
 
 
 interface ManageWishlistItemProps {
@@ -9,7 +10,7 @@ interface ManageWishlistItemProps {
 }
 
 
-const ManageWishlistItem:React.FC<ManageWishlistItemProps> = ({product}) => {
+const ManageWishlistItem: React.FC<ManageWishlistItemProps> = ({ product }) => {
     return (
         <Link href={`/product/${product._id}`}>
 

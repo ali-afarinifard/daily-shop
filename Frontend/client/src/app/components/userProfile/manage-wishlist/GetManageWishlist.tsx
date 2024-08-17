@@ -1,6 +1,6 @@
 'use client'
 
-import { getWishlist } from "@/libs/apiUrls";
+import { getWishlist, removeFromWishlist } from "@/libs/apiUrls";
 import ProductType from "@/types/product";
 import { useEffect, useState } from "react";
 import ManageWishlistItem from "./ManageWishlistItem";
@@ -11,6 +11,7 @@ import NullData from "../../NullData";
 import Image from "next/image";
 
 import not_product from "../../../../../public/images/product/no-product.webp";
+import { IoMdClose } from "react-icons/io";
 
 
 interface GetManageWishlistProps {
@@ -21,6 +22,7 @@ interface GetManageWishlistProps {
 const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
 
     const [wishlist, setWishlist] = useState<ProductType[]>([]);
+    const [isWhitelisted, setIsWhitelisted] = useState<boolean>(false);
     const [currentPage, setCurrentPage] = useState(1);
 
     // Number of products per page
@@ -56,6 +58,24 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
     };
 
 
+    const handleRemoveFromWishlist = async (productId: string) => {
+        try {
+            if (!userId) {
+                console.warn("No userId available.");
+                return;
+            }
+            await removeFromWishlist(userId, productId);
+            setWishlist((prevWishlist) =>
+                prevWishlist.filter((product) => product._id !== productId)
+            );
+            setIsWhitelisted(false);
+            localStorage.removeItem(`showWishlistMessage_${productId}`);
+        } catch (error) {
+            console.error("Error while removing from wishlist", error);
+        }
+    };
+
+
     if (wishlist.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center gap-10">
@@ -81,11 +101,20 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
 
                 <div className="flex flex-col gap-2 w-full">
                     {paginatedWishlist.length > 0 && paginatedWishlist.map((product) => (
-                        <div className="w-full h-full overflow-hidden rounded-md border border-slate-200 pl-3" key={product._id}>
-                            <ManageWishlistItem product={product} />
+                        <div className="flex items-center gap-1" key={product._id}>
+
+                            <div className="cursor-pointer text-rose-600" onClick={() => handleRemoveFromWishlist(product._id)}>
+                                <IoMdClose size={22} />
+                            </div>
+
+                            <div className="w-full h-full overflow-hidden rounded-md border border-slate-200 pl-3">
+                                <ManageWishlistItem product={product} />
+                            </div>
+
                         </div>
                     ))}
                 </div>
+
 
                 <div className="xl:mt-8">
                     <Stack spacing={2} sx={{ direction: 'ltr' }}>
