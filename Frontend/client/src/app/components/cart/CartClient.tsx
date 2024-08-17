@@ -8,16 +8,22 @@ import emptyCart from "../../../../public/images/cart/empty-cart.webp";
 import Heading from "../Heading";
 import CartItem from "./CartItem";
 import Button from "../Button";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
 
 const CartClient = () => {
 
     const { cartProducts, handleClearCart, cartTotalAmount, cartTotalQty } = useCart();
 
-    // if (loading) {
-    //     return <div>Loading...</div>;
-    // }
+    const authContext = useContext(AuthContext);
 
-    if (!cartProducts || cartProducts.length === 0) {
+    if (!authContext) {
+        throw new Error("AuthContext must be used within an AuthProvider");
+    }
+
+    const { user } = authContext;
+
+    if (!cartProducts || cartProducts.length === 0 || !user) {
         return (
             <div className="flex flex-col items-center">
                 <div className="text-2xl">سبد خرید شما خالی است!</div>

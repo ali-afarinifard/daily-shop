@@ -24,7 +24,6 @@ export const CartContextProvider = (props: Props) => {
     const localStorageKey = `eShopCartItems_${user?._id}`; // Use user ID to create a unique key
 
     useEffect(() => {
-        if (!user?._id) return; // Wait until the user is available
 
         const storedCartProducts = localStorage.getItem(localStorageKey);
         if (storedCartProducts) {
@@ -47,6 +46,11 @@ export const CartContextProvider = (props: Props) => {
 
             setCartTotalQty(qty);
             setCartTotalAmount(total);
+        }
+
+        if (!user?._id) {
+            setCartTotalQty(0);
+            setCartTotalAmount(0);
         }
 
         // setLoading(false);
@@ -153,7 +157,12 @@ export const CartContextProvider = (props: Props) => {
     );
 
     const handleClearCart = useCallback(() => {
-        if (!user?._id) return;
+        if (!user?._id) {
+            setCartProducts([]);
+            setCartTotalQty(0);
+            setCartTotalAmount(0);
+            localStorage.removeItem(localStorageKey);
+        }
 
         setCartProducts([]);
         setCartTotalQty(0);

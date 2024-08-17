@@ -7,14 +7,11 @@ import { AiFillCaretDown } from "react-icons/ai";
 import MenuItem from "./MenuItem";
 import Avatar from "../Avatar";
 import { AuthContext } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
 
 
 const UserMenu = () => {
 
     const [isOpen, setIsOpen] = useState(false);
-    
-    const router = useRouter();
 
     const authContext = useContext(AuthContext);
 
@@ -57,7 +54,6 @@ const UserMenu = () => {
                                     <MenuItem onClick={() => {
                                         toggleOpen();
                                         logout();
-                                        router.push('/');
                                     }}>
                                         خروج
                                     </MenuItem>

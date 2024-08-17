@@ -77,7 +77,6 @@ const UserProfileNav: React.FC<UserProfileNavProps> = ({ user, logout }) => {
                                 custom="text-rose-500"
                                 onClick={() => {
                                     logout();
-                                    router.push('/');
                                 }}
                             />
                         </div>
