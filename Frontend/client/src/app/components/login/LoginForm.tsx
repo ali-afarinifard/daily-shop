@@ -142,8 +142,14 @@ export default function LoginPage() {
                     ورود
                 </button>
 
-                <div className='text-sm text-center mt-2'>
-                    حساب کاربری ندارید؟ <Link href={'/register'} className='text-rose-500'>ثبت نام کنید</Link>
+                <div className='flex items-center justify-between gap-1'>
+                    <div className='text-sm text-center mt-2'>
+                        حساب کاربری ندارید؟ <Link href={'/register'} className='text-rose-500'>ثبت نام کنید</Link>
+                    </div>
+
+                    <div className='text-sm text-center mt-2'>
+                        <Link href={'/reset-account'}>رمز عبور خود را فراموش کردید؟</Link>
+                    </div>
                 </div>
             </form>
         </div>

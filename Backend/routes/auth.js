@@ -179,6 +179,31 @@ router.put('/user', async (req, res) => {
 
 
 
+// ** Reset Password
+router.post('/user/reset-password', async (req, res) => {
+  const { email, newPassword } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
+
+    await user.save();
+
+    res.status(200).json({ message: 'Password reset successful' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+
+
 // ** Token
 router.post('/user/token', async (req, res) => {
   const { token } = req.body;

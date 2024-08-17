@@ -32,7 +32,19 @@ const refreshToken = (token: string) => {
 };
 
 const logout = async (token: string) => {
-       return api.post('/auth/user/logout', { token });
+    return api.post('/auth/user/logout', { token });
+};
+
+const resetAccount = async (email: string, newPassword: string) => {
+    try {
+
+        const response = await api.post('/auth/user/reset-password', {email, newPassword});
+        return response.data;
+
+    } catch (error) {
+        console.error('Error resetAccount', error);
+        throw error;
+    }
 };
 
 const updateUser = async (userData: UpdateUserParams) => {
@@ -48,7 +60,7 @@ const updateUser = async (userData: UpdateUserParams) => {
 }
 
 
-export { register, login, refreshToken, logout, updateUser };
+export { register, login, refreshToken, logout, updateUser, resetAccount };
 
 
 
@@ -199,9 +211,9 @@ export const getWishlist = async (userId: string) => {
 export const createComment = async (userId: string, productId: string | undefined, content: string) => {
     try {
 
-        const response = await api.post('/comment/add', {userId, productId, content});
+        const response = await api.post('/comment/add', { userId, productId, content });
         return response.data
-        
+
     } catch (error) {
         console.error('Error creating comment', error);
         throw error;
@@ -214,7 +226,7 @@ export const getComments = async (productId: string | undefined) => {
 
         const response = await api.get(`/comments/${productId}`);
         return response.data;
-        
+
     } catch (error) {
         console.error('Error creating comment', error);
         throw error;
