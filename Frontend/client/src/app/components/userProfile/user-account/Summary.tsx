@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Spinner from "../../Spinner";
 import { useRouter } from "next/navigation";
+import { validateEmail } from "@/utils/emailVal";
 
 
 interface SummaryProps {
@@ -60,6 +61,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
     }, [user]);
 
 
+
     const validateForm = () => {
         let valid = true;
         const newErrors: any = {
@@ -82,8 +84,14 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
             valid = false;
         };
 
-        if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-            newErrors.email = 'ایمیل معتبر نیست';
+        // if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+        //     newErrors.email = 'ایمیل معتبر نیست';
+        //     valid = false;
+        // };
+
+        const emailError = validateEmail(formData.email);
+        if (emailError) {
+            newErrors.email = emailError;
             valid = false;
         };
 
@@ -137,6 +145,37 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
     };
 
 
+    // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     setIsLoading(true);
+
+    //     if (!validateForm()) {
+    //         setIsLoading(false);
+    //         return;
+    //     };
+
+    //     try {
+
+    //         const data = await updateUser(formData);
+    //         updateUserInContext(data.user);
+    //         toast.success('پروفایل به روزرسانی شد')
+
+    //     } catch (error: any) {
+    //         console.log('Error updating user information.', error);
+    //         if (error.response && error.response.status === 500 || '') {
+    //             const errorMessage = error.response.data.message;
+    //             if (errorMessage.includes('User already exists')) {
+    //                 toast.error('نام کاربری یا ایمیل قبلاً استفاده شده است.');
+    //             } else {
+    //                 toast.error('خطایی رخ داده');
+    //             }
+    //         }
+    //     } finally {
+    //         setIsLoading(false);
+    //     }
+    // }
+
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsLoading(true);
@@ -144,21 +183,37 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
         if (!validateForm()) {
             setIsLoading(false);
             return;
-        };
+        }
 
         try {
-
             const data = await updateUser(formData);
             updateUserInContext(data.user);
-            toast.success('پروفایل به روزرسانی شد')
-
-        } catch (error) {
+            toast.success('پروفایل به روزرسانی شد');
+        } catch (error: any) {
             console.log('Error updating user information.', error);
-            toast.error('خطایی رخ داده');
+
+            if (error.response) {
+                const status = error.response.status;
+                const errorMessage = error.response.data.message || '';
+
+                if (status === 400 || status === 409) {
+                    if (errorMessage.includes('Username already taken')) {
+                        toast.error('نام کاربری قبلاً استفاده شده است.');
+                    } else if (errorMessage.includes('Email already registered')) {
+                        toast.error('ایمیل قبلاً ثبت شده است.');
+                    } else {
+                        toast.error('خطای درخواست: ' + errorMessage);
+                    }
+                } else {
+                    toast.error('ایمیل یا نام کاربر از قبل استفاده شده است');
+                }
+            } else {
+                toast.error('خطای شبکه: لطفاً اتصال اینترنت خود را بررسی کنید.');
+            }
         } finally {
             setIsLoading(false);
         }
-    }
+    };
 
 
     return (

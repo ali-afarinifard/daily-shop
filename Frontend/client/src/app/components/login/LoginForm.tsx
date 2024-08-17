@@ -11,7 +11,13 @@ import Link from 'next/link';
 export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+
+
+    const [errors, setErrors] = useState({
+        email: '',
+        password: ''
+    });
+
 
     const authContext = useContext(AuthContext);
 
@@ -31,9 +37,37 @@ export default function LoginPage() {
     }, [isAuthenticated, router]);
 
 
+    const validateForm = () => {
+        let valid = true;
+        const newErrors: any = {
+            email: '',
+            password: ''
+        };
+
+        if (!/^\S+@\S+\.\S+$/.test(email)) {
+            newErrors.email = 'ایمیل معتبر نیست';
+            valid = false;
+        };
+
+        if (password && password.length < 4) {
+            newErrors.password = 'حداقل 4 حرف یا عدد وارد شود';
+            valid = false;
+        };
+
+
+        setErrors(newErrors);
+        return valid;
+
+    }
+
+
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError('');
+
+        if (!validateForm()) {
+            return;
+        };
+
 
         try {
 
@@ -46,8 +80,9 @@ export default function LoginPage() {
             router.push('/');
             window.location.reload();
 
-        } catch (error) {
-            setError('Login failed!');
+        } catch (error: any) {
+            console.log('ERROR on fetching data of user in Login Form', error);
+            toast.error('ایمیل یا نام کاربری را صحیح وارد نمایید');
         }
     };
 
@@ -57,40 +92,46 @@ export default function LoginPage() {
             <form onSubmit={handleLogin} className='mt-10 flex flex-col gap-3'>
 
                 {/* Email */}
-                <div className='w-full relative'>
-                    <input
-                        id='email'
-                        type="email"
-                        autoComplete='off'
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed`}
-                    />
-                    <label
-                        htmlFor="email"
-                        className={`absolute cursor-text text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4`}
-                    >
-                        ایمیل
-                    </label>
+                <div className='w-full relative flex flex-col gap-1'>
+                    <div>
+                        <input
+                            id='email'
+                            type="email"
+                            autoComplete='off'
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed`}
+                        />
+                        <label
+                            htmlFor="email"
+                            className={`absolute cursor-text text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4`}
+                        >
+                            ایمیل
+                        </label>
+                    </div>
+                    {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
                 </div>
 
 
                 {/* Password */}
-                <div className='w-full relative'>
-                    <input
-                        id='password'
-                        type="password"
-                        autoComplete='off'
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed`}
-                    />
-                    <label
-                        htmlFor="password"
-                        className={`absolute cursor-text text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4`}
-                    >
-                        رمز عبور
-                    </label>
+                <div className='w-full relative flex flex-col gap-1'>
+                    <div>
+                        <input
+                            id='password'
+                            type="password"
+                            autoComplete='off'
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed`}
+                        />
+                        <label
+                            htmlFor="password"
+                            className={`absolute cursor-text text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4`}
+                        >
+                            رمز عبور
+                        </label>
+                    </div>
+                    {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
                 </div>
 
 

@@ -58,7 +58,6 @@ const UserMenu = () => {
                                         toggleOpen();
                                         logout();
                                         router.push('/');
-                                        window.location.reload();
                                     }}>
                                         خروج
                                     </MenuItem>
