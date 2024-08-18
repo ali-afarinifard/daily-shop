@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./components/nav/(page)/Navbar";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Footer from "./components/footer/Footer";
 import CartProvider from "@/providers/CartProvider";
 import { Toaster } from "react-hot-toast";

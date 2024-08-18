@@ -42,8 +42,8 @@ router.post('/user/register', async (req, res) => {
       },
     };
 
-    const accessToken = jwt.sign(payload, process.env.JWT_CLIENT_SECRET, { expiresIn: '60m' });
-    const refreshToken = jwt.sign(payload, process.env.JWT_CLIENT_REFRESH_SECRET, { expiresIn: '7d' });
+    const accessToken = jwt.sign(payload, process.env.JWT_CLIENT_SECRET, { expiresIn: '15m' });
+    const refreshToken = jwt.sign(payload, process.env.JWT_CLIENT_REFRESH_SECRET, { expiresIn: '30m' });
     user.refreshToken = refreshToken;
     await user.save();
 
@@ -76,8 +76,8 @@ router.post('/user/login', async (req, res) => {
       },
     };
 
-    const accessToken = jwt.sign(payload, process.env.JWT_CLIENT_SECRET, { expiresIn: '60m' });
-    const refreshToken = jwt.sign(payload, process.env.JWT_CLIENT_REFRESH_SECRET, { expiresIn: '7d' });
+    const accessToken = jwt.sign(payload, process.env.JWT_CLIENT_SECRET, { expiresIn: '15m' });
+    const refreshToken = jwt.sign(payload, process.env.JWT_CLIENT_REFRESH_SECRET, { expiresIn: '30m' });
     user.refreshToken = refreshToken;
     await user.save();
 
@@ -226,16 +226,15 @@ router.post('/user/token', async (req, res) => {
       },
     };
 
-    const accessToken = jwt.sign(payload, process.env.JWT_CLIENT_SECRET, { expiresIn: '60m' });
-    const newRefreshToken = jwt.sign(payload, process.env.JWT_CLIENT_REFRESH_SECRET, { expiresIn: '7d' });
+    const accessToken = jwt.sign(payload, process.env.JWT_CLIENT_SECRET, { expiresIn: '15m' });
+    const newRefreshToken = jwt.sign(payload, process.env.JWT_CLIENT_REFRESH_SECRET, { expiresIn: '30m' });
 
     user.refreshToken = newRefreshToken;
     await user.save();
 
     res.json({ accessToken, refreshToken: newRefreshToken });
   } catch (err) {
-    console.error(err.message);
-    res.status(401).json({ message: 'Token is not valid' });
+    return res.status(401).json({ message: 'Refresh token expired or invalid' });
   }
 });
 
