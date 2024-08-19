@@ -119,7 +119,7 @@ const CategoryPage = () => {
 
 
     return (
-        <div className='mt-10'>
+        <div className='mt-20'>
             <Container>
                 {/* Heading */}
                 <div className='w-full flex items-center justify-center'>

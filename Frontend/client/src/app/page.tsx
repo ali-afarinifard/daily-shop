@@ -1,5 +1,5 @@
 import { getAllProducts } from "@/libs/apiUrls";
-import CategoryList from "./components/category/CategoryList";
+// import CategoryList from "./components/category/CategoryList";
 import Container from "./components/Container";
 import Features from "./components/features/Features";
 import TopProducts from "./components/TopProducts";
@@ -13,7 +13,7 @@ export default function Home() {
       <div className="pb-10">
         <Container>
           <Banner />
-          <CategoryList />
+          {/* <CategoryList /> */}
           <TopProducts />
           <Features />
           <Guidance />

@@ -143,7 +143,7 @@ const ProductDetails: React.FC = () => {
 
 
     return (
-        <div className="mt-10">
+        <div className="mt-20">
             <div className="flex flex-col">
                 <div className="flex items-start xl:flex-col">
                     <div className="w-[30rem] xl:flex xl:flex-col items-center justify-center xl:w-full">
