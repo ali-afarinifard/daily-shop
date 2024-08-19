@@ -4,6 +4,8 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createProduct, getAllCategories, updateProduct } from "../../services/apiUrls";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage, uploadFile } from "../../firebase";
 
 
 
@@ -36,6 +38,7 @@ const ProductForm = ({
     const [isStatus, setIsStatus] = useState(assignedStatus || false);
     const [price, setPrice] = useState(existingPrice || 0);
     const [images, setImages] = useState(existingImages || []);
+    const [uploadedUrls, setUploadedUrls] = useState([]);
     const [categories, setCategories] = useState(initialCategories || []);
     const [sizes, setSizes] = useState(existingSizes || []);
     const [gender, setGender] = useState(existingGender || '');
@@ -93,7 +96,26 @@ const ProductForm = ({
         onError: () => {
             console.error('Error updating product:', error.response || error);
         }
-    })
+    });
+
+
+
+    const handleUpload = async (event) => {
+        const files = event.target.files;
+        const urls = [];
+
+        for (const file of files) {
+            try {
+                const url = await uploadFile(file);
+                urls.push(url);
+            } catch (error) {
+                console.error('Error uploading file:', error);
+            }
+        }
+
+        setUploadedUrls(urls); // Save the URLs in the component state
+        setImages(urls); // Set the URLs in the images state
+    };
 
 
 
@@ -127,27 +149,6 @@ const ProductForm = ({
             navigate('/products');
         }
     }, [goToProducts, navigate]);
-
-
-    const uploadImages = async (ev) => {
-        const files = ev.target.files;
-        const formData = new FormData();
-
-        for (const file of files) {
-            formData.append('images', file);
-        }
-
-        try {
-            const response = await axios.post('http://localhost:5000/api/upload', formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            });
-
-            setImages([...images, ...response.data.images]);
-        } catch (error) {
-            console.error('Error uploading images:', error);
-        }
-    };
-
 
     const handleSizeChange = (size) => {
         if (sizes.includes(size)) {
@@ -246,9 +247,9 @@ const ProductForm = ({
                 <label>عکس محصول</label>
                 <div className="mb-2 flex flex-wrap gap-1">
                     <div className="flex flex-wrap items-center gap-3 mb-4">
-                        {images.length > 0 && images.map((img, index) => (
+                        {uploadedUrls.map((url, index) => (
                             <div className="h-fit w-fit bg-white p-4 shadow-sm rounded-sm border border-gray-200" key={index}>
-                                <img src={`http://localhost:5000/${img}`} alt="" className="h-24 w-full" />
+                                <img src={url} alt="uploaded" className="h-24 w-full" />
                             </div>
                         ))}
                     </div>
@@ -256,7 +257,7 @@ const ProductForm = ({
                     <label className="w-[8rem] h-[8rem] flex flex-col items-center justify-center gap-2 cursor-pointer text-gray-600 rounded-lg bg-white shadow-sm border border-gray-200">
                         <IoCloudUploadOutline size={33} />
                         <div className="text-[1rem] font-[500]">Upload</div>
-                        <input type="file" name="images" id="images" className="hidden" onChange={uploadImages} multiple />
+                        <input type="file" name="images" id="images" className="hidden" onChange={handleUpload} multiple />
                     </label>
                 </div>
             </div>

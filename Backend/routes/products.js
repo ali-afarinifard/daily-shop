@@ -2,19 +2,20 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
 const Category = require('../models/Category');
+const { bucket } = require('../firebaseAdmin');
 
 
 // ** POST Products
 router.post('/', async (req, res) => {
     try {
-        const { title, description, price, category, images, stock, isStatus, colors, sizes, gender } = req.body;
+        const { title, description, price, category, stock, isStatus, colors, sizes, gender, images } = req.body;
 
         const product = new Product({
             title,
             description,
             price,
             category,
-            images,
+            images, // Array of image URLs from Firebase Storage
             stock,
             isStatus,
             colors,

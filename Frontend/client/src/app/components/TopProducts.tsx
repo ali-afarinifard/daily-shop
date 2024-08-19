@@ -14,6 +14,7 @@ import 'swiper/css/pagination'
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import ProductBox from "./products/ProductBox";
 import { AuthContext } from "@/context/AuthContext";
+import NullData from "./NullData";
 
 
 const TopProducts = () => {
@@ -45,6 +46,13 @@ const TopProducts = () => {
     const { user } = authContext;
 
 
+    if (!products || products.length === 0) {
+        return (
+            <NullData title="محصول پرفروشی وجود ندارد" center="h-full mt-20 !text-[1.3rem]" />
+        );
+    };
+
+
     return (
         <div className="mt-20">
             <div className="flex items-center justify-start">
@@ -55,6 +63,7 @@ const TopProducts = () => {
                 <Swiper
                     loop={products.length > 4}
                     slidesPerView={Math.min(4, products.length)}
+
                     spaceBetween={30}
                     onBeforeInit={(swiper) => {
                         swiperRef.current = swiper;
