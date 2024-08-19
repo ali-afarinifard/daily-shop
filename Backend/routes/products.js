@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
 const Category = require('../models/Category');
-const { bucket } = require('../firebaseAdmin');
 
 
 // ** POST Products

@@ -21,6 +21,7 @@ const EditProduct = () => {
     if (isProductLoading || isCategoriesLoading) {
         return <Loader />;
     }
+    
 
     if (productError || categoriesError) {
         return <div>Error loading data</div>;

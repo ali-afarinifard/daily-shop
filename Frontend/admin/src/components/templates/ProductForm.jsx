@@ -20,7 +20,7 @@ const ProductForm = ({
     title: existingTitle,
     description: existingDescription,
     price: existingPrice,
-    images: existingImages,
+    images: existingImages = [],
     category: assignedCategory,
     stock: assignedStock,
     isStatus: assignedStatus,
@@ -37,7 +37,8 @@ const ProductForm = ({
     const [stock, setStock] = useState(assignedStock || 0);
     const [isStatus, setIsStatus] = useState(assignedStatus || false);
     const [price, setPrice] = useState(existingPrice || 0);
-    const [images, setImages] = useState(existingImages || []);
+    // const [images, setImages] = useState([...existingImages]);
+    const [images, setImages] = useState(existingImages);
     const [uploadedUrls, setUploadedUrls] = useState([]);
     const [categories, setCategories] = useState(initialCategories || []);
     const [sizes, setSizes] = useState(existingSizes || []);
@@ -48,6 +49,7 @@ const ProductForm = ({
     // router
     const navigate = useNavigate();
 
+    // React Query for categories
     const { data, error, isLoading } = useQuery({
         queryKey: ['categories'],
         queryFn: getAllCategories,
@@ -63,6 +65,8 @@ const ProductForm = ({
     }, [data]);
 
 
+
+    // Populate state when editing an existing product
     useEffect(() => {
         setTitle(existingTitle || '');
         setDescription(existingDescription || '');
@@ -74,7 +78,9 @@ const ProductForm = ({
         setSizes(existingSizes || []);
         setGender(existingGender || '');
         setColors(existingColors?.join('-') || '');
-    }, [existingTitle, existingDescription, existingPrice, existingImages, existingSizes, existingGender, existingColors, assignedCategory, assignedStock, assignedStatus]);
+    }, [_id]);
+
+
 
 
     const createProductMutation = useMutation({
@@ -82,7 +88,7 @@ const ProductForm = ({
         onSuccess: () => {
             setGoToProducts(true);
         },
-        onError: () => {
+        onError: (error) => {
             console.error('Error creating product:', error.response || error);
         }
     });
@@ -93,7 +99,7 @@ const ProductForm = ({
         onSuccess: () => {
             setGoToProducts(true);
         },
-        onError: () => {
+        onError: (error) => {
             console.error('Error updating product:', error.response || error);
         }
     });
@@ -113,8 +119,9 @@ const ProductForm = ({
             }
         }
 
-        setUploadedUrls(urls); // Save the URLs in the component state
-        setImages(urls); // Set the URLs in the images state
+        // Append new URLs to both images and uploadedUrls states
+        setUploadedUrls([...uploadedUrls, ...urls]);
+        setImages([...images, ...urls]);
     };
 
 
@@ -247,7 +254,8 @@ const ProductForm = ({
                 <label>عکس محصول</label>
                 <div className="mb-2 flex flex-wrap gap-1">
                     <div className="flex flex-wrap items-center gap-3 mb-4">
-                        {uploadedUrls.map((url, index) => (
+                        {/* Display existing and newly uploaded images */}
+                        {images.map((url, index) => (
                             <div className="h-fit w-fit bg-white p-4 shadow-sm rounded-sm border border-gray-200" key={index}>
                                 <img src={url} alt="uploaded" className="h-24 w-full" />
                             </div>
