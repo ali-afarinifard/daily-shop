@@ -1,6 +1,7 @@
 import api from "../config/api";
 
 
+
 // ** AUTH
 const register = (username, email, password) => {
     return api.post('/auth/admin/register', { username, email, password });
@@ -18,12 +19,31 @@ const logout = (token) => {
     return api.post('/auth/admin/logout', { token });
 };
 
-const updateUser = async (adminData) => {
-    const response = await api.put('/auth/admin', adminData);
-    return response.data;
-}
+const resetAccount = async (email, newPassword) => {
+    try {
 
-export { register, login, refreshToken, logout, updateUser };
+        const response = await api.post('/auth/admin/reset-password', { email, newPassword });
+        return response.data;
+
+    } catch (error) {
+        console.error('Error resetAccount', error);
+        throw error;
+    }
+};
+
+const updateUser = async (adminData) => {
+    try {
+
+        const response = await api.put('/auth/admin', adminData);
+        return response.data;
+
+    } catch (error) {
+        console.error('Error updateUser', error);
+        throw error;
+    }
+};
+
+export { register, login, refreshToken, logout, updateUser, resetAccount };
 
 
 

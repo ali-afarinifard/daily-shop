@@ -8,8 +8,6 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 
-    // const navigate = useNavigate();
-
     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('accessToken') && !!localStorage.getItem('refreshToken'));
 
     const [admin, setAdmin] = useState(null);
@@ -19,7 +17,6 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const token = localStorage.getItem('accessToken');
         const refreshToken = localStorage.getItem('refreshToken');
-        // setIsAuthenticated(!!token && !!refreshToken);
 
         if (token && refreshToken) {
             setIsAuthenticated(true);
@@ -39,7 +36,6 @@ const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error('Error fetching user:', error);
             setIsAuthenticated(false);
-            // navigate('/login'); 
         }
     };
 
@@ -55,12 +51,11 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem('refreshToken');
         setIsAuthenticated(false);
         setAdmin(null);
-        // navigate('/login');
     };
 
 
-    const updateAdminInContext = (updatedUser) => {
-        setAdmin(updatedUser);
+    const updateAdminInContext = (updatedAdmin) => {
+        setAdmin(updatedAdmin);
     };
 
 

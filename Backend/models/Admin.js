@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const AdminSchema = new mongoose.Schema({
+  fullName: {
+    type: String,
+  },
   username: {
     type: String,
     required: true,
@@ -17,6 +20,9 @@ const AdminSchema = new mongoose.Schema({
   },
   refreshToken: {
     type: String,
+  },
+  phoneNumber: {
+    type: Number,
   },
 });
 

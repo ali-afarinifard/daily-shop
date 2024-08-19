@@ -246,15 +246,35 @@ router.post('/user/token', async (req, res) => {
 
 
 
-// ** ADMIN_________________ **
-// ** REGISTER
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ** Admin _________________ **
+// ** Register
 router.post('/admin/register', async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
-    let admin = await Admin.findOne({ email });
+    let admin = await Admin.findOne({ $or: [{ username }, { email }] });
+
     if (admin) {
-      return res.status(400).json({ message: 'Admin already exists' });
+      if (admin.username === username) {
+        return res.status(409).json({ message: 'Username already taken.' });
+      }
+      if (admin.email === email) {
+        return res.status(409).json({ message: 'Email already registered.' });
+      }
     }
 
     admin = new Admin({
@@ -274,8 +294,8 @@ router.post('/admin/register', async (req, res) => {
       },
     };
 
-    const accessToken = jwt.sign(payload, process.env.JWT_ADMIN_SECRET, { expiresIn: '60m' });
-    const refreshToken = jwt.sign(payload, process.env.JWT_ADMIN_REFRESH_SECRET, { expiresIn: '7d' });
+    const accessToken = jwt.sign(payload, process.env.JWT_ADMIN_SECRET, { expiresIn: '15m' });
+    const refreshToken = jwt.sign(payload, process.env.JWT_ADMIN_REFRESH_SECRET, { expiresIn: '30m' });
     admin.refreshToken = refreshToken;
     await admin.save();
 
@@ -287,13 +307,14 @@ router.post('/admin/register', async (req, res) => {
 });
 
 
-
 // ** LOGIN
 router.post('/admin/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
+
     let admin = await Admin.findOne({ email });
+
     if (!admin) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
@@ -309,8 +330,8 @@ router.post('/admin/login', async (req, res) => {
       },
     };
 
-    const accessToken = jwt.sign(payload, process.env.JWT_ADMIN_SECRET, { expiresIn: '60m' });
-    const refreshToken = jwt.sign(payload, process.env.JWT_ADMIN_REFRESH_SECRET, { expiresIn: '7d' });
+    const accessToken = jwt.sign(payload, process.env.JWT_ADMIN_SECRET, { expiresIn: '15m' });
+    const refreshToken = jwt.sign(payload, process.env.JWT_ADMIN_REFRESH_SECRET, { expiresIn: '30m' });
     admin.refreshToken = refreshToken;
     await admin.save();
 
@@ -350,6 +371,7 @@ router.post('/admin/logout', async (req, res) => {
 });
 
 
+
 // ** GET
 router.get('/admin', async (req, res) => {
   const token = req.header('Authorization').replace('Bearer ', '');
@@ -374,9 +396,11 @@ router.get('/admin', async (req, res) => {
 });
 
 
+
+
 // ** PUT
 router.put('/admin', async (req, res) => {
-  const { adminId, username, email, password } = req.body;
+  const { adminId, fullName, username, email, password, phoneNumber } = req.body;
 
   try {
     const admin = await Admin.findById(adminId);
@@ -387,6 +411,8 @@ router.put('/admin', async (req, res) => {
 
     admin.username = username || admin.username;
     admin.email = email || admin.email;
+    admin.fullName = fullName || admin.fullName;
+    admin.phoneNumber = phoneNumber || admin.phoneNumber;
 
     if (password) {
       const salt = await bcrypt.genSalt(10);
@@ -395,12 +421,38 @@ router.put('/admin', async (req, res) => {
 
     await admin.save();
 
-    res.status(200).json({ message: 'User updated successfully', admin });
+    res.status(200).json({ message: 'Admin updated successfully', admin });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
   }
 });
+
+
+
+// ** Reset Password
+router.post('/admin/reset-password', async (req, res) => {
+  const { email, newPassword } = req.body;
+
+  try {
+    const admin = await Admin.findOne({ email });
+
+    if (!admin) {
+      return res.status(404).json({ message: 'Admin not found' });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    admin.password = await bcrypt.hash(newPassword, salt);
+
+    await admin.save();
+
+    res.status(200).json({ message: 'Password reset successful' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 
 
 // ** Token
@@ -425,18 +477,19 @@ router.post('/admin/token', async (req, res) => {
       },
     };
 
-    const accessToken = jwt.sign(payload, process.env.JWT_ADMIN_SECRET, { expiresIn: '60m' });
-    const newRefreshToken = jwt.sign(payload, process.env.JWT_ADMIN_REFRESH_SECRET, { expiresIn: '7d' });
+    const accessToken = jwt.sign(payload, process.env.JWT_ADMIN_SECRET, { expiresIn: '15m' });
+    const newRefreshToken = jwt.sign(payload, process.env.JWT_ADMIN_REFRESH_SECRET, { expiresIn: '30m' });
 
     admin.refreshToken = newRefreshToken;
     await admin.save();
 
     res.json({ accessToken, refreshToken: newRefreshToken });
   } catch (err) {
-    console.error(err.message);
-    res.status(401).json({ message: 'Token is not valid' });
+    return res.status(401).json({ message: 'Refresh token expired or invalid' });
   }
 });
+
+
 
 
 module.exports = router;
