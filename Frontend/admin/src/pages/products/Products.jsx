@@ -37,12 +37,14 @@ const ProductPage = () => {
 
     const { data, error, isLoading } = useQuery({
         queryKey: ['products'],
-        queryFn: getAllProducts
+        queryFn: getAllProducts,
     });
 
     const paginatedData = (data || []).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
-    if (isLoading) return <Loader />;
+    if (isLoading) return (
+        <Loader />
+    );
 
     if (error) return <div>Error...</div>
 

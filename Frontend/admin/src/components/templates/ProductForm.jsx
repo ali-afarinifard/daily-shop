@@ -6,6 +6,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { createProduct, getAllCategories, updateProduct } from "../../services/apiUrls";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage, uploadFile } from "../../firebase";
+import Loader from "../modules/Loader";
 
 
 
@@ -31,20 +32,20 @@ const ProductForm = ({
 }) => {
 
     // States
-    const [title, setTitle] = useState(existingTitle || '');
-    const [description, setDescription] = useState(existingDescription || '');
-    const [category, setCategory] = useState(assignedCategory || '');
-    const [stock, setStock] = useState(assignedStock || 0);
-    const [isStatus, setIsStatus] = useState(assignedStatus || false);
-    const [price, setPrice] = useState(existingPrice || 0);
-    // const [images, setImages] = useState([...existingImages]);
-    const [images, setImages] = useState(existingImages);
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [category, setCategory] = useState('');
+    const [stock, setStock] = useState(0);
+    const [isStatus, setIsStatus] = useState(false);
+    const [price, setPrice] = useState(0);
+    const [images, setImages] = useState([]);
     const [uploadedUrls, setUploadedUrls] = useState([]);
-    const [categories, setCategories] = useState(initialCategories || []);
-    const [sizes, setSizes] = useState(existingSizes || []);
-    const [gender, setGender] = useState(existingGender || '');
+    const [categories, setCategories] = useState([]);
+    const [sizes, setSizes] = useState([]);
+    const [gender, setGender] = useState('');
+    const [colors, setColors] = useState('');
+    const [loading, setIsLoading] = useState(false);
     const [goToProducts, setGoToProducts] = useState(false);
-    const [colors, setColors] = useState(existingColors?.join('-') || '');
 
     // router
     const navigate = useNavigate();
@@ -66,19 +67,33 @@ const ProductForm = ({
 
 
 
-    // Populate state when editing an existing product
     useEffect(() => {
-        setTitle(existingTitle || '');
-        setDescription(existingDescription || '');
-        setCategory(assignedCategory || '');
-        setStock(assignedStock || 0);
-        setIsStatus(assignedStatus || false);
-        setPrice(existingPrice || 0);
-        setImages(existingImages || []);
-        setSizes(existingSizes || []);
-        setGender(existingGender || '');
-        setColors(existingColors?.join('-') || '');
-    }, [_id]);
+        if (_id) {
+            setTitle(existingTitle || '');
+            setDescription(existingDescription || '');
+            setCategory(assignedCategory || '');
+            setStock(assignedStock || 0);
+            setIsStatus(assignedStatus || false);
+            setPrice(existingPrice || 0);
+            setImages(existingImages || []);
+            setSizes(existingSizes || []);
+            setGender(existingGender || '');
+            setColors(existingColors?.join('-') || '');
+        }
+    }, [
+        _id,
+        existingTitle,
+        existingDescription,
+        assignedCategory,
+        assignedStock,
+        assignedStatus,
+        existingPrice,
+        existingImages,
+        existingSizes,
+        existingGender,
+        existingColors
+    ]);
+
 
 
 
@@ -107,6 +122,7 @@ const ProductForm = ({
 
 
     const handleUpload = async (event) => {
+        setIsLoading(true);
         const files = event.target.files;
         const urls = [];
 
@@ -122,6 +138,7 @@ const ProductForm = ({
         // Append new URLs to both images and uploadedUrls states
         setUploadedUrls([...uploadedUrls, ...urls]);
         setImages([...images, ...urls]);
+        setIsLoading(false);
     };
 
 
@@ -260,6 +277,9 @@ const ProductForm = ({
                                 <img src={url} alt="uploaded" className="h-24 w-full" />
                             </div>
                         ))}
+                        {loading && (
+                            <Loader size={35} />
+                        )}
                     </div>
 
                     <label className="w-[8rem] h-[8rem] flex flex-col items-center justify-center gap-2 cursor-pointer text-gray-600 rounded-lg bg-white shadow-sm border border-gray-200">

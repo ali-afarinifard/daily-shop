@@ -10,7 +10,7 @@ const EditProduct = () => {
     const { data: productInfo, error: productError, isLoading: isProductLoading } = useQuery({
         queryKey: ['product', id],
         queryFn: getProduct,
-        enabled: !!id
+        enabled: !!id,
     });
 
     const { data: categories, error: categoriesError, isLoading: isCategoriesLoading } = useQuery({
