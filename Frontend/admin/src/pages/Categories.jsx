@@ -15,6 +15,7 @@ import { MdOutlineEditNote } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { getAllCategories, createCategory, updateCategory, deleteCategory } from '../services/apiUrls';
 import Loader from "../components/modules/Loader";
+import toast from "react-hot-toast";
 
 const CategoryPage = ({ swal }) => {
     const queryClient = useQueryClient();
@@ -41,17 +42,38 @@ const CategoryPage = ({ swal }) => {
 
     const createCategoryMutation = useMutation({
         mutationFn: createCategory,
-        onSuccess: () => queryClient.invalidateQueries(['categories']),
+        onSuccess: () => {
+            queryClient.invalidateQueries(['categories']);
+            toast.success('دسته بندی اضافه شد');
+        },
+        onError: (error) => {
+            console.error('Error creating category:', error.response || error);
+            toast.error('خطایی رخ داده');
+        }
     });
 
     const updateCategoryMutation = useMutation({
         mutationFn: updateCategory,
-        onSuccess: () => queryClient.invalidateQueries(['categories']),
+        onSuccess: () => {
+            queryClient.invalidateQueries(['categories']);
+            toast.success('به روز رسانی شد');
+        },
+        onError: (error) => {
+            console.error('Error updating category:', error.response || error);
+            toast.error('خطایی رخ داده');
+        }
     });
 
     const deleteCategoryMutation = useMutation({
         mutationFn: deleteCategory,
-        onSuccess: () => queryClient.invalidateQueries(['categories']),
+        onSuccess: () => {
+            queryClient.invalidateQueries(['categories']);
+            toast.success('دسته بندی حذف شد');
+        },
+        onError: (error) => {
+            console.error('Error deleting category:', error.response || error);
+            toast.error('خطایی رخ داده');
+        }
     });
 
     const handleSubmit = (e) => {

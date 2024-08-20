@@ -4,10 +4,14 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createProduct, getAllCategories, updateProduct } from "../../services/apiUrls";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage, uploadFile } from "../../firebase";
+import { uploadFile } from "../../firebase";
 import Loader from "../modules/Loader";
 import { FiTrash } from "react-icons/fi";
+import InputTitle from "./products/InputTitle";
+import InputColor from "./products/InputColor";
+import InputTextArea from "./products/InputTextArea";
+import InputCheckbox from "./products/InputCheckbox";
+import toast from "react-hot-toast";
 
 
 
@@ -37,9 +41,9 @@ const ProductForm = ({
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
-    const [stock, setStock] = useState(0);
+    const [stock, setStock] = useState('');
     const [isStatus, setIsStatus] = useState(false);
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState('');
     const [images, setImages] = useState([]);
     const [uploadedUrls, setUploadedUrls] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -74,9 +78,9 @@ const ProductForm = ({
             setTitle(existingTitle || '');
             setDescription(existingDescription || '');
             setCategory(assignedCategory || '');
-            setStock(assignedStock || 0);
+            setStock(assignedStock || '');
             setIsStatus(assignedStatus || false);
-            setPrice(existingPrice || 0);
+            setPrice(existingPrice || '');
             setImages(existingImages || []);
             setSizes(existingSizes || []);
             setGender(existingGender || '');
@@ -104,8 +108,10 @@ const ProductForm = ({
         mutationFn: createProduct,
         onSuccess: () => {
             setGoToProducts(true);
+            toast.success('محصول جدید اضافه شد');
         },
         onError: (error) => {
+            toast.error('خطایی رخ داده');
             console.error('Error creating product:', error.response || error);
         }
     });
@@ -115,8 +121,10 @@ const ProductForm = ({
         mutationFn: updateProduct,
         onSuccess: () => {
             setGoToProducts(true);
+            toast.success('به روز رسانی شد');
         },
         onError: (error) => {
+            toast.error('خطایی رخ داده');
             console.error('Error updating product:', error.response || error);
         }
     });
@@ -200,15 +208,14 @@ const ProductForm = ({
             {/* Name */} {/* Categories */}
             <div className="flex items-center justify-center gap-4 mb-3">
 
-                <div className="flex flex-col gap-1 w-full">
-                    <label>نام محصول</label>
-                    <input
-                        type="text"
-                        placeholder="نام محصول"
-                        value={title}
-                        onChange={(ev) => setTitle(ev.target.value)}
-                    />
-                </div>
+                <InputTitle
+                    label="نام محصول"
+                    htmlLabel={'title'}
+                    id={'title'}
+                    type="text"
+                    value={title}
+                    onChange={(ev) => setTitle(ev.target.value)}
+                />
 
 
                 <div className="w-full">
@@ -260,15 +267,16 @@ const ProductForm = ({
                 </div>
 
 
-                <div className="flex flex-col gap-1 pt-1 w-full">
-                    <label>رنگ‌ها (هر رنگ را با یک خط تیره - جدا کنید)</label>
-                    <input
-                        type="text"
-                        placeholder="مثال: قرمز-آبی-سبز"
-                        value={colors}
-                        onChange={(ev) => setColors(ev.target.value)}
-                    />
-                </div>
+                <InputColor
+                    label="رنگ‌ها (هر رنگ را با یک خط تیره - جدا کنید)"
+                    htmlLabel="color"
+                    id="color"
+                    type="text"
+                    value={colors}
+                    onChange={ev => setColors(ev.target.value)}
+                    placeholder="مثال: قرمز-آبی-سبز"
+                    className="placeholder:text-sm"
+                />
 
             </div>
 
@@ -308,14 +316,13 @@ const ProductForm = ({
 
 
             {/* Description */}
-            <div className="flex flex-col gap-1 mb-3">
-                <label>توضیحات</label>
-                <textarea
-                    placeholder="توضیحات"
-                    value={description}
-                    onChange={ev => setDescription(ev.target.value)}
-                ></textarea>
-            </div>
+            <InputTextArea
+                label="توضیحات"
+                htmlLabel="description"
+                id="description"
+                value={description}
+                onChange={ev => setDescription(ev.target.value)}
+            />
 
 
             {/* Stock */}  {/* Price */}
@@ -325,9 +332,11 @@ const ProductForm = ({
                     <label>تعداد</label>
                     <input
                         type="number"
-                        placeholder="تعداد"
                         value={stock}
-                        onChange={ev => setStock(ev.target.value)}
+                        onChange={ev => {
+                            const value = Math.max(0, ev.target.value);
+                            setStock(value);
+                        }}
                     />
                 </div>
 
@@ -336,27 +345,25 @@ const ProductForm = ({
                     <label>قیمت (تومان)</label>
                     <input
                         type="number"
-                        placeholder="قیمت"
                         value={price}
-                        onChange={ev => setPrice(ev.target.value)}
+                        onChange={ev => {
+                            const value = Math.max(0, ev.target.value);
+                            setPrice(value);
+                        }}
                     />
                 </div>
 
             </div>
 
-
-
-            <div className="my-3 flex items-center gap-2">
-                <label>
-                    محصول موجود می باشد
-                </label>
-                <input
-                    type="checkbox"
-                    checked={isStatus}
-                    onChange={(ev) => setIsStatus(ev.target.checked)}
-                    className="relative top-[0.25rem] w-4 h-4 rounded-full cursor-pointer"
-                />
-            </div>
+            <InputCheckbox
+                label="محصول موجود می باشد"
+                htmlLabel="status"
+                id="status"
+                type="checkbox"
+                checked={isStatus}
+                onChange={ev => setIsStatus(ev.target.checked)}
+                className="relative top-[0.25rem] w-4 h-4 rounded-full cursor-pointer"
+            />
 
             <button className="btn-primary mt-3" type="submit">{_id ? 'ویرایش' : 'ایجاد'}</button>
         </form >

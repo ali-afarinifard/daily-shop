@@ -34,7 +34,7 @@
 input,
 textarea,
 select {
-    @apply border border-gray-200 rounded-md p-2 py-2 w-full;
+    @apply border-[1px] border-slate-200 rounded-md p-2 py-2 w-full outline-slate-400;
     @apply mb-2;
 }
 

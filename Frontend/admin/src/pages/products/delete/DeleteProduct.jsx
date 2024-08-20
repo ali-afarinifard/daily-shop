@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const DeleteProduct = () => {
 
@@ -30,8 +31,10 @@ const DeleteProduct = () => {
         try {
             await axios.delete(`http://localhost:5000/api/products/${id}`);
             goBack();
+            toast.success('حذف شد');
         } catch (error) {
             console.error('Error deleting product:', error);
+            toast.error('خطایی رخ داده');
         }
     };
 

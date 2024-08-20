@@ -4,6 +4,7 @@ import { BrowserRouter, useNavigate } from "react-router-dom"
 // ** React Query
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Toaster } from "react-hot-toast";
 
 // ** Context
 import { AuthProvider } from "./context/AuthContext";
@@ -41,6 +42,12 @@ function App() {
 
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+        <Toaster toastOptions={{
+          style: {
+            background: 'rgb(51 65 85)',
+            color: '#fff',
+          },
+        }} />
         <AuthProvider>
           <CacheProvider value={cacheRtl}>
             <ThemeProvider theme={theme}>
