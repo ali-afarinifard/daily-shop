@@ -7,6 +7,8 @@ import { createProduct, getAllCategories, updateProduct } from "../../services/a
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage, uploadFile } from "../../firebase";
 import Loader from "../modules/Loader";
+import { FiTrash } from "react-icons/fi";
+
 
 
 
@@ -142,6 +144,11 @@ const ProductForm = ({
     };
 
 
+    const handleDeleteImage = (url) => {
+        setImages(images.filter(image => image !== url));
+    };
+
+
 
     const handleSubmit = async (ev) => {
         ev.preventDefault();
@@ -173,6 +180,7 @@ const ProductForm = ({
             navigate('/products');
         }
     }, [goToProducts, navigate]);
+
 
     const handleSizeChange = (size) => {
         if (sizes.includes(size)) {
@@ -273,8 +281,16 @@ const ProductForm = ({
                     <div className="flex flex-wrap items-center gap-3 mb-4">
                         {/* Display existing and newly uploaded images */}
                         {images.map((url, index) => (
-                            <div className="h-fit w-fit bg-white p-4 shadow-sm rounded-sm border border-gray-200" key={index}>
-                                <img src={url} alt="uploaded" className="h-24 w-full" />
+                            <div className="h-fit w-fit rounded-md overflow-hidden bg-white shadow-sm border border-gray-200" key={index}>
+                                <div>
+                                    <img src={url} alt="uploaded" className="h-[6.3rem] w-full" />
+                                    <div
+                                        className="bg-slate-100 text-xs py-1 flex items-center justify-center text-slate-900 cursor-pointer"
+                                        onClick={() => handleDeleteImage(url)}
+                                    >
+                                        <FiTrash size={18} />
+                                    </div>
+                                </div>
                             </div>
                         ))}
                         {loading && (
