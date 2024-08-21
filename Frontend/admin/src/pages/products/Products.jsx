@@ -50,7 +50,7 @@ const ProductPage = () => {
     if (error) return <div>Error...</div>
 
     return (
-        <div>
+        <div className="s:pb-20 s:pt-3">
             <Link
                 to={'/products/add'}
                 className="btn-primary"

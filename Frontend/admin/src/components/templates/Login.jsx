@@ -3,8 +3,7 @@ import { login } from '../../services/apiUrls';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { useMutation } from '@tanstack/react-query';
-import styles from "../../styles/Login.module.css";
-import avatar from "../../assets/images/profile.png";
+import avatar from "../../assets/images/admin-pic.webp";
 import toast from "react-hot-toast";
 
 const Login = () => {
@@ -22,7 +21,7 @@ const Login = () => {
             navigate('/');
         }
     }, [isAuthenticated, navigate]);
-    
+
 
     const mutation = useMutation({
         mutationFn: ({ email, password }) => login(email, password),
@@ -35,7 +34,7 @@ const Login = () => {
         },
         onError: (err) => {
             setError('Login failed!');
-            toast.success('خطایی رخ داده');
+            toast.error('خطایی رخ داده');
         }
     });
 
@@ -46,54 +45,73 @@ const Login = () => {
 
 
     return (
-        <div className={`${styles.background_container}`}>
+        <div className='w-full h-full flex items-center justify-center'>
+            <form onSubmit={handleLogin} className='w-[50rem] max-w-[50rem]'>
 
-            <div className='flex justify-center items-center h-screen'>
-                <div className={`${styles.glass}`}>
+                <div className='border-[1px] border-slate-200 rounded-lg shadow-md p-7'>
 
-                    <div className='flex flex-col items-center justify-center'>
-                        <h4 className='text-5xl font-bold pb-6'>ورود</h4>
-                        <span className='text-slate-400'>پنل کاربری ادمین</span>
+                    <div className='flex flex-col gap-1 items-center'>
+                        <h1 className='font-bold text-4xl'>ورود</h1>
+
+                        <span className='text-slate-500'>
+                            پنل کاربری ادمین
+                        </span>
                     </div>
 
-                    <form className='py-1' onSubmit={handleLogin}>
-                        <div className='profile flex justify-center py-4'>
-                            <img src={avatar} className={styles.profile_img} alt="avatar" />
+                    <div className='max-w-96 h-full mx-auto'>
+                        <img src={avatar} alt='admin' className='w-full h-full' />
+                    </div>
+
+                    <div className='flex flex-col gap-4 max-w-[30rem] mx-auto'>
+
+                        <div className='flex flex-col gap-1'>
+
+                            <label htmlFor="email" className='pr-1 text-[1.1rem]'>ایمیل</label>
+                            <input
+                                id='email'
+                                type="email"
+                                value={email}
+                                onChange={ev => setEmail(ev.target.value)}
+                                className='py-3 text-slate-600'
+                            />
+
                         </div>
 
-                        <div>
-                            <div className='textbox relative'>
-                                <input className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed ${styles.textBox}`} type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                                <label
-                                    className={`absolute cursor-text text-[1.1rem] duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4`}
-                                >
-                                    ایمیل
-                                </label>
-                            </div>
 
-                            <div className='textbox relative'>
-                                <input className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed ${styles.textBox}`} type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                                <label
-                                    className={`absolute cursor-text text-[1.1rem] duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4`}
-                                >
-                                    رمز عبور
-                                </label>
-                            </div>
-                            <div className='flex items-center justify-center'>
-                                <button className={styles.btn} type='submit'>
-                                    {mutation.isLoading ? 'لودینگ' : 'بزن بریم'}
-                                </button>
-                            </div>
+                        <div className='flex flex-col gap-1'>
+
+                            <label htmlFor="password" className='pr-1 text-[1.1rem]'>رمز عبور</label>
+                            <input
+                                id='password'
+                                type="password"
+                                value={password}
+                                onChange={ev => setPassword(ev.target.value)}
+                                className='py-3'
+                            />
+
                         </div>
 
-                        <div className="text-center py-4">
-                            <span className='text-gray-500'>حساب کاربری ندارید؟ <Link className='text-red-500' to="/register">ثبت نام کنید</Link></span>
+                        <div className='w-full flex items-center justify-center'>
+                            <button className='bg-blue-500 hover:bg-blue-400 transition-all duration-300 text-white w-[17rem] p-2 rounded-xl text-xl'>
+                                ورود
+                            </button>
                         </div>
 
-                    </form>
+                    </div>
+
+                    <div className='flex items-center justify-between gap-1 mt-5'>
+                        <div className='text-sm text-center mt-2'>
+                            حساب کاربری ندارید؟ <Link to={'/register'} className='text-rose-500'>ثبت نام کنید</Link>
+                        </div>
+
+                        <div className='text-sm text-center mt-2'>
+                            <Link to={'/reset-account'}>رمز عبور خود را فراموش کردید؟</Link>
+                        </div>
+                    </div>
 
                 </div>
-            </div>
+
+            </form>
         </div>
     );
 };

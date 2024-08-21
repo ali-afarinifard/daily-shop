@@ -6,7 +6,7 @@ import OrderDashboard from "../components/templates/dashboard/OrderDashboard"
 
 const DashboardPage = () => {
     return (
-        <div>
+        <div className="s:pb-20">
             <div>
                 <Header />
             </div>
