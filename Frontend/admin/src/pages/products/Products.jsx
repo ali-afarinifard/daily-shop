@@ -17,6 +17,7 @@ import { Box, TablePagination, Typography } from "@mui/material";
 import { MdOutlineEditNote } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import { formatPriceWithSlashes } from "../../utils/formatPrice";
 
 
 const ProductPage = () => {
@@ -76,7 +77,7 @@ const ProductPage = () => {
                                 <TableCell component="th" scope="row" sx={{ fontFamily: 'Vazir' }}>
                                     {product.title}
                                 </TableCell>
-                                <TableCell sx={{ fontFamily: 'Vazir' }}>{product.price}</TableCell>
+                                <TableCell sx={{ fontFamily: 'Vazir' }}>{formatPriceWithSlashes(product.price)}</TableCell>
                                 <TableCell sx={{ fontFamily: 'Vazir' }}>{product.category ? product.category.name : "حذف شده"}</TableCell>
                                 {/* <TableCell sx={{ fontFamily: 'Vazir' }}>
                                     {Object.entries(product.properties).map(([key, value]) => (

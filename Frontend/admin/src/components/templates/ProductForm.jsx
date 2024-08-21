@@ -53,6 +53,10 @@ const ProductForm = ({
     const [loading, setIsLoading] = useState(false);
     const [goToProducts, setGoToProducts] = useState(false);
 
+    // Validate States
+    const [priceError, setPriceError] = useState('');
+    const [stockError, setStockError] = useState('');
+
     // router
     const navigate = useNavigate();
 
@@ -164,7 +168,7 @@ const ProductForm = ({
         const product = {
             title,
             description,
-            price,
+            price: parseInt(price.replace(/\//g, ''), 10),
             category,
             images,
             stock,
@@ -200,6 +204,45 @@ const ProductForm = ({
 
     // Determine size options based on gender
     const sizeOptions = gender === 'men' ? sizesOptionsMen : sizesOptionsWomen;
+
+
+
+    const handlePriceChange = (ev) => {
+        let value = ev.target.value;
+
+        // Check if the value contains any non-numeric characters (excluding '/')
+        if (/[^0-9/]/.test(value)) {
+            setPriceError('عدد وارد شود'); // Set error message
+            return;
+        } else {
+            setPriceError(''); // Clear the error if input is valid
+        }
+
+        // Remove all existing '/' characters
+        value = value.replace(/\//g, '');
+
+        // Format the value by adding '/' after every 3 digits
+        const formattedValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, '/');
+
+        // Update the state with the formatted value
+        setPrice(formattedValue);
+    };
+
+
+    const handleStockVal = (ev) => {
+        let value = ev.target.value;
+
+        // Check if the value contains any non-numeric characters (excluding '/')
+        if (/[^0-9/]/.test(value)) {
+            setStockError('عدد وارد شود'); // Set error message
+            return;
+        } else {
+            setStockError(''); // Clear the error if input is valid
+        };
+
+        setStock(value);
+    }
+
 
 
     return (
@@ -331,28 +374,23 @@ const ProductForm = ({
                 <div className="flex flex-col gap-1 w-full">
                     <label>تعداد</label>
                     <input
-                        type="number"
+                        type="text"
                         value={stock}
-                        onChange={ev => {
-                            const value = Math.max(0, ev.target.value);
-                            setStock(value);
-                        }}
+                        onChange={handleStockVal}
                     />
+                    {stockError && <div className="text-red-500 text-xs">{stockError}</div>}
                 </div>
 
 
                 <div className="flex flex-col gap-1 w-full">
                     <label>قیمت (تومان)</label>
                     <input
-                        type="number"
+                        type="text"
                         value={price}
-                        onChange={ev => {
-                            const value = Math.max(0, ev.target.value);
-                            setPrice(value);
-                        }}
+                        onChange={handlePriceChange}
                     />
+                    {priceError && <div className="text-red-500 text-xs">{priceError}</div>}
                 </div>
-
             </div>
 
             <InputCheckbox
