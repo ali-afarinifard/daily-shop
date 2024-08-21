@@ -43,7 +43,7 @@ const ProductPage = () => {
     const paginatedData = (data || []).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
     if (isLoading) return (
-        <Loader />
+        <Loader size={40} />
     );
 
     if (error) return <div>Error...</div>

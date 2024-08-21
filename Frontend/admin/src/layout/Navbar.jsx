@@ -67,7 +67,7 @@ const Navbar = () => {
           <span className='xs:hidden'>سفارشات</span>
         </Link>
 
-        <button onClick={handleLogout} className={inActiveLink}>
+        <button onClick={handleLogout} className={`${inActiveLink} text-rose-600`}>
           <MdLogout className={inActiveIcon} />
           <span className='xs:hidden'>خروج</span>
         </button>

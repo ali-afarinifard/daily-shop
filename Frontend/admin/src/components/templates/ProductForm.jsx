@@ -18,7 +18,7 @@ import toast from "react-hot-toast";
 
 
 // const sizesOptions = [38, 39, 40, 41, 42, 43, 44, 45, 46];
-const sizesOptionsWomen = ['1', '2', '3'];
+const sizesOptionsWomen = ['1', '2', '3', 'فری'];
 const sizesOptionsMen = ['S', 'M', 'L', 'XL', '2XL'];
 
 
