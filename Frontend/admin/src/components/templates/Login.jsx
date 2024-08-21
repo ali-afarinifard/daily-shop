@@ -9,7 +9,11 @@ import toast from "react-hot-toast";
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+
+    const [errors, setErrors] = useState({
+        email: '',
+        password: ''
+    });
 
     const { login: authLogin, isAuthenticated } = useContext(AuthContext);
 
@@ -23,6 +27,30 @@ const Login = () => {
     }, [isAuthenticated, navigate]);
 
 
+    const validateForm = () => {
+        let valid = true;
+        const newErrors = {
+            email: '',
+            password: ''
+        };
+
+        if (!/^\S+@\S+\.\S+$/.test(email)) {
+            newErrors.email = 'ایمیل معتبر نیست';
+            valid = false;
+        };
+
+        if (password && password.length < 4) {
+            newErrors.password = 'حداقل 4 حرف یا عدد وارد شود';
+            valid = false;
+        };
+
+
+        setErrors(newErrors);
+        return valid;
+
+    }
+
+
     const mutation = useMutation({
         mutationFn: ({ email, password }) => login(email, password),
         onSuccess: (response) => {
@@ -33,13 +61,18 @@ const Login = () => {
             toast.success('وارد شدید');
         },
         onError: (err) => {
-            setError('Login failed!');
+            console.log('Login failed!', err);
             toast.error('خطایی رخ داده');
         }
     });
 
     const handleLogin = (e) => {
         e.preventDefault();
+
+        if (!validateForm()) {
+            return;
+        };
+
         mutation.mutate({ email, password });
     };
 
@@ -66,28 +99,35 @@ const Login = () => {
 
                         <div className='flex flex-col gap-1'>
 
-                            <label htmlFor="email" className='pr-1 text-[1.1rem]'>ایمیل</label>
-                            <input
-                                id='email'
-                                type="email"
-                                value={email}
-                                onChange={ev => setEmail(ev.target.value)}
-                                className='py-3 text-slate-600'
-                            />
+                            <div className='flex flex-col gap-1'>
+                                <label htmlFor="email" className='pr-1 text-[1.1rem]'>ایمیل</label>
+                                <input
+                                    id='email'
+                                    type="email"
+                                    value={email}
+                                    onChange={ev => setEmail(ev.target.value)}
+                                    className='py-3 text-slate-600'
+                                />
+                            </div>
+
+                            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
 
                         </div>
 
 
                         <div className='flex flex-col gap-1'>
 
-                            <label htmlFor="password" className='pr-1 text-[1.1rem]'>رمز عبور</label>
-                            <input
-                                id='password'
-                                type="password"
-                                value={password}
-                                onChange={ev => setPassword(ev.target.value)}
-                                className='py-3'
-                            />
+                            <div className='flex flex-col gap-1'>
+                                <label htmlFor="password" className='pr-1 text-[1.1rem]'>رمز عبور</label>
+                                <input
+                                    id='password'
+                                    type="password"
+                                    value={password}
+                                    onChange={ev => setPassword(ev.target.value)}
+                                    className='py-3'
+                                />
+                            </div>
+                            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
 
                         </div>
 
