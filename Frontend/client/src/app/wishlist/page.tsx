@@ -22,7 +22,7 @@ const WishlistPage = () => {
     }
 
     return (
-        <div className="pt-8">
+        <div className="pt-20">
             <Container>
                 <Wishlist userId={user?._id} />
             </Container>

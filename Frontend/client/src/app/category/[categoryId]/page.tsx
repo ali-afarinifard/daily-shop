@@ -31,7 +31,7 @@ const CategoryPage = () => {
     const [filter, setFilter] = useState('all');
 
     // Number of products per page
-    const itemsPerPage = 8;
+    const itemsPerPage = 12;
 
     console.log("Category ID:", categoryId);
 

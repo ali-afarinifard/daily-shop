@@ -31,7 +31,7 @@ const WishlistProduct: React.FC<WishlistProductProps> = ({ product, userId, onRe
                 <div className="relative w-full h-80 group">
                     {firstImage && (
                         <Image
-                            src={`http://localhost:5000/${firstImage.replace(/\\/g, '/')}`}
+                            src={firstImage}
                             alt={product.title}
                             className="object-cover rounded-t-md transition-opacity duration-500 ease-in-out group-hover:opacity-0"
                             fill
@@ -41,7 +41,7 @@ const WishlistProduct: React.FC<WishlistProductProps> = ({ product, userId, onRe
 
                     {secondImage && (
                         <Image
-                            src={`http://localhost:5000/${secondImage.replace(/\\/g, '/')}`}
+                            src={secondImage}
                             alt={product.title}
                             className="object-cover absolute inset-0 transition-opacity duration-500 ease-in-out opacity-0 group-hover:opacity-100"
                             fill

@@ -19,7 +19,7 @@ const ManageWishlistItem: React.FC<ManageWishlistItemProps> = ({ product }) => {
                 <div className="flex items-center gap-3">
                     <div className="w-16 h-full">
                         <Image
-                            src={`http://localhost:5000/${product.images[0].replace(/\\/g, '/')}`}
+                            src={product.images[0]}
                             alt={product.title}
                             width={100}
                             height={100}

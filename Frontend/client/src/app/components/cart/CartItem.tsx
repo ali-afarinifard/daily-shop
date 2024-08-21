@@ -14,7 +14,6 @@ interface ItemContentProps {
 const CartItem: React.FC<ItemContentProps> = ({ item }) => {
 
     const { handleRemoveProductFromCart, handleCartQtyIncrease, handleCartQtyDecrease } = useCart();
-    const firstImage = item.images[0];
 
     return (
         <div className="grid grid-cols-5 text-xs md:text-sm gap-4 border-t-[1.5px] border-slate-200 py-4 items-center">
@@ -22,7 +21,7 @@ const CartItem: React.FC<ItemContentProps> = ({ item }) => {
                 <Link href={`/product/${item._id}`}>
                     <div className="relative w-[6.4rem] aspect-square">
                         <Image
-                            src={`http://localhost:5000/${firstImage.replace(/\\/g, '/')}`}
+                            src={item.images[0]}
                             alt={item.title}
                             fill
                             className="object-contain"

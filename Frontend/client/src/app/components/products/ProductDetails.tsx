@@ -52,7 +52,7 @@ const ProductDetails: React.FC = () => {
                     const productData = await getProductById(productId);
                     setProduct(productData);
                     if (productData?.images.length) {
-                        setSelectedImage(`http://localhost:5000/${productData.images[0].replace(/\\/g, '/')}`);
+                        setSelectedImage(productData.images[0]);
                     }
                 }
             } catch (error) {
@@ -99,13 +99,13 @@ const ProductDetails: React.FC = () => {
     };
 
     const handleImageClick = (image: string) => {
-        setSelectedImage(`http://localhost:5000/${image.replace(/\\/g, '/')}`);
+        setSelectedImage(image);
     };
 
     const handleQtyIncrease = () => {
         if (quantity < Math.min(product?.stock || 0)) {
             setQuantity(quantity + 1);
-        }  else {
+        } else {
             toast.error('نمی‌توانید بیش از تعداد موجودی افزایش دهید');
         }
     };
@@ -180,7 +180,7 @@ const ProductDetails: React.FC = () => {
                                             onClick={() => handleImageClick(image)}
                                         >
                                             <Image
-                                                src={`http://localhost:5000/${image.replace(/\\/g, '/')}`}
+                                                src={image}
                                                 alt={`${product.title} ${index + 1}`}
                                                 width={100}
                                                 height={100}
@@ -201,11 +201,15 @@ const ProductDetails: React.FC = () => {
                         </h3>
 
                         <div className="flex items-center gap-6">
-                            <p className="flex items-center gap-1">
-                                <span>تعداد : </span>
-                                <span className="font-bold">{product?.stock}</span>
-                            </p>
-                            <hr className="w-[1px] h-[1.1rem] bg-slate-300" />
+                            {product?.isStatus && (
+                                <>
+                                    <p className="flex items-center gap-1">
+                                        <span>تعداد : </span>
+                                        <span className="font-bold">{product?.stock}</span>
+                                    </p>
+                                    <hr className="w-[1px] h-[1.1rem] bg-slate-300" />
+                                </>
+                            )}
                             <div className="flex items-center gap-1">
                                 <span className="font-semibold">وضعیت : </span>
                                 <div className={product?.isStatus ? 'text-teal-400' : 'text-rose-400'}>
