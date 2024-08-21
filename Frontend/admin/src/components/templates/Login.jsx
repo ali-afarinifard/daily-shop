@@ -5,6 +5,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { useMutation } from '@tanstack/react-query';
 import styles from "../../styles/Login.module.css";
 import avatar from "../../assets/images/profile.png";
+import toast from "react-hot-toast";
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -30,9 +31,11 @@ const Login = () => {
             localStorage.setItem('refreshToken', response.data.refreshToken);
             authLogin(response.data.accessToken, response.data.refreshToken);
             navigate('/');
+            toast.success('وارد شدید');
         },
         onError: (err) => {
             setError('Login failed!');
+            toast.success('خطایی رخ داده');
         }
     });
 
@@ -44,8 +47,6 @@ const Login = () => {
 
     return (
         <div className={`${styles.background_container}`}>
-
-            {/* <Toaster position='top-center' reverseOrder={false}></Toaster> */}
 
             <div className='flex justify-center items-center h-screen'>
                 <div className={`${styles.glass}`}>

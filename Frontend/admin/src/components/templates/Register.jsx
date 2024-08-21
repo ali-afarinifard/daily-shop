@@ -4,6 +4,7 @@ import { register } from '../../services/apiUrls';
 import { useMutation } from '@tanstack/react-query';
 import styles from "../../styles/Register.module.css";
 import avatar from "../../assets/images/profile.png"
+import toast from 'react-hot-toast';
 
 
 const Register = () => {
@@ -18,10 +19,11 @@ const Register = () => {
     const mutation = useMutation({
         mutationFn: () => register(username, email, password),
         onSuccess: () => {
-            navigate('/login')
+            navigate('/login');
         },
         onError: () => {
-            setError('Registration failed. Please try again.')
+            setError('Registration failed. Please try again.');
+            toast.error('خطایی رخ داده');
         },
     });
 
