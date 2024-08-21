@@ -38,11 +38,15 @@ select {
     @apply mb-2;
 }
 
+select {
+    @apply cursor-pointer;
+}
+
 
 input:focus,
 textarea:focus,
 select:focus {
-    @apply border-blue-900;
+    @apply border-slate-400;
 }
 
 

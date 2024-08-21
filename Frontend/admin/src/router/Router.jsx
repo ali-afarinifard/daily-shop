@@ -16,6 +16,7 @@ import Login from "../components/templates/Login"
 import ProtectedRoute from "../components/templates/ProtectedRoute"
 import RedirectIfAuthenticated from "../components/templates/RedirectIfAuthenticated"
 import AdminAccount from "../pages/AdminAccount"
+import ResetAccount from "../components/templates/ResetAccount"
 
 
 const Router = () => {
@@ -33,6 +34,7 @@ const Router = () => {
             <Route path="/orders" element={<ProtectedRoute><Order /></ProtectedRoute>} />
             <Route path="/login" element={<RedirectIfAuthenticated><Login /></RedirectIfAuthenticated>} />
             <Route path="/register" element={<RedirectIfAuthenticated><Register /></RedirectIfAuthenticated>} />
+            <Route path="/reset-account" element={<RedirectIfAuthenticated><ResetAccount /></RedirectIfAuthenticated>} />
             <Route path="*" element={<PageNotFound />} />
         </Routes>
     )

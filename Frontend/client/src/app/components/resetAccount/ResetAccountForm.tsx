@@ -28,7 +28,7 @@ const ResetAccountForm = () => {
             newPassword: '',
             confirmPassword: ''
         };
-
+        
         if (!/^\S+@\S+\.\S+$/.test(email)) {
             newErrors.email = 'ایمیل معتبر نیست';
             valid = false;

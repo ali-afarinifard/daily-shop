@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import avatar from '../../../assets/images/profile.png'
+import avatar from '../../../assets/images/admin-pic.webp'
 import { AuthContext } from '../../../context/AuthContext';
 
 
@@ -11,17 +11,17 @@ const Header = () => {
         <div className="flex items-center justify-between gap-2">
 
             {admin && (
-                <div className='flex items-center gap-4'>
-                    <div className='w-12 h-12'>
+                <div className='flex items-center'>
+                    <div className='w-20'>
                         <img src={avatar} alt="avatar" className='w-full h-full' />
                     </div>
 
-                    <div>{admin.username}</div>
+                    <div className='relative left-3 text-slate-600'>{admin.username}</div>
                 </div>
             )}
 
-            <div>
-                خوش آمدید
+            <div className='text-slate-600 text-sm'>
+                
             </div>
 
         </div>
