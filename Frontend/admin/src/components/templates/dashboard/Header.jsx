@@ -8,22 +8,16 @@ const Header = () => {
     const { admin } = useContext(AuthContext);
 
     return (
-        <div className="flex items-center justify-between gap-2">
-
+        <div>
             {admin && (
-                <div className='flex items-center'>
+                <div className='flex items-center justify-between gap-2'>
                     <div className='w-20'>
                         <img src={avatar} alt="avatar" className='w-full h-full' />
                     </div>
 
-                    <div className='relative left-3 text-slate-600'>{admin.username}</div>
+                    <div className='relative left-3 text-slate-600'><span className='font-bold'>{admin.name}</span> عزیز خوش آمدی 👋</div>
                 </div>
             )}
-
-            <div className='text-slate-600 text-sm'>
-                
-            </div>
-
         </div>
     )
 }
