@@ -84,11 +84,6 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
             valid = false;
         };
 
-        // if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-        //     newErrors.email = 'ایمیل معتبر نیست';
-        //     valid = false;
-        // };
-
         const emailError = validateEmail(formData.email);
         if (emailError) {
             newErrors.email = emailError;
@@ -143,37 +138,6 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
             setFormData({ ...formData, [name]: value });
         }
     };
-
-
-    // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     setIsLoading(true);
-
-    //     if (!validateForm()) {
-    //         setIsLoading(false);
-    //         return;
-    //     };
-
-    //     try {
-
-    //         const data = await updateUser(formData);
-    //         updateUserInContext(data.user);
-    //         toast.success('پروفایل به روزرسانی شد')
-
-    //     } catch (error: any) {
-    //         console.log('Error updating user information.', error);
-    //         if (error.response && error.response.status === 500 || '') {
-    //             const errorMessage = error.response.data.message;
-    //             if (errorMessage.includes('User already exists')) {
-    //                 toast.error('نام کاربری یا ایمیل قبلاً استفاده شده است.');
-    //             } else {
-    //                 toast.error('خطایی رخ داده');
-    //             }
-    //         }
-    //     } finally {
-    //         setIsLoading(false);
-    //     }
-    // }
 
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

@@ -400,7 +400,7 @@ router.get('/admin', async (req, res) => {
 
 // ** PUT
 router.put('/admin', async (req, res) => {
-  const { adminId, fullName, username, email, password, phoneNumber } = req.body;
+  const { adminId, name, lastName, username, email, password, phoneNumber } = req.body;
 
   try {
     const admin = await Admin.findById(adminId);
@@ -411,7 +411,8 @@ router.put('/admin', async (req, res) => {
 
     admin.username = username || admin.username;
     admin.email = email || admin.email;
-    admin.fullName = fullName || admin.fullName;
+    admin.name = name || admin.name;
+    admin.lastName = lastName || admin.lastName;
     admin.phoneNumber = phoneNumber || admin.phoneNumber;
 
     if (password) {

@@ -124,7 +124,7 @@ const Login = () => {
                                     type="password"
                                     value={password}
                                     onChange={ev => setPassword(ev.target.value)}
-                                    className='py-3'
+                                    className='py-3 text-slate-600'
                                 />
                             </div>
                             {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}

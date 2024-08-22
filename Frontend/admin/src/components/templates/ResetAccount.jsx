@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { resetAccount } from "../../services/apiUrls";
 import toast from "react-hot-toast";
 import avatar from "../../assets/images/admin-pic.webp";
 import { useMutation } from "@tanstack/react-query";
+import { IoChevronBackOutline } from "react-icons/io5";
+
+
 
 const ResetAccount = () => {
 
@@ -55,7 +58,7 @@ const ResetAccount = () => {
         },
         onError: (error) => {
             console.error('Error resetting password:', error);
-            toast.error('خطایی رخ داده است');
+            toast.error('خطایی رخ داده');
         },
     });
 
@@ -75,7 +78,16 @@ const ResetAccount = () => {
         <div className='w-full h-full flex items-center justify-center'>
             <form onSubmit={handleAccountReset} className='w-[50rem] max-w-[50rem]'>
 
-                <div className='border-[1px] border-slate-200 rounded-lg shadow-md p-7'>
+                <div className='border-[1px] border-slate-200 rounded-lg shadow-md p-7 relative'>
+
+                    <div className="absolute left-3 top-4">
+                        <Link to={'/login'} className="text-blue-600">
+                            <div className="w-10 h-10 border-[1px] border-slate-200 rounded-full flex items-center justify-center shadow-md bg-blue-100">
+                                <IoChevronBackOutline size={23} className="relative right-[1px]" />
+                            </div>
+                        </Link>
+                    </div>
+
 
                     <div className='flex flex-col gap-1 items-center'>
                         <h1 className='font-bold text-4xl'>بازیابی رمز عبور</h1>
