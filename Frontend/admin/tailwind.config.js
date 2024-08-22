@@ -9,7 +9,7 @@ export default {
       colors: {
         primary: '#5542F6',
         highlight: '#eae8fb',
-        bgGray: '#fbfafd',
+        blueLight: '#f7fbff',
       },
       screens: {
         s: {max: "850px"},

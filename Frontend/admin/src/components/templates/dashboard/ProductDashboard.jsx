@@ -12,6 +12,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { TablePagination, Typography } from "@mui/material";
 import { useState } from "react";
+import { TbChevronsUpRight } from "react-icons/tb";
+
 
 
 const ProductDashboard = () => {
@@ -24,7 +26,7 @@ const ProductDashboard = () => {
     };
 
     const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 3));
+        setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
 
@@ -41,7 +43,10 @@ const ProductDashboard = () => {
 
     return (
         <TableContainer component={Paper}>
-            <Typography sx={{ fontFamily: 'Vazir', fontWeight: 'bold', padding: '10px' }}>محصولات</Typography>
+            <Typography sx={{ fontFamily: 'Vazir', fontWeight: 'bold', padding: '10px', display: "flex", alignItems: "center", gap: "5px" }}>
+                <span><TbChevronsUpRight /></span>
+                <span>محصولات</span>
+            </Typography>
             <Table sx={{ width: '100%' }} aria-label="simple table">
                 <TableHead>
                     <TableRow>

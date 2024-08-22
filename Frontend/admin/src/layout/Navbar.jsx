@@ -26,15 +26,15 @@ const Navbar = () => {
 
   // for text
   const inActiveLink = 'flex gap-3 s:flex-col s:items-center s:w-full m:text-xs p-2';
-  const activeLink = inActiveLink + ' !bg-highlight text-black rounded-l-md s:rounded-xl xs:rounded-full';
+  const activeLink = inActiveLink + ' !bg-blue-100 text-black rounded-l-md s:rounded-xl xs:rounded-full';
 
   // for icon
   const inActiveIcon = 'w-6 h-6';
-  const activeIcon = inActiveIcon + ' text-primary';
+  const activeIcon = inActiveIcon + ' text-blue-500';
 
 
   return (
-    <aside className={'text-gray-500 p-4 pl-0 bg-bgGray w-auto z-[1000]'}>
+    <aside className={'text-gray-500 p-4 pl-0 bg-blueLight w-auto z-[1000]'}>
 
       <div className='mb-8 mr-4 ml-3 s:hidden'>
         <Logo />
