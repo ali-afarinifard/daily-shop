@@ -1,12 +1,10 @@
 'use client';
 
-import Container from "@/app/components/Container";
 import { addToWishlist, getProductById } from "@/libs/apiUrls";
 import ProductType from "@/types/product";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { TbRulerMeasure } from "react-icons/tb";
 import { MdCheckCircle } from "react-icons/md";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -20,7 +18,7 @@ import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
-import Heading from "../Heading";
+import { formatPriceWithSlashes } from "@/utils/formatPrice";
 
 const ProductDetails: React.FC = () => {
     const authContext = useContext(AuthContext);
@@ -184,6 +182,8 @@ const ProductDetails: React.FC = () => {
                                                 alt={`${product.title} ${index + 1}`}
                                                 width={100}
                                                 height={100}
+                                                priority
+                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                                                 className="object-cover transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
                                             />
                                         </div>
@@ -196,7 +196,7 @@ const ProductDetails: React.FC = () => {
                     <div className="mt-7 flex flex-col gap-8">
                         <h1 className="text-3xl font-bold">{product?.title}</h1>
                         <h3 className="flex items-center gap-1">
-                            <span className="text-2xl text-red-400">{product?.price}</span>
+                            <span className="text-2xl text-red-400">{formatPriceWithSlashes(product?.price)}</span>
                             <span className="text-md">تومان</span>
                         </h3>
 

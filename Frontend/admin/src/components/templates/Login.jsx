@@ -62,7 +62,7 @@ const Login = () => {
         },
         onError: (err) => {
             console.log('Login failed!', err);
-            toast.error('خطایی رخ داده');
+            toast.error('نام کاربری یا رمز عبور اشتباه است');
         }
     });
 

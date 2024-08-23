@@ -1,8 +1,6 @@
 'use client'
 
 import ProductType from "@/types/product";
-import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react"
 import SearchBarItem from "./SearchBarItem";
 import { getProductsBySearch } from "@/libs/apiUrls";
@@ -17,7 +15,7 @@ const SearchBar = () => {
 
     useEffect(() => {
         const fetchResults = async () => {
-            if (query.length < 3) {
+            if (query.length < 2) {
                 setResults([]);
                 setNoResults(false);
                 return;
@@ -81,7 +79,7 @@ const SearchBar = () => {
                 </div>
             )}
             {results.length > 0 && (
-                <ul className="absolute z-10 bg-white border border-gray-300 rounded-md mt-1 p-1 py-2 max-w-[24rem] h-[20rem] overflow-auto w-full">
+                <ul className="absolute z-10 bg-white border border-gray-300 rounded-md mt-1 p-1 py-2 max-w-[24rem] max-h-[20rem] overflow-auto w-full">
                     {results.map((product) => (
                         <SearchBarItem key={product._id} product={product} onClick={handleClearProductClick} />
                     ))}

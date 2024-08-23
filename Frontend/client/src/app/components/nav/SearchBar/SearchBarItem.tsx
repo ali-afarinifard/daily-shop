@@ -20,7 +20,7 @@ const SearchBarItem: React.FC<SearchBarItemProps> = ({ product, onClick }) => {
                 <div className="flex items-center gap-2">
                     <div>
                         <Image
-                            src={`http://localhost:5000/${firstImage.replace(/\\/g, '/')}`}
+                            src={firstImage}
                             alt={product.title}
                             width={70}
                             height={70}

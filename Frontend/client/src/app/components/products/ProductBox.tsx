@@ -8,6 +8,7 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { addToWishlist, getWishlist, removeFromWishlist } from "@/libs/apiUrls";
 import { User } from "@/context/AuthContext";
 import toast from "react-hot-toast";
+import { formatPriceWithSlashes } from "@/utils/formatPrice";
 
 
 interface ProductBoxProps {
@@ -144,7 +145,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                     <div className="text-center text-gray-600 text-md">{product.title}</div>
                     <div className="text-center text-slate-700 text-lg mt-2 flex justify-center gap-2">
                         <span>تومان</span>
-                        <span>{product.price}</span>
+                        <span>{formatPriceWithSlashes(product.price)}</span>
                     </div>
                 </div>
             </Link>
