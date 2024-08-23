@@ -189,7 +189,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                     {/* Inputs */}
                     <div className="flex flex-col gap-4 w-full">
 
-                        <div className="flex items-center justify-between gap-8 2xl:flex-col 2xl:justify-center 2xl:gap-4">
+                        <div className="flex items-center justify-between gap-8 w-fll 2xl:flex-col 2xl:justify-center 2xl:gap-4">
 
                             <div className="flex flex-col gap-1 w-full">
                                 <label htmlFor="fullName" className="text-slate-500">نام و نام خانوادگی</label>
@@ -199,7 +199,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                                     name="fullName"
                                     value={formData.fullName}
                                     onChange={handleChange}
-                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md"
+                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md w-full"
                                 />
                                 {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName}</p>}
                             </div>
@@ -212,7 +212,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                                     name="username"
                                     value={formData.username}
                                     onChange={handleChange}
-                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md"
+                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md w-full"
                                 />
                                 {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
                             </div>
@@ -230,7 +230,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                                     name="email"
                                     value={formData.email}
                                     onChange={handleChange}
-                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md"
+                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md w-full"
                                 />
                                 {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
                             </div>
@@ -243,7 +243,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                                     name="password"
                                     value={formData.password}
                                     onChange={handleChange}
-                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md"
+                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md w-full"
                                 />
                             </div>
                             {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
@@ -259,7 +259,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                                     name="city"
                                     value={formData.city}
                                     onChange={handleChange}
-                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md"
+                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md w-full"
                                 />
                                 {errors.city && <p className="text-red-500 text-sm">{errors.city}</p>}
                             </div>
@@ -272,7 +272,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                                     name="postalCode"
                                     value={formData.postalCode}
                                     onChange={handleChange}
-                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md"
+                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md w-full"
                                 />
                                 {errors.postalCode && <p className="text-red-500 text-sm">{errors.postalCode}</p>}
                             </div>
@@ -287,7 +287,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                                     onChange={handleChange}
                                     placeholder="+98"
                                     dir="ltr"
-                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md"
+                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md w-full"
                                 />
                                 {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber}</p>}
                             </div>

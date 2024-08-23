@@ -21,6 +21,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
 
     const [isWhitelisted, setIsWhitelisted] = useState<boolean>(false);
     const [showWishlistMessage, setShowWishlistMessage] = useState(false);
+    const [wishlist, setWishlist] = useState<string[]>([]);
 
     const firstImage = product.images[0];
     const secondImage = product.images[1];
@@ -69,15 +70,16 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
     const handleAddToWishlist = async (productId: string) => {
         try {
             if (!user?._id) {
-                console.warn("No userId available.");
+                toast.error('ابتدا عضو شوید');
                 return;
             }
-            await addToWishlist(user._id, productId);
-            setIsWhitelisted(true);
+            const updatedWishlist = await addToWishlist(user._id, productId);
+            setWishlist(updatedWishlist);
+            setShowWishlistMessage(true);
             localStorage.setItem(`showWishlistMessage_${user._id}_${productId}`, "true");
             toast.success('به علاقه مندی ها اضافه شد');
         } catch (error) {
-            console.error('Error while adding to wishlist', error);
+            console.error('Error while adding wishlist', error);
         }
     };
 

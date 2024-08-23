@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import ProductBox from "../products/ProductBox";
 import Heading from "../Heading";
 import WishlistProduct from "../products/WishlistProduct";
+import Spinner from "../Spinner";
 
 
 interface WishlistProps {
@@ -18,17 +19,24 @@ const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
     const [wishlist, setWishlist] = useState<ProductType[]>([]);
     const [isWhitelisted, setIsWhitelisted] = useState<boolean>(false);
     const [showWishlistMessage, setShowWishlistMessage] = useState(false);
+    const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
         const fetchWishlist = async () => {
             try {
-                if (!userId) return;
+                if (!userId) {
+                    setLoading(false);
+                    return;
+                };
+                setLoading(true);
                 const data = await getWishlist(userId);
                 setWishlist(data);
                 console.log('My Wishlists>>>>', data);
             } catch (error) {
                 console.error('error getting wishlist', error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -48,7 +56,7 @@ const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
                 prevWishlist.filter((product) => product._id !== productId)
             );
             setIsWhitelisted(false);
-            localStorage.removeItem(`showWishlistMessage_${productId}`);
+            localStorage.removeItem(`showWishlistMessage_${userId}_${productId}`);
         } catch (error) {
             console.error("Error while removing from wishlist", error);
         }
@@ -63,29 +71,39 @@ const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
     return (
         <div>
 
-            <div className='w-full flex items-center justify-center'>
-                <div className='relative text-center w-fit'>
-                    <h1 className='font-bold text-2xl'>علاقه مندی ها</h1>
-                    <span className="w-full h-[2px] bg-slate-400 absolute left-0 -bottom-2"></span>
+            {loading ? (
+                <div className="mt-10 flex items-center justify-center">
+                    <Spinner size={40} />
                 </div>
-            </div>
-
-            <div className='grid grid-cols-4 gap-8 mt-10'>
-                {wishlist.length > 0 && wishlist.map((product) => (
-                    <div key={product._id}>
-                        <WishlistProduct
-                            product={product}
-                            userId={userId}
-                            onRemove={handleRemoveFromWishlist}
-                        />
+            ) : (
+                <>
+                    <div className='w-full flex items-center justify-center'>
+                        <div className='relative text-center w-fit'>
+                            <h1 className='font-bold text-2xl'>علاقه مندی ها</h1>
+                            <span className="w-full h-[2px] bg-slate-400 absolute left-0 -bottom-2"></span>
+                        </div>
                     </div>
-                ))}
-            </div>
 
-            {wishlist.length === 0 && (
-                <div className="w-full text-center text-xl">
-                    هیچ محصولی به این لیست اضافه نشده است
-                </div>
+
+                    <div className='grid grid-cols-4 gap-8 mt-10'>
+                        {wishlist.length > 0 && wishlist.map((product) => (
+                            <div key={product._id}>
+                                <WishlistProduct
+                                    product={product}
+                                    userId={userId}
+                                    onRemove={handleRemoveFromWishlist}
+                                />
+                            </div>
+                        ))}
+                    </div>
+
+
+                    {wishlist.length === 0 && (
+                        <div className="w-full text-center text-xl">
+                            هیچ محصولی به این لیست اضافه نشده است
+                        </div>
+                    )}
+                </>
             )}
         </div>
     )

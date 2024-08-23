@@ -19,10 +19,10 @@ const Footer = () => {
 
                         <h3 className="text-base font-bold mb-2">دسته بندی ها</h3>
                         <div className="flex flex-col gap-5">
-                            <Link href={'#'}>ست</Link>
-                            <Link href={'#'}>مانتو</Link>
-                            <Link href={'#'}>دانشجویی و اداری</Link>
-                            <Link href={'#'}>شلوار</Link>
+                            <Link href={'#'}>همه</Link>
+                            <Link href={'#'}>زنانه</Link>
+                            <Link href={'#'}>مردانه</Link>
+                            <Link href={'#'}>کودک</Link>
                         </div>
 
                     </FooterList>

@@ -19,6 +19,7 @@ import { AuthContext } from "@/context/AuthContext";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 import { formatPriceWithSlashes } from "@/utils/formatPrice";
+import Spinner from "../Spinner";
 
 const ProductDetails: React.FC = () => {
     const authContext = useContext(AuthContext);
@@ -47,6 +48,7 @@ const ProductDetails: React.FC = () => {
         const fetchProduct = async () => {
             try {
                 if (productId) {
+                    setLoading(true);
                     const productData = await getProductById(productId);
                     setProduct(productData);
                     if (productData?.images.length) {
@@ -56,6 +58,7 @@ const ProductDetails: React.FC = () => {
             } catch (error) {
                 console.error('Error fetching product:', error);
                 setError('Failed to load product details');
+                setLoading(false);
             } finally {
                 setLoading(false);
             }
@@ -141,206 +144,214 @@ const ProductDetails: React.FC = () => {
 
 
     return (
-        <div className="mt-20">
-            <div className="flex flex-col">
-                <div className="flex items-start xl:flex-col">
-                    <div className="w-[30rem] xl:flex xl:flex-col items-center justify-center xl:w-full">
-                        <div className="w-[30rem] h-full xl:flex xl:items-center xl:justify-center xl:w-full">
-                            {selectedImage && (
-                                <Image
-                                    src={selectedImage}
-                                    alt={product?.title || ""}
-                                    width={450}
-                                    height={450}
-                                    className="object-cover rounded-md h-[35rem]"
-                                />
-                            )}
-                        </div>
+        <div>
+            {loading ? (
+                <div className="mt-32 flex items-center justify-center">
+                    <Spinner size={40} />
+                </div>
+            ) : (
+                <div className="mt-20">
+                    <div className="flex flex-col">
+                        <div className="flex items-start xl:flex-col">
+                            <div className="w-[30rem] xl:flex xl:flex-col items-center justify-center xl:w-full">
+                                <div className="w-[30rem] h-full xl:flex xl:items-center xl:justify-center xl:w-full">
+                                    {selectedImage && (
+                                        <Image
+                                            src={selectedImage}
+                                            alt={product?.title || ""}
+                                            width={450}
+                                            height={450}
+                                            className="object-cover rounded-md h-[35rem]"
+                                        />
+                                    )}
+                                </div>
 
-                        <div className="max-w-[28rem] m:w-full mt-4 p-1 rounded-md border-[1px] border-slate-300">
-                            <Swiper
-                                slidesPerView={3}
-                                spaceBetween={5}
-                                breakpoints={{
-                                    450: {
-                                        slidesPerView: 4
-                                    },
-                                    600: {
-                                        slidesPerView: 5
-                                    },
-                                }}
-                                className="mySwiper"
-                            >
-                                {product?.images.map((image, index) => (
-                                    <SwiperSlide key={index}>
-                                        <div
-                                            className="w-[5rem] h-[5rem] rounded-md overflow-hidden cursor-pointer"
-                                            onClick={() => handleImageClick(image)}
-                                        >
-                                            <Image
-                                                src={image}
-                                                alt={`${product.title} ${index + 1}`}
-                                                width={100}
-                                                height={100}
-                                                priority
-                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-                                                className="object-cover transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
-                                            />
-                                        </div>
-                                    </SwiperSlide>
-                                ))}
-                            </Swiper>
-                        </div>
-                    </div>
-
-                    <div className="mt-7 flex flex-col gap-8">
-                        <h1 className="text-3xl font-bold">{product?.title}</h1>
-                        <h3 className="flex items-center gap-1">
-                            <span className="text-2xl text-red-400">{formatPriceWithSlashes(product?.price)}</span>
-                            <span className="text-md">تومان</span>
-                        </h3>
-
-                        <div className="flex items-center gap-6">
-                            {product?.isStatus && (
-                                <>
-                                    <p className="flex items-center gap-1">
-                                        <span>تعداد : </span>
-                                        <span className="font-bold">{product?.stock}</span>
-                                    </p>
-                                    <hr className="w-[1px] h-[1.1rem] bg-slate-300" />
-                                </>
-                            )}
-                            <div className="flex items-center gap-1">
-                                <span className="font-semibold">وضعیت : </span>
-                                <div className={product?.isStatus ? 'text-teal-400' : 'text-rose-400'}>
-                                    {product?.isStatus ? 'موجود' : 'ناموجود'}
+                                <div className="max-w-[28rem] m:w-full mt-4 p-1 rounded-md border-[1px] border-slate-300">
+                                    <Swiper
+                                        slidesPerView={3}
+                                        spaceBetween={5}
+                                        breakpoints={{
+                                            450: {
+                                                slidesPerView: 4
+                                            },
+                                            600: {
+                                                slidesPerView: 5
+                                            },
+                                        }}
+                                        className="mySwiper"
+                                    >
+                                        {product?.images.map((image, index) => (
+                                            <SwiperSlide key={index}>
+                                                <div
+                                                    className="w-[5rem] h-[5rem] rounded-md overflow-hidden cursor-pointer"
+                                                    onClick={() => handleImageClick(image)}
+                                                >
+                                                    <Image
+                                                        src={image}
+                                                        alt={`${product.title} ${index + 1}`}
+                                                        width={100}
+                                                        height={100}
+                                                        priority
+                                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                                                        className="object-cover transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
+                                                    />
+                                                </div>
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
                                 </div>
                             </div>
-                        </div>
 
-                        {isProductInCart ? (
-                            <>
-                                <p className="mb-2 text-slate-500 flex items-center gap-1">
-                                    <MdCheckCircle size={20} className="text-teal-400" />
-                                    <span> کالا به سد خرید شما اضافه شد</span>
-                                </p>
+                            <div className="mt-7 flex flex-col gap-6">
+                                <h1 className="text-3xl font-bold">{product?.title}</h1>
+                                <h3 className="flex items-center gap-1">
+                                    <span className="text-[1.6rem] text-slate-500">{formatPriceWithSlashes(product?.price)}</span>
+                                    <span className="text-md">تومان</span>
+                                </h3>
 
-                                <div className="max-w-[18.75rem]">
-                                    <Button label="مشاهده سبد خرید" outline onClick={() => { router.push('/cart') }} />
-                                </div>
-                            </>
-                        ) : (
-                            <>
-                                {product?.isStatus ? (
-                                    <>
-                                        <div className="flex items-center gap-4 xl:gap-1 w-[30rem] 2xl:w-full xl:flex-row xl:w-full">
-                                            <div className="flex flex-col gap-1 w-full">
-                                                <label htmlFor="size-select" className="xl:hidden">سایز</label>
-                                                <select
-                                                    name="size"
-                                                    id="size-select"
-                                                    value={selectedSize ?? ""}
-                                                    onChange={(e) => setSelectedSize(e.target.value)}
-                                                    className="p-2 border border-slate-300 rounded outline-none"
-                                                >
-                                                    <option value="">انتخاب سایز</option>
-                                                    {product?.sizes.map((size, index) => (
-                                                        <option key={index} value={size}>
-                                                            {size}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                            </div>
-
-                                            <div className="flex flex-col gap-1 w-full">
-                                                <label htmlFor="color-select" className="xl:hidden">رنگ</label>
-                                                <select
-                                                    name="color"
-                                                    id="color-select"
-                                                    value={selectedColor ?? ""}
-                                                    onChange={(e) => setSelectedColor(e.target.value)}
-                                                    className="p-2 border border-slate-300 rounded outline-none"
-                                                >
-                                                    <option value="">انتخاب رنگ</option>
-                                                    {product?.colors.map((color, index) => (
-                                                        <option key={index} value={color}>
-                                                            {color}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                            </div>
+                                <div className="flex items-center gap-6">
+                                    {product?.isStatus && (
+                                        <>
+                                            <p className="flex items-center gap-1">
+                                                <span>تعداد : </span>
+                                                <span className="font-bold">{product?.stock}</span>
+                                            </p>
+                                            <hr className="w-[1px] h-[1.1rem] bg-slate-300" />
+                                        </>
+                                    )}
+                                    <div className="flex items-center gap-1">
+                                        <span className="font-semibold">وضعیت : </span>
+                                        <div className={product?.isStatus ? 'text-teal-400' : 'text-rose-400'}>
+                                            {product?.isStatus ? 'موجود' : 'ناموجود'}
                                         </div>
+                                    </div>
+                                </div>
 
-                                        <SetQuantity
-                                            productType={{ ...product, quantity }}
-                                            handleQtyIncrease={handleQtyIncrease}
-                                            handleQtyDecrease={handleQtyDecrease}
-                                        />
+                                {isProductInCart ? (
+                                    <>
+                                        <p className="mb-2 text-slate-500 flex items-center gap-1">
+                                            <MdCheckCircle size={20} className="text-teal-400" />
+                                            <span> کالا به سد خرید شما اضافه شد</span>
+                                        </p>
 
                                         <div className="max-w-[18.75rem]">
-                                            <Button
-                                                label="افزودن به سبد"
-                                                onClick={handleAddToCart}
-                                            />
+                                            <Button label="مشاهده سبد خرید" outline onClick={() => { router.push('/cart') }} />
                                         </div>
                                     </>
                                 ) : (
                                     <>
-                                        <div className="max-w-[18.75rem]">
-                                            <div className="rounded-md bg-rose-500 text-white px-2 py-3 text-[1.1rem] transition w-full border-slate-700 flex items-center justify-center gap-2">ناموجود</div>
-                                        </div>
+                                        {product?.isStatus ? (
+                                            <>
+                                                <div className="flex items-center gap-4 xl:gap-1 w-[30rem] 2xl:w-full xl:flex-row xl:w-full">
+                                                    <div className="flex flex-col gap-1 w-full">
+                                                        <label htmlFor="size-select" className="xl:hidden">سایز</label>
+                                                        <select
+                                                            name="size"
+                                                            id="size-select"
+                                                            value={selectedSize ?? ""}
+                                                            onChange={(e) => setSelectedSize(e.target.value)}
+                                                            className="p-2 border border-slate-300 rounded outline-none"
+                                                        >
+                                                            <option value="">انتخاب سایز</option>
+                                                            {product?.sizes.map((size, index) => (
+                                                                <option key={index} value={size}>
+                                                                    {size}
+                                                                </option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
+
+                                                    <div className="flex flex-col gap-1 w-full">
+                                                        <label htmlFor="color-select" className="xl:hidden">رنگ</label>
+                                                        <select
+                                                            name="color"
+                                                            id="color-select"
+                                                            value={selectedColor ?? ""}
+                                                            onChange={(e) => setSelectedColor(e.target.value)}
+                                                            className="p-2 border border-slate-300 rounded outline-none"
+                                                        >
+                                                            <option value="">انتخاب رنگ</option>
+                                                            {product?.colors.map((color, index) => (
+                                                                <option key={index} value={color}>
+                                                                    {color}
+                                                                </option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <SetQuantity
+                                                    productType={{ ...product, quantity }}
+                                                    handleQtyIncrease={handleQtyIncrease}
+                                                    handleQtyDecrease={handleQtyDecrease}
+                                                />
+
+                                                <div className="max-w-[18.75rem]">
+                                                    <Button
+                                                        label="افزودن به سبد"
+                                                        onClick={handleAddToCart}
+                                                    />
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <div className="max-w-[18.75rem]">
+                                                    <div className="rounded-md bg-rose-500 text-white px-2 py-3 text-[1.1rem] transition w-full border-slate-700 flex items-center justify-center gap-2">ناموجود</div>
+                                                </div>
+                                            </>
+                                        )}
                                     </>
                                 )}
-                            </>
-                        )}
 
-                        <div>
-                            {showWishlistMessage ? (
-                                <>
-                                    <p className="mb-2 text-slate-500 flex items-center gap-1">
-                                        <MdCheckCircle size={20} className="text-green-500" />
-                                        <span>کالا به لیست علاقه‌مندی‌ها اضافه شد</span>
-                                    </p>
+                                <div>
+                                    {showWishlistMessage ? (
+                                        <>
+                                            <p className="mb-2 text-slate-500 flex items-center gap-1">
+                                                <MdCheckCircle size={20} className="text-green-500" />
+                                                <span>کالا به لیست علاقه‌مندی‌ها اضافه شد</span>
+                                            </p>
 
-                                    <div className="max-w-[18.75rem]">
-                                        <Button label="مشاهده لیست علاقه‌مندی‌ها" outline onClick={() => { router.push('/wishlist') }} />
-                                    </div>
-                                </>
-                            ) : (
-                                <div className="max-w-[18.75rem]">
-                                    <Button
-                                        label="افزودن به لیست علاقه‌مندی‌ها"
-                                        onClick={() => {
-                                            if (productId) {
-                                                handleAddToWishlist(productId);
-                                            } else {
-                                                console.error("Product ID is undefined");
-                                            }
-                                        }}
-                                        custom="!bg-rose-500 !border-rose-500"
-                                    />
+                                            <div className="max-w-[18.75rem]">
+                                                <Button label="مشاهده لیست علاقه‌مندی‌ها" outline onClick={() => { router.push('/wishlist') }} />
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <div className="max-w-[18.75rem]">
+                                            <Button
+                                                label="افزودن به لیست علاقه‌مندی‌ها"
+                                                onClick={() => {
+                                                    if (productId) {
+                                                        handleAddToWishlist(productId);
+                                                    } else {
+                                                        console.error("Product ID is undefined");
+                                                    }
+                                                }}
+                                                custom="!bg-rose-500 !border-rose-500"
+                                            />
+                                        </div>
+                                    )}
                                 </div>
-                            )}
+                            </div>
+                        </div>
+
+                        <div className="mt-16 w-full max-w-[60rem] leading-[1.75rem] text-justify">
+                            <p>{product?.description}</p>
+                        </div>
+
+                        <div className="mt-10">
+                            <div className="flex gap-10 w-full">
+                                <div className="w-[23rem]">
+                                    <CommentForm productId={productId} onCommentAdded={handleCommentsUpdate} />
+                                </div>
+
+                                <div className="w-full mt-[3.6rem]">
+                                    <CommentList productId={productId} commentsUpdated={commentsUpdated} />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div className="mt-16 w-full max-w-[60rem] leading-[1.75rem] text-justify">
-                    <p>{product?.description}</p>
-                </div>
-
-                <div className="mt-10">
-                    <div className="flex gap-10 w-full">
-                        <div className="w-[23rem]">
-                            <CommentForm productId={productId} onCommentAdded={handleCommentsUpdate} />
-                        </div>
-
-                        <div className="w-full mt-[3.6rem]">
-                            <CommentList productId={productId} commentsUpdated={commentsUpdated} />
-                        </div>
-                    </div>
-                </div>
-            </div>
+            )}
         </div>
     );
 };
