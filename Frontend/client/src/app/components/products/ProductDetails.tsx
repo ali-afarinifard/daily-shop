@@ -83,7 +83,7 @@ const ProductDetails: React.FC = () => {
     const handleAddToWishlist = async (productId: string) => {
         try {
             if (!user?._id) {
-                toast('ابتدا عضو شوید');
+                toast.error('ابتدا عضو شوید');
                 return;
             }
             const updatedWishlist = await addToWishlist(user._id, productId);

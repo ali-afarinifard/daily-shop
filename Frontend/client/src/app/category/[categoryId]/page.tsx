@@ -31,7 +31,7 @@ const CategoryPage = () => {
     const [filter, setFilter] = useState('all');
 
     // Number of products per page
-    const itemsPerPage = 12;
+    const itemsPerPage = 16;
 
     console.log("Category ID:", categoryId);
 
@@ -91,6 +91,11 @@ const CategoryPage = () => {
     const handlePageChange = (_event: React.ChangeEvent<unknown>, page: number) => {
         setCurrentPage(page);
     };
+
+    // This useEffect will trigger whenever currentPage changes
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [currentPage]); // Dependency array with currentPage
 
 
     const authContext = useContext(AuthContext);
