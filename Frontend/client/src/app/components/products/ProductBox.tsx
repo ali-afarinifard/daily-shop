@@ -5,10 +5,12 @@ import Image from "next/image"
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { addToWishlist, getWishlist, removeFromWishlist } from "@/libs/apiUrls";
+import { addToWishlist, getComments, getWishlist, removeFromWishlist } from "@/libs/apiUrls";
 import { User } from "@/context/AuthContext";
 import toast from "react-hot-toast";
 import { formatPriceWithSlashes } from "@/utils/formatPrice";
+import CommentType from "@/types/comment";
+import { Rating } from "@mui/material";
 
 
 interface ProductBoxProps {
@@ -22,6 +24,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
     const [isWhitelisted, setIsWhitelisted] = useState<boolean>(false);
     const [showWishlistMessage, setShowWishlistMessage] = useState(false);
     const [wishlist, setWishlist] = useState<string[]>([]);
+    const [averageRating, setAverageRating] = useState<number>(0);
 
     const firstImage = product.images[0];
     const secondImage = product.images[1];
@@ -29,6 +32,34 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
 
     const handleWhitelistClick = (e: React.MouseEvent) => {
         e.preventDefault();
+    };
+
+
+
+    // Fetch comments and calculate average rating on component mount
+    useEffect(() => {
+        const fetchAndCalculateRating = async () => {
+            try {
+                const commentsData: CommentType[] = await getComments(product._id); // Fetch comments for the product
+                calculateAverageRating(commentsData); // Calculate the average rating
+            } catch (error) {
+                console.error("Error fetching comments for average rating calculation:", error);
+            }
+        };
+
+        fetchAndCalculateRating(); // Call the function
+    }, [product._id]);
+
+
+    // Function to calculate average rating
+    const calculateAverageRating = (comments: CommentType[]) => {
+        if (comments.length === 0) {
+            setAverageRating(0);
+            return;
+        }
+        const totalRating = comments.reduce((sum, comment) => sum + comment.rating, 0); // Calculate total rating
+        const average = totalRating / comments.length; // Calculate average rating
+        setAverageRating(average); // Update state with average rating
     };
 
 
@@ -137,9 +168,17 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
 
                 </div>
 
-                <div className="p-4 bg-white">
+                <div className="p-4 bg-white flex flex-col gap-3">
                     <div className="text-center text-gray-600 text-md">{product.title}</div>
-                    <div className="text-center text-slate-700 text-lg mt-2 flex justify-center gap-2">
+                    <div className="flex items-center justify-center">
+                        <Rating
+                            readOnly
+                            value={averageRating} // Set the calculated average rating
+                            precision={0.5} // Optional: set precision for half-star ratings
+                            sx={{ direction: 'ltr' }}
+                        />
+                    </div>
+                    <div className="text-center text-slate-700 text-lg flex justify-center gap-2">
                         <span>تومان</span>
                         <span>{formatPriceWithSlashes(product.price)}</span>
                     </div>

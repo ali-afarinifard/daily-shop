@@ -5,6 +5,7 @@ import { createComment } from "@/libs/apiUrls";
 import { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import Heading from "../Heading";
+import { Rating } from "@mui/material";
 
 
 interface CommentFormProps {
@@ -16,6 +17,7 @@ interface CommentFormProps {
 const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) => {
 
     const [content, setContent] = useState<string>('');
+    const [rating, setRating] = useState<number | null>(null);
 
     const authContext = useContext(AuthContext);
 
@@ -36,10 +38,16 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
             return;
         }
 
+        if (rating === null) { // Ensure rating is selected
+            toast.error('لطفا امتیاز دهید');
+            return;
+        }
+
         try {
 
-            await createComment(user?._id, productId, content);
+            await createComment(user?._id, productId, content, rating);
             setContent('');
+            setRating(null);
             onCommentAdded();
 
         } catch (error) {
@@ -51,11 +59,22 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
     return (
         <div className="sticky top-24">
             <form onSubmit={handleSubmit}>
-                <div className="flex flex-col gap-8">
+                <div className="flex flex-col gap-6">
                     <div className="w-fit">
                         <Heading title="امتیاز و دیدگاه کاربران" />
                     </div>
                     <div className="flex flex-col gap-2">
+
+                        <div className="flex items-end justify-end">
+                            <Rating
+                                value={rating}
+                                onChange={(event, newValue) => {
+                                    setRating(newValue);
+                                }}
+                                sx={{ direction: 'ltr', fontSize: '1.7rem' }}
+                            />
+                        </div>
+
                         <textarea
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
@@ -63,12 +82,14 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
                             required
                             className="resize-none text-sm border-[1px] border-slate-300 outline-slate-500 rounded-md h-[10rem] p-3"
                         />
+
                         <button
                             type="submit"
                             className="disabled:opacity-70 disabled:cursor-not-allowed bg-slate-700 text-white py-2 rounded-md hover:opacity-80 transition w-full border-slate-700 flex items-center justify-center gap-2"
                         >
                             ثبت دیدگاه
                         </button>
+
                     </div>
                 </div>
             </form>

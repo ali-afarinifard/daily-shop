@@ -1,6 +1,6 @@
 'use client';
 
-import { addToWishlist, getProductById } from "@/libs/apiUrls";
+import { addToWishlist, getComments, getProductById } from "@/libs/apiUrls";
 import ProductType from "@/types/product";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -20,6 +20,8 @@ import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 import { formatPriceWithSlashes } from "@/utils/formatPrice";
 import Spinner from "../Spinner";
+import { Rating } from "@mui/material";
+import CommentType from "@/types/comment";
 
 const ProductDetails: React.FC = () => {
     const authContext = useContext(AuthContext);
@@ -41,6 +43,7 @@ const ProductDetails: React.FC = () => {
     const [wishlist, setWishlist] = useState<string[]>([]);
     const [showWishlistMessage, setShowWishlistMessage] = useState(false);
     const [commentsUpdated, setCommentsUpdated] = useState(false);
+    const [averageRating, setAverageRating] = useState<number | null>(null);
 
     const router = useRouter();
 
@@ -54,6 +57,10 @@ const ProductDetails: React.FC = () => {
                     if (productData?.images.length) {
                         setSelectedImage(productData.images[0]);
                     }
+
+                    // Fetch comments and calculate average rating
+                    const commentsData: CommentType[] = await getComments(productId);
+                    calculateAverageRating(commentsData);
                 }
             } catch (error) {
                 console.error('Error fetching product:', error);
@@ -65,7 +72,7 @@ const ProductDetails: React.FC = () => {
         };
 
         fetchProduct();
-    }, [productId]);
+    }, [productId, commentsUpdated]);
 
     useEffect(() => {
         if (cartProducts && product) {
@@ -143,6 +150,18 @@ const ProductDetails: React.FC = () => {
     }, []);
 
 
+    const calculateAverageRating = (comments: CommentType[]) => {
+        if (comments.length === 0) {
+            setAverageRating(null);
+            return;
+        }
+
+        const totalRating = comments.reduce((sum, comment) => sum + (comment.rating || 0), 0);
+        const average = totalRating / comments.length;
+        setAverageRating(average);
+    };
+
+
     return (
         <div>
             {loading ? (
@@ -202,8 +221,22 @@ const ProductDetails: React.FC = () => {
                                 </div>
                             </div>
 
-                            <div className="mt-7 flex flex-col gap-6">
-                                <h1 className="text-3xl font-bold">{product?.title}</h1>
+                            <div className="mt-7 flex flex-col gap-4">
+                                <div className="flex flex-col gap-4">
+                                    <h1 className="text-3xl font-bold">{product?.title}</h1>
+                                    <div>
+                                        {/* Display average rating */}
+                                        <Rating
+                                            value={averageRating}
+                                            precision={0.1}
+                                            readOnly
+                                            sx={{ direction: 'ltr', fontSize: '1.7rem' }}
+                                        />
+                                        {averageRating !== null && (
+                                            <span className="text-xs text-slate-500 ml-2">({averageRating.toFixed(1)})</span>
+                                        )}
+                                    </div>
+                                </div>
                                 <h3 className="flex items-center gap-1">
                                     <span className="text-[1.6rem] text-slate-500">{formatPriceWithSlashes(product?.price)}</span>
                                     <span className="text-md">تومان</span>

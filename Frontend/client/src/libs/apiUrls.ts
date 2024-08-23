@@ -208,10 +208,10 @@ export const getWishlist = async (userId: string) => {
 
 
 // ** Comments ______________________________
-export const createComment = async (userId: string, productId: string | undefined, content: string) => {
+export const createComment = async (userId: string, productId: string | undefined, content: string, rating: number) => {
     try {
 
-        const response = await api.post('/comment/add', { userId, productId, content });
+        const response = await api.post('/comment/add', { userId, productId, content, rating });
         return response.data
 
     } catch (error) {
