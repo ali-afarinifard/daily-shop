@@ -3,7 +3,7 @@ const formatPriceWithSlashes = (price) => {
     let value = price.toString().replace(/\//g, '');
 
     // Add slashes after every three digits
-    return value.replace(/\B(?=(\d{3})+(?!\d))/g, '/');
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
 export {formatPriceWithSlashes}

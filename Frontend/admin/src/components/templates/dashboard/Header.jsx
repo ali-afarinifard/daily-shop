@@ -11,7 +11,7 @@ const Header = () => {
         <div>
             {admin && (
                 <div className='flex items-center justify-between gap-2'>
-                    <div className='w-20'>
+                    <div className='w-20 relative -right-3'>
                         <img src={avatar} alt="avatar" className='w-full h-full' />
                     </div>
 
