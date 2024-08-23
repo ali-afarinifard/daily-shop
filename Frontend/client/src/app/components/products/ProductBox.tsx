@@ -32,6 +32,12 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
 
     const handleWhitelistClick = (e: React.MouseEvent) => {
         e.preventDefault();
+
+        if (user) {
+            setIsWhitelisted(!isWhitelisted)
+        } else {
+            toast('ابتدا عضو شوید');
+        };
     };
 
 
@@ -95,7 +101,6 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
     const handleAddToWishlist = async (productId: string) => {
         try {
             if (!user?._id) {
-                toast.error('ابتدا عضو شوید');
                 return;
             }
             const updatedWishlist = await addToWishlist(user._id, productId);
@@ -178,9 +183,10 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                             sx={{ direction: 'ltr' }}
                         />
                     </div>
-                    <div className="text-center text-slate-700 text-lg flex justify-center gap-2">
-                        <span>تومان</span>
-                        <span>{formatPriceWithSlashes(product.price)}</span>
+                    <hr className="w-full h-[1px] bg-slate-700" />
+                    <div className="text-center text-slate-700 text-lg flex items-center justify-center gap-1">
+                        <span className="text-md">{formatPriceWithSlashes(product.price)}</span>
+                        <span className="text-sm">تومان</span>
                     </div>
                 </div>
             </Link>

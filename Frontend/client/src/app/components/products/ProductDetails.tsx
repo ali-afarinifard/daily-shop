@@ -221,7 +221,7 @@ const ProductDetails: React.FC = () => {
                                 </div>
                             </div>
 
-                            <div className="mt-7 flex flex-col gap-4">
+                            <div className="mt-7 flex flex-col gap-4 flex-grow">
                                 <div className="flex flex-col gap-4">
                                     <h1 className="text-3xl font-bold">{product?.title}</h1>
                                     <div>
@@ -275,7 +275,7 @@ const ProductDetails: React.FC = () => {
                                     <>
                                         {product?.isStatus ? (
                                             <>
-                                                <div className="flex items-center gap-4 xl:gap-1 w-[30rem] 2xl:w-full xl:flex-row xl:w-full">
+                                                <div className="flex items-center gap-4 xl:gap-1 max-w-[30rem] xl:flex-row xl:w-full">
                                                     <div className="flex flex-col gap-1 w-full">
                                                         <label htmlFor="size-select" className="xl:hidden">سایز</label>
                                                         <select
@@ -283,7 +283,7 @@ const ProductDetails: React.FC = () => {
                                                             id="size-select"
                                                             value={selectedSize ?? ""}
                                                             onChange={(e) => setSelectedSize(e.target.value)}
-                                                            className="p-2 border border-slate-300 rounded outline-none"
+                                                            className="p-2 border border-slate-300 rounded outline-none w-full"
                                                         >
                                                             <option value="">انتخاب سایز</option>
                                                             {product?.sizes.map((size, index) => (
@@ -301,7 +301,7 @@ const ProductDetails: React.FC = () => {
                                                             id="color-select"
                                                             value={selectedColor ?? ""}
                                                             onChange={(e) => setSelectedColor(e.target.value)}
-                                                            className="p-2 border border-slate-300 rounded outline-none"
+                                                            className="p-2 border border-slate-300 rounded outline-none w-full"
                                                         >
                                                             <option value="">انتخاب رنگ</option>
                                                             {product?.colors.map((color, index) => (

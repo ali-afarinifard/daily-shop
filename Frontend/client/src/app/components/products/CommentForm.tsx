@@ -65,13 +65,13 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
                     </div>
                     <div className="flex flex-col gap-2">
 
-                        <div className="flex items-end justify-end">
+                        <div>
                             <Rating
                                 value={rating}
                                 onChange={(event, newValue) => {
                                     setRating(newValue);
                                 }}
-                                sx={{ direction: 'ltr', fontSize: '1.7rem' }}
+                                sx={{ direction: 'ltr', fontSize: '1.8rem' }}
                             />
                         </div>
 

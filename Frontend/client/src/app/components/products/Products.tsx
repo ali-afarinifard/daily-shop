@@ -88,7 +88,7 @@ const Products = () => {
 
 
     if (loading) return (
-        <div className='flex items-center justify-center translate-y-[350%]'>
+        <div className='flex items-center justify-center translate-y-[150%]'>
             <Spinner size={35} />
         </div>
     );
