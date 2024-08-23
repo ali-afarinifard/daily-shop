@@ -88,7 +88,7 @@ const Products = () => {
 
 
     if (loading) return (
-        <div className='flex items-center justify-center translate-y-[150%]'>
+        <div className='flex items-center justify-center translate-y-[150%] xl:translate-y-[50%]'>
             <Spinner size={35} />
         </div>
     );
@@ -118,25 +118,27 @@ const Products = () => {
             {/* Content */}
             <div className='flex flex-col'>
 
-                <div className='flex items-center justify-between'>
+                <div className='flex items-center justify-between mt-10 s:flex-col s:gap-4 s:items-stretch'>
 
                     <div className='flex items-center gap-2'>
                         <label htmlFor="filter">نمایش بر اساس :</label>
-                        <select
-                            name="filter"
-                            id="filter"
-                            className='border py-2 px-5 rounded-md cursor-pointer outline-none'
-                            value={filter}
-                            onChange={(e) => setFilter(e.target.value)}
-                        >
-                            <option value='all'>همه محصولات</option>
-                            <option value='isStatus'>کالاهای موجود</option>
-                            <option value='priceDesc'>گران ترین</option>
-                            <option value='priceAsc'>ارزان ترین</option>
-                        </select>
+                        <div className="max-w-[15rem]">
+                            <select
+                                name="filter"
+                                id="filter"
+                                value={filter}
+                                onChange={(e) => setFilter(e.target.value)}
+                                className='border py-2 px-5 rounded-md cursor-pointer outline-none w-full'
+                            >
+                                <option value='all'>همه محصولات</option>
+                                <option value='isStatus'>کالاهای موجود</option>
+                                <option value='priceDesc'>گران ترین</option>
+                                <option value='priceAsc'>ارزان ترین</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div className='mt-10'>
+                    <div>
                         <Stack spacing={2} sx={{ direction: 'ltr' }}>
                             <Pagination
                                 count={Math.ceil(filteredProducts.length / itemsPerPage)}
@@ -155,7 +157,7 @@ const Products = () => {
 
                 </div>
 
-                <div className='grid grid-cols-4 gap-8 my-8'>
+                <div className='grid grid-cols-4 gap-8 my-8 xl:grid-cols-3 xl:gap-4 s:grid-cols-2 s:gap-2 xm:grid-cols-1'>
                     {paginatedProducts && paginatedProducts.map((product) => (
                         <div key={product._id}>
                             <ProductBox product={product} user={user} />

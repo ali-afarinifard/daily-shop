@@ -19,7 +19,6 @@ interface UserProfileNavProps {
 const UserProfileNav: React.FC<UserProfileNavProps> = ({ user, logout }) => {
 
     const pathname = usePathname();
-    const router = useRouter();
 
     return (
         <div className="max-w-[16rem] shadow-md px-12 py-5 rounded-lg">
