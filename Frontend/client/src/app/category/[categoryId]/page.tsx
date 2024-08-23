@@ -76,9 +76,6 @@ const CategoryPage = () => {
             return 0; // No sorting for other options
         });
 
-    // Log filtered and sorted products for debugging
-    console.log("Filtered and sorted products:", filteredProducts);
-
 
     // Calculate the products to display based on the current page
     const paginatedProducts = filteredProducts.slice(

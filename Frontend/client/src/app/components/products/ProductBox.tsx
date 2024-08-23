@@ -29,12 +29,6 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
 
     const handleWhitelistClick = (e: React.MouseEvent) => {
         e.preventDefault();
-
-        if (user) {
-            setIsWhitelisted(!isWhitelisted)
-        } else {
-            toast('ابتدا عضو شوید');
-        };
     };
 
 
