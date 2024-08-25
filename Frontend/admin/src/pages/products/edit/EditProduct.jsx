@@ -29,11 +29,11 @@ const EditProduct = () => {
     };
 
 
-    // Format the price before passing to ProductForm
+    // Format the price and offer before passing to ProductForm
     const formattedProductInfo = {
         ...productInfo,
-        price: productInfo?.price !== null && productInfo?.price !== undefined ? productInfo.price.toString() : '',
-        offer: productInfo?.offer !== null && productInfo?.offer !== undefined ? productInfo.offer.toString() : '',
+        price: formatPriceWithSlashes(productInfo.price.toString()),
+        offer: productInfo.offer ? formatPriceWithSlashes(productInfo.offer.toString()) : ''
     };
 
 
