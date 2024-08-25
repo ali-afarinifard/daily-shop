@@ -27,6 +27,7 @@ const ProductForm = ({
     title: existingTitle,
     description: existingDescription,
     price: existingPrice,
+    offer: existingOffer,
     images: existingImages = [],
     category: assignedCategory,
     stock: assignedStock,
@@ -44,6 +45,7 @@ const ProductForm = ({
     const [stock, setStock] = useState('');
     const [isStatus, setIsStatus] = useState(false);
     const [price, setPrice] = useState('');
+    const [offer, setOffer] = useState('');
     const [images, setImages] = useState([]);
     const [uploadedUrls, setUploadedUrls] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -55,6 +57,7 @@ const ProductForm = ({
 
     // Validate States
     const [priceError, setPriceError] = useState('');
+    const [offerError, setOfferError] = useState('');
     const [stockError, setStockError] = useState('');
 
     // router
@@ -85,6 +88,7 @@ const ProductForm = ({
             setStock(assignedStock || '');
             setIsStatus(assignedStatus || false);
             setPrice(existingPrice || '');
+            setOffer(existingOffer || '');
             setImages(existingImages || []);
             setSizes(existingSizes || []);
             setGender(existingGender || '');
@@ -98,6 +102,7 @@ const ProductForm = ({
         assignedStock,
         assignedStatus,
         existingPrice,
+        existingOffer,
         existingImages,
         existingSizes,
         existingGender,
@@ -165,10 +170,13 @@ const ProductForm = ({
     const handleSubmit = async (ev) => {
         ev.preventDefault();
 
+        const cleanedOffer = offer ? parseInt(offer.replace(/\//g, ''), 10) : '';
+
         const product = {
             title,
             description,
             price: parseInt(price.replace(/\//g, ''), 10),
+            offer: cleanedOffer,
             category,
             images,
             stock,
@@ -208,24 +216,40 @@ const ProductForm = ({
 
 
     const handlePriceChange = (ev) => {
-        let value = ev.target.value;
+        let value = ev.target.value.replace(/\//g, ''); // Remove all existing slashes
 
         // Check if the value contains any non-numeric characters (excluding '/')
-        if (/[^0-9/]/.test(value)) {
+        if (/[^0-9]/.test(value)) {
             setPriceError('عدد وارد شود'); // Set error message
             return;
         } else {
             setPriceError(''); // Clear the error if input is valid
         }
 
-        // Remove all existing '/' characters
-        value = value.replace(/\//g, '');
-
         // Format the value by adding '/' after every 3 digits
         const formattedValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, '/');
 
         // Update the state with the formatted value
         setPrice(formattedValue);
+    };
+
+
+    const handleOfferChange = (ev) => {
+        let value = ev.target.value.replace(/\//g, ''); // Remove all existing slashes
+
+        // Check if the value contains any non-numeric characters (excluding '/')
+        if (/[^0-9]/.test(value)) {
+            setOfferError('عدد وارد شود'); // Set error message
+            return;
+        } else {
+            setOfferError(''); // Clear the error if input is valid
+        }
+
+        // Format the value by adding '/' after every 3 digits
+        const formattedValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, '/');
+
+        // Update the state with the formatted value
+        setOffer(formattedValue);
     };
 
 
@@ -390,6 +414,16 @@ const ProductForm = ({
                         onChange={handlePriceChange}
                     />
                     {priceError && <div className="text-red-500 text-xs">{priceError}</div>}
+                </div>
+
+                <div className="flex flex-col gap-1 w-full">
+                    <label>تخفیف (تومان)</label>
+                    <input
+                        type="text"
+                        value={offer}
+                        onChange={handleOfferChange}
+                    />
+                    {offerError && <div className="text-red-500 text-xs">{offerError}</div>}
                 </div>
             </div>
 
