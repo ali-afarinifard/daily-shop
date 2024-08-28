@@ -221,7 +221,7 @@ const ProductDetails: React.FC = () => {
                                 </div>
                             </div>
 
-                            <div className="mt-7 flex flex-col gap-4 flex-grow">
+                            <div className="mt-7 flex flex-col gap-5 flex-grow">
                                 <div className="flex flex-col gap-4">
                                     <h1 className="text-3xl font-bold">{product?.title}</h1>
                                     <div>

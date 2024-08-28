@@ -7,6 +7,7 @@ const InputTextArea = ({htmlLabel, label, id, value, onChange}) => {
                 id={id}
                 value={value}
                 onChange={onChange}
+                autoComplete="off"
             ></textarea>
         </div>
     )

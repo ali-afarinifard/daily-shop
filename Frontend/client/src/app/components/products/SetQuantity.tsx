@@ -22,7 +22,7 @@ const SetQuantity: React.FC<SetQtyProps> = ({
     custom
 }) => {
     return (
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 my-2">
 
             {cardCounter ? null : <div className="font-semibold">تعداد :</div>}
 

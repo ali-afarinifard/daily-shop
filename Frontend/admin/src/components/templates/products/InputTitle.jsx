@@ -10,6 +10,7 @@ const InputTitle = ({ htmlLabel, label, id, type, value, onChange, className, pl
                 onChange={onChange}
                 className={className}
                 placeholder={placeholder}
+                autoComplete="off"
             />
         </div>
     )

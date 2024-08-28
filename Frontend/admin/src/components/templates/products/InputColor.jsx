@@ -10,6 +10,7 @@ const InputColor = ({htmlLabel, label, id, type, placeholder, value, onChange, c
                 value={value}
                 onChange={onChange}
                 className={className}
+                autoComplete="off"
             />
         </div>
     )

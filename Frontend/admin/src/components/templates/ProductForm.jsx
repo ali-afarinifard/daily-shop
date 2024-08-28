@@ -393,37 +393,44 @@ const ProductForm = ({
 
 
             {/* Stock */}  {/* Price */}
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex items-center gap-6 xs:flex-col xs:items-start">
 
-                <div className="flex flex-col gap-1 w-full">
-                    <label>تعداد</label>
-                    <input
-                        type="text"
-                        value={stock}
-                        onChange={handleStockVal}
-                    />
-                    {stockError && <div className="text-red-500 text-xs">{stockError}</div>}
+                <div className="flex items-center justify-center gap-6">
+                    <div className="flex flex-col gap-1 w-full">
+                        <label>تعداد</label>
+                        <input
+                            type="text"
+                            autoComplete="off"
+                            value={stock}
+                            onChange={handleStockVal}
+                        />
+                        {stockError && <div className="text-red-500 text-xs">{stockError}</div>}
+                    </div>
+
+
+                    <div className="flex flex-col gap-1 w-full">
+                        <label>قیمت (تومان)</label>
+                        <input
+                            type="text"
+                            autoComplete="off"
+                            value={price}
+                            onChange={handlePriceChange}
+                        />
+                        {priceError && <div className="text-red-500 text-xs">{priceError}</div>}
+                    </div>
                 </div>
 
-
-                <div className="flex flex-col gap-1 w-full">
-                    <label>قیمت (تومان)</label>
-                    <input
-                        type="text"
-                        value={price}
-                        onChange={handlePriceChange}
-                    />
-                    {priceError && <div className="text-red-500 text-xs">{priceError}</div>}
-                </div>
-
-                <div className="flex flex-col gap-1 w-full">
-                    <label>تخفیف (تومان)</label>
-                    <input
-                        type="text"
-                        value={offer}
-                        onChange={handleOfferChange}
-                    />
-                    {offerError && <div className="text-red-500 text-xs">{offerError}</div>}
+                <div>
+                    <div className="flex flex-col gap-1">
+                        <label>قیمت با تخفیف (تومان)</label>
+                        <input
+                            type="text"
+                            autoComplete="off"
+                            value={offer}
+                            onChange={handleOfferChange}
+                        />
+                        {offerError && <div className="text-red-500 text-xs">{offerError}</div>}
+                    </div>
                 </div>
             </div>
 
@@ -434,7 +441,7 @@ const ProductForm = ({
                 type="checkbox"
                 checked={isStatus}
                 onChange={ev => setIsStatus(ev.target.checked)}
-                className="relative top-[0.25rem] w-4 h-4 rounded-full cursor-pointer"
+                className="relative top-[0.25rem] w-[1.2rem] h-[1.2rem] rounded-full cursor-pointer"
             />
 
             <button className="btn-primary mt-3" type="submit">{_id ? 'ویرایش' : 'ایجاد'}</button>
