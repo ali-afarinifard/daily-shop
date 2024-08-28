@@ -130,8 +130,8 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
 
 
     return (
-        <div className="w-full rounded-md overflow-hidden shadow-md">
-            <Link href={`/product/${product._id}`}>
+        <div className="w-full rounded-md overflow-hidden shadow-md relative">
+            <Link href={`/product/${product._id}`} className="relative">
 
                 <div className="relative w-full h-80 group">
                     {firstImage && (
@@ -184,11 +184,24 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                         />
                     </div>
                     <hr className="w-full h-[1px] bg-slate-700" />
-                    <div className="text-center text-slate-700 text-lg flex items-center justify-center gap-1">
+                    <div className="text-center text-slate-700 text-lg flex items-center justify-center gap-1 w-full">
+                        {product.offer ? (
+                            <>
+                                <span className="text-offer ml-5 text-sm">{formatPriceWithSlashes(product.price)}</span>
+                                <span className="text-md">{formatPriceWithSlashes(product.offer)}</span>
+                            </>
+                        ) : (
+                            <span className="text-md">{formatPriceWithSlashes(product.price)}</span>
+                        )}
                         <span className="text-sm">تومان</span>
-                        <span className="text-md">{formatPriceWithSlashes(product.price)}</span>
                     </div>
                 </div>
+
+                {product.offer && (
+                    <div className="border-rose-500 border absolute top-0 right-0 bg-rose-500 py-1 px-2 rounded-b-md">
+                        <span className="text-white text-sm">% تخفیف</span>
+                    </div>
+                )}
             </Link>
         </div>
     )

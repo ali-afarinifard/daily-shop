@@ -10,6 +10,7 @@ import CartItem from "./CartItem";
 import Button from "../Button";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
+import { formatPriceWithSlashes } from "@/utils/formatPrice";
 
 const CartClient = () => {
 
@@ -69,13 +70,13 @@ const CartClient = () => {
                 <div className="text-sm flex flex-col items-start gap-1">
                     <div className="flex justify-between w-full text-base font-semibold mb-3">
                         <span className="font-[500]">جمع سبد خرید</span>
-                        <span>{cartTotalAmount}</span>
+                        <span>{formatPriceWithSlashes(cartTotalAmount)}</span>
                     </div>
-                    <p className="text-slate-500 text-[0.8rem] mb-1">مالیات و حمل و نقل در هنگام پرداخت محاسبه می شود</p>
+                    <p className="text-slate-500 text-[0.8rem] mb-2">هزینه پست و ارسال هنگام پرداخت محاسبه می شود</p>
                     <Button label="تایید و تکمیل سفارش" onClick={() => { }} />
                     <div className="flex justify-end w-full">
-                        <Link href={'/'} className="text-slate-500 flex items-center gap-1 mt-2">
-                            <span>رفتن به فروشگاه</span>
+                        <Link href={'/'} className="text-slate-500 flex items-center gap-1 mt-4">
+                            <span>برگشت به فروشگاه</span>
                             <MdArrowBack />
                         </Link>
                     </div>

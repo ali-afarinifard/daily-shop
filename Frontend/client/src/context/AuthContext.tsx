@@ -22,6 +22,7 @@ export interface User {
 interface AuthContextType {
     isAuthenticated: boolean;
     login: (accessToken: string, refreshToken: string) => void;
+    register: (accessToken: string, refreshToken: string) => void;
     logout: () => void;
     updateUserInContext: (updatedUser: User | null) => void;
     user: User | null;
@@ -72,6 +73,13 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
 
 
+    const register = (accessToken: string, refreshToken: string) => {
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+        setIsAuthenticated(true);
+        fetchUser(accessToken);
+    };
+
 
     const login = (accessToken: string, refreshToken: string) => {
         localStorage.setItem('accessToken', accessToken);
@@ -95,7 +103,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout, updateUserInContext, user }}>
+        <AuthContext.Provider value={{ isAuthenticated, login, register, logout, updateUserInContext, user }}>
             {children}
         </AuthContext.Provider>
     );
@@ -103,4 +111,4 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 };
 
 
-export {AuthContext, AuthProvider};
+export { AuthContext, AuthProvider };

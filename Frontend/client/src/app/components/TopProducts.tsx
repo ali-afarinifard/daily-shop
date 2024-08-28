@@ -82,7 +82,7 @@ const TopProducts = () => {
                     className="w-full mySwiper"
                 >
                     {products.map((product) => (
-                        <SwiperSlide key={product._id}>
+                        <SwiperSlide key={product._id} dir="rtl">
                             <ProductBox product={product} user={user} />
                         </SwiperSlide>
                     ))}

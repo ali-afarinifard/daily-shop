@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SetQuantity from "../products/SetQuantity";
 import { truncateText } from "@/utils/truncateText";
+import { formatPriceWithSlashes } from "@/utils/formatPrice";
 
 interface ItemContentProps {
     item: ProductType;
@@ -43,7 +44,11 @@ const CartItem: React.FC<ItemContentProps> = ({ item }) => {
                     </div>
                 </div>
             </div>
-            <div className="justify-self-center">{item.price}</div>
+            {item?.offer ? (
+                <div className="justify-self-center">{formatPriceWithSlashes(item?.offer)}</div>
+            ) : (
+                <div className="justify-self-center">{formatPriceWithSlashes(item?.price)}</div>
+            )}
             <div className="justify-self-center">
                 <SetQuantity
                     cardCounter={true}
@@ -53,7 +58,7 @@ const CartItem: React.FC<ItemContentProps> = ({ item }) => {
                     custom="max-[450px]:flex-col max-[450px]:gap-2"
                 />
             </div>
-            <div className="justify-self-end font-semibold">{item.price * item.quantity}</div>
+            <div className="justify-self-end font-semibold">{formatPriceWithSlashes(item.price * item.quantity)}</div>
         </div>
     );
 };

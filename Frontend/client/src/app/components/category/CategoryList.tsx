@@ -62,10 +62,10 @@ const CategoryList = () => {
                             />
                         </Link>
                     ))}
-                    <Link href={'#'}>
+                    <Link href={'/topSalesProducts'}>
                         <CategoryItem
                             label="فروش ویژه"
-                            selected={pathname === '#'}
+                            selected={pathname === '/topSalesProducts'}
                         />
                     </Link>
                     <Link href={'#'}>

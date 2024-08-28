@@ -65,6 +65,7 @@ export default function LoginPage() {
         e.preventDefault();
 
         if (!validateForm()) {
+            toast.error('خطایی رخ داده');
             return;
         };
 

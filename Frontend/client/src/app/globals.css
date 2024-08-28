@@ -26,3 +26,7 @@
 select {
     @apply cursor-pointer;
 }
+
+.text-offer {
+    text-decoration: line-through;
+}

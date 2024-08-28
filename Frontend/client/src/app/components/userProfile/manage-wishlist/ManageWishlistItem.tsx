@@ -1,4 +1,5 @@
 import ProductType from "@/types/product"
+import { formatPriceWithSlashes } from "@/utils/formatPrice";
 import Image from "next/image"
 import Link from "next/link"
 import { FaChevronLeft } from "react-icons/fa"
@@ -28,12 +29,19 @@ const ManageWishlistItem: React.FC<ManageWishlistItemProps> = ({ product }) => {
                         />
                     </div>
 
-                    <div className="flex flex-col items-start gap-1">
+                    <div className="flex flex-col items-start gap-2">
                         <span className="text-slate-400">{product.title}</span>
-                        <span className="text-slate-500 flex items-center gap-1">
-                            <span>{product.price}</span>
-                            <span>تومان</span>
-                        </span>
+                        <div className="text-slate-500 flex items-end gap-1">
+                            {product.offer ? (
+                                <div className="flex flex-col">
+                                    <span className="text-offer text-sm">{formatPriceWithSlashes(product?.price)}</span>
+                                    <span className="text-md">{formatPriceWithSlashes(product?.offer)}</span>
+                                </div>
+                            ) : (
+                                <span className="text-md">{formatPriceWithSlashes(product?.price)}</span>
+                            )}
+                            <span className="text-[0.85rem] relative -top-[2px]">تومان</span>
+                        </div>
                     </div>
                 </div>
 

@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Heading from '../Heading';
 import { useRouter } from 'next/navigation';
 import { register } from '@/libs/apiUrls';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import { AuthContext } from '@/context/AuthContext';
 
 export default function RegisterPage() {
     const [username, setUsername] = useState('');
@@ -18,7 +19,24 @@ export default function RegisterPage() {
         password: ''
     });
 
+
+    const authContext = useContext(AuthContext);
+
+    if (!authContext) {
+        throw new Error('AuthContext must be used within an AuthProvider');
+    }
+
+    const { register: authRegister, isAuthenticated } = authContext;
+
+
     const router = useRouter();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            router.push('/');
+        };
+    }, [isAuthenticated, router]);
+
 
     const validateForm = () => {
         let valid = true;
@@ -56,8 +74,13 @@ export default function RegisterPage() {
 
         try {
 
-            await register(username, email, password);
-            router.push('/login')
+            const response = await register(username, email, password);
+            localStorage.setItem('accessToken', response.data.accessToken);
+            localStorage.setItem('refreshToken', response.data.refreshToken);
+            authRegister(response.data.accessToken, response.data.refreshToken);
+            toast.success('وارد شدید');
+            router.push('/');
+            window.location.reload();
 
         } catch (error) {
             console.log('Registration failed. Please try again', error);

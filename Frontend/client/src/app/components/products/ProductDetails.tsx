@@ -238,7 +238,17 @@ const ProductDetails: React.FC = () => {
                                     </div>
                                 </div>
                                 <h3 className="flex items-center gap-1">
-                                    <span className="text-[1.6rem] text-slate-500">{formatPriceWithSlashes(product?.price)}</span>
+                                    {product?.offer ? (
+                                        <div className="flex items-center gap-4">
+                                            <span className="text-[1.4rem] text-slate-400 text-offer">{formatPriceWithSlashes(product?.price)}</span>
+
+                                            <hr className="w-[1px] h-[1.6rem] bg-slate-400 relative -top-1" />
+
+                                            <span className="text-[1.6rem] text-slate-500">{formatPriceWithSlashes(product?.offer)}</span>
+                                        </div>
+                                    ) : (
+                                        <span className="text-[1.6rem] text-slate-500">{formatPriceWithSlashes(product?.price)}</span>
+                                    )}
                                     <span className="text-md">تومان</span>
                                 </h3>
 
@@ -264,7 +274,7 @@ const ProductDetails: React.FC = () => {
                                     <>
                                         <p className="mb-2 text-slate-500 flex items-center gap-1">
                                             <MdCheckCircle size={20} className="text-teal-400" />
-                                            <span> کالا به سد خرید شما اضافه شد</span>
+                                            <span> کالا به سبد خرید شما اضافه شد</span>
                                         </p>
 
                                         <div className="max-w-[18.75rem]">

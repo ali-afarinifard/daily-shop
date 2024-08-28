@@ -5,6 +5,7 @@ type ProductType = {
     title: string;
     description: string;
     price: number;
+    offer:number;
     category: CategoryType;
     images: string[];
     stock: number;

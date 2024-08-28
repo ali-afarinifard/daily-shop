@@ -28,10 +28,10 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
                 <div className="xl:hidden">
                     <UserProfileNav user={user} logout={logout} />
                 </div>
-                <div className="hidden xl:block">
+                <div className="hidden xl:block sl:mt-16">
                     <UserProfileNavMobile user={user} logout={logout} />
                 </div>
-                <div className="w-full shadow-md py-5 px-6 rounded-lg">
+                <div className="w-full shadow-md py-5 px-6 xm:px-3 rounded-lg">
                     {children}
                 </div>
             </div>
