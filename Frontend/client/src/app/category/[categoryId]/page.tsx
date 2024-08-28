@@ -121,7 +121,7 @@ const CategoryPage = () => {
 
 
     return (
-        <div className='mt-28'>
+        <div className='mt-28 xl:mt-14'>
             <Container>
                 {/* Heading */}
                 <div className='w-full flex items-center justify-center'>
@@ -134,10 +134,10 @@ const CategoryPage = () => {
                 {/* Content */}
                 <div className='flex flex-col'>
 
-                    <div className='flex items-center justify-between'>
+                    <div className='flex items-center justify-between mt-10 s:flex-col s:gap-4 s:items-stretch'>
 
                         <div className='flex items-center gap-2'>
-                            <label htmlFor="filter">نمایش بر اساس :</label>
+                            <label htmlFor="filter">نمایش : </label>
                             <select
                                 name="filter"
                                 id="filter"
@@ -171,7 +171,7 @@ const CategoryPage = () => {
 
                     </div>
 
-                    <div className='grid grid-cols-4 gap-8 my-8'>
+                    <div className='grid grid-cols-4 gap-8 my-8 xl:grid-cols-3 xl:gap-4 s:grid-cols-2 s:gap-2 xm:grid-cols-1'>
                         {paginatedProducts && paginatedProducts.map((product) => (
                             <div key={product._id}>
                                 <ProductBox product={product} user={user} />

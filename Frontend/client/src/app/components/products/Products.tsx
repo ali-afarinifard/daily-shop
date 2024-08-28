@@ -88,7 +88,7 @@ const Products = () => {
 
 
     if (loading) return (
-        <div className='flex items-center justify-center translate-y-[150%] xl:translate-y-[50%]'>
+        <div className='flex items-center justify-center translate-y-[150%] xl:translate-y-[50%] 2xl:translate-y-[50%]'>
             <Spinner size={35} />
         </div>
     );
@@ -121,7 +121,7 @@ const Products = () => {
                 <div className='flex items-center justify-between mt-10 s:flex-col s:gap-4 s:items-stretch'>
 
                     <div className='flex items-center gap-2'>
-                        <label htmlFor="filter">نمایش بر اساس :</label>
+                        <label htmlFor="filter">نمایش : </label>
                         <div className="max-w-[15rem]">
                             <select
                                 name="filter"

@@ -93,7 +93,7 @@ const ProductDetails: React.FC = () => {
     const handleAddToWishlist = async (productId: string) => {
         try {
             if (!user?._id) {
-                toast.error('ابتدا عضو شوید');
+                toast.error('ابتدا در سایت عضو شوید');
                 return;
             }
             const updatedWishlist = await addToWishlist(user._id, productId);
@@ -128,7 +128,7 @@ const ProductDetails: React.FC = () => {
 
     const handleAddToCart = () => {
         if (!user) {
-            toast.error('ابتدا عضو شوید');
+            toast.error('ابتدا در سایت عضو شوید');
             return;
         }
         if (product && selectedSize && selectedColor) {
@@ -169,7 +169,7 @@ const ProductDetails: React.FC = () => {
                     <Spinner size={40} />
                 </div>
             ) : (
-                <div className="mt-20">
+                <div className="mt-20 xl:mt-10">
                     <div className="flex flex-col">
                         <div className="flex items-start xl:flex-col">
                             <div className="w-[30rem] xl:flex xl:flex-col items-center justify-center xl:w-full">
@@ -382,8 +382,8 @@ const ProductDetails: React.FC = () => {
                         </div>
 
                         <div className="mt-10">
-                            <div className="flex gap-10 w-full">
-                                <div className="w-[23rem]">
+                            <div className="flex gap-10 w-full xm:flex-col xm:gap-5">
+                                <div className="w-[23rem] xm:w-full">
                                     <CommentForm productId={productId} onCommentAdded={handleCommentsUpdate} />
                                 </div>
 

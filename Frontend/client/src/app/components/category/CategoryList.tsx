@@ -42,9 +42,9 @@ const CategoryList = () => {
 
 
     return (
-        <div className={`bg-slate-100 mt-7 transform transition-all duration-300 ease-in-out ${isAtTop ? 'translate-y-0 opacity-100' : '-translate-y-full hidden mt-0'}`}>
+        <div className={`bg-slate-100 mt-4 transform transition-all duration-300 ease-in-out ${isAtTop ? 'translate-y-0 opacity-100' : '-translate-y-full hidden mt-0'}`}>
             <Container>
-                <div className="flex items-center gap-12 py-2 text-[0.94rem]">
+                <div className="flex items-center gap-12 py-1 text-[0.94rem]">
                     <Link href={'/products'}>
                         <CategoryItem
                             label="همه"
@@ -69,10 +69,10 @@ const CategoryList = () => {
                         />
                     </Link>
                     <Link href={'#'}>
-                    <CategoryItem 
+                        <CategoryItem
                             label="درباره ما"
-                            selected={pathname === '#'} 
-                        /> 
+                            selected={pathname === '#'}
+                        />
                     </Link>
                 </div>
             </Container>

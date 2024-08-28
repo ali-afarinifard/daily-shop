@@ -9,16 +9,17 @@ import { FaChevronLeft } from 'react-icons/fa';
 interface SearchBarItemProps {
     product: ProductType;
     onClick: () => void;
+    toggleMenu?: () => void;
 }
 
 
-const SearchBarItem: React.FC<SearchBarItemProps> = ({ product, onClick }) => {
+const SearchBarItem: React.FC<SearchBarItemProps> = ({ product, onClick, toggleMenu }) => {
 
     const firstImage = product.images[0];
 
     return (
         <li className="p-1 hover:bg-gray-100 mb-2" onClick={onClick}>
-            <Link href={`/product/${product._id}`}>
+            <Link href={`/product/${product._id}`} onClick={toggleMenu}>
                 <div className="flex items-center justify-between gap-1">
                     <div className='flex items-center gap-2'>
                         <div>
@@ -27,6 +28,8 @@ const SearchBarItem: React.FC<SearchBarItemProps> = ({ product, onClick }) => {
                                 alt={product.title}
                                 width={70}
                                 height={70}
+                                priority
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                                 className="object-cover w-[3rem] h-[3rem]"
                             />
                         </div>

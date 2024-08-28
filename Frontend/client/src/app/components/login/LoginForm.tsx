@@ -2,17 +2,16 @@
 
 import { useContext, useEffect, useState } from 'react';
 import Heading from '../Heading';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { AuthContext } from '@/context/AuthContext';
 import { login } from '@/libs/apiUrls';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 
 export default function LoginPage() {
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-
     const [errors, setErrors] = useState({
         email: '',
         password: ''
@@ -143,7 +142,7 @@ export default function LoginPage() {
                     ورود
                 </button>
 
-                <div className='flex items-center justify-between gap-1'>
+                <div className='flex items-center justify-between gap-1 m:flex-col m:justify-center m:gap-2'>
                     <div className='text-sm text-center mt-2'>
                         حساب کاربری ندارید؟ <Link href={'/register'} className='text-rose-500'>ثبت نام کنید</Link>
                     </div>

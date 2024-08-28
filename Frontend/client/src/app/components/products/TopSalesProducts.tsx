@@ -127,7 +127,7 @@ const TopSalesProducts = () => {
                 <div className='flex items-center justify-between mt-10 s:flex-col s:gap-4 s:items-stretch'>
 
                     <div className='flex items-center gap-2'>
-                        <label htmlFor="filter">نمایش بر اساس :</label>
+                        <label htmlFor="filter">نمایش : </label>
                         <div className="max-w-[15rem]">
                             <select
                                 name="filter"

@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import { formatPriceWithSlashes } from "@/utils/formatPrice";
 import CommentType from "@/types/comment";
 import { Rating } from "@mui/material";
+import Spinner from "../Spinner";
 
 
 interface ProductBoxProps {
@@ -36,7 +37,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
         if (user) {
             setIsWhitelisted(!isWhitelisted)
         } else {
-            toast.error('ابتدا عضو شوید');
+            toast.error('ابتدا در سایت عضو شوید');
         };
     };
 
@@ -140,6 +141,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                             alt={product.title}
                             className="object-cover rounded-t-md transition-opacity duration-500 ease-in-out group-hover:opacity-0"
                             fill
+                            priority
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                         />
                     )}
@@ -150,6 +152,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                             alt={product.title}
                             className="object-cover absolute inset-0 transition-opacity duration-500 ease-in-out opacity-0 group-hover:opacity-100"
                             fill
+                            priority
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                         />
                     )}
@@ -184,16 +187,24 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                         />
                     </div>
                     <hr className="w-full h-[1px] bg-slate-700" />
-                    <div className="text-center text-slate-700 text-lg flex items-center justify-center gap-1 w-full">
-                        {product.offer ? (
-                            <>
-                                <span className="text-offer ml-5 text-sm">{formatPriceWithSlashes(product.price)}</span>
-                                <span className="text-md">{formatPriceWithSlashes(product.offer)}</span>
-                            </>
+                    <div className="text-center text-slate-700 text-lg w-full">
+                        {product.isStatus ? (
+                            <div className="flex items-center justify-center gap-1">
+                                {product.offer ? (
+                                    <>
+                                        <span className="text-offer ml-5 text-sm">{formatPriceWithSlashes(product.price)}</span>
+                                        <span className="text-md">{formatPriceWithSlashes(product.offer)}</span>
+                                    </>
+                                ) : (
+                                    <span className="text-md">{formatPriceWithSlashes(product.price)}</span>
+                                )}
+                                <span className="text-sm">تومان</span>
+                            </div>
                         ) : (
-                            <span className="text-md">{formatPriceWithSlashes(product.price)}</span>
+                            <div>
+                                <div className="rounded-md bg-rose-500 text-white px-3 py-[0.05rem] text-[0.8rem] w-full border-slate-700 flex items-center justify-center">ناموجود</div>
+                            </div>
                         )}
-                        <span className="text-sm">تومان</span>
                     </div>
                 </div>
 

@@ -1,11 +1,18 @@
-'use client'
+"use client"
 
-import ProductType from "@/types/product";
-import { useEffect, useRef, useState } from "react"
-import SearchBarItem from "./SearchBarItem";
 import { getProductsBySearch } from "@/libs/apiUrls";
+import ProductType from "@/types/product";
+import { useEffect, useRef, useState } from "react";
+import SearchBarItem from "../nav/SearchBar/SearchBarItem";
+import { CiSearch } from "react-icons/ci";
 
-const SearchBar = () => {
+
+interface CategoryListMobileProps {
+    toggleMenu: () => void;
+}
+
+
+const CatSearchBar:React.FC<CategoryListMobileProps> = ({toggleMenu}) => {
 
     const [query, setQuery] = useState<string>('');
     const [results, setResults] = useState<ProductType[]>([]);
@@ -36,7 +43,6 @@ const SearchBar = () => {
     }, [query]);
 
 
-
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (searchBarRef.current && !searchBarRef.current.contains(event.target as Node)) {
@@ -54,7 +60,6 @@ const SearchBar = () => {
     }, []);
 
 
-
     const handleClearProductClick = () => {
         // Clear the input and results
         setQuery('');
@@ -63,17 +68,17 @@ const SearchBar = () => {
     };
 
 
-
     return (
         <div ref={searchBarRef} className="relative w-full">
-            <div className="w-full">
+            <div className="flex items-center justify-between">
                 <input
                     type="text"
-                    placeholder="جستجو"
+                    placeholder="جستجوی محصولات"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    className="p-2 border-[1px] border-slate-300 rounded-md outline-slate-400 w-[22rem]"
+                    className="p-2 py-4 w-full outline-none"
                 />
+                <CiSearch size={25} />
             </div>
             {noResults && (
                 <div className="absolute z-10 bg-white border border-gray-300 rounded-md mt-1 max-w-[24rem] w-full p-2">
@@ -81,9 +86,12 @@ const SearchBar = () => {
                 </div>
             )}
             {results.length > 0 && (
-                <ul className="absolute z-10 bg-white border border-gray-300 rounded-md mt-1 p-1 py-2 max-w-[24rem] max-h-[20rem] overflow-auto w-full">
+                <ul className="absolute z-10 bg-white border border-gray-300 rounded-md mt-1 p-1 py-2 w-full max-h-[20rem] overflow-auto">
                     {results.map((product) => (
-                        <SearchBarItem key={product._id} product={product} onClick={handleClearProductClick} />
+                        <>
+                            <SearchBarItem key={product._id} product={product} onClick={handleClearProductClick} toggleMenu={toggleMenu} />
+                            <hr className="w-full h-[1px] bg-slate-400" />
+                        </>
                     ))}
                 </ul>
             )}
@@ -91,4 +99,4 @@ const SearchBar = () => {
     )
 }
 
-export default SearchBar
+export default CatSearchBar
