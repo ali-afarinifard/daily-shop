@@ -62,7 +62,7 @@ const CategoryList = () => {
                             />
                         </Link>
                     ))}
-                    <Link href={'/topSalesProducts'}>
+                    <Link href={'/top-sales-products'}>
                         <CategoryItem
                             label="فروش ویژه"
                             selected={pathname === '/topSalesProducts'}

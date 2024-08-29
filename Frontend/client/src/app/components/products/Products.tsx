@@ -10,6 +10,13 @@ import { Pagination, Stack } from "@mui/material";
 import ProductBox from "./ProductBox";
 
 
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+
+
 const Products = () => {
 
     const [products, setProducts] = useState<ProductType[]>([]);
@@ -44,20 +51,23 @@ const Products = () => {
 
     // Apply filtering and sorting based on selected option
     const filteredProducts = products
-        .filter(product => {
-            if (filter === 'isStatus') {
-                return product.isStatus === true;
-            }
-            return true;
-        })
-        .sort((a, b) => {
-            if (filter === 'priceDesc') {
-                return b.price - a.price; // Sort by price descending
-            } else if (filter === 'priceAsc') {
-                return a.price - b.price; // Sort by price ascending
-            }
-            return 0; // No sorting for other options
-        });
+    .filter(product => {
+        if (filter === 'isStatus') {
+            return product.isStatus === true;
+        }
+        return true;  // No filter, include all products
+    })
+    .sort((a, b) => {
+        const priceA = a.offer && a.offer < a.price ? a.offer : a.price;
+        const priceB = b.offer && b.offer < b.price ? b.offer : b.price;
+
+        if (filter === 'priceDesc') {
+            return priceB - priceA;  // Sort by effective price descending
+        } else if (filter === 'priceAsc') {
+            return priceA - priceB;  // Sort by effective price ascending
+        }
+        return 0;  // No sorting for other options
+    });
 
 
     // Calculate the products to display based on the current page
@@ -121,7 +131,7 @@ const Products = () => {
                 <div className='flex items-center justify-between mt-10 s:flex-col s:gap-4 s:items-stretch'>
 
                     <div className='flex items-center gap-2'>
-                        <label htmlFor="filter">نمایش : </label>
+                        {/* <label htmlFor="filter">نمایش : </label>
                         <div className="max-w-[15rem]">
                             <select
                                 name="filter"
@@ -135,7 +145,25 @@ const Products = () => {
                                 <option value='priceDesc'>گران ترین</option>
                                 <option value='priceAsc'>ارزان ترین</option>
                             </select>
+                        </div> */}
+
+                        <span>نمایش : </span>
+                        <div className="max-w-[15rem]">
+                            <FormControl fullWidth>
+                                <Select
+                                    id="demo-simple-select"
+                                    value={filter}
+                                    onChange={(e) => setFilter(e.target.value)}
+                                    sx={{ fontFamily: 'Vazir' }}
+                                >
+                                    <MenuItem value={'all'} sx={{ fontFamily: 'Vazir' }}>همه محصولات</MenuItem>
+                                    <MenuItem value={'isStatus'} sx={{ fontFamily: 'Vazir' }}>کالاهای موجود</MenuItem>
+                                    <MenuItem value={'priceDesc'} sx={{ fontFamily: 'Vazir' }}>گران ترین</MenuItem>
+                                    <MenuItem value={'priceAsc'} sx={{ fontFamily: 'Vazir' }}>ارزان ترین</MenuItem>
+                                </Select>
+                            </FormControl>
                         </div>
+
                     </div>
 
                     <div>

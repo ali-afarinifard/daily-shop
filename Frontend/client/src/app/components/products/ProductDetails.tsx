@@ -8,8 +8,12 @@ import { useCallback, useEffect, useState } from "react";
 import { MdCheckCircle } from "react-icons/md";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Thumbs } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import 'swiper/css/thumbs';
+
 import { useCart } from "@/hooks/useCart";
 import Button from "../Button";
 import SetQuantity from "./SetQuantity";
@@ -22,6 +26,9 @@ import { formatPriceWithSlashes } from "@/utils/formatPrice";
 import Spinner from "../Spinner";
 import { Rating } from "@mui/material";
 import CommentType from "@/types/comment";
+
+
+
 
 const ProductDetails: React.FC = () => {
     const authContext = useContext(AuthContext);
@@ -44,6 +51,8 @@ const ProductDetails: React.FC = () => {
     const [showWishlistMessage, setShowWishlistMessage] = useState(false);
     const [commentsUpdated, setCommentsUpdated] = useState(false);
     const [averageRating, setAverageRating] = useState<number | null>(null);
+    const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const router = useRouter();
 
@@ -110,6 +119,14 @@ const ProductDetails: React.FC = () => {
         setSelectedImage(image);
     };
 
+    const handleMainImageClick = () => {
+        setIsModalOpen(true); // Open the modal when the main image is clicked
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false); // Close the modal
+    };
+
     const handleQtyIncrease = () => {
         if (quantity < Math.min(product?.stock || 0)) {
             setQuantity(quantity + 1);
@@ -169,36 +186,51 @@ const ProductDetails: React.FC = () => {
                     <Spinner size={40} />
                 </div>
             ) : (
-                <div className="mt-20 xl:mt-10">
+                <div className="mt-20 xl:mt-10 w-full">
                     <div className="flex flex-col">
                         <div className="flex items-start xl:flex-col">
                             <div className="w-[30rem] xl:flex xl:flex-col items-center justify-center xl:w-full">
                                 <div className="w-[30rem] h-full xl:flex xl:items-center xl:justify-center xl:w-full">
-                                    {selectedImage && (
-                                        <Image
-                                            src={selectedImage}
-                                            alt={product?.title || ""}
-                                            width={450}
-                                            height={450}
-                                            className="object-cover rounded-md h-[35rem]"
-                                        />
-                                    )}
+                                    <Swiper
+                                        modules={[Thumbs]}
+                                        slidesPerView={1}
+                                        thumbs={{ swiper: thumbsSwiper }}
+                                        className="w-[30rem] h-full flex items-center justify-center"
+                                        onSlideChange={(swiper) => setSelectedImage(product?.images[swiper.activeIndex] || null)}
+                                    >
+
+                                        {product?.images.map((image, index) => (
+                                            <SwiperSlide key={index}>
+                                                <Image
+                                                    src={image}
+                                                    alt={`${product.title} ${index + 1}`}
+                                                    width={450}
+                                                    height={450}
+                                                    className="object-cover rounded-md h-[35rem] cursor-pointer"
+                                                    onClick={handleMainImageClick}
+                                                />
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
                                 </div>
 
-                                <div className="max-w-[28rem] m:w-full mt-4 p-1 rounded-md border-[1px] border-slate-300">
+                                <div className="max-w-[28rem] w-full mt-4 p-1 rounded-md border-[1px] border-slate-300">
                                     <Swiper
+                                        modules={[Thumbs]}
+                                        onSwiper={setThumbsSwiper}
                                         slidesPerView={3}
-                                        spaceBetween={5}
+                                        spaceBetween={3}
                                         breakpoints={{
                                             450: {
-                                                slidesPerView: 4
+                                                slidesPerView: 4,
                                             },
                                             600: {
-                                                slidesPerView: 5
+                                                slidesPerView: 5,
                                             },
                                         }}
                                         className="mySwiper"
                                     >
+
                                         {product?.images.map((image, index) => (
                                             <SwiperSlide key={index}>
                                                 <div
@@ -219,6 +251,23 @@ const ProductDetails: React.FC = () => {
                                         ))}
                                     </Swiper>
                                 </div>
+
+                                {isModalOpen && (
+                                    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50" onClick={closeModal}>
+                                        <div className="relative">
+                                            <Image
+                                                src={selectedImage || ""}
+                                                alt="Enlarged Image"
+                                                width={500}
+                                                height={500}
+                                                priority
+                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                                                className="object-cover rounded-md w-[32rem] s:w-[26rem] m:w-[20rem]"
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+
                             </div>
 
                             <div className="mt-7 flex flex-col gap-5 flex-grow">
