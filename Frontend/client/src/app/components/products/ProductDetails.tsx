@@ -259,7 +259,7 @@ const ProductDetails: React.FC = () => {
                                         <div className="relative">
                                             <Image
                                                 src={selectedImage || ""}
-                                                alt="Enlarged Image"
+                                                alt="تصویر"
                                                 width={500}
                                                 height={500}
                                                 priority

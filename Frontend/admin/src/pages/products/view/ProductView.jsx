@@ -8,6 +8,8 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import { IoCloseSharp } from "react-icons/io5";
 import Loader from "../../../components/modules/Loader";
+import { getContrastTools } from "../../../utils/getContrastTools";
+import { formatPriceWithSlashes } from "../../../utils/formatPrice"
 
 const modalStyle = {
     position: 'absolute',
@@ -28,6 +30,7 @@ const ProductView = () => {
 
     const [open, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const { data: product, error, isLoading } = useQuery({
         queryKey: ['product', id],
@@ -35,35 +38,34 @@ const ProductView = () => {
         enabled: !!id
     });
 
-    const handleOpen = (img) => {
-        setSelectedImage(`http://localhost:5000/${img}`);
-        setIsOpen(true);
+    console.log(product)
+
+    const handleImageClick = (img) => {
+        setSelectedImage(img);
+        setIsModalOpen(true);
     };
 
-    const handleClose = () => {
-        setIsOpen(false);
-        setSelectedImage('');
+    const closeModal = () => {
+        setIsModalOpen(false); // Close the modal
     };
 
 
     if (isLoading) return <Loader />
 
-    // if (error) return <div>error...</div>
-
 
     return (
-        <div>
+        <div className="pb-24">
             {product && (
-                <div className="flex flex-col">
-                    <div className="flex justify-between items-center px-8 pb-3">
+                <div className="flex flex-col w-full">
+                    <div className="flex justify-between items-center pb-3">
 
-                        <h1 className="font-[400] text-[1.4rem]">مشخصات محصول</h1>
+                        <h1 className="font-[400] text-[1.4rem] relative top-2">مشخصات محصول</h1>
 
                         <Link to={'/products'}>
                             <div
-                                className="w-10 h-10 border-[1px] border-slate-200 flex items-center justify-center rounded-full bg-slate-100 shadow-xl"
+                                className="w-10 h-10 border-[1px] border-slate-200 flex items-center justify-center rounded-full bg-slate-200 shadow-md"
                             >
-                                <FiChevronLeft size={27} className="relative right-[0.1rem]" />
+                                <FiChevronLeft size={27} className="relative right-[0.1rem] text-blue-600" />
                             </div>
                         </Link>
 
@@ -71,85 +73,111 @@ const ProductView = () => {
 
                     <hr />
 
-                    <div
-                        className="pt-8"
-                    >
+                    <div className="mt-10">
+                        <div className="grid grid-cols-3 justify-center items-center text-center gap-1 xl:grid-cols-2">
 
-                        <div className="grid grid-cols-3">
-
-                            <div
-                                className="flex items-center gap-1 justify-center"
-                            >
-                                <span>نام محصول : </span>
-                                <span className="text-lg">{product.title}</span>
+                            <div className="flex items-center justify-center gap-1 mb-14">
+                                <span className="text-slate-500 2xs:text-[0.9rem]">نام محصول : </span>
+                                <span className="text-slate-700 2xs:text-[0.9rem]">{product?.title}</span>
                             </div>
 
-                            <div
-                                className="flex items-center gap-1 justify-center"
-                            >
-                                <span className="text-sm">دسته بندی : </span>
-                                <span className="text-lg">{product.category.name}</span>
+                            <div className="flex items-center justify-center gap-1 mb-14">
+                                <span className="text-slate-500 2xs:text-[0.9rem]">دسته بندی : </span>
+                                <span className="text-slate-700 2xs:text-[0.9rem]">{product?.category?.name}</span>
                             </div>
 
+                            <div className="flex items-center justify-center gap-1 mb-14">
+                                <span className="text-slate-500 2xs:text-[0.9rem]">جنسیت : </span>
+                                <span className="text-slate-700 2xs:text-[0.9rem]">{product?.gender ? 'زنانه' : 'مردانه'}</span>
+                            </div>
 
-                        </div>
+                            <div className="flex items-center justify-center gap-1 mb-14">
+                                <span className="text-slate-500 2xs:text-[0.9rem]">تعداد : </span>
+                                <span className="text-slate-700 2xs:text-[0.9rem]">{product?.stock}</span>
+                            </div>
+
+                            <div className="flex items-center justify-center gap-1 mb-14">
+                                <span className="text-slate-500 2xs:text-[0.9rem]">قیمت : </span>
+                                <span className="text-slate-700 2xs:text-[0.9rem]">{formatPriceWithSlashes(product?.price)}</span>
+                            </div>
+
+                            {product.offer && product.offer > 0 && (
+                                <div className="flex items-center justify-center gap-1 mb-14">
+                                    <span className="text-slate-500 2xs:text-[0.9rem]">قیمت نهایی با تخفیف : </span>
+                                    <span className="text-slate-700 2xs:text-[0.9rem]">{formatPriceWithSlashes(product?.price)}</span>
+                                </div>
+                            )}
 
 
-                        <div className="grid grid-cols-3 py-20">
-
-                            <div
-                                className="flex items-center gap-1 justify-center"
-                            >
-                                <span>قیمت محصول : </span>
-                                <div className="flex items-center gap-1">
-                                    <span className="text-lg">{product.price}</span>
-                                    <span>تومان</span>
+                            <div className="flex items-center justify-center gap-3 mb-14">
+                                <span className="text-slate-500">سایز : </span>
+                                <div className="flex flex-wrap gap-2">
+                                    {product?.sizes?.map((size, index) => (
+                                        <div
+                                            key={index}
+                                            className="px-4 py-2 2xs:px-2 2xs:py-1 rounded-full bg-slate-500 text-white font-semibold"
+                                            style={{ backgroundColor: size, color: getContrastTools(size) }}
+                                        >
+                                            {size}
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
 
-                            <div
-                                className="flex items-center gap-1 justify-center"
-                            >
-                                <span className="text-sm">تعداد محصول : </span>
-                                <span className="text-lg">{product.stock}</span>
-                            </div>
-
-                            <div
-                                className="flex items-center gap-1 justify-center"
-                            >
-                                <span className="text-sm">وضعیت محصول : </span>
-                                <span className="text-lg">{product.isStatus ? 'موجود' : 'ناموجود'}</span>
-                            </div>
-
-
                         </div>
 
-
-                        <div>
-                            <span className="pr-[8rem]">تصاویر محصول : </span>
-                            <div className="grid grid-cols-3 pt-5 gap-4">
-                                {product.images.map((img, index) => (
-                                    <div key={index} className="w-full h-full flex items-center justify-center" onClick={() => handleOpen(img)}>
-                                        <img key={index} src={`http://localhost:5000/${img}`} alt={`Product image ${index}`} className="w-64 h-64 object-cover rounded-xl" />
+                        <div className="flex flex-col items-start justify-start gap-3 mt-16">
+                            <span className="text-slate-500">رنگ ها : </span>
+                            <div className="flex gap-2">
+                                {product?.colors?.map((color, index) => (
+                                    <div
+                                        key={index}
+                                        className="px-4 py-2 rounded-full bg-slate-500 text-white font-semibold"
+                                        style={{ backgroundColor: color, color: getContrastTools(color) }}
+                                    >
+                                        {color}
                                     </div>
                                 ))}
                             </div>
                         </div>
 
 
-
-                        <div
-                            className="flex flex-col gap-1 justify-center pr-[8rem] pt-20 w-full max-w-[80rem] break-words"
-                        >
-                            <span>توضیحات : </span>
-                            <span className="text-lg">{product.description}</span>
+                        <div className="flex flex-col items-start justify-start mt-16 max-w-[43rem] w-full leading-10">
+                            <span className="text-slate-500">توضیحات : </span>
+                            <span>{product?.description}</span>
                         </div>
 
 
+                        <div className="flex flex-col items-start justify-start gap-3 mt-16">
+                            <span className="text-slate-500">تصاویر : </span>
+                            <div className="flex items-center flex-wrap gap-3">
+                                {product?.images && product?.images.map((img, index) => (
+                                    <div key={index} className="w-[9rem] h-full" onClick={() => handleImageClick(img)}>
+                                        <img src={img} alt="تصویر محصول" className="rounded-xl w-full h-full cursor-pointer" />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {isModalOpen && (
+                            <div
+                                className="fixed inset-0 w-screen h-screen bg-black bg-opacity-75 flex items-center justify-center z-[10000]"
+                                onClick={closeModal}
+                            >
+                                <div>
+                                    <img
+                                        src={selectedImage || ""}
+                                        alt="Enlarged Image"
+                                        className="object-cover rounded-md w-[32rem] s:w-[26rem] m:w-[20rem]"
+                                        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on the image
+                                    />
+                                </div>
+                            </div>
+                        )}
 
                     </div>
 
-                    <Modal
+                    {/* <Modal
                         aria-labelledby="modal-title"
                         aria-describedby="modal-desc"
                         open={open}
@@ -171,7 +199,7 @@ const ProductView = () => {
                             </IconButton>
                             <img src={selectedImage} alt="Enlarged product" style={{ width: '100%', height: 'auto' }} />
                         </Box>
-                    </Modal>
+                    </Modal> */}
 
                 </div>
             )}
