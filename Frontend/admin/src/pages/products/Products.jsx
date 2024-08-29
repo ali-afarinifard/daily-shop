@@ -18,10 +18,12 @@ import { MdOutlineEditNote } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import { formatPriceWithSlashes } from "../../utils/formatPrice";
+import { CiSearch } from "react-icons/ci";
 
 
 const ProductPage = () => {
 
+    const [searchQuery, setSearchQuery] = useState("");
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(8);
 
@@ -41,7 +43,11 @@ const ProductPage = () => {
         queryFn: getAllProducts,
     });
 
-    const paginatedData = (data || []).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+    const filteredData = data ? data.filter(product =>
+        product.title.toLowerCase().includes(searchQuery.toLowerCase())
+    ) : [];
+
+    const paginatedData = filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
     if (isLoading) return (
         <Loader size={40} />
@@ -51,12 +57,31 @@ const ProductPage = () => {
 
     return (
         <div className="s:pb-20 s:pt-3">
-            <Link
-                to={'/products/add'}
-                className="btn-primary"
-            >
-                ایجاد
-            </Link>
+            <div className="flex items-center justify-between">
+
+                <div>
+                    <Link
+                        to={'/products/add'}
+                        className="btn-primary"
+                    >
+                        ایجاد
+                    </Link>
+                </div>
+
+                <div className="max-w-[18rem] w-full flex items-center border-[1px] border-slate-300 rounded-lg px-2">
+                    <input
+                        type="search"
+                        placeholder="جستجو"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="text-sm max-w-[18rem] w-full border-none outline-none mb-0"
+                    />
+                    <div>
+                        <CiSearch size={20} />
+                    </div>
+                </div>
+
+            </div>
 
             <TableContainer component={Paper} sx={{ marginTop: '1rem' }}>
                 <Table sx={{ width: '100%' }} aria-label="simple table">
