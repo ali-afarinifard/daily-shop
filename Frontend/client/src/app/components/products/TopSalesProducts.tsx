@@ -9,6 +9,10 @@ import Spinner from "../Spinner";
 import NullData from "../NullData";
 import ProductBox from "./ProductBox";
 
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+
 
 const TopSalesProducts = () => {
 
@@ -51,15 +55,21 @@ const TopSalesProducts = () => {
     // Apply filtering and sorting based on selected option
     const filteredProducts = productsWithOffers
         .filter(product => {
-            return true;
+            if (filter === 'isStatus') {
+                return product.isStatus === true;
+            }
+            return true;  // No filter, include all products
         })
         .sort((a, b) => {
+            const priceA = a.offer && a.offer < a.price ? a.offer : a.price;
+            const priceB = b.offer && b.offer < b.price ? b.offer : b.price;
+
             if (filter === 'priceDesc') {
-                return b.price - a.price; // Sort by price descending
+                return priceB - priceA;  // Sort by effective price descending
             } else if (filter === 'priceAsc') {
-                return a.price - b.price; // Sort by price ascending
+                return priceA - priceB;  // Sort by effective price ascending
             }
-            return 0; // No sorting for other options
+            return 0;  // No sorting for other options
         });
 
 
@@ -127,20 +137,28 @@ const TopSalesProducts = () => {
                 <div className='flex items-center justify-between mt-10 s:flex-col s:gap-4 s:items-stretch'>
 
                     <div className='flex items-center gap-2'>
-                        <label htmlFor="filter">نمایش : </label>
-                        <div className="max-w-[15rem]">
-                            <select
-                                name="filter"
-                                id="filter"
-                                value={filter}
-                                onChange={(e) => setFilter(e.target.value)}
-                                className='border py-2 px-5 rounded-md cursor-pointer outline-none w-full'
-                            >
-                                <option value='all'>پرفروش ترین ها</option>
-                                <option value='priceDesc'>گران ترین</option>
-                                <option value='priceAsc'>ارزان ترین</option>
-                            </select>
+                        <span>نمایش : </span>
+                        <div className="max-w-[20rem]">
+                            <FormControl fullWidth>
+                                <Select
+                                    id="demo-simple-select"
+                                    value={filter}
+                                    onChange={(e) => setFilter(e.target.value)}
+                                    sx={{
+                                        fontFamily: 'Vazir',
+                                        width: "10rem",
+                                        '& .MuiOutlinedInput-notchedOutline': {
+                                            borderColor: "#252525", // Outline border color
+                                        },
+                                    }}
+                                >
+                                    <MenuItem value={'all'} sx={{ fontFamily: 'Vazir' }}>جدیدترین ها</MenuItem>
+                                    <MenuItem value={'priceDesc'} sx={{ fontFamily: 'Vazir' }}>گران ترین</MenuItem>
+                                    <MenuItem value={'priceAsc'} sx={{ fontFamily: 'Vazir' }}>ارزان ترین</MenuItem>
+                                </Select>
+                            </FormControl>
                         </div>
+
                     </div>
 
                     <div>

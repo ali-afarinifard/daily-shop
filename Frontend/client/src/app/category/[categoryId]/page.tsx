@@ -15,6 +15,10 @@ import { useContext, useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+
 
 const CategoryPage = () => {
     const pathname = usePathname();
@@ -65,15 +69,18 @@ const CategoryPage = () => {
             if (filter === 'isStatus') {
                 return product.isStatus === true;
             }
-            return true;
+            return true;  // No filter, include all products
         })
         .sort((a, b) => {
+            const priceA = a.offer && a.offer < a.price ? a.offer : a.price;
+            const priceB = b.offer && b.offer < b.price ? b.offer : b.price;
+
             if (filter === 'priceDesc') {
-                return b.price - a.price; // Sort by price descending
+                return priceB - priceA;  // Sort by effective price descending
             } else if (filter === 'priceAsc') {
-                return a.price - b.price; // Sort by price ascending
+                return priceA - priceB;  // Sort by effective price ascending
             }
-            return 0; // No sorting for other options
+            return 0;  // No sorting for other options
         });
 
 
@@ -121,7 +128,7 @@ const CategoryPage = () => {
 
 
     return (
-        <div className='mt-28 xl:mt-14'>
+        <div className='mt-20 xl:mt-10'>
             <Container>
                 {/* Heading */}
                 <div className='w-full flex items-center justify-center'>
@@ -137,19 +144,29 @@ const CategoryPage = () => {
                     <div className='flex items-center justify-between mt-10 s:flex-col s:gap-4 s:items-stretch'>
 
                         <div className='flex items-center gap-2'>
-                            <label htmlFor="filter">نمایش : </label>
-                            <select
-                                name="filter"
-                                id="filter"
-                                className='border py-2 px-5 rounded-md cursor-pointer outline-none'
-                                value={filter}
-                                onChange={(e) => setFilter(e.target.value)}
-                            >
-                                <option value='all'>همه محصولات</option>
-                                <option value='isStatus'>کالاهای موجود</option>
-                                <option value='priceDesc'>گران ترین</option>
-                                <option value='priceAsc'>ارزان ترین</option>
-                            </select>
+                            <span>نمایش : </span>
+                            <div className="max-w-[20rem]">
+                                <FormControl fullWidth>
+                                    <Select
+                                        id="demo-simple-select"
+                                        value={filter}
+                                        onChange={(e) => setFilter(e.target.value)}
+                                        sx={{
+                                            fontFamily: 'Vazir',
+                                            width: "10rem",
+                                            '& .MuiOutlinedInput-notchedOutline': {
+                                                borderColor: "#252525", // Outline border color
+                                            },
+                                        }}
+                                    >
+                                        <MenuItem value={'all'} sx={{ fontFamily: 'Vazir' }}>پیش فرض</MenuItem>
+                                        <MenuItem value={'isStatus'} sx={{ fontFamily: 'Vazir' }}>کالاهای موجود</MenuItem>
+                                        <MenuItem value={'priceDesc'} sx={{ fontFamily: 'Vazir' }}>گران ترین</MenuItem>
+                                        <MenuItem value={'priceAsc'} sx={{ fontFamily: 'Vazir' }}>ارزان ترین</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </div>
+
                         </div>
 
                         <div className='mt-10'>

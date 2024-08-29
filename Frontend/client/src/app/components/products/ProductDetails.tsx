@@ -206,6 +206,8 @@ const ProductDetails: React.FC = () => {
                                                     alt={`${product.title} ${index + 1}`}
                                                     width={450}
                                                     height={450}
+                                                    priority
+                                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                                                     className="object-cover rounded-md h-[35rem] cursor-pointer"
                                                     onClick={handleMainImageClick}
                                                 />

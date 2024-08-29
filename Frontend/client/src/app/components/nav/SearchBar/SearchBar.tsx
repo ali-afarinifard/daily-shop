@@ -68,11 +68,11 @@ const SearchBar = () => {
         <div ref={searchBarRef} className="relative w-full">
             <div className="w-full">
                 <input
-                    type="text"
+                    type="search"
                     placeholder="جستجو"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    className="p-2 border-[1px] border-slate-300 rounded-md outline-slate-400 w-[22rem]"
+                    className="p-2 pl-5 border-[1px] border-slate-300 rounded-md outline-slate-400 w-[22rem]"
                 />
             </div>
             {noResults && (

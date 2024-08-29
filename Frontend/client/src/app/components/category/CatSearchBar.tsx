@@ -72,7 +72,7 @@ const CatSearchBar:React.FC<CategoryListMobileProps> = ({toggleMenu}) => {
         <div ref={searchBarRef} className="relative w-full">
             <div className="flex items-center justify-between">
                 <input
-                    type="text"
+                    type="search"
                     placeholder="جستجوی محصولات"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}

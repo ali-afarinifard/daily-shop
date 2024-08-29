@@ -4,7 +4,7 @@ import Products from "../components/products/Products"
 
 const ProductsPage = () => {
     return (
-        <div className="pt-28 xl:pt-14">
+        <div className="pt-20 xl:pt-10">
             <Container>
                 <Products />
             </Container>
