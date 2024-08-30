@@ -44,7 +44,7 @@ const CategoryList = () => {
     return (
         <div className={`bg-slate-100 mt-4 transform transition-all duration-300 ease-in-out ${isAtTop ? 'translate-y-0 opacity-100' : '-translate-y-full hidden mt-0'}`}>
             <Container>
-                <div className="flex items-center gap-12 py-1 text-[0.94rem]">
+                <div className="flex items-center gap-10 py-1 text-[0.94rem]">
                     <Link href={'/products'}>
                         <CategoryItem
                             label="همه"
@@ -68,6 +68,14 @@ const CategoryList = () => {
                             selected={pathname === '/topSalesProducts'}
                         />
                     </Link>
+                    
+                    <Link href={'#'}>
+                        <CategoryItem
+                            label="وبلاگ"
+                            selected={pathname === '#'}
+                        />
+                    </Link>
+
                     <Link href={'#'}>
                         <CategoryItem
                             label="درباره ما"

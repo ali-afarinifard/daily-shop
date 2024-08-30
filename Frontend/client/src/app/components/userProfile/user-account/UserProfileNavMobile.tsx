@@ -40,21 +40,21 @@ const UserProfileNavMobile: React.FC<UserProfileNavMobileProps> = ({ user, logou
                     <div className="absolute rounded-md shadow-md w-[10.63rem] bg-white overflow-hidden right-0 top-12 text-sm flex flex-col cursor-pointer">
 
                         <div>
-                            <Link href={'/userAccount'}>
+                            <Link href={'/user-account'}>
                                 <MenuProfileItem
                                     onClick={toggleOpen}
                                     icon={MdDashboard}
                                     label="حساب کاربری"
                                 />
                             </Link>
-                            <Link href={'/userAccount/manage-wishlist'}>
+                            <Link href={'/user-account/manage-wishlist'}>
                                 <MenuProfileItem
                                     onClick={toggleOpen}
                                     icon={IoIosHeart}
                                     label="علاقه مندی ها"
                                 />
                             </Link>
-                            <Link href={'/userAccount/manage-orders'}>
+                            <Link href={'/user-account/manage-orders'}>
                                 <MenuProfileItem
                                     onClick={toggleOpen}
                                     icon={MdFormatListBulleted}

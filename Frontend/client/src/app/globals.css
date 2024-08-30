@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 
+
+/* Playwrite Cuba Font */
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+CU&display=swap');
+
+
 @font-face {
     font-family: 'Vazir';
     src: url('../../public/fonts/Vazirmatn-Thin.ttf') format('ttf'),
@@ -29,4 +34,12 @@ select {
 
 .text-offer {
     text-decoration: line-through;
+}
+
+.swiper-pagination span {
+    @apply bg-black text-black scale-95;
+}
+
+.swiper-pagination .swiper-pagination-bullet-active {
+    @apply bg-transparent w-3 border-[1.5px] border-slate-950 scale-125;
 }

@@ -69,7 +69,7 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
                 prevWishlist.filter((product) => product._id !== productId)
             );
             setIsWhitelisted(false);
-            localStorage.removeItem(`showWishlistMessage_${productId}`);
+            localStorage.removeItem(`showWishlistMessage_${userId}_${productId}`);
         } catch (error) {
             console.error("Error while removing from wishlist", error);
         }

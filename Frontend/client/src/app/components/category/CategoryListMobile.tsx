@@ -42,8 +42,8 @@ const CategoryListMobile:React.FC<CategoryListMobileProps> = ({toggleMenu}) => {
                     <CatSearchBar toggleMenu={toggleMenu} />
                 </div>
 
-                <div className="w-full h-16 bg-gray-200 border-b-[2px] border-b-slate-700 flex items-center justify-center">
-                    <h1 className="font-bold text-[1.1rem]">منو</h1>
+                <div className="w-full h-12 bg-gray-200 border-b-[2px] border-b-slate-700 flex items-center justify-center">
+                    <h1 className="font-bold text-[1rem]">منو</h1>
                 </div>
 
                 <div className="mt-3">
@@ -97,6 +97,16 @@ const CategoryListMobile:React.FC<CategoryListMobileProps> = ({toggleMenu}) => {
 
                     <Link href={'#'} onClick={toggleMenu}>
                         <CategoryItem
+                            label="وبلاگ"
+                            centerParent="!justify-start"
+                            centerChild="!font-bold !text-[1rem]"
+                        />
+                    </Link>
+
+                    <hr className="w-full h-[1px] bg-slate-300 my-2" />
+
+                    <Link href={'#'} onClick={toggleMenu}>
+                        <CategoryItem
                             label="درباره ما"
                             centerParent="!justify-start"
                             centerChild="!font-bold !text-[1rem]"
@@ -116,7 +126,7 @@ const CategoryListMobile:React.FC<CategoryListMobileProps> = ({toggleMenu}) => {
                         </Link>
 
                         <Link href={'#'}>
-                            <IoLogoWhatsapp size={30} />
+                            <IoLogoWhatsapp size={32} />
                         </Link>
 
                     </div>

@@ -44,27 +44,27 @@ const UserProfileNav: React.FC<UserProfileNavProps> = ({ user, logout }) => {
 
                         <hr className="bg-slate-200 w-full h-[2px]" />
 
-                        <Link href={'/userAccount'}>
+                        <Link href={'/user-account'}>
                             <UserProfileNavItem
                                 label="پنل کاربری"
                                 icon={MdDashboard}
-                                selected={pathname === '/userAccount'}
+                                selected={pathname === '/user-account'}
                             />
                         </Link>
 
-                        <Link href={'/userAccount/manage-wishlist'}>
+                        <Link href={'/user-account/manage-wishlist'}>
                             <UserProfileNavItem
                                 label="علاقه مندی ها"
                                 icon={IoIosHeart}
-                                selected={pathname === '/userAccount/manage-wishlist'}
+                                selected={pathname === '/user-account/manage-wishlist'}
                             />
                         </Link>
 
-                        <Link href={'/userAccount/manage-orders'}>
+                        <Link href={'/user-account/manage-orders'}>
                             <UserProfileNavItem
                                 label="سفارش ها"
                                 icon={MdFormatListBulleted}
-                                selected={pathname === '/userAccount/manage-orders'}
+                                selected={pathname === '/user-account/manage-orders'}
                             />
                         </Link>
 

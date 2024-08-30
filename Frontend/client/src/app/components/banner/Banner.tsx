@@ -24,7 +24,7 @@ const Banner = () => {
     const swiperRef = useRef<SwiperType>();
 
     return (
-        <div className="relative ___swiper-container" dir="ltr">
+        <div className="relative ___swiper-container mx-3" dir="ltr">
             <Swiper
                 pagination={{
                     clickable: true,
@@ -53,7 +53,7 @@ const Banner = () => {
                 ))}
             </Swiper>
 
-            <div
+            {/* <div
                 className="flex items-center justify-center gap-5 absolute right-10 bottom-[2rem] z-20 ___swiper-buttons"
             >
                 <button
@@ -69,7 +69,7 @@ const Banner = () => {
                 >
                     <IoIosArrowForward />
                 </button>
-            </div>
+            </div> */}
 
             <div className="swiper-pagination" />
         </div>

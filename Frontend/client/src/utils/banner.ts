@@ -1,5 +1,6 @@
-import bannerImg_1 from "../../public/slides/slider-1.webp"
-import bannerImg_2 from "../../public/slides/slider-2.webp"
+import bannerImg_1 from "../../public/images/sliders/slider-1.webp"
+import bannerImg_3 from "../../public/images/sliders/slider-3.jpg"
+import bannerImg_4 from "../../public/images/sliders/slider-4.jpg"
 
 
 const data = [
@@ -10,7 +11,12 @@ const data = [
     },
     {
         id: 2,
-        image: bannerImg_2,
+        image: bannerImg_3,
+        alt: "دیجی شاپ"
+    },
+    {
+        id: 3,
+        image: bannerImg_4,
         alt: "دیجی شاپ"
     }
 ];

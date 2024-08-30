@@ -10,9 +10,9 @@ export default function Home() {
 
   return (
     <div>
-      <div className="pb-10">
+      <div className="pb-10 mt-[3rem] xl:mt-0">
+        <Banner />
         <Container>
-          <Banner />
           {/* <CategoryList /> */}
           <TopProducts />
           <Features />

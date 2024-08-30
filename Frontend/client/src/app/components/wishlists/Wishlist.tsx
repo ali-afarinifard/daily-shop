@@ -100,7 +100,7 @@ const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
 
                     {wishlist.length === 0 && (
                         <div className="w-full text-center text-xl">
-                            هیچ محصولی به این لیست اضافه نشده است
+                            محصولی به این لیست اضافه نشده است
                         </div>
                     )}
                 </>

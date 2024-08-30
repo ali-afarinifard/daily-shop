@@ -41,7 +41,7 @@ const UserMenu = () => {
                             ?
                             (
                                 <div>
-                                    <Link href={'/userAccount'}>
+                                    <Link href={'/user-account'}>
                                         <MenuItem onClick={toggleOpen}>حساب کاربری</MenuItem>
                                     </Link>
                                     <Link href={'/wishlist'}>

@@ -37,15 +37,23 @@ const SearchBarItem: React.FC<SearchBarItemProps> = ({ product, onClick, toggleM
                         <div className='flex flex-col gap-1'>
                             <span>{product.title}</span>
                             <div className='flex items-center gap-1'>
-                                {product.offer ? (
-                                    <div className='flex items-center gap-2'>
-                                        <span className="text-offer text-[0.7rem]">{formatPriceWithSlashes(product.price)}</span>
-                                        <span className="text-sm text-green-600">{formatPriceWithSlashes(product.offer)}</span>
+                                {product.isStatus ? (
+                                    <div className="flex items-center justify-center gap-1">
+                                        {product.offer ? (
+                                            <>
+                                                <span className="text-offer text-[0.8rem] text-slate-500">{formatPriceWithSlashes(product.price)}</span>
+                                                <span className="text-[0.92rem] text-green-500">{formatPriceWithSlashes(product.offer)}</span>
+                                            </>
+                                        ) : (
+                                            <span className="text-[0.92rem] text-green-500">{formatPriceWithSlashes(product.price)}</span>
+                                        )}
+                                        <span className="text-[0.8rem]">تومان</span>
                                     </div>
                                 ) : (
-                                    <span className='text-sm text-green-600'>{formatPriceWithSlashes(product.price)}</span>
+                                    <div>
+                                        <div className="rounded-md bg-rose-500 text-white px-3 py-[0.08rem] text-[0.7rem] w-full border-slate-700 flex items-center justify-center">ناموجود</div>
+                                    </div>
                                 )}
-                                <span className='text-[0.76rem]'>تومان</span>
                             </div>
                         </div>
                     </div>
