@@ -18,7 +18,7 @@ const SearchBarItem: React.FC<SearchBarItemProps> = ({ product, onClick, toggleM
     const firstImage = product.images[0];
 
     return (
-        <li className="p-1 hover:bg-gray-100 mb-2" onClick={onClick}>
+        <li className="p-1 hover:bg-gray-100" onClick={onClick}>
             <Link href={`/product/${product._id}`} onClick={toggleMenu}>
                 <div className="flex items-center justify-between gap-1">
                     <div className='flex items-center gap-2'>

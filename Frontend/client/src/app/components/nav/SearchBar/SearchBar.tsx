@@ -83,7 +83,10 @@ const SearchBar = () => {
             {results.length > 0 && (
                 <ul className="absolute z-10 bg-white border border-gray-300 rounded-md mt-1 p-1 py-2 max-w-[24rem] max-h-[20rem] overflow-auto w-full">
                     {results.map((product) => (
-                        <SearchBarItem key={product._id} product={product} onClick={handleClearProductClick} />
+                        <>
+                            <SearchBarItem key={product._id} product={product} onClick={handleClearProductClick} />
+                            <hr className="border-[1px] border-slate-200 my-2 last:hidden" />
+                        </>
                     ))}
                 </ul>
             )}

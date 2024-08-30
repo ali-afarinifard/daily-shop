@@ -12,7 +12,7 @@ interface CategoryListMobileProps {
 }
 
 
-const CatSearchBar:React.FC<CategoryListMobileProps> = ({toggleMenu}) => {
+const CatSearchBar: React.FC<CategoryListMobileProps> = ({ toggleMenu }) => {
 
     const [query, setQuery] = useState<string>('');
     const [results, setResults] = useState<ProductType[]>([]);
@@ -90,7 +90,7 @@ const CatSearchBar:React.FC<CategoryListMobileProps> = ({toggleMenu}) => {
                     {results.map((product) => (
                         <>
                             <SearchBarItem key={product._id} product={product} onClick={handleClearProductClick} toggleMenu={toggleMenu} />
-                            <hr className="w-full h-[1px] bg-slate-400" />
+                            <hr className="border-[1px] border-slate-200 my-2 last:hidden" />
                         </>
                     ))}
                 </ul>

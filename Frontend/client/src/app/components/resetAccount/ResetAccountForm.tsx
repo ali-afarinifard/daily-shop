@@ -2,9 +2,11 @@
 
 import { resetAccount } from "@/libs/apiUrls";
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react"
 import toast from "react-hot-toast";
+import { IoChevronBackOutline } from "react-icons/io5";
 
 
 
@@ -28,7 +30,7 @@ const ResetAccountForm = () => {
             newPassword: '',
             confirmPassword: ''
         };
-        
+
         if (!/^\S+@\S+\.\S+$/.test(email)) {
             newErrors.email = 'ایمیل معتبر نیست';
             valid = false;
@@ -68,8 +70,17 @@ const ResetAccountForm = () => {
 
 
     return (
-        <div className="w-full">
+        <div className="w-full relative">
             <h1 className="text-2xl text-center">بازیابی رمز عبور</h1>
+
+            <div className="absolute left-0 top-0">
+                <Link href={'/login'} className="text-blue-600">
+                    <div className="w-10 h-10 border-[1px] border-slate-200 rounded-full flex items-center justify-center shadow-md bg-slate-200">
+                        <IoChevronBackOutline size={23} className="relative right-[1px]" />
+                    </div>
+                </Link>
+            </div>
+
             <form onSubmit={handleAccountReset} className="mt-10 flex flex-col gap-3">
 
                 {/* Email */}
@@ -84,7 +95,7 @@ const ResetAccountForm = () => {
                     />
                     <label
                         htmlFor="email"
-                        className="absolute cursor-text text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                        className="absolute text-[0.88rem] duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
                     >
                         ایمیل
                     </label>
@@ -103,7 +114,7 @@ const ResetAccountForm = () => {
                     />
                     <label
                         htmlFor="newPassword"
-                        className="absolute cursor-text text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                        className="absolute text-[0.88rem] duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
                     >
                         رمز عبور جدید
                     </label>
@@ -122,7 +133,7 @@ const ResetAccountForm = () => {
                     />
                     <label
                         htmlFor="confirmPassword"
-                        className="absolute cursor-text text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                        className="absolute text-[0.88rem] duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
                     >
                         تایید رمز عبور
                     </label>

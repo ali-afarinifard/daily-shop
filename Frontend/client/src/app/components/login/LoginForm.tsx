@@ -7,6 +7,7 @@ import { AuthContext } from '@/context/AuthContext';
 import { login } from '@/libs/apiUrls';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
+import { IoChevronBackOutline } from 'react-icons/io5';
 
 export default function LoginPage() {
 
@@ -89,6 +90,7 @@ export default function LoginPage() {
     return (
         <div className='w-full'>
             <Heading title='ورود به دیجی شاپ' center />
+
             <form onSubmit={handleLogin} className='mt-10 flex flex-col gap-3'>
 
                 {/* Email */}
@@ -104,7 +106,7 @@ export default function LoginPage() {
                         />
                         <label
                             htmlFor="email"
-                            className={`absolute cursor-text text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4`}
+                            className={`absolute text-[0.88rem] duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4`}
                         >
                             ایمیل
                         </label>
@@ -126,7 +128,7 @@ export default function LoginPage() {
                         />
                         <label
                             htmlFor="password"
-                            className={`absolute cursor-text text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4`}
+                            className={`absolute text-[0.88rem] duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4`}
                         >
                             رمز عبور
                         </label>
