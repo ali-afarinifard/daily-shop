@@ -34,45 +34,47 @@ const Navbar = () => {
 
 
   return (
-    <aside className={'text-gray-500 p-4 pl-0 bg-blueLight w-auto z-[1000]'}>
+    <aside className={'text-gray-500 p-4 pl-0 bg-blueLight max-w-[14rem] w-full z-[1000]'}>
 
-      <div className='mb-8 mr-4 ml-3 s:hidden'>
-        <Logo />
+      <div className="sticky top-6 s:static">
+        <div className='mb-8 mr-4 ml-3 s:hidden'>
+          <Logo />
+        </div>
+
+        <nav className='flex flex-col gap-6 s:flex-row s:gap-1 s:fixed s:left-0 s:bottom-0 s:right-0 s:bg-white s:shadow-2xl s:py-4 w-full s:px-3'>
+
+          <Link to={'/'} className={pathname === '/' ? activeLink : inActiveLink}>
+            <RxDashboard className={pathname === '/' ? activeIcon : inActiveIcon} />
+            <span className='xs:hidden'>پنل اصلی</span>
+          </Link>
+
+          <Link to={'/products'} className={pathname.includes('/products') ? activeLink : inActiveLink}>
+            <BsBasket className={pathname.includes('/products') ? activeIcon : inActiveIcon} />
+            <span className='xs:hidden'>محصولات</span>
+          </Link>
+
+          <Link to={'/categories'} className={pathname.includes('/categories') ? activeLink : inActiveLink}>
+            <TbCategoryPlus className={pathname === '/categories' ? activeIcon : inActiveIcon} />
+            <span className='xs:hidden'>دسته بندی ها</span>
+          </Link>
+
+          <Link to={'/account'} className={`${pathname.includes('/account') ? activeLink : inActiveLink} xs:hidden`}>
+            <IoSettingsOutline className={pathname === '/account' ? activeIcon : inActiveIcon} />
+            <span className='xs:hidden'>حساب کاربری</span>
+          </Link>
+
+          <Link to={'/orders'} className={pathname.includes('/orders') ? activeLink : inActiveLink}>
+            <BsViewList className={pathname === '/orders' ? activeIcon : inActiveIcon} />
+            <span className='xs:hidden'>سفارشات</span>
+          </Link>
+
+          <button onClick={handleLogout} className={`${inActiveLink} text-rose-600`}>
+            <MdLogout className={inActiveIcon} />
+            <span className='xs:hidden'>خروج</span>
+          </button>
+
+        </nav>
       </div>
-
-      <nav className='flex flex-col gap-6 s:flex-row s:gap-1 s:fixed s:left-0 s:bottom-0 s:right-0 s:bg-white s:shadow-2xl s:py-4 w-full s:px-3'>
-
-        <Link to={'/'} className={pathname === '/' ? activeLink : inActiveLink}>
-          <RxDashboard className={pathname === '/' ? activeIcon : inActiveIcon} />
-          <span className='xs:hidden'>پنل اصلی</span>
-        </Link>
-
-        <Link to={'/products'} className={pathname.includes('/products') ? activeLink : inActiveLink}>
-          <BsBasket className={pathname.includes('/products') ? activeIcon : inActiveIcon} />
-          <span className='xs:hidden'>محصولات</span>
-        </Link>
-
-        <Link to={'/categories'} className={pathname.includes('/categories') ? activeLink : inActiveLink}>
-          <TbCategoryPlus className={pathname === '/categories' ? activeIcon : inActiveIcon} />
-          <span className='xs:hidden'>دسته بندی ها</span>
-        </Link>
-
-        <Link to={'/account'} className={`${pathname.includes('/account') ? activeLink : inActiveLink} xs:hidden`}>
-          <IoSettingsOutline className={pathname === '/account' ? activeIcon : inActiveIcon} />
-          <span className='xs:hidden'>حساب کاربری</span>
-        </Link>
-
-        <Link to={'/orders'} className={pathname.includes('/orders') ? activeLink : inActiveLink}>
-          <BsViewList className={pathname === '/orders' ? activeIcon : inActiveIcon} />
-          <span className='xs:hidden'>سفارشات</span>
-        </Link>
-
-        <button onClick={handleLogout} className={`${inActiveLink} text-rose-600`}>
-          <MdLogout className={inActiveIcon} />
-          <span className='xs:hidden'>خروج</span>
-        </button>
-
-      </nav>
 
     </aside>
   )

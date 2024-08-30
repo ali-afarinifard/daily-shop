@@ -57,7 +57,7 @@ const ProductPage = () => {
 
     return (
         <div className="s:pb-20 s:pt-3">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-2">
 
                 <div>
                     <Link
@@ -71,7 +71,7 @@ const ProductPage = () => {
                 <div className="max-w-[18rem] w-full flex items-center border-[1px] border-slate-300 rounded-lg px-2">
                     <input
                         type="search"
-                        placeholder="جستجو"
+                        placeholder="جستجو نام محصول"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="text-sm max-w-[18rem] w-full border-none outline-none mb-0"

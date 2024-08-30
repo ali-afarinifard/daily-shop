@@ -11,17 +11,6 @@ import Loader from "../../../components/modules/Loader";
 import { getContrastTools } from "../../../utils/getContrastTools";
 import { formatPriceWithSlashes } from "../../../utils/formatPrice"
 
-const modalStyle = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '18rem',
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    p: 1,
-    outline: 0,
-};
 
 
 const ProductView = () => {
@@ -57,6 +46,7 @@ const ProductView = () => {
         <div className="pb-24">
             {product && (
                 <div className="flex flex-col w-full">
+
                     <div className="flex justify-between items-center pb-3">
 
                         <h1 className="font-[400] text-[1.4rem] relative top-2">مشخصات محصول</h1>
@@ -74,6 +64,15 @@ const ProductView = () => {
                     <hr />
 
                     <div className="mt-10">
+
+                        <div className="flex items-center justify-center">
+                            <div className="flex items-center justify-center gap-1 mb-14 relative w-fit">
+                                <span className="text-slate-500 2xs:text-[0.9rem]">وضعیت محصول : </span>
+                                <span className="text-slate-700 2xs:text-[0.9rem]">{product?.isStatus ? <span className="text-green-500 font-bold">موجود</span> : <span className="text-rose-500">ناموجود</span>}</span>
+                                <div className="w-full h-[1px] bg-slate-500 absolute left-0 -bottom-1" />
+                            </div>
+                        </div>
+
                         <div className="grid grid-cols-3 justify-center items-center text-center gap-1 xl:grid-cols-2">
 
                             <div className="flex items-center justify-center gap-1 mb-14">
@@ -126,13 +125,15 @@ const ProductView = () => {
 
                         </div>
 
+                        <hr />
+
                         <div className="flex flex-col items-start justify-start gap-3 mt-16">
                             <span className="text-slate-500">رنگ ها : </span>
-                            <div className="flex gap-2">
+                            <div className="flex items-center gap-2">
                                 {product?.colors?.map((color, index) => (
                                     <div
                                         key={index}
-                                        className="px-4 py-2 rounded-full bg-slate-500 text-white font-semibold"
+                                        className="px-4 py-2 rounded-full bg-slate-500 text-white font-semibold text-center"
                                         style={{ backgroundColor: color, color: getContrastTools(color) }}
                                     >
                                         {color}
@@ -147,8 +148,10 @@ const ProductView = () => {
                             <span>{product?.description}</span>
                         </div>
 
+                        <hr className="my-16" />
 
-                        <div className="flex flex-col items-start justify-start gap-3 mt-16">
+
+                        <div className="flex flex-col items-start justify-start gap-3">
                             <span className="text-slate-500">تصاویر : </span>
                             <div className="flex items-center flex-wrap gap-3">
                                 {product?.images && product?.images.map((img, index) => (
@@ -176,30 +179,6 @@ const ProductView = () => {
                         )}
 
                     </div>
-
-                    {/* <Modal
-                        aria-labelledby="modal-title"
-                        aria-describedby="modal-desc"
-                        open={open}
-                        onClose={handleClose}
-                        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                    >
-                        <Box sx={modalStyle}>
-                            <IconButton
-                                aria-label="close"
-                                onClick={handleClose}
-                                sx={{
-                                    position: 'absolute',
-                                    right: 0,
-                                    top: 0,
-                                    // color: (theme) => theme.palette.grey[500],
-                                }}
-                            >
-                                <IoCloseSharp className="text-red-600" />
-                            </IconButton>
-                            <img src={selectedImage} alt="Enlarged product" style={{ width: '100%', height: 'auto' }} />
-                        </Box>
-                    </Modal> */}
 
                 </div>
             )}
