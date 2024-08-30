@@ -1,6 +1,6 @@
 'use client';
 
-import { addToWishlist, getProductById } from "@/libs/apiUrls";
+import { addToWishlist, getComments, getProductById } from "@/libs/apiUrls";
 import ProductType from "@/types/product";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -8,11 +8,10 @@ import { useCallback, useEffect, useState } from "react";
 import { MdCheckCircle } from "react-icons/md";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Thumbs } from 'swiper/modules';
+import { Thumbs } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
+
 
 import { useCart } from "@/hooks/useCart";
 import Button from "../Button";
@@ -22,11 +21,10 @@ import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import { formatPriceWithSlashes } from "@/utils/formatPrice";
 import Spinner from "../Spinner";
-import { Rating } from "@mui/material";
-import Heading from "../Heading";
 import CommentForm from "../comments/CommentForm";
 import CommentList from "../comments/CommentList";
-
+import CommentType from "@/types/comment";
+import { Rating } from "@mui/material";
 
 
 
@@ -49,9 +47,10 @@ const ProductDetails: React.FC = () => {
     const [quantity, setQuantity] = useState<number>(1);
     const [wishlist, setWishlist] = useState<string[]>([]);
     const [showWishlistMessage, setShowWishlistMessage] = useState(false);
-    const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
+    const [thumbsSwiper, setThumbsSwiper] = useState<any | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [commentsUpdated, setCommentsUpdated] = useState<boolean>(false);
+    const [averageRating, setAverageRating] = useState<number | null>(null);
 
     const router = useRouter();
 
@@ -62,9 +61,14 @@ const ProductDetails: React.FC = () => {
                     setLoading(true);
                     const productData = await getProductById(productId);
                     setProduct(productData);
-                    if (productData?.images.length) {
-                        setSelectedImage(productData.images[0]);
-                    }
+                    // if (productData?.images.length) {
+                    //     setSelectedImage(productData.images[0]);
+                    // };
+
+
+                    // Fetch comments and calculate average rating
+                    const commentsData: CommentType[] = await getComments(productId);
+                    calculateAverageRating(commentsData);
                 }
             } catch (error) {
                 console.error('Error fetching product:', error);
@@ -76,7 +80,7 @@ const ProductDetails: React.FC = () => {
         };
 
         fetchProduct();
-    }, [productId]);
+    }, [productId, commentsUpdated]);
 
     useEffect(() => {
         if (cartProducts && product) {
@@ -161,6 +165,18 @@ const ProductDetails: React.FC = () => {
     };
 
 
+    const calculateAverageRating = (comments: CommentType[]) => {
+        if (comments.length === 0) {
+            setAverageRating(null);
+            return;
+        }
+
+        const totalRating = comments.reduce((sum, comment) => sum + (comment.rating || 0), 0);
+        const average = totalRating / comments.length;
+        setAverageRating(average);
+    };
+
+
     return (
         <div>
             {loading ? (
@@ -176,7 +192,7 @@ const ProductDetails: React.FC = () => {
                                     <Swiper
                                         modules={[Thumbs]}
                                         slidesPerView={1}
-                                        thumbs={{ swiper: thumbsSwiper }}
+                                        thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }} // Check if thumbsSwiper is initialized
                                         className="w-[30rem] h-full flex items-center justify-center"
                                         onSlideChange={(swiper) => setSelectedImage(product?.images[swiper.activeIndex] || null)}
                                     >
@@ -236,27 +252,43 @@ const ProductDetails: React.FC = () => {
                                     </Swiper>
                                 </div>
 
-                                {isModalOpen && (
-                                    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50" onClick={closeModal}>
-                                        <div className="relative">
-                                            <Image
-                                                src={selectedImage || ""}
-                                                alt="تصویر"
-                                                width={500}
-                                                height={500}
-                                                priority
-                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-                                                className="object-cover rounded-md w-[32rem] s:w-[26rem] m:w-[20rem]"
-                                            />
+                                <div>
+                                    {isModalOpen && (
+                                        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50" onClick={closeModal}>
+                                            <div className="relative">
+                                                <Image
+                                                    src={selectedImage || ""}
+                                                    alt="تصویر"
+                                                    width={500}
+                                                    height={500}
+                                                    priority
+                                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                                                    className="object-cover rounded-md w-[32rem] s:w-[26rem] m:w-[20rem]"
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
-                                )}
+                                    )}
+                                </div>
 
                             </div>
 
                             <div className="mt-7 flex flex-col gap-5 flex-grow">
                                 <div className="flex flex-col gap-4">
                                     <h1 className="text-3xl font-bold">{product?.title}</h1>
+                                    <div>
+                                        {/* Display average rating */}
+                                        <Rating
+                                            value={averageRating || 0}
+                                            precision={0.5}
+                                            readOnly
+                                            sx={{ direction: 'ltr', fontSize: '1.7rem' }}
+                                        />
+                                        <div>
+                                            {averageRating !== null && (
+                                                <span className="text-xs text-slate-500 ml-2">({averageRating.toFixed(1)})</span>
+                                            )}
+                                        </div>
+                                    </div>
                                 </div>
                                 <h3 className="flex items-center gap-1">
                                     {product?.offer ? (

@@ -25,6 +25,8 @@ const CartItem: React.FC<ItemContentProps> = ({ item }) => {
                             src={item.images[0]}
                             alt={item.title}
                             fill
+                            priority
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                             className="object-contain"
                         />
                     </div>
@@ -35,7 +37,7 @@ const CartItem: React.FC<ItemContentProps> = ({ item }) => {
                     </Link>
                     <div className="text-slate-500 flex flex-col items-start gap-1">
                         <p>رنگ: {item.selectedColor}</p>
-                        <p>سایز: {item.selectedSize}</p> 
+                        <p>سایز: {item.selectedSize}</p>
                     </div>
                     <div className="w-[4.4rem]">
                         <button className="text-slate-500 underline" onClick={() => { handleRemoveProductFromCart(item) }}>

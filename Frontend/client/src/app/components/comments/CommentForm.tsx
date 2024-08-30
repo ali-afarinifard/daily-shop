@@ -5,6 +5,7 @@ import { createComment } from "@/libs/apiUrls";
 import { useContext, useState } from "react"
 import toast from "react-hot-toast";
 import Heading from "../Heading";
+import { Rating } from "@mui/material";
 
 
 
@@ -17,6 +18,7 @@ interface CommentFormProps {
 const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) => {
 
     const [content, setContent] = useState<string>('');
+    const [rating, setRating] = useState<number | null>(null);
 
     const authContext = useContext(AuthContext);
 
@@ -34,13 +36,20 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
             console.error('User must be logged in to post a comment');
             toast.error('ابتدا در سایت عضو شوید');
             return;
-        }
+        };
+
+        if (rating === null) { // Ensure rating is selected
+            toast.error('لطفا امتیاز دهید');
+            return;
+        };
 
         try {
 
-            await createComment(user?._id, productId, content);
+            await createComment(user?._id, productId, content, rating);
             setContent('');
+            setRating(null);
             onCommentAdded();
+            // window.location.reload();
 
         } catch (error) {
             console.error('Error submitting comment:', error);
@@ -49,14 +58,23 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
 
 
     return (
-        <div>
+        <div className="sticky top-28">
             <form onSubmit={handleSubmit}>
-                <div className="flex flex-col gap-8">
+                <div className="flex flex-col gap-6">
                     <div className="w-fit">
                         <Heading title="امتیاز و دیدگاه کاربران" />
                     </div>
-                    
+
                     <div className="flex flex-col gap-2">
+                        <div className="flex items-end justify-end">
+                            <Rating
+                                value={rating || 0}
+                                onChange={(event, newValue) => {
+                                    setRating(newValue);
+                                }}
+                                sx={{ direction: 'ltr', fontSize: '1.7rem' }}
+                            />
+                        </div>
                         <textarea
                             value={content}
                             onChange={(e) => setContent(e.target.value)}

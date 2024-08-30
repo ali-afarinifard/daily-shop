@@ -9,10 +9,10 @@ const router = express.Router();
 
 // ** POST Comment
 router.post('/comment/add', async (req, res) => {
-    const { userId, productId, content } = req.body;
+    const { userId, productId, content, rating } = req.body;
 
-    if (!content) {
-        return res.status(400).json({ message: 'Content is required' });
+    if (!content || rating === undefined) {  // Check for rating in request body
+        return res.status(400).json({ message: 'Content and rating are required' });
     }
 
     try {
@@ -31,6 +31,7 @@ router.post('/comment/add', async (req, res) => {
             user: userId,  // Ensure you're using userId from req.body
             product: productId,
             content,
+            rating
         });
 
         await comment.save();

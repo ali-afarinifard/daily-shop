@@ -7,6 +7,7 @@ type CommentType = {
     content: string;
     user: User;
     product: ProductType;
+    rating: number;
     createdAt: string;
 };
 
