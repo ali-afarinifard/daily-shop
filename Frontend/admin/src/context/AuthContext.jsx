@@ -39,6 +39,13 @@ const AuthProvider = ({ children }) => {
         }
     };
 
+    const register = (accessToken, refreshToken) => {
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+        setIsAuthenticated(true);
+        fetchAdmin(accessToken);
+    };
+
     const login = (accessToken, refreshToken) => {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
@@ -60,7 +67,7 @@ const AuthProvider = ({ children }) => {
 
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout, updateAdminInContext, admin }}>
+        <AuthContext.Provider value={{ isAuthenticated, login, register, logout, updateAdminInContext, admin }}>
             {children}
         </AuthContext.Provider>
     );

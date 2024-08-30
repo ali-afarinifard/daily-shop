@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { register } from '../../services/apiUrls';
 import { useMutation } from '@tanstack/react-query';
 import avatar from "../../assets/images/admin-pic.webp"
 import toast from 'react-hot-toast';
+import { AuthContext } from '../../context/AuthContext';
 
 
 const Register = () => {
@@ -16,6 +17,8 @@ const Register = () => {
         email: '',
         password: ''
     });
+
+    const { register: authRegister, isAuthenticated } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -49,9 +52,13 @@ const Register = () => {
 
 
     const mutation = useMutation({
-        mutationFn: () => register(username, email, password),
-        onSuccess: () => {
-            navigate('/login');
+        mutationFn: ({ username, email, password }) => register(username, email, password),
+        onSuccess: (response) => {
+            localStorage.setItem('accessToken', response.data.accessToken);
+            localStorage.setItem('refreshToken', response.data.refreshToken);
+            authRegister(response.data.accessToken, response.data.refreshToken);
+            toast.success('وارد شدید');
+            navigate('/');
         },
         onError: (err) => {
             console.log('Registration failed. Please try again.', err);
@@ -67,7 +74,7 @@ const Register = () => {
             return;
         };
 
-        mutation.mutate();
+        mutation.mutate({ username, email, password });
     };
 
 

@@ -15,7 +15,7 @@ const Header = () => {
                         <img src={avatar} alt="avatar" className='w-full h-full' />
                     </div>
 
-                    <div className='relative left-3 text-slate-600'><span className='font-bold'>{admin.name}</span> عزیز خوش آمدی 👋</div>
+                    <div className='relative left-3 text-slate-600'>{admin.name && (<span className='font-bold'>{admin.name} عزیز</span>)} خوش آمدی 👋</div>
                 </div>
             )}
         </div>
