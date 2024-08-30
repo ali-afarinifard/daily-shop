@@ -3,6 +3,8 @@
 import { AuthContext } from "@/context/AuthContext";
 import { createComment } from "@/libs/apiUrls";
 import { useContext, useState } from "react"
+import toast from "react-hot-toast";
+import Heading from "../Heading";
 
 
 
@@ -30,6 +32,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
 
         if (!isAuthenticated || !user) {
             console.error('User must be logged in to post a comment');
+            toast.error('ابتدا در سایت عضو شوید');
             return;
         }
 
@@ -48,20 +51,26 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <div className="flex flex-col gap-2">
-                    <textarea
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        placeholder="متن نظر..."
-                        required
-                        className="resize-none text-sm border-[1px] border-slate-300 outline-slate-500 rounded-md h-[10rem] p-3"
-                    />
-                    <button
-                        type="submit"
-                        className="disabled:opacity-70 disabled:cursor-not-allowed bg-slate-700 text-white py-2 rounded-md hover:opacity-80 transition w-full border-slate-700 flex items-center justify-center gap-2"
-                    >
-                        ثبت دیدگاه
-                    </button>
+                <div className="flex flex-col gap-8">
+                    <div className="w-fit">
+                        <Heading title="امتیاز و دیدگاه کاربران" />
+                    </div>
+                    
+                    <div className="flex flex-col gap-2">
+                        <textarea
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                            placeholder="متن نظر..."
+                            required
+                            className="resize-none text-sm border-[1px] border-slate-300 outline-slate-500 rounded-md h-[10rem] p-3"
+                        />
+                        <button
+                            type="submit"
+                            className="disabled:opacity-70 disabled:cursor-not-allowed bg-slate-700 text-white py-2 rounded-md hover:opacity-80 transition w-full border-slate-700 flex items-center justify-center gap-2"
+                        >
+                            ثبت دیدگاه
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>

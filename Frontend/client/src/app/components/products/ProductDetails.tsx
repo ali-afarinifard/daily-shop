@@ -403,21 +403,18 @@ const ProductDetails: React.FC = () => {
                         </div>
 
 
-                        <div className="flex flex-col items-start gap-7 mt-10">
-                            <div className="w-fit">
-                                <Heading title="امتیاز و دیدگاه کاربران" />
-                            </div>
+                        <div className="mt-10">
                             <div className="flex gap-10 w-full">
                                 <div className="w-[23rem]">
                                     <CommentForm productId={productId} onCommentAdded={handleCommentsUpdate} />
                                 </div>
 
-                                <div className="w-full">
+                                <div className="w-full mt-[3.6rem]">
                                     <CommentList productId={productId} commentsUpdated={commentsUpdated} />
-                                    <hr className="my-4" />
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             )}

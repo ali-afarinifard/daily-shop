@@ -3,6 +3,8 @@
 import { getComments } from "@/libs/apiUrls";
 import CommentType from "@/types/comment";
 import { useEffect, useState } from "react";
+import { formatDistanceToNow, parseISO } from 'date-fns';
+import { faIR } from 'date-fns/locale';
 
 
 interface CommentListProps {
@@ -39,13 +41,16 @@ const CommentList: React.FC<CommentListProps> = ({ productId, commentsUpdated })
         <div>
             {comments.length > 0 ? (
                 comments.map(comment => (
-                        <div key={comment._id} className="mb-4 flex flex-col gap-8">
+                    <div key={comment._id}>
+                        <div className="mb-4 flex flex-col gap-8">
                             <div className="flex items-center gap-6">
                                 <p className="font-semibold">{comment?.user?.fullName || 'مهمان'}</p>
-                                <p className="text-xs text-slate-500">{new Date(comment.createdAt).toLocaleString()}</p>
+                                <p className="text-xs text-slate-500">{formatDistanceToNow(parseISO(comment.createdAt), { addSuffix: true, locale: faIR })}</p>
                             </div>
                             <p className="text-slate-600">{comment.content}</p>
                         </div>
+                        <hr className="my-4" />
+                    </div>
                 ))
             ) : (
                 <p>هیچ دیدگاهی ثبت نشده</p>
