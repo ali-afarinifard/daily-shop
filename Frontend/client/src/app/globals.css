@@ -3,11 +3,6 @@
 @tailwind utilities;
 
 
-
-/* Playwrite Cuba Font */
-@import url('https://fonts.googleapis.com/css2?family=Playwrite+CU&display=swap');
-
-
 @font-face {
     font-family: 'Vazir';
     src: url('../../public/fonts/Vazirmatn-Thin.ttf') format('ttf'),

@@ -60,14 +60,14 @@ api.interceptors.response.use(
                     console.error('Failed to refresh token:', err);
                     localStorage.removeItem('accessToken');
                     localStorage.removeItem('refreshToken');
-                    window.location.href = '/login';
+                    // window.location.href = '/login';
                     return Promise.reject(err);
                 }
             } else {
                 console.log('No refresh token found, redirecting to login.');
                 localStorage.removeItem('accessToken');
                 localStorage.removeItem('refreshToken');
-                window.location.href = '/login';
+                // window.location.href = '/login';
                 return Promise.reject(error);
             }
         }

@@ -21,7 +21,7 @@ interface CategoryListMobileProps {
 
 
 
-const CategoryListMobile:React.FC<CategoryListMobileProps> = ({toggleMenu}) => {
+const CategoryListMobile: React.FC<CategoryListMobileProps> = ({ toggleMenu }) => {
 
     const [categories, setCategories] = useState<CategoryType[]>([]);
 
@@ -69,9 +69,8 @@ const CategoryListMobile:React.FC<CategoryListMobileProps> = ({toggleMenu}) => {
                     <hr className="w-full h-[1px] bg-slate-300 my-2" />
 
                     {categories.map((category) => (
-                        <>
+                        <div key={category._id}>
                             <Link
-                                key={category._id}
                                 href={`/category/${category._id}`}
                                 onClick={toggleMenu}
                             >
@@ -82,7 +81,7 @@ const CategoryListMobile:React.FC<CategoryListMobileProps> = ({toggleMenu}) => {
                                 />
                             </Link>
                             <hr className="w-full h-[1px] bg-slate-300 my-2" />
-                        </>
+                        </div>
                     ))}
 
                     <Link href={'/top-sales-products'} onClick={toggleMenu}>
