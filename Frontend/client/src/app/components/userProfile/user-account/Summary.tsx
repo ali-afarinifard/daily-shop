@@ -302,7 +302,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                                     name="address"
                                     value={formData.address}
                                     onChange={handleChange}
-                                    className="resize-none text-md border-[1px] py-2 px-2 border-slate-300 outline-slate-500 rounded-md p-3 w-full"
+                                    className="resize-none text-sm border-[1px] py-2 px-2 border-slate-300 outline-slate-500 rounded-md p-3 w-full"
                                 />
                             </div>
                         </div>

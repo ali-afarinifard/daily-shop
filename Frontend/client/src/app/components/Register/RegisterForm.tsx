@@ -79,8 +79,8 @@ export default function RegisterPage() {
             localStorage.setItem('refreshToken', response.data.refreshToken);
             authRegister(response.data.accessToken, response.data.refreshToken);
             toast.success('وارد شدید');
-            router.push('/');
             window.location.reload();
+            router.push('/');
 
         } catch (error) {
             console.log('Registration failed. Please try again', error);

@@ -10,11 +10,10 @@ import { Pagination, Stack } from "@mui/material";
 import ProductBox from "./ProductBox";
 
 
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
+import { useRouter, useSearchParams } from "next/navigation";
 
 
 const Products = () => {
@@ -27,8 +26,18 @@ const Products = () => {
     // Number of products per page
     const itemsPerPage = 16;
 
+    // React Router hooks for navigation and search params
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
 
     useEffect(() => {
+
+        // Get the page number from the URL query parameters
+        const pageFromURL = searchParams.get('page');
+        if (pageFromURL) {
+            setCurrentPage(Number(pageFromURL));
+        }
 
         const fetchProducts = async () => {
             try {
@@ -46,7 +55,7 @@ const Products = () => {
 
         fetchProducts();
 
-    }, []);
+    }, [searchParams]);
 
 
     // Apply filtering and sorting based on selected option
@@ -80,12 +89,14 @@ const Products = () => {
     // Handle pagination change
     const handlePageChange = (_event: React.ChangeEvent<unknown>, page: number) => {
         setCurrentPage(page);
+        // Update the URL with the current page number
+        router.push(`?page=${page}`);
     };
 
-    // This useEffect will trigger whenever currentPage changes
-    useEffect(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, [currentPage]); // Dependency array with currentPage
+    // // This useEffect will trigger whenever currentPage changes
+    // useEffect(() => {
+    //     window.scrollTo({ top: 0, behavior: 'smooth' });
+    // }, [currentPage]); // Dependency array with currentPage
 
 
     const authContext = useContext(AuthContext);
@@ -141,6 +152,7 @@ const Products = () => {
                                     sx={{
                                         fontFamily: 'Vazir',
                                         width: "10rem",
+                                        height: "2.5rem",
                                         '& .MuiOutlinedInput-notchedOutline': {
                                             borderColor: "#252525", // Outline border color
                                         },

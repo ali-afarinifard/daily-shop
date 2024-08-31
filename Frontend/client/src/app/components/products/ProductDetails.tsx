@@ -430,7 +430,7 @@ const ProductDetails: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="mt-16 w-full max-w-[60rem] leading-[1.75rem] text-justify">
+                        <div className="mt-16 w-full max-w-[60rem] leading-[1.9rem] text-justify">
                             <p>{product?.description}</p>
                         </div>
 

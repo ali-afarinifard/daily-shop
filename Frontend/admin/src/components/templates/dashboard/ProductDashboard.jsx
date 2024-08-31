@@ -13,6 +13,7 @@ import Paper from '@mui/material/Paper';
 import { TablePagination, Typography } from "@mui/material";
 import { useState } from "react";
 import { TbChevronsUpRight } from "react-icons/tb";
+import { formatPriceWithSlashes } from "../../../utils/formatPrice";
 
 
 
@@ -56,23 +57,24 @@ const ProductDashboard = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {paginatedData.map((product) => (
-                        <TableRow
-                            key={product._id}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <TableCell component="th" scope="row" sx={{ fontFamily: 'Vazir' }}>
-                                {product.title}
-                            </TableCell>
-                            <TableCell align="right" sx={{ fontFamily: 'Vazir' }}>{product.price}</TableCell>
-                            <TableCell align="right" sx={{ fontFamily: 'Vazir' }}>{product.category.name}</TableCell>
-                            {/* <TableCell align="right" sx={{ fontFamily: 'Vazir' }}>
-                                {Object.entries(product.properties).map(([key, value]) => (
-                                    <p key={key}>{value}</p>
-                                ))}
-                            </TableCell> */}
-                        </TableRow>
-                    ))}
+                    {paginatedData.map((product) => {
+                        const price = formatPriceWithSlashes(product.price);
+                        const offerPrice = product.offer ? formatPriceWithSlashes(product.offer) : price;
+
+
+                        return (
+                            <TableRow
+                                key={product._id}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                <TableCell component="th" scope="row" sx={{ fontFamily: 'Vazir' }}>
+                                    {product.title}
+                                </TableCell>
+                                <TableCell align="right" sx={{ fontFamily: 'Vazir' }}>{offerPrice}</TableCell>
+                                <TableCell align="right" sx={{ fontFamily: 'Vazir' }}>{product.category.name}</TableCell>
+                            </TableRow>
+                        )
+                    })}
                 </TableBody>
             </Table>
 

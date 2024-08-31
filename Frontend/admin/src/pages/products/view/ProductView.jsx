@@ -103,7 +103,7 @@ const ProductView = () => {
                             {product.offer && product.offer > 0 && (
                                 <div className="flex items-center justify-center gap-1 mb-14">
                                     <span className="text-slate-500 2xs:text-[0.9rem]">قیمت نهایی با تخفیف : </span>
-                                    <span className="text-slate-700 2xs:text-[0.9rem]">{formatPriceWithSlashes(product?.price)}</span>
+                                    <span className="text-slate-700 2xs:text-[0.9rem]">{formatPriceWithSlashes(product?.offer)}</span>
                                 </div>
                             )}
 

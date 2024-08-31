@@ -43,23 +43,25 @@ const CommentList: React.FC<CommentListProps> = ({ productId, commentsUpdated })
             {comments.length > 0 ? (
                 comments.map(comment => (
                     <div key={comment._id}>
-                        <div className="flex flex-col gap-2">
-                            <div className="flex items-center gap-6">
-                                <p className="font-semibold">{comment?.user?.fullName || 'مهمان'}</p>
-                                <p className="text-xs text-slate-500">{formatDistanceToNow(parseISO(comment.createdAt), { addSuffix: true, locale: faIR })}</p>
+                        <div className="flex flex-col gap-6">
+                            <div className="flex flex-col gap-2">
+                                <div className="flex items-center gap-6">
+                                    <p className="font-semibold">{comment?.user?.fullName || 'مهمان'}</p>
+                                    <p className="text-xs text-slate-500">{formatDistanceToNow(parseISO(comment.createdAt), { addSuffix: true, locale: faIR })}</p>
+                                </div>
+                                <Rating
+                                    value={comment.rating || 0}
+                                    readOnly
+                                    sx={{ direction: 'ltr' }}
+                                />
                             </div>
-                            <Rating
-                                value={comment.rating || 0}
-                                readOnly
-                                sx={{ direction: 'ltr' }}
-                            />
                             <p className="text-slate-600">{comment.content}</p>
                         </div>
                         <hr className="my-4" />
                     </div>
                 ))
             ) : (
-                <p>هیچ دیدگاهی ثبت نشده</p>
+                <p className="mt-10">هیچ دیدگاهی ثبت نشده</p>
             )}
         </div>
     )

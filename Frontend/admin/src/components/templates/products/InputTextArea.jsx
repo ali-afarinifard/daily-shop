@@ -1,5 +1,5 @@
 
-const InputTextArea = ({htmlLabel, label, id, value, onChange}) => {
+const InputTextArea = ({ htmlLabel, label, id, value, onChange, className }) => {
     return (
         <div className="flex flex-col gap-1 my-3">
             <label htmlFor={htmlLabel}>{label}</label>
@@ -8,7 +8,8 @@ const InputTextArea = ({htmlLabel, label, id, value, onChange}) => {
                 value={value}
                 onChange={onChange}
                 autoComplete="off"
-            ></textarea>
+                className={className}
+            />
         </div>
     )
 }

@@ -389,6 +389,7 @@ const ProductForm = ({
                 id="description"
                 value={description}
                 onChange={ev => setDescription(ev.target.value)}
+                className="resize-none h-[7rem]"
             />
 
 

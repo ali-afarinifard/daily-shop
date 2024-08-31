@@ -189,12 +189,12 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                     <hr className="w-full h-[1px] bg-slate-700" />
                     <div className="text-center text-slate-700 text-lg w-full">
                         {product.isStatus ? (
-                            <div className="flex items-center justify-center gap-2">
+                            <div className="flex items-center justify-center gap-1">
                                 {product.offer ? (
-                                    <>
+                                    <div className="flex items-center gap-2">
                                         <span className="text-offer text-sm">{formatPriceWithSlashes(product.price)}</span>
                                         <span className="text-md">{formatPriceWithSlashes(product.offer)}</span>
-                                    </>
+                                    </div>
                                 ) : (
                                     <span className="text-md">{formatPriceWithSlashes(product.price)}</span>
                                 )}

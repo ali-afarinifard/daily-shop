@@ -35,6 +35,7 @@ const Banner = () => {
                     swiperRef.current = swiper;
                 }}
                 modules={[Pagination]}
+                loop
                 className="w-full mySwiper"
             >
                 {data.map((img) => (

@@ -8,6 +8,7 @@ import Button from "../Button";
 import { MdDeleteOutline } from "react-icons/md";
 import ProductType from "@/types/product";
 import { getWishlist, removeFromWishlist } from "@/libs/apiUrls";
+import { formatPriceWithSlashes } from "@/utils/formatPrice";
 
 
 
@@ -54,8 +55,23 @@ const WishlistProduct: React.FC<WishlistProductProps> = ({ product, userId, onRe
                 <div className="p-4 bg-white">
                     <div className="text-center text-gray-600 text-md">{product.title}</div>
                     <div className="text-center text-slate-700 text-lg mt-2 flex justify-center gap-2">
-                        <span>تومان</span>
-                        <span>{product.price}</span>
+                        {product.isStatus ? (
+                            <div className="flex items-center justify-center gap-1">
+                                {product.offer ? (
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-offer text-sm">{formatPriceWithSlashes(product.price)}</span>
+                                        <span className="text-md">{formatPriceWithSlashes(product.offer)}</span>
+                                    </div>
+                                ) : (
+                                    <span className="text-md">{formatPriceWithSlashes(product.price)}</span>
+                                )}
+                                <span className="text-sm">تومان</span>
+                            </div>
+                        ) : (
+                            <div>
+                                <div className="rounded-md bg-rose-500 text-white px-3 py-[0.05rem] text-[0.8rem] w-full border-slate-700 flex items-center justify-center">ناموجود</div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </Link>
