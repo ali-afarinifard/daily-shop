@@ -1,6 +1,7 @@
 'use client'
 
 import ProductType from "@/types/product";
+import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
 
 
 interface SetQtyProps {
@@ -28,7 +29,7 @@ const SetQuantity: React.FC<SetQtyProps> = ({
 
             <div className={`flex items-center gap-4 text-base ${custom ? custom : ''}`}>
                 <button onClick={handleQtyIncrease} className={btnStyles}>+</button>
-                <div>{productType?.quantity}</div>
+                <div>{formatPriceToFarsi(productType?.quantity)}</div>
                 <button onClick={handleQtyDecrease} className={`${btnStyles} px-[11px] py-[0.5px]`}>-</button>
             </div>
 

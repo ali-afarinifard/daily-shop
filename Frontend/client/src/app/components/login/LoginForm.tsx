@@ -83,6 +83,7 @@ export default function LoginPage() {
 
         } catch (error: any) {
             console.log('ERROR on fetching data of user in Login Form', error);
+            setPassword('');
             toast.error('ایمیل یا نام کاربری را صحیح وارد نمایید');
         }
     };

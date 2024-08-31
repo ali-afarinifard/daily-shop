@@ -24,7 +24,7 @@ const Banner = () => {
     const swiperRef = useRef<SwiperType>();
 
     return (
-        <div className="relative ___swiper-container mx-3" dir="ltr">
+        <div className="relative ___swiper-container mx-3 border-[2px] border-slate-200 rounded-md overflow-hidden" dir="ltr">
             <Swiper
                 pagination={{
                     clickable: true,
@@ -41,13 +41,12 @@ const Banner = () => {
                 {data.map((img) => (
                     <SwiperSlide key={img.id}>
                         <div
-                            className="flex h-96 w-full items-center justify-center rounded-md overflow-hidden"
+                            className="flex h-96 w-full items-center justify-center"
                         >
                             <Image
                                 src={img.image}
                                 alt={img.alt}
                                 className="block h-96 w-full object-cover"
-                                priority
                             />
                         </div>
                     </SwiperSlide>

@@ -351,7 +351,7 @@ const ProductDetails: React.FC = () => {
                                                             <option value="">انتخاب سایز</option>
                                                             {product?.sizes.map((size, index) => (
                                                                 <option key={index} value={size}>
-                                                                    {size}
+                                                                    {formatPriceToFarsi(size)}
                                                                 </option>
                                                             ))}
                                                         </select>

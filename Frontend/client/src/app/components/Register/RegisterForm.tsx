@@ -84,6 +84,7 @@ export default function RegisterPage() {
 
         } catch (error) {
             console.log('Registration failed. Please try again', error);
+            setPassword('');
             toast.error('نام کاربری یا ایمیل قبلا استفاده شده است');
         }
     };
@@ -99,7 +100,7 @@ export default function RegisterPage() {
                         <input
                             id='username'
                             type="text"
-                            placeholder=""
+                            autoComplete='off'
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed`}
@@ -120,7 +121,7 @@ export default function RegisterPage() {
                         <input
                             id='email'
                             type="email"
-                            placeholder=""
+                            autoComplete='off'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed`}
@@ -142,7 +143,7 @@ export default function RegisterPage() {
                         <input
                             id='password'
                             type="password"
-                            placeholder=""
+                            autoComplete='off'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed`}

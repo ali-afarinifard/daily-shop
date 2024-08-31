@@ -10,7 +10,7 @@ import CartItem from "./CartItem";
 import Button from "../Button";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
-import { formatPriceWithSlashes } from "@/utils/formatPriceToFarsi";
+import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
 
 const CartClient = () => {
 
@@ -46,13 +46,13 @@ const CartClient = () => {
             <div className="grid grid-cols-5 text-xs gap-4 pb-2 items-center mt-10">
                 <div className="col-span-2 justify-self-start flex items-center gap-[3px]">
                     <span>کالا</span>
-                    <span>({cartTotalQty})</span>
+                    <span>({formatPriceToFarsi(cartTotalQty)})</span>
                 </div>
                 <div className="justify-self-center">قیمت</div>
                 <div className="justify-self-center">تعداد</div>
                 <div className="justify-self-end flex items-center gap-[3px]">
                     <span>قیمت کالاها</span>
-                    <span>({cartTotalQty})</span>
+                    <span>({formatPriceToFarsi(cartTotalQty)})</span>
                 </div>
             </div>
 
@@ -70,7 +70,7 @@ const CartClient = () => {
                 <div className="text-sm flex flex-col items-start gap-1">
                     <div className="flex justify-between w-full text-base font-semibold mb-3">
                         <span className="font-[500]">جمع سبد خرید</span>
-                        <span>{formatPriceWithSlashes(cartTotalAmount)}</span>
+                        <span>{formatPriceToFarsi(cartTotalAmount)}</span>
                     </div>
                     <p className="text-slate-500 text-[0.8rem] mb-2">هزینه پست و ارسال هنگام پرداخت محاسبه می شود</p>
                     <Button label="تایید و تکمیل سفارش" onClick={() => { }} />

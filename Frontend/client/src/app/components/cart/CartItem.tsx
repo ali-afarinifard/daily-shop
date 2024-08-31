@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SetQuantity from "../products/SetQuantity";
 import { truncateText } from "@/utils/truncateText";
-import { formatPriceWithSlashes } from "@/utils/formatPriceToFarsi";
+import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
 
 interface ItemContentProps {
     item: ProductType;
@@ -37,7 +37,7 @@ const CartItem: React.FC<ItemContentProps> = ({ item }) => {
                     </Link>
                     <div className="text-slate-500 flex flex-col items-start gap-1">
                         <p>رنگ: {item.selectedColor}</p>
-                        <p>سایز: {item.selectedSize}</p>
+                        <p>سایز: {formatPriceToFarsi(item.selectedSize)}</p>
                     </div>
                     <div className="w-[4.4rem]">
                         <button className="text-slate-500 underline" onClick={() => { handleRemoveProductFromCart(item) }}>
@@ -47,9 +47,9 @@ const CartItem: React.FC<ItemContentProps> = ({ item }) => {
                 </div>
             </div>
             {item?.offer ? (
-                <div className="justify-self-center">{formatPriceWithSlashes(item?.offer)}</div>
+                <div className="justify-self-center">{formatPriceToFarsi(item?.offer)}</div>
             ) : (
-                <div className="justify-self-center">{formatPriceWithSlashes(item?.price)}</div>
+                <div className="justify-self-center">{formatPriceToFarsi(item?.price)}</div>
             )}
             <div className="justify-self-center">
                 <SetQuantity
@@ -60,7 +60,7 @@ const CartItem: React.FC<ItemContentProps> = ({ item }) => {
                     custom="max-[450px]:flex-col max-[450px]:gap-2"
                 />
             </div>
-            <div className="justify-self-end font-semibold">{formatPriceWithSlashes(item.price * item.quantity)}</div>
+            <div className="justify-self-end font-semibold">{formatPriceToFarsi(item.price * item.quantity)}</div>
         </div>
     );
 };

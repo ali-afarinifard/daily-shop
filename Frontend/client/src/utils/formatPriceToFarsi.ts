@@ -1,4 +1,4 @@
-const formatPriceToFarsi = (price: number | undefined): string => {
+const formatPriceToFarsi = (price: number | string | undefined): string => {
     if (price === undefined) return '';
 
     // Convert price to a string and remove any existing slashes
