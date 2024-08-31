@@ -8,7 +8,7 @@ import emptyCart from "../../../../public/images/cart/empty-cart.webp";
 import Heading from "../Heading";
 import CartItem from "./CartItem";
 import Button from "../Button";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
 
@@ -24,7 +24,13 @@ const CartClient = () => {
 
     const { user } = authContext;
 
-    if (!cartProducts || cartProducts.length === 0 || !user) {
+
+    // Check if the cart is empty and user is authenticated
+    const isCartEmpty = !cartProducts || cartProducts.length === 0;
+    const isUserAuthenticated = !!user;
+
+
+    if (isCartEmpty && isUserAuthenticated) {
         return (
             <div className="flex flex-col items-center">
                 <div className="text-2xl">سبد خرید شما خالی است!</div>
@@ -50,8 +56,8 @@ const CartClient = () => {
                 </div>
                 <div className="justify-self-center">قیمت</div>
                 <div className="justify-self-center">تعداد</div>
-                <div className="justify-self-end flex items-center gap-[3px]">
-                    <span>قیمت کالاها</span>
+                <div className="justify-self-end flex items-center gap-[5px]">
+                    <span className="text-end">قیمت کالاها</span>
                     <span>({formatPriceToFarsi(cartTotalQty)})</span>
                 </div>
             </div>
@@ -62,7 +68,7 @@ const CartClient = () => {
                 ))}
             </div>
 
-            <div className="border-t-[1.5px] border-slate-200 py-4 flex justify-between gap-4 max-[450px]:flex-col max-[450px]:gap-6">
+            <div className="border-t-[1.5px] border-slate-200 py-4 flex justify-between gap-4 xm:flex-col">
                 <div className="w-[6rem]">
                     <Button label="حذف همه" onClick={() => { handleClearCart() }} small outline />
                 </div>

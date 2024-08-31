@@ -184,7 +184,7 @@ const ProductDetails: React.FC = () => {
                     <Spinner size={40} />
                 </div>
             ) : (
-                <div className="mt-20 xl:mt-10 w-full">
+                <div className="mt-20 xl:mt-5 w-full">
                     <div className="flex flex-col">
                         <div className="flex items-start xl:flex-col">
                             <div className="w-[30rem] xl:flex xl:flex-col items-center justify-center xl:w-full">
@@ -310,7 +310,7 @@ const ProductDetails: React.FC = () => {
                                         <>
                                             <p className="flex items-center gap-1">
                                                 <span>تعداد : </span>
-                                                <span className="font-bold">{product?.stock}</span>
+                                                <span className="font-bold">{formatPriceToFarsi(product?.stock)}</span>
                                             </p>
                                             <hr className="w-[1px] h-[1.1rem] bg-slate-300" />
                                         </>
@@ -431,13 +431,13 @@ const ProductDetails: React.FC = () => {
                         </div>
 
                         <div className="mt-16 w-full max-w-[60rem] leading-[1.9rem] text-justify">
-                            <p>{product?.description}</p>
+                            <p>{formatPriceToFarsi(product?.description)}</p>
                         </div>
 
 
                         <div className="mt-10">
-                            <div className="flex gap-10 w-full">
-                                <div className="w-[23rem]">
+                            <div className="flex gap-10 w-full s:flex-col s:gap-5">
+                                <div className="w-[24rem] s:w-full">
                                     <CommentForm productId={productId} onCommentAdded={handleCommentsUpdate} />
                                 </div>
 
