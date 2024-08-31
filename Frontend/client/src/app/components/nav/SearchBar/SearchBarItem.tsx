@@ -1,5 +1,5 @@
 import ProductType from '@/types/product'
-import { formatPriceWithSlashes } from '@/utils/formatPrice';
+import { formatPriceToFarsi } from '@/utils/formatPriceToFarsi';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
@@ -41,11 +41,11 @@ const SearchBarItem: React.FC<SearchBarItemProps> = ({ product, onClick, toggleM
                                     <div className="flex items-center justify-center gap-1">
                                         {product.offer ? (
                                             <>
-                                                <span className="text-offer text-[0.8rem] text-slate-500">{formatPriceWithSlashes(product.price)}</span>
-                                                <span className="text-[0.92rem] text-green-500">{formatPriceWithSlashes(product.offer)}</span>
+                                                <span className="text-offer text-[0.8rem] text-slate-500">{formatPriceToFarsi(product.price)}</span>
+                                                <span className="text-[0.92rem] text-green-500">{formatPriceToFarsi(product.offer)}</span>
                                             </>
                                         ) : (
-                                            <span className="text-[0.92rem] text-green-500">{formatPriceWithSlashes(product.price)}</span>
+                                            <span className="text-[0.92rem] text-green-500">{formatPriceToFarsi(product.price)}</span>
                                         )}
                                         <span className="text-[0.8rem]">تومان</span>
                                     </div>

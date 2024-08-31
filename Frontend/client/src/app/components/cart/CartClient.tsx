@@ -10,7 +10,7 @@ import CartItem from "./CartItem";
 import Button from "../Button";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
-import { formatPriceWithSlashes } from "@/utils/formatPrice";
+import { formatPriceWithSlashes } from "@/utils/formatPriceToFarsi";
 
 const CartClient = () => {
 

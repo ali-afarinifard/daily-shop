@@ -49,6 +49,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
             setContent('');
             setRating(null);
             onCommentAdded();
+            toast.success('دیدگاه با موفقیت ثبت شد');
             // window.location.reload();
 
         } catch (error) {

@@ -8,7 +8,7 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { addToWishlist, getComments, getWishlist, removeFromWishlist } from "@/libs/apiUrls";
 import { User } from "@/context/AuthContext";
 import toast from "react-hot-toast";
-import { formatPriceWithSlashes } from "@/utils/formatPrice";
+import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
 import CommentType from "@/types/comment";
 import { Rating } from "@mui/material";
 import Spinner from "../Spinner";
@@ -192,13 +192,13 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                             <div className="flex items-center justify-center gap-1">
                                 {product.offer ? (
                                     <div className="flex items-center gap-2">
-                                        <span className="text-offer text-sm">{formatPriceWithSlashes(product.price)}</span>
-                                        <span className="text-md">{formatPriceWithSlashes(product.offer)}</span>
+                                        <span className="text-offer text-sm text-slate-500">{formatPriceToFarsi(product.price)}</span>
+                                        <span className="text-[1.2rem] text-slate-500">{formatPriceToFarsi(product.offer)}</span>
                                     </div>
                                 ) : (
-                                    <span className="text-md">{formatPriceWithSlashes(product.price)}</span>
+                                    <span className="text-[1.2rem] text-slate-500">{formatPriceToFarsi(product.price)}</span>
                                 )}
-                                <span className="text-sm">تومان</span>
+                                <span className="text-sm text-slate-500">تومان</span>
                             </div>
                         ) : (
                             <div>

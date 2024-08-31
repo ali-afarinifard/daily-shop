@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SetQuantity from "../products/SetQuantity";
 import { truncateText } from "@/utils/truncateText";
-import { formatPriceWithSlashes } from "@/utils/formatPrice";
+import { formatPriceWithSlashes } from "@/utils/formatPriceToFarsi";
 
 interface ItemContentProps {
     item: ProductType;

@@ -12,6 +12,7 @@ import ProductBox from "./ProductBox";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { useRouter, useSearchParams } from "next/navigation";
 
 
 const TopSalesProducts = () => {
@@ -26,7 +27,18 @@ const TopSalesProducts = () => {
     const itemsPerPage = 16;
 
 
+    // React Router hooks for navigation and search params
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+
     useEffect(() => {
+
+        // Get the page number from the URL query parameters
+        const pageFromURL = searchParams.get('page');
+        if (pageFromURL) {
+            setCurrentPage(Number(pageFromURL));
+        }
 
         const fetchProducts = async () => {
             try {
@@ -44,7 +56,7 @@ const TopSalesProducts = () => {
 
         fetchProducts();
 
-    }, []);
+    }, [searchParams]);
 
 
     // Apply filtering to only show products with an offer greater than zero
@@ -81,15 +93,17 @@ const TopSalesProducts = () => {
 
 
 
-    // Handle pagination change
-    const handlePageChange = (_event: React.ChangeEvent<unknown>, page: number) => {
+     // Handle pagination change
+     const handlePageChange = (_event: React.ChangeEvent<unknown>, page: number) => {
         setCurrentPage(page);
+        // Update the URL with the current page number
+        router.push(`?page=${page}`);
     };
 
-    // This useEffect will trigger whenever currentPage changes
-    useEffect(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, [currentPage]); // Dependency array with currentPage
+    // // This useEffect will trigger whenever currentPage changes
+    // useEffect(() => {
+    //     window.scrollTo({ top: 0, behavior: 'smooth' });
+    // }, [currentPage]); // Dependency array with currentPage
 
 
 
@@ -147,6 +161,7 @@ const TopSalesProducts = () => {
                                     sx={{
                                         fontFamily: 'Vazir',
                                         width: "10rem",
+                                        height: "2.5rem",
                                         '& .MuiOutlinedInput-notchedOutline': {
                                             borderColor: "#252525", // Outline border color
                                         },

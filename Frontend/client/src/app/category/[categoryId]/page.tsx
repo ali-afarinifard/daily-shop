@@ -9,7 +9,7 @@ import { AuthContext } from '@/context/AuthContext';
 import { getCategoryById, getProductsByCategory } from '@/libs/apiUrls';
 import CategoryType from '@/types/category';
 import ProductType from '@/types/product';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 
 import Pagination from '@mui/material/Pagination';
@@ -39,7 +39,18 @@ const CategoryPage = () => {
 
     console.log("Category ID:", categoryId);
 
+    // React Router hooks for navigation and search params
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
     useEffect(() => {
+
+        // Get the page number from the URL query parameters
+        const pageFromURL = searchParams.get('page');
+        if (pageFromURL) {
+            setCurrentPage(Number(pageFromURL));
+        }
+
         const fetchProducts = async () => {
             try {
                 if (categoryId) {
@@ -60,7 +71,7 @@ const CategoryPage = () => {
         };
 
         fetchProducts();
-    }, [categoryId]);
+    }, [categoryId, searchParams]);
 
 
     // Apply filtering and sorting based on selected option
@@ -94,12 +105,14 @@ const CategoryPage = () => {
     // Handle pagination change
     const handlePageChange = (_event: React.ChangeEvent<unknown>, page: number) => {
         setCurrentPage(page);
+        // Update the URL with the current page number
+        router.push(`?page=${page}`);
     };
 
-    // This useEffect will trigger whenever currentPage changes
-    useEffect(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, [currentPage]); // Dependency array with currentPage
+    // // This useEffect will trigger whenever currentPage changes
+    // useEffect(() => {
+    //     window.scrollTo({ top: 0, behavior: 'smooth' });
+    // }, [currentPage]); // Dependency array with currentPage
 
 
     const authContext = useContext(AuthContext);
@@ -154,6 +167,7 @@ const CategoryPage = () => {
                                         sx={{
                                             fontFamily: 'Vazir',
                                             width: "10rem",
+                                            height: "2.5rem",
                                             '& .MuiOutlinedInput-notchedOutline': {
                                                 borderColor: "#252525", // Outline border color
                                             },

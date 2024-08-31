@@ -19,12 +19,12 @@ import SetQuantity from "./SetQuantity";
 import toast from "react-hot-toast";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
-import { formatPriceWithSlashes } from "@/utils/formatPrice";
 import Spinner from "../Spinner";
 import CommentForm from "../comments/CommentForm";
 import CommentList from "../comments/CommentList";
 import CommentType from "@/types/comment";
 import { Rating } from "@mui/material";
+import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
 
 
 
@@ -293,14 +293,14 @@ const ProductDetails: React.FC = () => {
                                 <h3 className="flex items-center gap-1">
                                     {product?.offer ? (
                                         <div className="flex items-center gap-4">
-                                            <span className="text-[1.4rem] text-slate-400 text-offer">{formatPriceWithSlashes(product?.price)}</span>
+                                            <span className="text-[1.4rem] text-slate-400 text-offer">{formatPriceToFarsi(product?.price)}</span>
 
                                             <hr className="w-[1px] h-[1.6rem] bg-slate-400 relative -top-1" />
 
-                                            <span className="text-[1.6rem] text-slate-500">{formatPriceWithSlashes(product?.offer)}</span>
+                                            <span className="text-[1.6rem] text-slate-500">{formatPriceToFarsi(product?.offer)}</span>
                                         </div>
                                     ) : (
-                                        <span className="text-[1.6rem] text-slate-500">{formatPriceWithSlashes(product?.price)}</span>
+                                        <span className="text-[1.6rem] text-slate-500">{formatPriceToFarsi(product?.price)}</span>
                                     )}
                                     <span className="text-md">تومان</span>
                                 </h3>
