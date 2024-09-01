@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProducts } from "../../services/apiUrls";
 import Loader from "../../components/modules/Loader";
@@ -23,23 +23,40 @@ import { CiSearch } from "react-icons/ci";
 
 const ProductPage = () => {
 
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const queryParams = new URLSearchParams(location.search);
+    const initialPage = parseInt(queryParams.get("page"), 10) || 0;
+    const initialRowsPerPage = parseInt(queryParams.get("rowsPerPage"), 10) || 8;
+
     const [searchQuery, setSearchQuery] = useState("");
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(8);
+    const [page, setPage] = useState(initialPage);
+    const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
+        updateURLParams(newPage, rowsPerPage);
     };
 
     const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
+        const newRowsPerPage = parseInt(event.target.value, 10);
+        setRowsPerPage(newRowsPerPage);
         setPage(0);
+        updateURLParams(0, newRowsPerPage);
     };
 
 
+    const updateURLParams = (page, rowsPerPage) => {
+        const params = new URLSearchParams();
+        params.set("page", page);
+        params.set("rowsPerPage", rowsPerPage);
+        navigate({ search: params.toString() });
+    };
+
 
     const { data, error, isLoading } = useQuery({
-        queryKey: ['products'],
+        queryKey: ["products"],
         queryFn: getAllProducts,
     });
 
@@ -112,7 +129,7 @@ const ProductPage = () => {
                                     <TableCell>
                                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
                                             <Tooltip title="حذف" sx={{ fontFamily: 'Vazir' }}>
-                                                <Link to={'/products/delete/' + product._id} className="flex items-center gap-1 btn-default">
+                                                <Link to={`/products/delete/${product._id}?page=${page}&rowsPerPage=${rowsPerPage}`} className="flex items-center gap-1 btn-default">
                                                     <MdDeleteOutline size={24} />
                                                     <Typography sx={{ fontFamily: 'Vazir', fontSize: '0.8rem' }}>حذف</Typography>
                                                 </Link>
@@ -142,7 +159,7 @@ const ProductPage = () => {
                 <TablePagination
                     rowsPerPageOptions={[4, 5, 8]}
                     component="div"
-                    count={data.length}
+                    count={filteredData.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}

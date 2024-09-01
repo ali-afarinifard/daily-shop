@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 
 const DeleteProduct = () => {
 
+    const navigate = useNavigate();
+    const location = useLocation();
+
     const [productInfo, setProductInfo] = useState();
     const { id } = useParams();
-    console.log('Single Product =>', {id});
-    const navigate = useNavigate();
+    console.log('Single Product =>', { id });
 
     useEffect(() => {
         if (!id) return;
@@ -24,14 +26,15 @@ const DeleteProduct = () => {
     }, [id]);
 
     const goBack = () => {
-        navigate('/products');
+        const params = new URLSearchParams(location.search);
+        navigate(`/products?${params.toString()}`);
     };
 
     const deleteProduct = async () => {
         try {
             await axios.delete(`http://localhost:5000/api/products/${id}`);
-            goBack();
             toast.success('حذف شد');
+            goBack();
         } catch (error) {
             console.error('Error deleting product:', error);
             toast.error('خطایی رخ داده');
