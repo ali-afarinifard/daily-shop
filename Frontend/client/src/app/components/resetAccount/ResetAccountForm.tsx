@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react"
 import toast from "react-hot-toast";
 import { IoChevronBackOutline } from "react-icons/io5";
+import { FaRegEyeSlash } from "react-icons/fa";
+import { FiEye } from "react-icons/fi";
 
 
 
@@ -15,6 +17,7 @@ const ResetAccountForm = () => {
     const [email, setEmail] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [showPassword, setShowPassword] = useState<boolean>(false);
     const [errors, setErrors] = useState({
         email: '',
         newPassword: '',
@@ -106,7 +109,7 @@ const ResetAccountForm = () => {
                 <div className="w-full relative flex flex-col gap-1">
                     <input
                         id="newPassword"
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         autoComplete="off"
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
@@ -118,6 +121,12 @@ const ResetAccountForm = () => {
                     >
                         رمز عبور جدید
                     </label>
+                    <div
+                        className='absolute left-3 top-6 cursor-pointer' // Position the eye icon
+                        onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
+                    >
+                        {showPassword ? <FaRegEyeSlash size={20} className='text-slate-400' /> : <FiEye size={20} className='text-slate-400' />} {/* Display eye or eye-slash icon */}
+                    </div>
                     {errors.newPassword && <p className="text-red-500 text-sm">{errors.newPassword}</p>}
                 </div>
 
@@ -125,7 +134,7 @@ const ResetAccountForm = () => {
                 <div className="w-full relative flex flex-col gap-1">
                     <input
                         id="confirmPassword"
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         autoComplete="off"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
@@ -137,6 +146,12 @@ const ResetAccountForm = () => {
                     >
                         تایید رمز عبور
                     </label>
+                    <div
+                        className='absolute left-3 top-6 cursor-pointer' // Position the eye icon
+                        onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
+                    >
+                        {showPassword ? <FaRegEyeSlash size={20} className='text-slate-400' /> : <FiEye size={20} className='text-slate-400' />} {/* Display eye or eye-slash icon */}
+                    </div>
                     {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
                 </div>
 

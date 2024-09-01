@@ -8,11 +8,15 @@ import { login } from '@/libs/apiUrls';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 import { IoChevronBackOutline } from 'react-icons/io5';
+import { FaRegEyeSlash } from "react-icons/fa";
+import { FiEye } from "react-icons/fi";
+
 
 export default function LoginPage() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState<boolean>(false);
     const [errors, setErrors] = useState({
         email: '',
         password: ''
@@ -121,7 +125,7 @@ export default function LoginPage() {
                     <div>
                         <input
                             id='password'
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             autoComplete='off'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -133,6 +137,12 @@ export default function LoginPage() {
                         >
                             رمز عبور
                         </label>
+                        <div
+                            className='absolute left-3 top-6 cursor-pointer' // Position the eye icon
+                            onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
+                        >
+                            {showPassword ? <FaRegEyeSlash size={20} className='text-slate-400' /> : <FiEye size={20} className='text-slate-400' />} {/* Display eye or eye-slash icon */}
+                        </div>
                     </div>
                     {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
                 </div>

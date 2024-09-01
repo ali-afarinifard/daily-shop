@@ -5,12 +5,15 @@ import { useMutation } from '@tanstack/react-query';
 import avatar from "../../assets/images/admin-pic.webp"
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthContext';
+import { FaRegEyeSlash } from "react-icons/fa";
+import { FiEye } from "react-icons/fi";
 
 
 const Register = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const [errors, setErrors] = useState({
         username: '',
@@ -137,13 +140,21 @@ const Register = () => {
 
                             <div className='flex flex-col gap-1'>
                                 <label htmlFor="password" className='pr-1 text-[1.1rem]'>رمز عبور</label>
-                                <input
-                                    id='password'
-                                    type="password"
-                                    value={password}
-                                    onChange={ev => setPassword(ev.target.value)}
-                                    className='py-2'
-                                />
+                                <div className='relative'>
+                                    <input
+                                        id='password'
+                                        type={showPassword ? "text" : "password"}
+                                        value={password}
+                                        onChange={ev => setPassword(ev.target.value)}
+                                        className='py-2'
+                                    />
+                                    <div
+                                        className='absolute left-3 top-3 cursor-pointer' // Position the eye icon
+                                        onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
+                                    >
+                                        {showPassword ? <FaRegEyeSlash size={18} className='text-slate-400' /> : <FiEye size={18} className='text-slate-400' />} {/* Display eye or eye-slash icon */}
+                                    </div>
+                                </div>
                             </div>
 
                             {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}

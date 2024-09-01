@@ -5,6 +5,8 @@ import toast from "react-hot-toast";
 import avatar from "../../assets/images/admin-pic.webp";
 import { useMutation } from "@tanstack/react-query";
 import { IoChevronBackOutline } from "react-icons/io5";
+import { FaRegEyeSlash } from "react-icons/fa";
+import { FiEye } from "react-icons/fi";
 
 
 
@@ -13,6 +15,7 @@ const ResetAccount = () => {
     const [email, setEmail] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({
         email: '',
         newPassword: '',
@@ -125,13 +128,21 @@ const ResetAccount = () => {
 
                             <div className='flex flex-col gap-1'>
                                 <label htmlFor="newPassword" className='pr-1 text-[1rem]'>رمز عبور جدید</label>
-                                <input
-                                    id='newPassword'
-                                    type="password"
-                                    value={newPassword}
-                                    onChange={ev => setNewPassword(ev.target.value)}
-                                    className='py-3'
-                                />
+                                <div className="relative">
+                                    <input
+                                        id='newPassword'
+                                        type={showPassword ? "text" : "password"}
+                                        value={newPassword}
+                                        onChange={ev => setNewPassword(ev.target.value)}
+                                        className='py-3'
+                                    />
+                                    <div
+                                        className='absolute left-3 top-[0.95rem] cursor-pointer' // Position the eye icon
+                                        onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
+                                    >
+                                        {showPassword ? <FaRegEyeSlash size={20} className='text-slate-400' /> : <FiEye size={20} className='text-slate-400' />} {/* Display eye or eye-slash icon */}
+                                    </div>
+                                </div>
                             </div>
                             {errors.newPassword && <p className="text-red-500 text-sm">{errors.newPassword}</p>}
 
@@ -142,13 +153,21 @@ const ResetAccount = () => {
 
                             <div className='flex flex-col gap-1'>
                                 <label htmlFor="confirmPassword" className='pr-1 text-[1rem]'>تایید رمز عبور</label>
-                                <input
-                                    id='confirmPassword'
-                                    type="password"
-                                    value={confirmPassword}
-                                    onChange={ev => setConfirmPassword(ev.target.value)}
-                                    className='py-3'
-                                />
+                                <div className="relative">
+                                    <input
+                                        id='confirmPassword'
+                                        type={showPassword ? "text" : "password"}
+                                        value={confirmPassword}
+                                        onChange={ev => setConfirmPassword(ev.target.value)}
+                                        className='py-3'
+                                    />
+                                    <div
+                                        className='absolute left-3 top-[0.95rem] cursor-pointer' // Position the eye icon
+                                        onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
+                                    >
+                                        {showPassword ? <FaRegEyeSlash size={20} className='text-slate-400' /> : <FiEye size={20} className='text-slate-400' />} {/* Display eye or eye-slash icon */}
+                                    </div>
+                                </div>
                             </div>
                             {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
 
