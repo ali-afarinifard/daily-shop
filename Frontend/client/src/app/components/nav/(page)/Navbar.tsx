@@ -53,7 +53,7 @@ const Navbar = () => {
                                 <RiMenu3Fill size={28} />
                             </button>
 
-                            <Link href="/" className="text-3xl m:text-2xl">Digi~Shop</Link>
+                            <Link href="/" className="text-3xl m:text-2xl">Daily~Shop</Link>
 
                             <div className="xl:hidden">
                                 <SearchBar />

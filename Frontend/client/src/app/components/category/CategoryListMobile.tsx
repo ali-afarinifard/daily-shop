@@ -50,7 +50,7 @@ const CategoryListMobile: React.FC<CategoryListMobileProps> = ({ toggleMenu }) =
 
                     <Link href={'/'} onClick={toggleMenu}>
                         <CategoryItem
-                            label="دیجی شاپ"
+                            label="دیلی شاپ"
                             centerParent="!justify-start"
                             centerChild="!font-bold !text-[1rem]"
                         />
