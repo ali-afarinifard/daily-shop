@@ -38,7 +38,7 @@ const EditProduct = () => {
 
 
     return (
-        <div>
+        <div className='s:pb-20'>
             <h1 className="font-[400] text-[1.4rem]">ویرایش محصول</h1>
             {productInfo && (
                 <ProductForm {...formattedProductInfo} categories={categories} />

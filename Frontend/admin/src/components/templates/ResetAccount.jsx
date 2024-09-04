@@ -115,6 +115,7 @@ const ResetAccount = () => {
                                     type="email"
                                     value={email}
                                     onChange={ev => setEmail(ev.target.value)}
+                                    autoComplete='off'
                                     className='py-3 text-slate-600'
                                 />
                             </div>
@@ -134,6 +135,7 @@ const ResetAccount = () => {
                                         type={showPassword ? "text" : "password"}
                                         value={newPassword}
                                         onChange={ev => setNewPassword(ev.target.value)}
+                                        autoComplete='off'
                                         className='py-3'
                                     />
                                     <div
@@ -159,6 +161,7 @@ const ResetAccount = () => {
                                         type={showPassword ? "text" : "password"}
                                         value={confirmPassword}
                                         onChange={ev => setConfirmPassword(ev.target.value)}
+                                        autoComplete='off'
                                         className='py-3'
                                     />
                                     <div

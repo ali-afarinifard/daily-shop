@@ -25,12 +25,7 @@ const CartClient = () => {
     const { user } = authContext;
 
 
-    // Check if the cart is empty and user is authenticated
-    const isCartEmpty = !cartProducts || cartProducts.length === 0;
-    const isUserAuthenticated = !!user;
-
-
-    if (isCartEmpty && isUserAuthenticated) {
+    if (!cartProducts || cartProducts.length === 0 || !user) {
         return (
             <div className="flex flex-col items-center">
                 <div className="text-2xl">سبد خرید شما خالی است!</div>

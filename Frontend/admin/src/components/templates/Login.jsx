@@ -110,6 +110,7 @@ const Login = () => {
                                     type="email"
                                     value={email}
                                     onChange={ev => setEmail(ev.target.value)}
+                                    autoComplete='off'
                                     className='py-3 text-slate-600'
                                 />
                             </div>
@@ -129,6 +130,7 @@ const Login = () => {
                                         type={showPassword ? "text" : "password"}
                                         value={password}
                                         onChange={ev => setPassword(ev.target.value)}
+                                        autoComplete='off'
                                         className='py-3 text-slate-600'
                                     />
                                     <div
@@ -151,12 +153,12 @@ const Login = () => {
 
                     </div>
 
-                    <div className='flex items-center justify-between gap-1 mt-5'>
-                        <div className='text-sm text-center mt-2'>
+                    <div className='flex items-center justify-between gap-1 mt-5 2xs:gap-2'>
+                        <div className='text-sm text-center mt-2 2xs:leading-7'>
                             حساب کاربری ندارید؟ <Link to={'/register'} className='text-rose-500'>ثبت نام کنید</Link>
                         </div>
 
-                        <div className='text-sm text-center mt-2'>
+                        <div className='text-sm text-center mt-2 2xs:leading-7'>
                             <Link to={'/reset-account'}>رمز عبور خود را فراموش کردید؟</Link>
                         </div>
                     </div>

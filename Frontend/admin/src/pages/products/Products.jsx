@@ -23,36 +23,20 @@ import { CiSearch } from "react-icons/ci";
 
 const ProductPage = () => {
 
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    const queryParams = new URLSearchParams(location.search);
-    const initialPage = parseInt(queryParams.get("page"), 10) || 0;
-    const initialRowsPerPage = parseInt(queryParams.get("rowsPerPage"), 10) || 8;
-
     const [searchQuery, setSearchQuery] = useState("");
-    const [page, setPage] = useState(initialPage);
-    const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(8);
+
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
-        updateURLParams(newPage, rowsPerPage);
     };
 
     const handleChangeRowsPerPage = (event) => {
-        const newRowsPerPage = parseInt(event.target.value, 10);
-        setRowsPerPage(newRowsPerPage);
+        setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
-        updateURLParams(0, newRowsPerPage);
     };
 
-
-    const updateURLParams = (page, rowsPerPage) => {
-        const params = new URLSearchParams();
-        params.set("page", page);
-        params.set("rowsPerPage", rowsPerPage);
-        navigate({ search: params.toString() });
-    };
 
 
     const { data, error, isLoading } = useQuery({
@@ -159,7 +143,7 @@ const ProductPage = () => {
                 <TablePagination
                     rowsPerPageOptions={[4, 5, 8]}
                     component="div"
-                    count={filteredData.length}
+                    count={data.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}

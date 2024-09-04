@@ -275,7 +275,7 @@ const ProductDetails: React.FC = () => {
                             <div className="mt-7 flex flex-col gap-5 flex-grow">
                                 <div className="flex flex-col gap-4">
                                     <h1 className="text-3xl font-bold">{product?.title}</h1>
-                                    <div>
+                                    <div className="relative w-fit">
                                         {/* Display average rating */}
                                         <Rating
                                             value={averageRating || 0}
@@ -283,7 +283,7 @@ const ProductDetails: React.FC = () => {
                                             readOnly
                                             sx={{ direction: 'ltr', fontSize: '1.7rem' }}
                                         />
-                                        <div>
+                                        <div className="absolute -left-6 -bottom-3">
                                             {averageRating !== null && (
                                                 <span className="text-xs text-slate-500 ml-2">({averageRating.toFixed(1)})</span>
                                             )}

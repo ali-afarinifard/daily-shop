@@ -107,6 +107,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
             const updatedWishlist = await addToWishlist(user._id, productId);
             setWishlist(updatedWishlist);
             setShowWishlistMessage(true);
+            setIsWhitelisted(true);
             localStorage.setItem(`showWishlistMessage_${user._id}_${productId}`, "true");
             toast.success('به علاقه مندی ها اضافه شد');
         } catch (error) {

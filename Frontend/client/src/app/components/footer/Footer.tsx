@@ -14,7 +14,7 @@ const Footer = () => {
     return (
         <footer className="bg-slate-700 text-slate-200 text-sm mt-16">
             <Container>
-                <div className="flex flex-col md:flex-row justify-between pt-16 pb-8">
+                <div className="flex xl:flex-col justify-between pt-16 pb-8">
                     <FooterList>
 
                         <h3 className="text-base font-bold mb-2">دسته بندی ها</h3>
@@ -41,7 +41,7 @@ const Footer = () => {
 
                     </FooterList>
 
-                    <div className="w-full md:w-1/3 mb-6 md:mb-0">
+                    <div className="xl:w-full w-1/3 mb-6 md:mb-0">
                         <h3 className="text-base font-bold mb-2">درباره دیجی شاپ</h3>
                         <p className="mb-2 text-justify leading-[1.7rem]">
                             یک خرید اینترنتی مطمئن، نیازمند فروشگاهی است که بتواند کالاهایی متنوع، باکیفیت و دارای قیمت مناسب را در مدت زمان ی کوتاه به دست مشتریان خود برساند و ضمانت بازگشت کالا هم داشته باشد؛ ویژگی‌هایی که فروشگاه اینترنتی دیجی‌کالا سال‌هاست بر روی آن‌ها کار کرده و توانسته از این طریق مشتریان ثابت خود را داشته باشد. یکی از مهم‌ترین دغدغه‌های کاربران دیجی‌کالا یا هر فروشگاه‌ اینترنتی دیگری، این است که کالای خریداری شده چه زمانی به دستشان می‌رسد.

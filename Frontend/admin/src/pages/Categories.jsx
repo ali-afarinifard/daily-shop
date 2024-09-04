@@ -124,7 +124,7 @@ const CategoryPage = ({ swal }) => {
     if (error) return <div>Error loading categories</div>;
 
     return (
-        <div>
+        <div className="s:pb-24">
             <h1 className="font-[400] text-[1.4rem]">دسته بندی ها</h1>
             <label>
                 {editedCategory

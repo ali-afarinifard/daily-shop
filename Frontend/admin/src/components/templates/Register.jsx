@@ -110,6 +110,7 @@ const Register = () => {
                                     type="text"
                                     value={username}
                                     onChange={ev => setUsername(ev.target.value)}
+                                    autoComplete='off'
                                     className='py-2 text-slate-600'
                                 />
                             </div>
@@ -127,6 +128,7 @@ const Register = () => {
                                     type="email"
                                     value={email}
                                     onChange={ev => setEmail(ev.target.value)}
+                                    autoComplete='off'
                                     className='py-2 text-slate-600'
                                 />
                             </div>
@@ -146,6 +148,7 @@ const Register = () => {
                                         type={showPassword ? "text" : "password"}
                                         value={password}
                                         onChange={ev => setPassword(ev.target.value)}
+                                        autoComplete='off'
                                         className='py-2'
                                     />
                                     <div

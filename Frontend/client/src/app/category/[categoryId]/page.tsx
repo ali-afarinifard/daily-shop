@@ -134,7 +134,7 @@ const CategoryPage = () => {
     if (!categoryId || products.length === 0) {
         return (
             <div>
-                <NullData title='محصولی وجود ندارد' />
+                <NullData title='محصولی وجود ندارد' center='!text-md' />
             </div>
         )
     }
