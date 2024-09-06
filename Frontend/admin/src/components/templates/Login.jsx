@@ -137,7 +137,7 @@ const Login = () => {
                                         className='absolute left-3 top-4 cursor-pointer' // Position the eye icon
                                         onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
                                     >
-                                        {showPassword ? <FaRegEyeSlash size={20} className='text-slate-400' /> : <FiEye size={20} className='text-slate-400' />} {/* Display eye or eye-slash icon */}
+                                        {showPassword ? <FiEye size={20} className='text-slate-400' /> : <FaRegEyeSlash size={20} className='text-slate-400' />} {/* Display eye or eye-slash icon */}
                                     </div>
                                 </div>
                             </div>

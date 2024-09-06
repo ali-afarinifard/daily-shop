@@ -155,7 +155,7 @@ const Register = () => {
                                         className='absolute left-3 top-3 cursor-pointer' // Position the eye icon
                                         onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
                                     >
-                                        {showPassword ? <FaRegEyeSlash size={18} className='text-slate-400' /> : <FiEye size={18} className='text-slate-400' />} {/* Display eye or eye-slash icon */}
+                                        {showPassword ? <FiEye size={18} className='text-slate-400' /> : <FaRegEyeSlash size={18} className='text-slate-400' />} {/* Display eye or eye-slash icon */}
                                     </div>
                                 </div>
                             </div>

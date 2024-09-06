@@ -141,7 +141,7 @@ export default function LoginPage() {
                             className='absolute left-3 top-6 cursor-pointer' // Position the eye icon
                             onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
                         >
-                            {showPassword ? <FaRegEyeSlash size={20} className='text-slate-400' /> : <FiEye size={20} className='text-slate-400' />} {/* Display eye or eye-slash icon */}
+                            {showPassword ? <FiEye size={20} className='text-slate-400' /> : <FaRegEyeSlash size={20} className='text-slate-400' />} {/* Display eye or eye-slash icon */}
                         </div>
                     </div>
                     {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
