@@ -1,12 +1,11 @@
 'use client'
 
-import { getWishlist, removeFromWishlist } from "@/libs/apiUrls";
+
 import ProductType from "@/types/product";
 import { useEffect, useState } from "react";
-import ProductBox from "../products/ProductBox";
-import Heading from "../Heading";
 import WishlistProduct from "../products/WishlistProduct";
 import Spinner from "../Spinner";
+import { useGetWishlistQuery, useRemoveFromWishlistMutation } from "@/store/apiSlice";
 
 
 interface WishlistProps {
@@ -16,33 +15,18 @@ interface WishlistProps {
 
 const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
 
-    const [wishlist, setWishlist] = useState<ProductType[]>([]);
-    const [isWhitelisted, setIsWhitelisted] = useState<boolean>(false);
-    const [showWishlistMessage, setShowWishlistMessage] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const { data: wishlist = [], isLoading, isError, error, refetch } = useGetWishlistQuery(userId || '', {
+        skip: !userId,
+    });
+
+    const [removeFromWishlist] = useRemoveFromWishlistMutation();
 
 
     useEffect(() => {
-        const fetchWishlist = async () => {
-            try {
-                if (!userId) {
-                    setLoading(false);
-                    return;
-                };
-                setLoading(true);
-                const data = await getWishlist(userId);
-                setWishlist(data);
-                console.log('My Wishlists>>>>', data);
-            } catch (error) {
-                console.error('error getting wishlist', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchWishlist();
-    }, [userId]);
-
+        if (wishlist) {
+            refetch();
+        }
+    }, [wishlist]);
 
 
     const handleRemoveFromWishlist = async (productId: string) => {
@@ -51,11 +35,11 @@ const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
                 console.warn("No userId available.");
                 return;
             }
-            await removeFromWishlist(userId, productId);
-            setWishlist((prevWishlist) =>
-                prevWishlist.filter((product) => product._id !== productId)
-            );
-            setIsWhitelisted(false);
+            // Call the mutation
+            await removeFromWishlist({ userId, productId }).unwrap();
+            // Refetch the wishlist to reflect changes
+            refetch();
+            // Optionally remove item from localStorage if needed
             localStorage.removeItem(`showWishlistMessage_${userId}_${productId}`);
         } catch (error) {
             console.error("Error while removing from wishlist", error);
@@ -63,15 +47,15 @@ const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
     };
 
 
-
     if (!userId) {
-        return;
-    }
+        return null;
+    };
+
 
     return (
         <div>
 
-            {loading ? (
+            {isLoading ? (
                 <div className="mt-10 flex items-center justify-center">
                     <Spinner size={40} />
                 </div>
@@ -86,7 +70,7 @@ const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
 
 
                     <div className='grid grid-cols-4 gap-8 mt-10'>
-                        {wishlist.length > 0 && wishlist.map((product) => (
+                        {wishlist.length > 0 && wishlist.map((product: ProductType) => (
                             <div key={product._id}>
                                 <WishlistProduct
                                     product={product}

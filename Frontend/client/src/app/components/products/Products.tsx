@@ -14,12 +14,11 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useGetAllProductsQuery } from "@/store/apiSlice";
 
 
 const Products = () => {
 
-    const [products, setProducts] = useState<ProductType[]>([]);
-    const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [filter, setFilter] = useState('all');
 
@@ -31,6 +30,9 @@ const Products = () => {
     const searchParams = useSearchParams();
 
 
+    const { data: products = [], isLoading, error } = useGetAllProductsQuery();
+
+
     useEffect(() => {
 
         // Get the page number from the URL query parameters
@@ -39,23 +41,14 @@ const Products = () => {
             setCurrentPage(Number(pageFromURL));
         }
 
-        const fetchProducts = async () => {
-            try {
-                setLoading(true);
-                const allProducts = await getAllProducts();
-                setProducts(allProducts);
-                console.log(allProducts);
-
-            } catch (error) {
-                console.error('Error fetching products:', error);
-            } finally {
-                setLoading(false);
-            };
-        }
-
-        fetchProducts();
-
     }, [searchParams]);
+
+
+    // This useEffect will trigger whenever currentPage changes
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [currentPage]); // Dependency array with currentPage
+
 
 
     // Apply filtering and sorting based on selected option
@@ -93,11 +86,6 @@ const Products = () => {
         router.push(`?page=${page}`);
     };
 
-    // // This useEffect will trigger whenever currentPage changes
-    // useEffect(() => {
-    //     window.scrollTo({ top: 0, behavior: 'smooth' });
-    // }, [currentPage]); // Dependency array with currentPage
-
 
     const authContext = useContext(AuthContext);
 
@@ -108,7 +96,7 @@ const Products = () => {
     const { user } = authContext;
 
 
-    if (loading) return (
+    if (isLoading) return (
         <div className='flex items-center justify-center translate-y-[150%] xl:translate-y-[50%] 2xl:translate-y-[50%]'>
             <Spinner size={35} />
         </div>

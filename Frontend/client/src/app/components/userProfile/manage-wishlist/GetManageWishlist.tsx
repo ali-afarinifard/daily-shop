@@ -13,6 +13,7 @@ import Image from "next/image";
 import not_product from "../../../../../public/images/product/no-product.webp";
 import { IoMdClose } from "react-icons/io";
 import Spinner from "../../Spinner";
+import { useGetWishlistQuery, useRemoveFromWishlistMutation } from "@/store/apiSlice";
 
 
 interface GetManageWishlistProps {
@@ -22,7 +23,7 @@ interface GetManageWishlistProps {
 
 const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
 
-    const [wishlist, setWishlist] = useState<ProductType[]>([]);
+    // const [wishlist, setWishlist] = useState<ProductType[]>([]);
     const [isWhitelisted, setIsWhitelisted] = useState<boolean>(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [loading, setLoading] = useState<boolean>(false);
@@ -31,26 +32,18 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
     const itemsPerPage = 4;
 
 
-    useEffect(() => {
-        const fetchWishlist = async () => {
-            try {
-                if (!userId) {
-                    setLoading(false);
-                    return;
-                };
-                setLoading(true);
-                const data = await getWishlist(userId);
-                setWishlist(data);
-                console.log('My Manage Wishlists >> ', data);
-            } catch (error) {
-                console.error('error getting wishlist', error);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const { data: wishlist = [], isLoading, isError, error, refetch } = useGetWishlistQuery(userId || '', {
+        skip: !userId,
+    });
 
-        fetchWishlist();
-    }, [userId]);
+    const [removeFromWishlist] = useRemoveFromWishlistMutation();
+
+
+    useEffect(() => {
+        if (wishlist) {
+            refetch();
+        }
+    }, [wishlist]);
 
 
     // Calculate the products to display based on the current page
@@ -72,25 +65,19 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
                 console.warn("No userId available.");
                 return;
             }
-            await removeFromWishlist(userId, productId);
-            setWishlist((prevWishlist) =>
-                prevWishlist.filter((product) => product._id !== productId)
-            );
-            setIsWhitelisted(false);
+            // Call the mutation
+            await removeFromWishlist({ userId, productId }).unwrap();
+            // Refetch the wishlist to reflect changes
+            refetch();
+            // Optionally remove item from localStorage if needed
             localStorage.removeItem(`showWishlistMessage_${userId}_${productId}`);
         } catch (error) {
             console.error("Error while removing from wishlist", error);
         }
     };
 
-    // if (loading && (
-    //     <div className="mt-32 flex items-center justify-center">
-    //         <Spinner size={35} />
-    //     </div>
-    // ))
 
-
-    if (wishlist.length === 0 && !loading) {
+    if (wishlist.length === 0 && !isLoading) {
         return (
             <div className="flex flex-col items-center justify-center gap-10">
                 <div className="flex items-center justify-center">
@@ -111,7 +98,7 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
 
     return (
         <div className="h-full">
-            {loading ? (
+            {isLoading ? (
                 <div className="mt-32 flex items-center justify-center">
                     <Spinner size={40} />
                 </div>
@@ -119,7 +106,7 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
                 <div className="flex flex-col justify-between h-full">
 
                     <div className="flex flex-col gap-2 w-full">
-                        {paginatedWishlist.length > 0 && paginatedWishlist.map((product) => (
+                        {paginatedWishlist.length > 0 && paginatedWishlist.map((product:ProductType) => (
                             <div className="flex items-center gap-1" key={product._id}>
 
                                 <div className="cursor-pointer text-rose-600 transition-all duration-200 hover:p-[5px] hover:bg-slate-200 hover:rounded-full" onClick={() => handleRemoveFromWishlist(product._id)}>

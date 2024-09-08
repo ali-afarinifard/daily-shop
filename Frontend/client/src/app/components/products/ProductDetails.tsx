@@ -25,6 +25,7 @@ import CommentList from "../comments/CommentList";
 import CommentType from "@/types/comment";
 import { Rating } from "@mui/material";
 import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
+import { useAddToWishlistMutation, useGetCommentsQuery, useGetProductByIdQuery } from "@/store/apiSlice";
 
 
 
@@ -38,8 +39,6 @@ const ProductDetails: React.FC = () => {
     const { handleAddProductToCart, cartProducts } = useCart();
     const [isProductInCart, setIsProductInCart] = useState(false);
 
-    const [product, setProduct] = useState<ProductType | null>(null);
-    const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [selectedSize, setSelectedSize] = useState<string | null>(null);
     const [selectedColor, setSelectedColor] = useState<string | null>(null);
@@ -54,33 +53,14 @@ const ProductDetails: React.FC = () => {
 
     const router = useRouter();
 
-    useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                if (productId) {
-                    setLoading(true);
-                    const productData = await getProductById(productId);
-                    setProduct(productData);
-                    // if (productData?.images.length) {
-                    //     setSelectedImage(productData.images[0]);
-                    // };
+    const { data: product, error: productError, isLoading: isProductLoading } = useGetProductByIdQuery(productId as string);
 
+    const { data: comments = [], refetch: refetchComments } = useGetCommentsQuery(productId as string, {
+        skip: !productId, // Skip query if no productId
+    });
 
-                    // Fetch comments and calculate average rating
-                    const commentsData: CommentType[] = await getComments(productId);
-                    calculateAverageRating(commentsData);
-                }
-            } catch (error) {
-                console.error('Error fetching product:', error);
-                setError('Failed to load product details');
-                setLoading(false);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const [addToWishlist, { isLoading: isAddingToWishlist }] = useAddToWishlistMutation();
 
-        fetchProduct();
-    }, [productId, commentsUpdated]);
 
     useEffect(() => {
         if (cartProducts && product) {
@@ -104,18 +84,27 @@ const ProductDetails: React.FC = () => {
                 toast.error('ابتدا در سایت عضو شوید');
                 return;
             }
-            const updatedWishlist = await addToWishlist(user._id, productId);
+
+            const { data: updatedWishlist } = await addToWishlist({
+                userId: user._id,
+                productId,
+            }).unwrap();
+
+            // Update the local wishlist state after adding the item
             setWishlist(updatedWishlist);
+
+            // Show success message
             setShowWishlistMessage(true);
             localStorage.setItem(`showWishlistMessage_${user._id}_${productId}`, "true");
             toast.success('به علاقه مندی ها اضافه شد');
         } catch (error) {
-            console.error('Error while adding wishlist', error);
+            console.error('Error while adding to wishlist', error);
         }
     };
 
     const handleCommentsUpdate = useCallback(() => {
         setCommentsUpdated(prev => !prev);
+        refetchComments();
     }, []);
 
     const handleImageClick = (image: string) => {
@@ -165,21 +154,20 @@ const ProductDetails: React.FC = () => {
     };
 
 
-    const calculateAverageRating = (comments: CommentType[]) => {
-        if (comments.length === 0) {
+    useEffect(() => {
+        if (comments.length > 0) {
+            const totalRating = comments.reduce((sum, comment) => sum + (comment.rating || 0), 0);
+            const average = totalRating / comments.length;
+            setAverageRating(average);
+        } else {
             setAverageRating(null);
-            return;
         }
-
-        const totalRating = comments.reduce((sum, comment) => sum + (comment.rating || 0), 0);
-        const average = totalRating / comments.length;
-        setAverageRating(average);
-    };
+    }, [comments]);
 
 
     return (
         <div>
-            {loading ? (
+            {isProductLoading ? (
                 <div className="mt-32 flex items-center justify-center">
                     <Spinner size={40} />
                 </div>

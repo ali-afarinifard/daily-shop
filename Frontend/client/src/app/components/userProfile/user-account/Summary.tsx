@@ -2,12 +2,11 @@
 
 
 import { User } from "@/context/AuthContext";
-import { updateUser } from "@/libs/apiUrls";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Spinner from "../../Spinner";
-import { useRouter } from "next/navigation";
 import { validateEmail } from "@/utils/emailVal";
+import { useUpdateUserMutation } from "@/store/apiSlice";
 
 
 interface SummaryProps {
@@ -41,6 +40,10 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
         phoneNumber: '',
         postalCode: ''
     });
+
+
+    const [updateUser] = useUpdateUserMutation();
+
 
     useEffect(() => {
 
@@ -150,7 +153,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
         }
 
         try {
-            const data = await updateUser(formData);
+            const data = await updateUser(formData).unwrap();
             updateUserInContext(data.user);
             toast.success('پروفایل به روزرسانی شد');
         } catch (error: any) {

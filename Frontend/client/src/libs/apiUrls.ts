@@ -118,7 +118,6 @@ export const getAllCategories = async () => {
     try {
 
         const response = await api.get('/categories');
-        console.log(response.data);
         return response.data;
 
     } catch (error) {

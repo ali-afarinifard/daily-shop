@@ -5,6 +5,7 @@ import ProductType from "@/types/product";
 import { useEffect, useRef, useState } from "react";
 import SearchBarItem from "../nav/SearchBar/SearchBarItem";
 import { CiSearch } from "react-icons/ci";
+import { useSearchProductsQuery } from "@/store/apiSlice";
 
 
 interface CategoryListMobileProps {
@@ -15,40 +16,33 @@ interface CategoryListMobileProps {
 const CatSearchBar: React.FC<CategoryListMobileProps> = ({ toggleMenu }) => {
 
     const [query, setQuery] = useState<string>('');
-    const [results, setResults] = useState<ProductType[]>([]);
     const [noResults, setNoResults] = useState<boolean>(false);
+    const [showResults, setShowResults] = useState<boolean>(false);
     const searchBarRef = useRef<HTMLDivElement>(null);
 
 
+    const { data: results = [], isFetching, isError } = useSearchProductsQuery(query, {
+        skip: query.length < 2, // Skip query if the length is less than 2
+    });
+
+
     useEffect(() => {
-        const fetchResults = async () => {
-            if (query.length < 2) {
-                setResults([]);
-                setNoResults(false);
-                return;
-            }
-
-            try {
-                const data = await getProductsBySearch(query);
-
-                setResults(data);
-                setNoResults(data.length === 0); // Update noResults state
-            } catch (error) {
-                console.error('Error fetching search results:', error);
-                setNoResults(true);
-            }
+        if (!isFetching && results.length === 0 && query.length >= 2) {
+            setNoResults(true);
+            setShowResults(false);
+        } else {
+            setNoResults(false);
+            setShowResults(true);
         };
+    }, [results, isFetching, query]);
 
-        fetchResults();
-    }, [query]);
 
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (searchBarRef.current && !searchBarRef.current.contains(event.target as Node)) {
-                // setQuery('');
-                setResults([]);
                 setNoResults(false);
+                setShowResults(false);
             }
         };
 
@@ -63,7 +57,7 @@ const CatSearchBar: React.FC<CategoryListMobileProps> = ({ toggleMenu }) => {
     const handleClearProductClick = () => {
         // Clear the input and results
         setQuery('');
-        setResults([]);
+        setShowResults(false);
         setNoResults(false);
     };
 
@@ -85,7 +79,7 @@ const CatSearchBar: React.FC<CategoryListMobileProps> = ({ toggleMenu }) => {
                     هیچ محصولی یافت نشد
                 </div>
             )}
-            {results.length > 0 && (
+            {showResults && results.length > 0 && (
                 <ul className="absolute z-10 bg-white border border-gray-300 rounded-md mt-1 p-1 py-2 w-full max-h-[20rem] overflow-auto">
                     {results.map((product) => (
                         <>

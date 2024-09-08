@@ -15,26 +15,14 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import ProductBox from "./products/ProductBox";
 import { AuthContext } from "@/context/AuthContext";
 import NullData from "./NullData";
+import { useGetAllProductsQuery } from "@/store/apiSlice";
 
 
 const TopProducts = () => {
 
     const swiperRef = useRef<SwiperType>();
 
-    const [products, setProducts] = useState<ProductType[]>([]);
-
-    useEffect(() => {
-        const fetchProducts = async () => {
-            const allProducts = await getAllProducts();
-            if (allProducts) {
-                // Shuffle and select 10 random products
-                const shuffledProducts = allProducts.sort(() => 0.5 - Math.random());
-                setProducts(shuffledProducts.slice(0, 6));
-            }
-        };
-
-        fetchProducts();
-    }, []);
+    const {data: products = [], isLoading, error } = useGetAllProductsQuery();
 
 
     const authContext = useContext(AuthContext);
@@ -81,7 +69,7 @@ const TopProducts = () => {
                     }}
                     className="w-full mySwiper"
                 >
-                    {products.map((product) => (
+                    {products.slice(0, 6).map((product) => (
                         <SwiperSlide key={product._id} dir="rtl">
                             <ProductBox product={product} user={user} />
                         </SwiperSlide>

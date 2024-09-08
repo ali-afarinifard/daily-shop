@@ -5,6 +5,9 @@ import Footer from "./components/footer/Footer";
 import CartProvider from "@/providers/CartProvider";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "@/context/AuthContext";
+import { Provider } from "react-redux";
+import { store } from "@/store/store";
+import ClientProviders from "@/providers/ClientProviders";
 
 
 export const metadata: Metadata = {
@@ -28,17 +31,13 @@ export default function RootLayout({
             color: '#fff',
           },
         }} />
-        <AuthProvider>
-          <CartProvider>
-            <div className="flex flex-col min-h-screen">
-              <Navbar />
-              <main className="flex-grow mt-[4.5rem]">
-                {children}
-              </main>
-              <Footer />
-            </div>
-          </CartProvider>
-        </AuthProvider>
+        <ClientProviders>
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <main className="flex-grow mt-[4.5rem]">{children}</main>
+            <Footer />
+          </div>
+        </ClientProviders>
       </body>
     </html>
   );

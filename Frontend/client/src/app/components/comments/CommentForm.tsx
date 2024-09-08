@@ -1,11 +1,11 @@
 'use client'
 
 import { AuthContext } from "@/context/AuthContext";
-import { createComment } from "@/libs/apiUrls";
 import { useContext, useState } from "react"
 import toast from "react-hot-toast";
 import Heading from "../Heading";
 import { Rating } from "@mui/material";
+import { useCreateCommentMutation } from "@/store/apiSlice";
 
 
 
@@ -29,6 +29,9 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
     const { user, isAuthenticated } = authContext;
 
 
+    const [createComment] = useCreateCommentMutation();
+
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -45,7 +48,13 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
 
         try {
 
-            await createComment(user?._id, productId, content, rating);
+            await createComment({
+                userId: user?._id,
+                productId,
+                content,
+                rating,
+            }).unwrap();
+            
             setContent('');
             setRating(null);
             onCommentAdded();

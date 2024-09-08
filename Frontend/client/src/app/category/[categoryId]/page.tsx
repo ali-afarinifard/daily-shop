@@ -1,14 +1,10 @@
 'use client';
 
 import Container from '@/app/components/Container';
-import Heading from '@/app/components/Heading';
 import NullData from '@/app/components/NullData';
 import ProductBox from '@/app/components/products/ProductBox';
 import Spinner from '@/app/components/Spinner';
 import { AuthContext } from '@/context/AuthContext';
-import { getCategoryById, getProductsByCategory } from '@/libs/apiUrls';
-import CategoryType from '@/types/category';
-import ProductType from '@/types/product';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 
@@ -17,31 +13,34 @@ import Stack from '@mui/material/Stack';
 
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
+import { useGetCategoryByIdQuery, useGetProductsByCategoryQuery } from '@/store/apiSlice';
 
 
 const CategoryPage = () => {
     const pathname = usePathname();
 
-    console.log(pathname)
+    const categoryId = pathname.split('/').pop() || '';
 
-    const categoryId = pathname.split('/').pop();
-
-    const [products, setProducts] = useState<ProductType[]>([]);
-    const [category, setCategory] = useState<CategoryType | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [filter, setFilter] = useState('all');
 
     // Number of products per page
     const itemsPerPage = 16;
 
-    console.log("Category ID:", categoryId);
-
     // React Router hooks for navigation and search params
     const router = useRouter();
     const searchParams = useSearchParams();
+
+
+    const { data: products = [], isLoading: productsLoading, error: productsError } = useGetProductsByCategoryQuery(categoryId || '');
+    
+    useEffect(() => {
+        console.log("Products: ", products); // Check what is logged here
+    }, [products]);
+
+    const {data: category } = useGetCategoryByIdQuery(categoryId || '');
+
 
     useEffect(() => {
 
@@ -51,26 +50,6 @@ const CategoryPage = () => {
             setCurrentPage(Number(pageFromURL));
         }
 
-        const fetchProducts = async () => {
-            try {
-                if (categoryId) {
-                    // Fetch products for this category
-                    const products = await getProductsByCategory(categoryId);
-                    setProducts(products);
-                    console.log(products);
-
-                    const categories = await getCategoryById(categoryId);
-                    setCategory(categories);
-                }
-            } catch (err) {
-                console.error('Error fetching products:', err);
-                setError('Failed to load products');
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchProducts();
     }, [categoryId, searchParams]);
 
 
@@ -109,10 +88,10 @@ const CategoryPage = () => {
         router.push(`?page=${page}`);
     };
 
-    // // This useEffect will trigger whenever currentPage changes
-    // useEffect(() => {
-    //     window.scrollTo({ top: 0, behavior: 'smooth' });
-    // }, [currentPage]); // Dependency array with currentPage
+    // This useEffect will trigger whenever currentPage changes
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [currentPage]); // Dependency array with currentPage
 
 
     const authContext = useContext(AuthContext);
@@ -125,7 +104,7 @@ const CategoryPage = () => {
 
 
 
-    if (loading) return (
+    if (productsLoading) return (
         <div className='flex items-center justify-center translate-y-[350%]'>
             <Spinner size={35} />
         </div>
