@@ -1,9 +1,14 @@
+// ** RTK-Q
+import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
 
+// ** Context
+import { User } from '@/context/AuthContext';
 
+// ** Types
 import CategoryType from '@/types/category';
 import CommentType from '@/types/comment';
 import ProductType from '@/types/product';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import axios from 'axios';
 
 
 
@@ -21,12 +26,117 @@ interface UpdateUserParams {
 
 
 
+const baseQuery = fetchBaseQuery({
+    baseUrl: 'http://localhost:5000/api',
+    prepareHeaders: (headers) => {
+        const token = localStorage.getItem('accessToken');
+        if (token) {
+            headers.set('Authorization', `Bearer ${token}`);
+        }
+        return headers;
+    },
+});
+
+
+
+// Custom baseQuery with token refresh logic
+const baseQueryWithReauth: BaseQueryFn<
+    string | FetchArgs, // Type of args
+    unknown, // Type of result
+    FetchBaseQueryError, // Type of error
+    Record<string, any> // Type for extraOptions
+> = async (args, api, extraOptions) => {
+    let result = await baseQuery(args, api, extraOptions);
+
+    // If the response was a 401, try refreshing the token
+    if (result.error && result.error.status === 401) {
+        const refreshToken = localStorage.getItem('refreshToken');
+
+        if (refreshToken) {
+            try {
+                // Make the refresh token API call
+                const response = await axios.post('http://localhost:5000/api/auth/user/token', { token: refreshToken });
+
+                // Update the tokens in localStorage
+                const { accessToken, refreshToken: newRefreshToken } = response.data;
+                localStorage.setItem('accessToken', accessToken);
+                localStorage.setItem('refreshToken', newRefreshToken);
+
+                // Retry the original query with the new token
+                result = await baseQuery(args, api, extraOptions);
+            } catch (refreshError) {
+                // If refresh fails, log the user out
+                console.error('Token refresh failed', refreshError);
+                localStorage.removeItem('accessToken');
+                localStorage.removeItem('refreshToken');
+                api.dispatch({ type: 'auth/logout' });
+            }
+        } else {
+            // If no refresh token exists, log the user out
+            console.log('No refresh token, logging out.');
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+            api.dispatch({ type: 'auth/logout' });
+        }
+    }
+
+    return result;
+};
+
+
+
+
 export const apiSlice = createApi({
     reducerPath: 'api',
-    baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:5000/api',
-    }),
+    baseQuery: baseQueryWithReauth,
     endpoints: (builder) => ({
+        // ** Authentication Start...
+        // Register
+        register: builder.mutation<{ accessToken: string; refreshToken: string }, { username: string; email: string; password: string }>({
+            query: ({ username, email, password }) => ({
+                url: '/auth/user/register',
+                method: 'POST',
+                body: { username, email, password },
+            }),
+        }),
+
+        // Login
+        login: builder.mutation<{ accessToken: string; refreshToken: string }, { email: string, password: string }>({
+            query: (credentials) => ({
+                url: '/auth/user/login',
+                method: 'POST',
+                body: credentials,
+            }),
+        }),
+
+        // Logout
+        logout: builder.mutation<void, { token: string }>({
+            query: ({ token }) => ({
+                url: '/auth/user/logout',
+                method: 'POST',
+                body: { token },
+            }),
+        }),
+
+        // GET User
+        fetchUser: builder.query<User, string>({
+            query: (token) => ({
+                url: '/auth/user',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }),
+        }),
+
+        // Reset Account
+        resetAccount: builder.mutation<void, { email: string; newPassword: string }>({
+            query: ({ email, newPassword }) => ({
+                url: '/auth/user/reset-password',
+                method: 'POST',
+                body: { email, newPassword },
+            }),
+        }),
+
         // PUT Update Profile
         updateUser: builder.mutation<any, UpdateUserParams>({
             query: (userData) => ({
@@ -35,6 +145,7 @@ export const apiSlice = createApi({
                 body: userData,
             }),
         }),
+        // ** Authentication End...
 
         //  GET Products Endpoint
         getAllProducts: builder.query<ProductType[], void>({
@@ -107,6 +218,11 @@ export const apiSlice = createApi({
 
 
 export const {
+    useRegisterMutation,
+    useLoginMutation,
+    useLogoutMutation,
+    useFetchUserQuery,
+    useResetAccountMutation,
     useUpdateUserMutation,
     useGetAllProductsQuery,
     useGetProductByIdQuery,

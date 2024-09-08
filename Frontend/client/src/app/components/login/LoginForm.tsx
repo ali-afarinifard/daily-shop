@@ -2,14 +2,13 @@
 
 import { useContext, useEffect, useState } from 'react';
 import Heading from '../Heading';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { AuthContext } from '@/context/AuthContext';
-import { login } from '@/libs/apiUrls';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
-import { IoChevronBackOutline } from 'react-icons/io5';
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FiEye } from "react-icons/fi";
+import { useLoginMutation } from '@/store/apiSlice';
 
 
 export default function LoginPage() {
@@ -30,6 +29,8 @@ export default function LoginPage() {
     }
 
     const { login: authLogin, isAuthenticated } = authContext;
+
+    const [login] = useLoginMutation();
 
     const router = useRouter();
 
@@ -76,11 +77,11 @@ export default function LoginPage() {
 
         try {
 
-            const response = await login(email, password);
+            const response = await login({ email, password }).unwrap();
 
-            localStorage.setItem('accessToken', response.data.accessToken);
-            localStorage.setItem('refreshToken', response.data.refreshToken);
-            authLogin(response.data.accessToken, response.data.refreshToken);
+            localStorage.setItem('accessToken', response.accessToken);
+            localStorage.setItem('refreshToken', response.refreshToken);
+            authLogin(response.accessToken, response.refreshToken);
             toast.success('وارد شدید');
             router.push('/');
             window.location.reload();

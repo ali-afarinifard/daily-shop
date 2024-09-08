@@ -1,7 +1,6 @@
 "use client"
 
-import { getProductsBySearch } from "@/libs/apiUrls";
-import ProductType from "@/types/product";
+
 import { useEffect, useRef, useState } from "react";
 import SearchBarItem from "../nav/SearchBar/SearchBarItem";
 import { CiSearch } from "react-icons/ci";

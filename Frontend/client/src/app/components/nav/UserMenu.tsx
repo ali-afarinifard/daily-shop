@@ -21,6 +21,7 @@ const UserMenu = () => {
 
     const { user, logout } = authContext;
 
+
     const toggleOpen = useCallback(() => {
         setIsOpen(prev => !prev);
     }, []);

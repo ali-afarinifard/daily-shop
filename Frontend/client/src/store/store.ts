@@ -1,6 +1,9 @@
+// *** RTK-Q Setup...
 
-
+// ** RTK-Q
 import {configureStore } from '@reduxjs/toolkit';
+
+// ** apiSlice
 import { apiSlice } from './apiSlice';
 
 

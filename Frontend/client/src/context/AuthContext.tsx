@@ -1,6 +1,7 @@
 'use client'
 
 import api from "@/libs/api";
+import { useFetchUserQuery } from "@/store/apiSlice";
 import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
 
@@ -46,38 +47,27 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const router = useRouter();
 
 
+    const accessToken = localStorage.getItem('accessToken');
+    const { data: fetchedUser, error } = useFetchUserQuery(accessToken || '', {
+        skip: !accessToken, // Only fetch if the token exists
+    });
+
+
     useEffect(() => {
-        const token = localStorage.getItem('accessToken');
-        const refreshToken = localStorage.getItem('refreshToken');
-
-        if (token && refreshToken) {
+        if (fetchedUser) {
+            setUser(fetchedUser);
             setIsAuthenticated(true);
-            fetchUser(token);
         }
-    }, []);
-
-
-    const fetchUser = async (token: string) => {
-        try {
-            const res = await api.get('/auth/user', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            setUser(res.data);
-            setIsAuthenticated(true);
-        } catch (error) {
-            console.error('Error fetching user:', error);
+        if (error) {
             setIsAuthenticated(false);
         }
-    };
+    }, [fetchedUser, error]);
 
 
     const register = (accessToken: string, refreshToken: string) => {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
         setIsAuthenticated(true);
-        fetchUser(accessToken);
     };
 
 
@@ -85,7 +75,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
         setIsAuthenticated(true);
-        fetchUser(accessToken);
     };
 
     const logout = () => {

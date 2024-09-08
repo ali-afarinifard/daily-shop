@@ -29,7 +29,7 @@ const ManageWishlistItem: React.FC<ManageWishlistItemProps> = ({ product }) => {
                     </div>
 
                     <div className="flex flex-col items-start gap-2">
-                        <span className="text-slate-400">{product.title}</span>
+                        <span className="text-slate-400 text-[0.9rem]">{product.title}</span>
                         <div className="text-slate-500 flex items-end gap-1">
                             {product.offer ? (
                                 <div className="flex flex-col gap-1">

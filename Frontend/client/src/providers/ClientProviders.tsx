@@ -7,13 +7,13 @@ import CartProvider from "@/providers/CartProvider";
 
 const ClientProviders = ({ children }: { children: React.ReactNode }) => {
   return (
-    <AuthProvider>
-      <CartProvider>
-        <Provider store={store}>
+    <Provider store={store}>
+      <AuthProvider>
+        <CartProvider>
           {children}
-        </Provider>
-      </CartProvider>
-    </AuthProvider>
+        </CartProvider>
+      </AuthProvider>
+    </Provider>
   );
 };
 

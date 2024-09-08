@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 import { AuthContext } from '@/context/AuthContext';
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FiEye } from "react-icons/fi";
+import { useRegisterMutation } from '@/store/apiSlice';
 
 
 export default function RegisterPage() {
@@ -31,6 +32,9 @@ export default function RegisterPage() {
     }
 
     const { register: authRegister, isAuthenticated } = authContext;
+
+
+    const [registerUser] = useRegisterMutation();
 
 
     const router = useRouter();
@@ -78,10 +82,10 @@ export default function RegisterPage() {
 
         try {
 
-            const response = await register(username, email, password);
-            localStorage.setItem('accessToken', response.data.accessToken);
-            localStorage.setItem('refreshToken', response.data.refreshToken);
-            authRegister(response.data.accessToken, response.data.refreshToken);
+            const result = await registerUser({ username, email, password }).unwrap();
+            localStorage.setItem('accessToken', result.accessToken);
+            localStorage.setItem('refreshToken', result.refreshToken);
+            authRegister(result.accessToken, result.refreshToken);
             toast.success('وارد شدید');
             window.location.reload();
             router.push('/');

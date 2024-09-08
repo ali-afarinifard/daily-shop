@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FiEye } from "react-icons/fi";
+import { useResetAccountMutation } from "@/store/apiSlice";
 
 
 
@@ -23,6 +24,8 @@ const ResetAccountForm = () => {
         newPassword: '',
         confirmPassword: '',
     });
+
+    const [resetAccountPassword] = useResetAccountMutation();
 
     const router = useRouter();
 
@@ -62,7 +65,7 @@ const ResetAccountForm = () => {
         };
 
         try {
-            await resetAccount(email, newPassword);
+            await resetAccountPassword({ email, newPassword }).unwrap();
             toast.success('رمز عبور با موفقیت تغییر کرد');
             router.push('/login');
         } catch (error) {
