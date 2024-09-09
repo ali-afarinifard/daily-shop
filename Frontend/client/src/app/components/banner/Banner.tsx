@@ -1,21 +1,23 @@
 'use client'
 
+
+// ** React
 import { useRef } from "react"
 
 // ** Swiper
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Swiper as SwiperType } from 'swiper';
-import { Autoplay, Pagination } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
 import 'swiper/css'
 import 'swiper/css/pagination'
-
-// ** Images Data
 
 // ** Next
 import Image from "next/image"
 
 // ** Icons
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+
+// ** mockData
 import data from "@/utils/banner";
 
 
@@ -53,6 +55,7 @@ const Banner = () => {
                 ))}
             </Swiper>
 
+            {/* Buttons... */}
             {/* <div
                 className="flex items-center justify-center gap-5 absolute right-10 bottom-[2rem] z-20 ___swiper-buttons"
             >

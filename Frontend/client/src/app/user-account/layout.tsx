@@ -1,7 +1,13 @@
 'use client'
 
-import { AuthContext } from "@/context/AuthContext";
+
+// ** React
 import { useContext } from "react";
+
+// ** Auth Context
+import { AuthContext } from "@/context/AuthContext";
+
+// ** Components
 import Container from "../components/Container";
 import UserProfileNav from "../components/userProfile/user-account/UserProfileNav";
 import UserProfileNavMobile from "../components/userProfile/user-account/UserProfileNavMobile";
@@ -13,14 +19,14 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
 
     if (!authContext) {
         throw new Error("AuthContext must be used within an AuthProvider");
-    }
+    };
 
     const { user, logout } = authContext;
 
 
     if (!user) {
         return;
-    }
+    };
 
     return (
         <Container>

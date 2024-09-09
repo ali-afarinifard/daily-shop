@@ -1,10 +1,16 @@
 "use client"
 
-
+// ** React
 import { useEffect, useRef, useState } from "react";
-import SearchBarItem from "../nav/SearchBar/SearchBarItem";
-import { CiSearch } from "react-icons/ci";
+
+// ** apiSlice - RTK-Q
 import { useSearchProductsQuery } from "@/store/apiSlice";
+
+// ** Icons
+import { CiSearch } from "react-icons/ci";
+
+// ** Components
+import SearchBarItem from "../nav/SearchBar/SearchBarItem";
 
 
 interface CategoryListMobileProps {

@@ -1,16 +1,31 @@
-'use client';  // Add this directive at the top
+'use client';
 
-import { useCart } from "@/hooks/useCart";
+
+// ** Next
 import Image from "next/image";
 import Link from "next/link";
+import { useContext } from "react";
+
+// ** Hooks
+import { useCart } from "@/hooks/useCart";
+
+// ** Auth Context
+import { AuthContext } from "@/context/AuthContext";
+
+// ** Utils
+import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
+
+// ** Icons
 import { MdArrowBack } from "react-icons/md";
-import emptyCart from "../../../../public/images/cart/empty-cart.webp";
+
+// ** Components
 import Heading from "../Heading";
 import CartItem from "./CartItem";
 import Button from "../Button";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "@/context/AuthContext";
-import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
+
+// ** Public
+import emptyCart from "../../../../public/images/cart/empty-cart.webp";
+
 
 const CartClient = () => {
 
@@ -20,7 +35,7 @@ const CartClient = () => {
 
     if (!authContext) {
         throw new Error("AuthContext must be used within an AuthProvider");
-    }
+    };
 
     const { user } = authContext;
 
@@ -39,6 +54,7 @@ const CartClient = () => {
             </div >
         )
     };
+    
 
     return (
         <div>

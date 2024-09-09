@@ -4,15 +4,19 @@
 // ** Next Import
 import Link from "next/link"
 
+// ** apiSlice - RTK-Q
+import { useGetAllCategoriesQuery } from "@/store/apiSlice";
+
+// ** Icons
+import { AiFillTwitterCircle, AiFillInstagram, AiFillYoutube } from 'react-icons/ai';
+import { MdFacebook } from 'react-icons/md';
+
+// ** Types
+import CategoryType from "@/types/category";
+
 // ** Components
 import Container from "../Container"
-
-// ** React Icons
-import { MdFacebook } from 'react-icons/md';
-import { AiFillTwitterCircle, AiFillInstagram, AiFillYoutube } from 'react-icons/ai';
 import FooterList from "./FooterList";
-import { useGetAllCategoriesQuery } from "@/store/apiSlice";
-import CategoryType from "@/types/category";
 
 
 const Footer = () => {

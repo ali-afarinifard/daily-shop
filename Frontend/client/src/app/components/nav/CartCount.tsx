@@ -1,7 +1,12 @@
 'use client'
 
-import { useCart } from "@/hooks/useCart"
+// ** Next
 import { useRouter } from "next/navigation"
+
+// ** Hooks
+import { useCart } from "@/hooks/useCart"
+
+// ** Icons
 import { CiShoppingCart } from 'react-icons/ci'
 
 

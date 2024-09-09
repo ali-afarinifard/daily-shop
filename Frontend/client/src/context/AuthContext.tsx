@@ -1,9 +1,12 @@
 'use client'
 
-import api from "@/libs/api";
-import { useFetchUserQuery } from "@/store/apiSlice";
+
+// ** Next
 import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
+
+// ** Store - RTK-Q
+import { useFetchUserQuery } from "@/store/apiSlice";
 
 
 export interface User {

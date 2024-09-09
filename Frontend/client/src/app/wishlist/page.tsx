@@ -1,12 +1,17 @@
 'use client'
 
+
+// ** React
 import { useContext } from "react";
-import Container from "../components/Container"
-import Wishlist from "../components/wishlists/Wishlist"
+
+// ** Auth Context
 import { AuthContext } from "@/context/AuthContext";
 
-const WishlistPage = () => {
+// ** Components
+import Container from "../components/Container"
+import Wishlist from "../components/wishlists/Wishlist"
 
+const WishlistPage = () => {
 
     const authContext = useContext(AuthContext);
 
@@ -14,7 +19,7 @@ const WishlistPage = () => {
         throw new Error("AuthContext must be used within an AuthProvider");
     }
 
-    const { user, logout } = authContext;
+    const { user } = authContext;
 
 
     if (!user) {

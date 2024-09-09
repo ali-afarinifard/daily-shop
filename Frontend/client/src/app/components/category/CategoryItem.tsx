@@ -1,12 +1,10 @@
 
-
 interface CategoryItemProps {
     selected?: boolean;
     label: string;
     centerParent?: string;
     centerChild?: string;
 }
-
 
 const CategoryItem: React.FC<CategoryItemProps> = ({ selected, label, centerParent, centerChild }) => {
     return (

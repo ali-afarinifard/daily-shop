@@ -1,12 +1,19 @@
 'use client'
 
+// ** Next
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
+
+// ** apiSlice - RTK-Q
+import { useGetAllCategoriesQuery } from "@/store/apiSlice"
+
+// ** Types
+import CategoryType from "@/types/category"
+
+// ** Components
 import Container from "../Container"
 import CategoryItem from "./CategoryItem"
-import { usePathname } from "next/navigation"
-import { useGetAllCategoriesQuery } from "@/store/apiSlice"
-import CategoryType from "@/types/category"
 
 
 const CategoryList = () => {

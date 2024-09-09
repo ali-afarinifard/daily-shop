@@ -1,10 +1,20 @@
 'use client';
 
+
+// ** React
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
+
+// ** Auth Context
+import { AuthContext } from "@/context/AuthContext";
+
+// ** Types
 import CartContextType from "@/types/cart";
 import ProductType from "@/types/product";
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+
+// ** Toast
 import toast from "react-hot-toast";
-import { AuthContext } from "@/context/AuthContext"; // Import the AuthContext
+
+
 
 export const CartContext = createContext<CartContextType | null>(null);
 
@@ -13,15 +23,16 @@ interface Props {
 }
 
 export const CartContextProvider = (props: Props) => {
-    const authContext = useContext(AuthContext); // Get the AuthContext
+    const authContext = useContext(AuthContext);
     const user = authContext?.user; // Safely access the user property
 
-    // const [loading, setLoading] = useState(true);
     const [cartTotalQty, setCartTotalQty] = useState(0);
     const [cartTotalAmount, setCartTotalAmount] = useState(0);
     const [cartProducts, setCartProducts] = useState<ProductType[] | null>([]);
+    
+    // Use user ID to create a unique key
+    const localStorageKey = `eShopCartItems_${user?._id}`;
 
-    const localStorageKey = `eShopCartItems_${user?._id}`; // Use user ID to create a unique key
 
     useEffect(() => {
 
@@ -53,10 +64,10 @@ export const CartContextProvider = (props: Props) => {
             setCartTotalAmount(0);
         }
 
-        // setLoading(false);
     }, [user?._id]);
 
     const updateCartInLocalStorage = (updatedCart: ProductType[]) => {
+
         localStorage.setItem(localStorageKey, JSON.stringify(updatedCart));
 
         // Update totals
@@ -75,7 +86,9 @@ export const CartContextProvider = (props: Props) => {
 
         setCartTotalQty(qty);
         setCartTotalAmount(total);
+
     };
+    
 
     const handleAddProductToCart = useCallback(
         (newProduct: ProductType) => {
@@ -96,7 +109,7 @@ export const CartContextProvider = (props: Props) => {
 
                 return updatedCart;
             });
-            toast.success('این کالا به سبد خرید اضافه شد!');
+            toast.success('کالا به سبد خرید اضافه شد');
         },
         [user?._id]
     );
@@ -135,6 +148,7 @@ export const CartContextProvider = (props: Props) => {
         [user?._id, cartProducts]
     );
 
+
     const handleCartQtyDecrease = useCallback(
         (product: ProductType) => {
             if (!user?._id || !cartProducts) return;
@@ -156,6 +170,7 @@ export const CartContextProvider = (props: Props) => {
         [user?._id, cartProducts]
     );
 
+
     const handleClearCart = useCallback(() => {
         if (!user?._id) {
             setCartProducts([]);
@@ -169,6 +184,7 @@ export const CartContextProvider = (props: Props) => {
         setCartTotalAmount(0);
         localStorage.removeItem(localStorageKey);
     }, [user?._id]);
+    
 
     const value = {
         cartTotalQty,
@@ -179,7 +195,6 @@ export const CartContextProvider = (props: Props) => {
         handleCartQtyIncrease,
         handleCartQtyDecrease,
         handleClearCart,
-        // loading,
     };
 
     return <CartContext.Provider value={value} {...props} />;

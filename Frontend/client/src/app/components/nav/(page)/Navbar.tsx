@@ -1,17 +1,21 @@
 'use client'
 
-// ** Components
+// ** Next
 import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
+
+// ** Icons
+import { RiMenu3Fill } from "react-icons/ri";
+import { IoMdClose } from "react-icons/io";
+
+// ** Components
 import SearchBar from "../SearchBar/SearchBar";
 import CartCount from "../CartCount";
 import UserMenu from "../UserMenu";
 import Container from "../../Container";
 import CategoryList from "../../category/CategoryList";
-import { useCallback, useEffect, useState } from "react";
-import { RiMenu3Fill } from "react-icons/ri";
 import CategoryListMobile from "../../category/CategoryListMobile";
 import BackDrop from "../BackDrop";
-import { IoMdClose } from "react-icons/io";
 
 
 

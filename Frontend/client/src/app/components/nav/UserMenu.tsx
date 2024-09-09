@@ -1,12 +1,19 @@
 'use client'
 
+// ** Next
 import Link from "next/link";
 import { useCallback, useContext, useState } from "react";
-import BackDrop from "./BackDrop";
+
+// ** Auth Context
+import { AuthContext } from "@/context/AuthContext";
+
+// ** Icons
 import { AiFillCaretDown } from "react-icons/ai";
+
+// ** Components
+import BackDrop from "./BackDrop";
 import MenuItem from "./MenuItem";
 import Avatar from "../Avatar";
-import { AuthContext } from "@/context/AuthContext";
 
 
 const UserMenu = () => {

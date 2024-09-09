@@ -1,10 +1,9 @@
+// ** React
 import { ReactNode } from "react"
-
 
 interface FooterListProps {
     children: ReactNode;
 }
-
 
 const FooterList: React.FC<FooterListProps> = ({ children }) => {
     return (

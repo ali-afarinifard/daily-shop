@@ -8,6 +8,8 @@ import { User } from '@/context/AuthContext';
 import CategoryType from '@/types/category';
 import CommentType from '@/types/comment';
 import ProductType from '@/types/product';
+
+// ** Axios
 import axios from 'axios';
 
 

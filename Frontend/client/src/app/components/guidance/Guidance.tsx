@@ -1,9 +1,16 @@
 'use client'
 
-import { Accordion, AccordionItem, AccordionItemButton, AccordionItemHeading, AccordionItemPanel, AccordionItemState } from "react-accessible-accordion"
-import Heading from "../Heading"
-import data from "@/utils/accordion"
+// ** React
 import { useState } from "react"
+
+// ** Accordion Tools
+import { Accordion, AccordionItem, AccordionItemButton, AccordionItemHeading, AccordionItemPanel, AccordionItemState } from "react-accessible-accordion"
+
+// ** Utils
+import data from "@/utils/accordion"
+
+// ** Components
+import Heading from "../Heading"
 
 const Guidance = () => {
 

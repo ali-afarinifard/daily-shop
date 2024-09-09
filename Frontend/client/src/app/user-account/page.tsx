@@ -1,8 +1,13 @@
 'use client'
 
 
-import { AuthContext } from '@/context/AuthContext';
+// ** React
 import React, { useContext } from 'react'
+
+// ** Auth Context
+import { AuthContext } from '@/context/AuthContext';
+
+// ** Components
 import Summary from '../components/userProfile/user-account/Summary';
 
 

@@ -1,10 +1,20 @@
 'use client'
 
-import { useEffect, useState } from "react";
+
+// ** React
+import { useEffect } from "react";
+
+// ** apiSlice - RTK-Q
+import { useGetCommentsQuery } from "@/store/apiSlice";
+
+// ** MUI
+import { Rating } from "@mui/material";
+
+// ** Date FNS
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { faIR } from 'date-fns/locale';
-import { Rating } from "@mui/material";
-import { useGetCommentsQuery } from "@/store/apiSlice";
+
+// ** Components
 import Spinner from "../Spinner";
 
 
@@ -12,7 +22,6 @@ interface CommentListProps {
     productId: string | undefined;
     commentsUpdated: boolean;
 }
-
 
 
 const CommentList: React.FC<CommentListProps> = ({ productId, commentsUpdated }) => {

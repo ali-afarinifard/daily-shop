@@ -1,3 +1,4 @@
+// ** Components
 import Container from "../components/Container"
 import TopSalesProducts from "../components/products/TopSalesProducts"
 

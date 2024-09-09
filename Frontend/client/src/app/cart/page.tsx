@@ -1,3 +1,4 @@
+// ** Components
 import CartClient from "../components/cart/CartClient"
 import Container from "../components/Container"
 

@@ -1,13 +1,22 @@
 'use client'
 
-import CatSearchBar from "./CatSearchBar";
+// ** Next
 import Link from "next/link";
-import CategoryItem from "./CategoryItem";
+
+// ** apiSlice - RTK-Q
+import { useGetAllCategoriesQuery } from "@/store/apiSlice";
+
+// ** Types
 import CategoryType from "@/types/category";
+
+// ** Icons
 import { FaInstagram } from "react-icons/fa";
 import { SiTelegram } from "react-icons/si";
 import { IoLogoWhatsapp } from "react-icons/io5";
-import { useGetAllCategoriesQuery } from "@/store/apiSlice";
+
+// ** Components
+import CatSearchBar from "./CatSearchBar";
+import CategoryItem from "./CategoryItem";
 
 
 interface CategoryListMobileProps {

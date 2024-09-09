@@ -69,7 +69,7 @@ const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
                     </div>
 
 
-                    <div className='grid grid-cols-4 gap-8 mt-10'>
+                    <div className='grid grid-cols-4 gap-8 my-8 xl:grid-cols-3 xl:gap-4 s:grid-cols-2 s:gap-2 xm:grid-cols-1'>
                         {wishlist.length > 0 && wishlist.map((product: ProductType) => (
                             <div key={product._id}>
                                 <WishlistProduct

@@ -1,12 +1,22 @@
 'use client'
 
-import { AuthContext } from "@/context/AuthContext";
+// ** React
 import { useContext, useState } from "react"
-import toast from "react-hot-toast";
-import Heading from "../Heading";
-import { Rating } from "@mui/material";
+
+// ** Auth Context
+import { AuthContext } from "@/context/AuthContext";
+
+// ** apiSlice - RTK-Q
 import { useCreateCommentMutation } from "@/store/apiSlice";
 
+// ** MUI
+import { Rating } from "@mui/material";
+
+// ** Toast
+import toast from "react-hot-toast";
+
+// ** Components
+import Heading from "../Heading";
 
 
 interface CommentFormProps {
@@ -29,6 +39,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
     const { user, isAuthenticated } = authContext;
 
 
+    // POST Comment
     const [createComment] = useCreateCommentMutation();
 
 
@@ -41,7 +52,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
             return;
         };
 
-        if (rating === null) { // Ensure rating is selected
+        if (rating === null) {
             toast.error('لطفا امتیاز دهید');
             return;
         };
@@ -59,12 +70,11 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
             setRating(null);
             onCommentAdded();
             toast.success('دیدگاه با موفقیت ثبت شد');
-            // window.location.reload();
 
         } catch (error) {
             console.error('Error submitting comment:', error);
         }
-    }
+    };
 
 
     return (

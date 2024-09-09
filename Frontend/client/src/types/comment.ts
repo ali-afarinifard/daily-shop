@@ -1,6 +1,8 @@
+// ** Auth Context
 import { User } from "@/context/AuthContext";
-import ProductType from "./product";
 
+// ** Types
+import ProductType from "./product";
 
 type CommentType = {
     _id: string;

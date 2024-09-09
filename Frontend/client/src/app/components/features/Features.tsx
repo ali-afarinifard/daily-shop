@@ -1,6 +1,8 @@
 'use client'
 
+// ** Components
 import Heading from "../Heading"
+
 
 const Features = () => {
 

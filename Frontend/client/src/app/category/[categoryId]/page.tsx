@@ -1,45 +1,61 @@
 'use client';
 
+
+// ** Next
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useContext, useEffect, useState } from 'react';
+
+// ** apiSlice - RTK-Q
+import { useGetCategoryByIdQuery, useGetProductsByCategoryQuery } from '@/store/apiSlice';
+
+// ** Auth Context
+import { AuthContext } from '@/context/AuthContext';
+
+// ** MUI
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+
+// ** Components
 import Container from '@/app/components/Container';
 import NullData from '@/app/components/NullData';
 import ProductBox from '@/app/components/products/ProductBox';
 import Spinner from '@/app/components/Spinner';
-import { AuthContext } from '@/context/AuthContext';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useContext, useEffect, useState } from 'react';
 
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
-
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import { useGetCategoryByIdQuery, useGetProductsByCategoryQuery } from '@/store/apiSlice';
 
 
 const CategoryPage = () => {
+
+
     const pathname = usePathname();
 
     const categoryId = pathname.split('/').pop() || '';
 
+    const searchParams = useSearchParams();
+
+    const router = useRouter();
+
     const [currentPage, setCurrentPage] = useState(1);
     const [filter, setFilter] = useState('all');
+
+    const authContext = useContext(AuthContext);
+    if (!authContext) {
+        throw new Error("AuthContext must be used within an AuthProvider");
+    }
+    const { user } = authContext;
 
     // Number of products per page
     const itemsPerPage = 16;
 
-    // React Router hooks for navigation and search params
-    const router = useRouter();
-    const searchParams = useSearchParams();
+
+    // GET Products by Category
+    const { data: products = [], isLoading: productsLoading, } = useGetProductsByCategoryQuery(categoryId || '');
 
 
-    const { data: products = [], isLoading: productsLoading, error: productsError } = useGetProductsByCategoryQuery(categoryId || '');
-    
-    useEffect(() => {
-        console.log("Products: ", products); // Check what is logged here
-    }, [products]);
-
-    const {data: category } = useGetCategoryByIdQuery(categoryId || '');
+    // GET Category By Id
+    const { data: category } = useGetCategoryByIdQuery(categoryId || '');
 
 
     useEffect(() => {
@@ -88,19 +104,10 @@ const CategoryPage = () => {
         router.push(`?page=${page}`);
     };
 
-    // This useEffect will trigger whenever currentPage changes
+
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, [currentPage]); // Dependency array with currentPage
-
-
-    const authContext = useContext(AuthContext);
-
-    if (!authContext) {
-        throw new Error("AuthContext must be used within an AuthProvider");
-    }
-
-    const { user } = authContext;
+    }, [currentPage]);
 
 
 

@@ -1,3 +1,4 @@
+// ** Types
 import CategoryType from "./category";
 
 type ProductType = {

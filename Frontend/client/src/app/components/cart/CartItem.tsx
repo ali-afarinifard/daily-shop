@@ -1,12 +1,23 @@
-'use client';  // Add this directive at the top
+'use client';
 
-import { useCart } from "@/hooks/useCart";
-import ProductType from "@/types/product";
+
+// ** Next
 import Image from "next/image";
 import Link from "next/link";
-import SetQuantity from "../products/SetQuantity";
+
+// ** Hooks
+import { useCart } from "@/hooks/useCart";
+
+// ** Utils
 import { truncateText } from "@/utils/truncateText";
 import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
+
+// ** Types
+import ProductType from "@/types/product";
+
+// ** Components
+import SetQuantity from "../products/SetQuantity";
+
 
 interface ItemContentProps {
     item: ProductType;

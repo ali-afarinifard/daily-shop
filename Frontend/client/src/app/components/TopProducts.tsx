@@ -49,20 +49,20 @@ const TopProducts = () => {
             <div className="relative ___swiper-container mt-10" dir="ltr">
                 <Swiper
                     loop={products.length > 4}
-                    slidesPerView={Math.min(4, products.length)}
+                    slidesPerView={Math.min(1, products.length)}
 
-                    spaceBetween={30}
+                    spaceBetween={15}
                     onBeforeInit={(swiper) => {
                         swiperRef.current = swiper;
                     }}
                     breakpoints={{
-                        300: {
+                        450: {
                             slidesPerView: 2
                         },
                         600: {
                             slidesPerView: 3
                         },
-                        800: {
+                        950: {
                             slidesPerView: 4
                         },
                     }}

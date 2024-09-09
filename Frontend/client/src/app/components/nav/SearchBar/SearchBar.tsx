@@ -1,17 +1,25 @@
 'use client'
 
+// ** React
 import { useEffect, useRef, useState } from "react"
-import SearchBarItem from "./SearchBarItem";
+
+// ** apiSlice - RTK-Q
 import { useSearchProductsQuery } from "@/store/apiSlice";
 
+// ** Components
+import SearchBarItem from "./SearchBarItem";
+
+
 const SearchBar = () => {
+
+    const searchBarRef = useRef<HTMLDivElement>(null);
 
     const [query, setQuery] = useState<string>('');
     const [noResults, setNoResults] = useState<boolean>(false);
     const [showResults, setShowResults] = useState<boolean>(false);
-    const searchBarRef = useRef<HTMLDivElement>(null);
 
 
+    // Get Products by Searching
     const { data: results = [], isFetching, isError } = useSearchProductsQuery(query, {
         skip: query.length < 2, // Skip query if the length is less than 2
     });
