@@ -42,8 +42,8 @@ router.post('/user/register', async (req, res) => {
       },
     };
 
-    const accessToken = jwt.sign(payload, process.env.JWT_CLIENT_SECRET, { expiresIn: '3m' });
-    const refreshToken = jwt.sign(payload, process.env.JWT_CLIENT_REFRESH_SECRET, { expiresIn: '6m' });
+    const accessToken = jwt.sign(payload, process.env.JWT_CLIENT_SECRET, { expiresIn: '7d' });
+    const refreshToken = jwt.sign(payload, process.env.JWT_CLIENT_REFRESH_SECRET, { expiresIn: '30d' });
     user.refreshToken = refreshToken;
     await user.save();
 
@@ -76,8 +76,8 @@ router.post('/user/login', async (req, res) => {
       },
     };
 
-    const accessToken = jwt.sign(payload, process.env.JWT_CLIENT_SECRET, { expiresIn: '3m' });
-    const refreshToken = jwt.sign(payload, process.env.JWT_CLIENT_REFRESH_SECRET, { expiresIn: '6m' });
+    const accessToken = jwt.sign(payload, process.env.JWT_CLIENT_SECRET, { expiresIn: '7d' });
+    const refreshToken = jwt.sign(payload, process.env.JWT_CLIENT_REFRESH_SECRET, { expiresIn: '30d' });
     user.refreshToken = refreshToken;
     await user.save();
 
@@ -226,8 +226,8 @@ router.post('/user/token', async (req, res) => {
       },
     };
 
-    const accessToken = jwt.sign(payload, process.env.JWT_CLIENT_SECRET, { expiresIn: '3m' });
-    const newRefreshToken = jwt.sign(payload, process.env.JWT_CLIENT_REFRESH_SECRET, { expiresIn: '6m' });
+    const accessToken = jwt.sign(payload, process.env.JWT_CLIENT_SECRET, { expiresIn: '7d' });
+    const newRefreshToken = jwt.sign(payload, process.env.JWT_CLIENT_REFRESH_SECRET, { expiresIn: '30d' });
 
     user.refreshToken = newRefreshToken;
     await user.save();
@@ -295,7 +295,7 @@ router.post('/admin/register', async (req, res) => {
     };
 
     const accessToken = jwt.sign(payload, process.env.JWT_ADMIN_SECRET, { expiresIn: '7d' });
-    const refreshToken = jwt.sign(payload, process.env.JWT_ADMIN_REFRESH_SECRET, { expiresIn: '60d' });
+    const refreshToken = jwt.sign(payload, process.env.JWT_ADMIN_REFRESH_SECRET, { expiresIn: '30d' });
     admin.refreshToken = refreshToken;
     await admin.save();
 
@@ -331,7 +331,7 @@ router.post('/admin/login', async (req, res) => {
     };
 
     const accessToken = jwt.sign(payload, process.env.JWT_ADMIN_SECRET, { expiresIn: '7d' });
-    const refreshToken = jwt.sign(payload, process.env.JWT_ADMIN_REFRESH_SECRET, { expiresIn: '60d' });
+    const refreshToken = jwt.sign(payload, process.env.JWT_ADMIN_REFRESH_SECRET, { expiresIn: '30d' });
     admin.refreshToken = refreshToken;
     await admin.save();
 
@@ -479,7 +479,7 @@ router.post('/admin/token', async (req, res) => {
     };
 
     const accessToken = jwt.sign(payload, process.env.JWT_ADMIN_SECRET, { expiresIn: '7d' });
-    const newRefreshToken = jwt.sign(payload, process.env.JWT_ADMIN_REFRESH_SECRET, { expiresIn: '60d' });
+    const newRefreshToken = jwt.sign(payload, process.env.JWT_ADMIN_REFRESH_SECRET, { expiresIn: '30d' });
 
     admin.refreshToken = newRefreshToken;
     await admin.save();
