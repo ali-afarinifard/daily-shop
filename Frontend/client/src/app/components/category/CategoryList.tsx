@@ -2,29 +2,21 @@
 
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import CategoryType from "@/types/category"
-import { getAllCategories } from "@/libs/apiUrls"
 import Container from "../Container"
 import CategoryItem from "./CategoryItem"
 import { usePathname } from "next/navigation"
+import { useGetAllCategoriesQuery } from "@/store/apiSlice"
+import CategoryType from "@/types/category"
 
 
 const CategoryList = () => {
 
     const pathname = usePathname();
 
-    const [categories, setCategories] = useState<CategoryType[]>([]);
     const [isAtTop, setIsAtTop] = useState(true);
 
 
-    useEffect(() => {
-        const fetchCategories = async () => {
-            const allCategories = await getAllCategories();
-            setCategories(allCategories);
-        };
-
-        fetchCategories();
-    }, []);
+    const { data: categories } = useGetAllCategoriesQuery();
 
     const handleScroll = () => {
         const scrollPosition = window.scrollY;
@@ -51,7 +43,7 @@ const CategoryList = () => {
                             selected={pathname === '/products'}
                         />
                     </Link>
-                    {categories.map(category => (
+                    {categories?.map((category:CategoryType) => (
                         <Link
                             key={category._id}
                             href={`/category/${category._id}`}
@@ -68,18 +60,18 @@ const CategoryList = () => {
                             selected={pathname === '/top-sales-products'}
                         />
                     </Link>
-                    
-                    <Link href={'#'}>
+
+                    <Link href={'/weblog'}>
                         <CategoryItem
                             label="وبلاگ"
-                            selected={pathname === '#'}
+                            selected={pathname === '/weblog'}
                         />
                     </Link>
 
-                    <Link href={'#'}>
+                    <Link href={'/about-us'}>
                         <CategoryItem
                             label="درباره ما"
-                            selected={pathname === '#'}
+                            selected={pathname === '/about-us'}
                         />
                     </Link>
                 </div>

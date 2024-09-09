@@ -5,13 +5,13 @@ import Image from "next/image"
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { addToWishlist, getComments, getWishlist, removeFromWishlist } from "@/libs/apiUrls";
 import { User } from "@/context/AuthContext";
 import toast from "react-hot-toast";
 import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
 import CommentType from "@/types/comment";
 import { Rating } from "@mui/material";
 import Spinner from "../Spinner";
+import { useAddToWishlistMutation, useGetCommentsQuery, useGetWishlistQuery, useRemoveFromWishlistMutation } from "@/store/apiSlice";
 
 
 interface ProductBoxProps {
@@ -24,38 +24,33 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
 
     const [isWhitelisted, setIsWhitelisted] = useState<boolean>(false);
     const [showWishlistMessage, setShowWishlistMessage] = useState(false);
-    const [wishlist, setWishlist] = useState<string[]>([]);
+    // const [wishlist, setWishlist] = useState<string[]>([]);
     const [averageRating, setAverageRating] = useState<number>(0);
 
     const firstImage = product.images[0];
     const secondImage = product.images[1];
 
 
+    const { data: comments = [] } = useGetCommentsQuery(product._id);
+
+    const { data: wishlist = [] } = useGetWishlistQuery(user?._id!, {
+        skip: !user?._id, // Skip fetching if no user is logged in
+    });
+
+
+    const [addToWishlist] = useAddToWishlistMutation();
+    const [removeFromWishlist] = useRemoveFromWishlistMutation();
+
+
     const handleWhitelistClick = (e: React.MouseEvent) => {
         e.preventDefault();
 
         if (user) {
-            setIsWhitelisted(!isWhitelisted)
+            setIsWhitelisted(!isWhitelisted);
         } else {
             toast.error('ابتدا در سایت عضو شوید');
-        };
+        }
     };
-
-
-    // Fetch comments and calculate average rating on component mount
-    useEffect(() => {
-        const fetchAndCalculateRating = async () => {
-            try {
-                const commentsData: CommentType[] = await getComments(product._id); // Fetch comments for the product
-                calculateAverageRating(commentsData); // Calculate the average rating
-            } catch (error) {
-                console.error("Error fetching comments for average rating calculation:", error);
-            }
-        };
-
-        fetchAndCalculateRating(); // Call the function
-    }, [product._id]);
-
 
 
     // Function to calculate average rating
@@ -70,22 +65,19 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
     };
 
 
+    useEffect(() => {
+        if (comments.length > 0) {
+            calculateAverageRating(comments);
+        }
+    }, [comments]);
+
 
     useEffect(() => {
-        const checkWishlistStatus = async () => {
-            try {
-                if (user?._id) {
-                    const wishlist = await getWishlist(user?._id);
-                    const isInWishlist = wishlist.some((item: ProductType) => item._id === product._id);
-                    setIsWhitelisted(isInWishlist);
-                }
-            } catch (error) {
-                console.error('Error fetching wishlist status', error);
-            }
-        };
-
-        checkWishlistStatus();
-    }, [user?._id, product._id]);
+        if (wishlist.length > 0) {
+            const isInWishlist = wishlist.some((item: ProductType) => item._id === product._id);
+            setIsWhitelisted(isInWishlist);
+        }
+    }, [wishlist, product._id]);
 
 
     useEffect(() => {
@@ -98,20 +90,18 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
     }, [user, product._id]);
 
 
-
     const handleAddToWishlist = async (productId: string) => {
         try {
             if (!user?._id) {
                 return;
             }
-            const updatedWishlist = await addToWishlist(user._id, productId);
-            setWishlist(updatedWishlist);
-            setShowWishlistMessage(true);
+            await addToWishlist({ userId: user._id, productId }); // Using RTK mutation to add to wishlist
             setIsWhitelisted(true);
+            setShowWishlistMessage(true);
             localStorage.setItem(`showWishlistMessage_${user._id}_${productId}`, "true");
             toast.success('به علاقه مندی ها اضافه شد');
         } catch (error) {
-            console.error('Error while adding wishlist', error);
+            console.error('Error while adding to wishlist', error);
         }
     };
 
@@ -122,7 +112,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                 console.warn("No userId available.");
                 return;
             }
-            await removeFromWishlist(user._id, productId);
+            await removeFromWishlist({ userId: user._id, productId }); // Using RTK mutation to remove from wishlist
             setIsWhitelisted(false);
             localStorage.removeItem(`showWishlistMessage_${user._id}_${productId}`);
         } catch (error) {

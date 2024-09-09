@@ -1,18 +1,13 @@
 'use client'
 
-import { useEffect, useRef, useState } from "react";
-import SearchBar from "../nav/SearchBar/SearchBar"
-import ProductType from "@/types/product";
-import { getAllCategories, getProductsBySearch } from "@/libs/apiUrls";
-import SearchBarItem from "../nav/SearchBar/SearchBarItem";
 import CatSearchBar from "./CatSearchBar";
 import Link from "next/link";
 import CategoryItem from "./CategoryItem";
-import { usePathname } from "next/navigation";
 import CategoryType from "@/types/category";
 import { FaInstagram } from "react-icons/fa";
 import { SiTelegram } from "react-icons/si";
 import { IoLogoWhatsapp } from "react-icons/io5";
+import { useGetAllCategoriesQuery } from "@/store/apiSlice";
 
 
 interface CategoryListMobileProps {
@@ -23,16 +18,7 @@ interface CategoryListMobileProps {
 
 const CategoryListMobile: React.FC<CategoryListMobileProps> = ({ toggleMenu }) => {
 
-    const [categories, setCategories] = useState<CategoryType[]>([]);
-
-    useEffect(() => {
-        const fetchCategories = async () => {
-            const allCategories = await getAllCategories();
-            setCategories(allCategories);
-        };
-
-        fetchCategories();
-    }, []);
+    const {data:categories} = useGetAllCategoriesQuery();
 
     return (
         <div>
@@ -68,7 +54,7 @@ const CategoryListMobile: React.FC<CategoryListMobileProps> = ({ toggleMenu }) =
 
                     <hr className="w-full h-[1px] bg-slate-300 my-2" />
 
-                    {categories.map((category) => (
+                    {categories?.map((category:CategoryType) => (
                         <div key={category._id}>
                             <Link
                                 href={`/category/${category._id}`}

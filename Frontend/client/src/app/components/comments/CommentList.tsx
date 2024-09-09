@@ -1,11 +1,11 @@
 'use client'
 
-import { getComments } from "@/libs/apiUrls";
-import CommentType from "@/types/comment";
 import { useEffect, useState } from "react";
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { faIR } from 'date-fns/locale';
 import { Rating } from "@mui/material";
+import { useGetCommentsQuery } from "@/store/apiSlice";
+import Spinner from "../Spinner";
 
 
 interface CommentListProps {
@@ -17,25 +17,20 @@ interface CommentListProps {
 
 const CommentList: React.FC<CommentListProps> = ({ productId, commentsUpdated }) => {
 
-    const [comments, setComments] = useState<CommentType[]>([]);
+    const { data: comments = [], refetch, isLoading } = useGetCommentsQuery(productId!, {
+        skip: !productId,
+    });
 
 
     useEffect(() => {
-        const fetchComments = async () => {
-            try {
+        if (commentsUpdated) {
+            refetch();
+        }
+    }, [commentsUpdated, refetch]);
 
-                if (productId) {
-                    const commentsData = await getComments(productId);
-                    setComments(commentsData);
-                }
-
-            } catch (error) {
-                console.error('Error fetching comments:', error);
-            }
-        };
-
-        fetchComments();
-    }, [productId, commentsUpdated]);
+    if (isLoading) {
+        <Spinner size={25} />
+    };
 
 
     return (

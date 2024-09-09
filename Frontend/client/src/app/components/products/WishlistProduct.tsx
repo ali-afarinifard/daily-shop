@@ -9,7 +9,7 @@ import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
 import { Rating } from "@mui/material";
 import { useEffect, useState } from "react";
 import CommentType from "@/types/comment";
-import { getComments } from "@/libs/apiUrls";
+import { useGetCommentsQuery } from "@/store/apiSlice";
 
 
 
@@ -28,31 +28,29 @@ const WishlistProduct: React.FC<WishlistProductProps> = ({ product, userId, onRe
     const secondImage = product.images[1];
 
 
-    // Fetch comments and calculate average rating on component mount
+    const { data: commentsData } = useGetCommentsQuery(product._id);
+
+
     useEffect(() => {
-        const fetchAndCalculateRating = async () => {
-            try {
-                const commentsData: CommentType[] = await getComments(product._id); // Fetch comments for the product
-                calculateAverageRating(commentsData); // Calculate the average rating
-            } catch (error) {
-                console.error("Error fetching comments for average rating calculation:", error);
-            }
-        };
-
-        fetchAndCalculateRating(); // Call the function
-    }, [product._id]);
+        if (commentsData && commentsData.length > 0) {
+            calculateAverageRating(commentsData);
+        } else {
+            setAverageRating(0);
+        }
+    }, [commentsData]);
 
 
-    // Function to calculate average rating
     const calculateAverageRating = (comments: CommentType[]) => {
         if (comments.length === 0) {
             setAverageRating(0);
             return;
         }
-        const totalRating = comments.reduce((sum, comment) => sum + comment.rating, 0); // Calculate total rating
-        const average = totalRating / comments.length; // Calculate average rating
-        setAverageRating(average); // Update state with average rating
+        const totalRating = comments.reduce((sum, comment) => sum + comment.rating, 0);
+        const average = totalRating / comments.length;
+        setAverageRating(average);
     };
+
+    
 
 
     return (

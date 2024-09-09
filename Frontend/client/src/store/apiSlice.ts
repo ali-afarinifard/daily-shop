@@ -38,7 +38,6 @@ const baseQuery = fetchBaseQuery({
 });
 
 
-
 // Custom baseQuery with token refresh logic
 const baseQueryWithReauth: BaseQueryFn<
     string | FetchArgs, // Type of args
@@ -82,7 +81,6 @@ const baseQueryWithReauth: BaseQueryFn<
 
     return result;
 };
-
 
 
 

@@ -1,7 +1,6 @@
 'use client'
 
-import { resetAccount } from "@/libs/apiUrls";
-import axios from "axios";
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react"

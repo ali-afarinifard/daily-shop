@@ -1,8 +1,6 @@
 'use client'
 
 import { AuthContext } from "@/context/AuthContext";
-import { getAllProducts } from "@/libs/apiUrls";
-import ProductType from "@/types/product";
 import { useContext, useEffect, useState } from "react"
 import Spinner from "../Spinner";
 import NullData from "../NullData";

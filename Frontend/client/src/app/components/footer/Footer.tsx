@@ -1,3 +1,6 @@
+'use client'
+
+
 // ** Next Import
 import Link from "next/link"
 
@@ -8,9 +11,14 @@ import Container from "../Container"
 import { MdFacebook } from 'react-icons/md';
 import { AiFillTwitterCircle, AiFillInstagram, AiFillYoutube } from 'react-icons/ai';
 import FooterList from "./FooterList";
+import { useGetAllCategoriesQuery } from "@/store/apiSlice";
+import CategoryType from "@/types/category";
 
 
 const Footer = () => {
+
+    const { data: categories } = useGetAllCategoriesQuery();
+
     return (
         <footer className="bg-slate-700 text-slate-200 text-sm mt-16">
             <Container>
@@ -19,10 +27,17 @@ const Footer = () => {
 
                         <h3 className="text-base font-bold mb-2">دسته بندی ها</h3>
                         <div className="flex flex-col gap-5">
-                            <Link href={'#'}>همه</Link>
-                            <Link href={'#'}>زنانه</Link>
-                            <Link href={'#'}>مردانه</Link>
-                            <Link href={'#'}>کودک</Link>
+                            <Link href={`/products`}>
+                                همه
+                            </Link>
+
+                            {categories?.map((category: CategoryType) => (
+                                <div key={category._id}>
+                                    <Link href={`/category/${category._id}`}>
+                                        {category.name}
+                                    </Link>
+                                </div>
+                            ))}
                         </div>
 
                     </FooterList>

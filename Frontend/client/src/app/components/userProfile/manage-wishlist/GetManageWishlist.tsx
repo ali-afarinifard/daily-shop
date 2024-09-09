@@ -1,6 +1,6 @@
 'use client'
 
-import { getWishlist, removeFromWishlist } from "@/libs/apiUrls";
+
 import ProductType from "@/types/product";
 import { useEffect, useState } from "react";
 import ManageWishlistItem from "./ManageWishlistItem";

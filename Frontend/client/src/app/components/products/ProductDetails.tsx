@@ -1,7 +1,6 @@
 'use client';
 
-import { addToWishlist, getComments, getProductById } from "@/libs/apiUrls";
-import ProductType from "@/types/product";
+
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";

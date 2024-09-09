@@ -2,9 +2,7 @@
 
 import GetManageWishlist from "@/app/components/userProfile/manage-wishlist/GetManageWishlist";
 import { AuthContext } from "@/context/AuthContext";
-import { removeFromWishlist } from "@/libs/apiUrls";
-import ProductType from "@/types/product";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
 
 

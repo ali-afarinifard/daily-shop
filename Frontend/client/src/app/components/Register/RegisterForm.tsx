@@ -3,7 +3,6 @@
 import { useContext, useEffect, useState } from 'react';
 import Heading from '../Heading';
 import { useRouter } from 'next/navigation';
-import { register } from '@/libs/apiUrls';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { AuthContext } from '@/context/AuthContext';
