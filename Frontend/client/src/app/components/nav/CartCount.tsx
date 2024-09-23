@@ -8,6 +8,7 @@ import { useCart } from "@/hooks/useCart"
 
 // ** Icons
 import { CiShoppingCart } from 'react-icons/ci'
+import { Box, Typography } from "@mui/material"
 
 
 const CartCount = () => {
@@ -17,17 +18,38 @@ const CartCount = () => {
     const router = useRouter();
 
     return (
-        <div className="relative cursor-pointer" onClick={() => router.push('/cart')}>
+        <Box
+            sx={{
+                position: 'relative',
+                cursor: 'pointer'
+            }}
+            onClick={() => router.push('/cart')}>
 
-            <div className="text-3xl">
+            <Typography variant="h1">
                 <CiShoppingCart />
-            </div>
+            </Typography>
 
-            <span className="absolute top-[-10px] right-[-10px] bg-slate-700 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm">
+            <Typography
+                variant="body2"
+                sx={{
+                    position: 'absolute',
+                    top: '-10px',
+                    right: '-10px',
+                    background: '#334155',
+                    color: '#fff',
+                    width: '1.5rem',
+                    height: '1.5rem',
+                    borderRadius: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    pt: '4px'
+                }}
+            >
                 {cartTotalQty}
-            </span>
+            </Typography>
 
-        </div>
+        </Box>
     )
 }
 

@@ -2,11 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./components/nav/(page)/Navbar";
 import Footer from "./components/footer/Footer";
-import CartProvider from "@/providers/CartProvider";
 import { Toaster } from "react-hot-toast";
-import { AuthProvider } from "@/context/AuthContext";
-import { Provider } from "react-redux";
-import { store } from "@/store/store";
 import ClientProviders from "@/providers/ClientProviders";
 
 
@@ -21,6 +17,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="fa" dir="rtl">
       <body className="text-slate-700">

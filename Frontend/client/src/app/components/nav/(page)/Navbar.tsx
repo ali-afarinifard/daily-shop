@@ -1,7 +1,6 @@
 'use client'
 
 // ** Next
-import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 // ** Icons
@@ -16,6 +15,8 @@ import Container from "../../Container";
 import CategoryList from "../../category/CategoryList";
 import CategoryListMobile from "../../category/CategoryListMobile";
 import BackDrop from "../BackDrop";
+import { Box, Drawer, IconButton, Typography } from "@mui/material";
+import Link from "next/link";
 
 
 
@@ -45,51 +46,98 @@ const Navbar = () => {
 
     return (
         <>
-            <div className={`fixed top-0 w-full bg-slate-200 z-40 shadow-sm ${isAtTop ? 'py-4 pb-0' : 'py-4'} xl:pb-4`}>
-                <div>
+            <Box
+                sx={{
+                    position: "fixed",
+                    top: 0,
+                    width: "100%",
+                    background: "#e2e8f0",
+                    zIndex: 40,
+                    boxShadow: isAtTop ? "none" : "0 4px 12px rgba(0, 0, 0, 0.1)",
+                    py: isAtTop ? 4 : 2,
+                    pt: isAtTop ? 3 : 2,
+                    pb: isAtTop ? { xs: 3, lg: 0 } : 2,
+                    transition: "padding 0.5s",
+                }}
+            >
+                <Box>
                     <Container>
-                        <div className="flex items-center justify-between gap-2">
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                gap: '0.5rem'
+                            }}
+                        >
 
-                            <button
-                                className="hidden xl:block"
+                            <IconButton
                                 onClick={toggleMenu}
+                                sx={{
+                                    display: { xs: 'block', lg: 'none' },
+                                }}
+
                             >
                                 <RiMenu3Fill size={28} />
-                            </button>
+                            </IconButton>
 
-                            <Link href="/" className="text-3xl m:text-2xl">Daily~Shop</Link>
+                            <Link
+                                href="/"
+                            >
+                                <Typography sx={{ fontSize: { xs: '1.5rem', sm: '1.87rem' }, color: '#000000', fontWeight: 'bolder' }}>Daily~Shop</Typography>
+                            </Link>
 
-                            <div className="xl:hidden">
+                            <Box
+                                sx={{
+                                    display: { xs: 'none', lg: 'block' }
+                                }}
+                            >
                                 <SearchBar />
-                            </div>
+                            </Box>
 
-                            <div className="flex items-center gap-3 md:gap-8 xm:gap-1">
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: { xs: '0.4rem', sm: '1.5rem', md: '2rem' }
+                                }}
+                            >
                                 <CartCount />
                                 <UserMenu />
-                            </div>
-                        </div>
+                            </Box>
+                        </Box>
                     </Container>
 
-                    <div className="block xl:hidden">
+                    <Box
+                        sx={{
+                            display: { xs: 'none', lg: 'block' }
+                        }}
+                    >
                         <CategoryList />
-                    </div>
+                    </Box>
 
-                    <div className={`fixed top-0 right-0 h-full w-72 bg-white shadow-lg transform overflow-y-auto ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-500 ease-in-out z-50 hidden xl:block`}>
-
-                        <div className="py-2 px-3">
-                            <button
-                                className="pt-5 pr-5"
+                    <Drawer
+                        anchor="right"
+                        open={isMenuOpen}
+                        onClose={toggleMenu}
+                        sx={{
+                            "& .MuiDrawer-paper": {
+                                width: 320, // 72px * 4 = 288px width
+                            },
+                        }}
+                    >
+                        <Box py={2} px={3}>
+                            <IconButton
                                 onClick={toggleMenu}
                             >
                                 <IoMdClose size={32} />
-                            </button>
+                            </IconButton>
 
                             <CategoryListMobile toggleMenu={toggleMenu} />
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+                        </Box>
+                    </Drawer>
+                </Box>
+            </Box>
             {isMenuOpen ? <BackDrop onClick={toggleMenu} /> : null}
         </>
     );

@@ -1,12 +1,11 @@
 'use client'
 
 import Image from "next/image"
-import Link from "next/link";
 import Button from "../Button";
 import { MdDeleteOutline } from "react-icons/md";
 import ProductType from "@/types/product";
 import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
-import { Rating } from "@mui/material";
+import { Box, Divider, Link, Rating, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import CommentType from "@/types/comment";
 import { useGetCommentsQuery } from "@/store/apiSlice";
@@ -23,6 +22,7 @@ interface WishlistProductProps {
 const WishlistProduct: React.FC<WishlistProductProps> = ({ product, userId, onRemove }) => {
 
     const [averageRating, setAverageRating] = useState<number>(0);
+    const [hovered, setHovered] = useState<boolean>(false);
 
     const firstImage = product.images[0];
     const secondImage = product.images[1];
@@ -50,20 +50,43 @@ const WishlistProduct: React.FC<WishlistProductProps> = ({ product, userId, onRe
         setAverageRating(average);
     };
 
-    
+
 
 
     return (
-        <div className="w-full rounded-md overflow-hidden shadow-md">
-            <Link href={`/product/${product._id}`}>
+        <Box
+            sx={{
+                width: '100%',
+                borderRadius: '0.37rem',
+                overflow: 'hidden',
+                boxShadow: '2px 10px 9px -2px rgba(0,0,0,0.05);'
+            }}
+        >
+            <Link href={`/product/${product._id}`} sx={{ position: 'relative', textDecoration: 'none' }}>
 
-                <div className="relative w-full h-80 group">
+                <Box
+                    onMouseEnter={() => setHovered(true)}
+                    onMouseLeave={() => setHovered(false)}
+                    sx={{
+                        position: 'relative',
+                        width: '100%',
+                        height: '20rem',
+                        overflow: 'hidden'
+                    }}
+                >
                     {firstImage && (
                         <Image
                             src={firstImage}
                             alt={product.title}
-                            className="object-cover rounded-t-md transition-opacity duration-500 ease-in-out group-hover:opacity-0"
+                            style={{
+                                objectFit: 'cover',
+                                borderTopLeftRadius: '0.37rem',
+                                borderTopRightRadius: '0.37rem',
+                                transition: 'opacity 0.5s ease-in-out',
+                                opacity: hovered ? 0 : 1
+                            }}
                             fill
+                            priority
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                         />
                     )}
@@ -72,56 +95,132 @@ const WishlistProduct: React.FC<WishlistProductProps> = ({ product, userId, onRe
                         <Image
                             src={secondImage}
                             alt={product.title}
-                            className="object-cover absolute inset-0 transition-opacity duration-500 ease-in-out opacity-0 group-hover:opacity-100"
+                            style={{
+                                objectFit: 'cover',
+                                transition: 'opacity 0.5s ease-in-out',
+                                opacity: hovered ? 1 : 0,
+                                position: 'absolute',
+                                inset: 0,
+                            }}
                             fill
+                            priority
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                         />
                     )}
 
-                </div>
+                </Box>
 
-                <div className="p-4 bg-white flex flex-col gap-3">
-                    <div className="text-center text-gray-600 text-md">{product.title}</div>
-                    <div className="flex items-center justify-center">
+                <Box
+                    sx={{
+                        p: '1rem',
+                        background: '#fff',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '0.75rem'
+                    }}
+                >
+                    <Typography variant="h3" sx={{ color: '#4b5563', textAlign: 'center' }}>{product.title}</Typography>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
+                    >
                         <Rating
                             readOnly
                             value={averageRating || 0} // Set the calculated average rating
                             precision={0.5} // Optional: set precision for half-star ratings
                             sx={{ direction: 'ltr' }}
                         />
-                    </div>
-                    <hr className="w-full h-[1px] bg-slate-700" />
-                    <div className="text-center text-slate-700 text-lg mt-2 flex justify-center gap-2">
+                    </Box>
+                    <Divider />
+                    <Box
+                        sx={{
+                            textAlign: 'center',
+                            color: '#334155',
+                            fontSize: '1.12rem',
+                            lineHeight: '1.75rem',
+                            mt: '0.5rem',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            gap: '0.5rem'
+                        }}
+                    >
                         {product.isStatus ? (
-                            <div className="flex items-center justify-center gap-1">
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: '0.25rem'
+                                }}
+                            >
                                 {product.offer ? (
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-offer text-sm text-slate-500">{formatPriceToFarsi(product.price)}</span>
-                                        <span className="text-[1.2rem] text-slate-500">{formatPriceToFarsi(product.offer)}</span>
-                                    </div>
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '0.5rem'
+                                        }}
+                                    >
+                                        <Typography variant="body2" sx={{ color: '#64748b' }} className="text-offer">
+                                            {formatPriceToFarsi(product.price)}
+                                        </Typography>
+
+                                        <Typography variant="h3" sx={{ color: '#64748b' }}>
+                                            {formatPriceToFarsi(product.offer)}
+                                        </Typography>
+                                    </Box>
                                 ) : (
-                                    <span className="text-[1.2rem] text-slate-500">{formatPriceToFarsi(product.price)}</span>
+                                    <Typography variant="h3" sx={{ color: '#64748b' }}>
+                                        {formatPriceToFarsi(product.price)}
+                                    </Typography>
                                 )}
-                                <span className="text-sm text-slate-500">تومان</span>
-                            </div>
+                                <Typography variant="body2" sx={{ color: '#64748b' }}>تومان</Typography>
+                            </Box>
                         ) : (
-                            <div>
-                                <div className="rounded-md bg-rose-500 text-white px-3 py-[0.05rem] text-[0.8rem] w-full border-slate-700 flex items-center justify-center">ناموجود</div>
-                            </div>
+                            <Box
+                                sx={{
+                                    width: '100%',
+                                    background: '#f43f5e',
+                                    borderRadius: '0.37rem',
+                                    borderColor: '#334155',
+                                }}
+                            >
+                                <Typography
+                                    variant="body1"
+                                    sx={{
+                                        color: '#fff',
+                                        width: '100%',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        px: '0.75rem',
+                                        py: '0.05rem'
+                                    }}
+                                >
+                                    ناموجود
+                                </Typography>
+                            </Box>
                         )}
-                    </div>
-                </div>
+                    </Box>
+                </Box>
             </Link>
 
-            <div className="bg-slate-600">
+            <Box
+                sx={{
+                    background: '#475569'
+                }}
+            >
                 <Button
                     label="حذف"
                     icon={MdDeleteOutline}
                     custom="!py-1 !text-[0.9rem] !gap-1"
                     onClick={() => onRemove(product._id)}
                 />
-            </div>
-        </div>
+            </Box>
+        </Box>
     )
 }
 

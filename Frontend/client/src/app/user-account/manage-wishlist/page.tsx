@@ -2,6 +2,7 @@
 
 import GetManageWishlist from "@/app/components/userProfile/manage-wishlist/GetManageWishlist";
 import { AuthContext } from "@/context/AuthContext";
+import { Box } from "@mui/material";
 import { useContext } from "react";
 
 
@@ -21,9 +22,13 @@ const ManageWishlist = () => {
     }
 
     return (
-        <div className="h-full">
+        <Box
+            sx={{
+                height: '100%'
+            }}
+        >
             <GetManageWishlist userId={user._id} />
-        </div>
+        </Box>
     )
 }
 

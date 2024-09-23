@@ -10,7 +10,7 @@ import { AuthContext } from "@/context/AuthContext";
 import { useCreateCommentMutation } from "@/store/apiSlice";
 
 // ** MUI
-import { Rating } from "@mui/material";
+import { Box, Button, FormControl, Rating, TextareaAutosize, Typography } from "@mui/material";
 
 // ** Toast
 import toast from "react-hot-toast";
@@ -65,7 +65,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
                 content,
                 rating,
             }).unwrap();
-            
+
             setContent('');
             setRating(null);
             onCommentAdded();
@@ -78,15 +78,42 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
 
 
     return (
-        <div className="sticky top-28">
-            <form onSubmit={handleSubmit}>
-                <div className="flex flex-col gap-6">
-                    <div className="w-fit">
+        <Box
+            sx={{
+                position: 'sticky',
+                top: '7rem'
+            }}
+        >
+            <Box component="form" onSubmit={handleSubmit}>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '1.5rem'
+                    }}
+                >
+                    <Box
+                        sx={{
+                            width: 'fit-content'
+                        }}
+                    >
                         <Heading title="امتیاز و دیدگاه کاربران" />
-                    </div>
+                    </Box>
 
-                    <div className="flex flex-col gap-2">
-                        <div className="flex items-start justify-start">
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '0.5rem'
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'start',
+                                justifyContent: 'start'
+                            }}
+                        >
                             <Rating
                                 value={rating || 0}
                                 onChange={(event, newValue) => {
@@ -94,24 +121,55 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
                                 }}
                                 sx={{ direction: 'ltr', fontSize: '1.8rem' }}
                             />
-                        </div>
-                        <textarea
+                        </Box>
+                        <TextareaAutosize
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
                             placeholder="متن نظر..."
                             required
-                            className="resize-none text-sm border-[1px] border-slate-300 outline-slate-500 rounded-md h-[10rem] p-3"
+                            style={{
+                                resize: 'none',
+                                fontSize: '0.875rem',
+                                lineHeight: '1.25rem',
+                                border: '1px solid',
+                                borderColor: '#cbd5e1',
+                                outlineColor: '#64748b',
+                                borderRadius: '0.37rem',
+                                height: '10rem',
+                                padding: '0.75rem'
+                            }}
                         />
-                        <button
+                        <Button
                             type="submit"
-                            className="disabled:opacity-70 disabled:cursor-not-allowed bg-slate-700 text-white py-2 rounded-md hover:opacity-80 transition w-full border-slate-700 flex items-center justify-center gap-2"
+                            fullWidth
+                            disabled={!isAuthenticated || !content}
+                            sx={{
+                                background: '#334155',
+                                cursor: "pointer",
+                                py: '0.5rem',
+                                height: '2.5rem',
+                                textTransform: 'none',
+                                borderRadius: '0.37rem',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '0.5rem',
+                                transition: 'all 0.3s',
+                                opacity: '0.9',
+                                '&:hover': {
+                                    opacity: '1',
+                                    background: '#334155',
+                                }
+                            }}
                         >
-                            ثبت دیدگاه
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
+                            <Typography sx={{ color: '#fff', fontWeight: 900 }}>
+                                ثبت دیدگاه
+                            </Typography>
+                        </Button>
+                    </Box>
+                </Box>
+            </Box>
+        </Box>
     )
 }
 

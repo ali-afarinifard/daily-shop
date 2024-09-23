@@ -1,5 +1,6 @@
 'use client'
 
+import { Box, Typography } from "@mui/material"
 // ** Components
 import Heading from "../Heading"
 
@@ -7,18 +8,43 @@ import Heading from "../Heading"
 const Features = () => {
 
     return (
-        <div className="mt-20">
-            <div className="flex flex-col items-center justify-center">
+        <Box
+            sx={{
+                mt: '5rem'
+            }}
+        >
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}
+            >
                 <Heading title="درخواست تعویض مرجوع" center />
-            </div>
-            <div className="mt-10 max-w-[60rem] text-center mx-auto leading-8">
+            </Box>
+            <Typography
+            variant="body1"
+                sx={{
+                    mt: '2.5rem',
+                    maxWidth: '60rem',
+                    textAlign: 'start',
+                    mx: 'auto',
+                    lineHeight: '2rem'
+                }}
+            >
                 مشتریان عزیز دیجی شاپ، با توجه به درج دقیق مشخصات هر محصول (جنس و سایز) و نظر به حجم بالای سفارشات، درخواست تعویض و مرجوع به خاطر جنس و سایز پذیرفته نمی شود. لطفا در انتخاب خودتون دقت کنید.
 
-                <div className="mt-7">
+                <Typography
+                variant="body1"
+                    sx={{
+                        mt: '1.75rem'
+                    }}
+                >
                     با تشکر از همراهی و همکاری شما
-                </div>
-            </div>
-        </div>
+                </Typography>
+            </Typography>
+        </Box>
     )
 }
 

@@ -5,11 +5,11 @@
 
 @font-face {
     font-family: 'Vazir';
-    src: url('../../public/fonts/Vazirmatn-Thin.ttf') format('ttf'),
-        url('../../public/fonts/Vazirmatn-Regular.ttf') format('ttf'),
-        url('../../public/fonts/Vazirmatn-Medium.ttf') format('ttf'),
-        url('../../public/fonts/Vazirmatn-ExtraBold.ttf') format('ttf'),
-        url('../../public/fonts/Vazirmatn-Bold.ttf') format('ttf');
+    src: url('/fonts/Vazirmatn-Thin.ttf') format('truetype'),
+        url('/fonts/Vazirmatn-Regular.ttf') format('truetype'),
+        url('/fonts/Vazirmatn-Medium.ttf') format('truetype'),
+        url('/fonts/Vazirmatn-Bold.ttf') format('truetype'),
+        url('/fonts/Vazirmatn-ExtraBold.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -17,10 +17,14 @@
 
 :root {
     font-family: "Vazir", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    font-weight: 300;
+    font-weight: 500;
     line-height: 1.5;
 
     --shadow: 0px 23px 21px -8px rgba(136, 160, 255, 0.25);
+}
+
+#mui-component-select-size {
+    color: black;
 }
 
 select {

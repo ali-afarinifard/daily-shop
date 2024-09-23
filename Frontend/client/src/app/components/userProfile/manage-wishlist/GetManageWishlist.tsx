@@ -14,6 +14,7 @@ import not_product from "../../../../../public/images/product/no-product.webp";
 import { IoMdClose } from "react-icons/io";
 import Spinner from "../../Spinner";
 import { useGetWishlistQuery, useRemoveFromWishlistMutation } from "@/store/apiSlice";
+import { Box } from "@mui/material";
 
 
 interface GetManageWishlistProps {
@@ -79,8 +80,22 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
 
     if (wishlist.length === 0 && !isLoading) {
         return (
-            <div className="flex flex-col items-center justify-center gap-10">
-                <div className="flex items-center justify-center">
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '2.5rem'
+                }}
+            >
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}
+                >
                     <Image
                         src={not_product}
                         alt="لیست علاقه مندی ها خالی است"
@@ -89,40 +104,98 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
                         priority
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                     />
-                </div>
+                </Box>
                 <NullData title="محصولی اضافه نشده" center="!text-base !h-full" />
-            </div>
+            </Box>
         )
     };
 
 
     return (
-        <div className="h-full">
+        <Box
+            sx={{
+                height: '100%'
+            }}
+        >
             {isLoading ? (
-                <div className="mt-32 flex items-center justify-center">
+                <Box
+                    sx={{
+                        mt: '8rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}
+                >
                     <Spinner size={40} />
-                </div>
+                </Box>
             ) : (
-                <div className="flex flex-col justify-between h-full">
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        height: '100%'
+                    }}
+                >
 
-                    <div className="flex flex-col gap-2 w-full">
-                        {paginatedWishlist.length > 0 && paginatedWishlist.map((product:ProductType) => (
-                            <div className="flex items-center gap-1" key={product._id}>
+                    <Box
+                        sx={{
+                            width: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '0.5rem'
+                        }}
+                    >
+                        {paginatedWishlist.length > 0 && paginatedWishlist.map((product: ProductType) => (
+                            <Box
+                                key={product._id}
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.25rem'
+                                }}
+                            >
 
-                                <div className="cursor-pointer text-rose-600 transition-all duration-200 hover:p-[5px] hover:bg-slate-200 hover:rounded-full" onClick={() => handleRemoveFromWishlist(product._id)}>
+                                <Box
+                                    onClick={() => handleRemoveFromWishlist(product._id)}
+                                    sx={{
+                                        cursor: 'pointer',
+                                        color: '#e11d48',
+                                        transition: 'all 0.2s ease-in-out',
+                                        '&:hover': {
+                                            p: '5px',
+                                            background: '#e2e8f0',
+                                            borderRadius: '100%'
+                                        }
+                                    }}
+                                >
                                     <IoMdClose size={22} />
-                                </div>
+                                </Box>
 
-                                <div className="w-full h-full overflow-hidden rounded-md border border-slate-200 pl-3">
+                                <Box
+                                    sx={{
+                                        width: '100%',
+                                        height: '100%',
+                                        overflow: 'hidden',
+                                        borderRadius: '0.37rem',
+                                        border: '1px solid',
+                                        borderColor: '#e2e8f0',
+                                        pl: '0.75rem'
+                                    }}
+                                >
                                     <ManageWishlistItem product={product} />
-                                </div>
+                                </Box>
 
-                            </div>
+                            </Box>
                         ))}
-                    </div>
+                    </Box>
 
 
-                    <div className="xl:mt-8">
+                    <Box
+                        sx={{
+                            mt: { xs: 0, lg: '2rem' }
+                        }}
+                    >
                         <Stack spacing={2} sx={{ direction: 'ltr' }}>
                             <Pagination
                                 count={Math.ceil(wishlist.length / itemsPerPage)}
@@ -137,10 +210,10 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
                                 }}
                             />
                         </Stack>
-                    </div>
-                </div>
+                    </Box>
+                </Box>
             )}
-        </div>
+        </Box>
     )
 }
 

@@ -1,14 +1,19 @@
 // ** Components
+import { Box } from "@mui/material"
 import Container from "../components/Container"
 import Weblog from "../components/weblog/Weblog"
 
 const WeblogPage = () => {
     return (
-        <div className="pt-20 xl:pt-10">
+        <Box
+            sx={{
+                pt: { xs: '2.5rem', lg: '5rem' }
+            }}
+        >
             <Container>
                 <Weblog />
             </Container>
-        </div>
+        </Box>
     )
 }
 

@@ -10,6 +10,7 @@ import { AuthContext } from "@/context/AuthContext";
 // ** Components
 import Container from "../components/Container"
 import Wishlist from "../components/wishlists/Wishlist"
+import { Box } from "@mui/material";
 
 const WishlistPage = () => {
 
@@ -27,11 +28,15 @@ const WishlistPage = () => {
     }
 
     return (
-        <div className="pt-20">
+        <Box
+            sx={{
+                pt: '5rem'
+            }}
+        >
             <Container>
                 <Wishlist userId={user?._id} />
             </Container>
-        </div>
+        </Box>
     )
 }
 

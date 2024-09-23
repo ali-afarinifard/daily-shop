@@ -1,14 +1,19 @@
 // ** Components
+import { Box } from "@mui/material"
 import Container from "../components/Container"
 import OrdersList from "../components/orders/OrdersList"
 
 const OrdersPage = () => {
     return (
-        <div className="pt-8">
+        <Box
+            sx={{
+                pt: '2rem'
+            }}
+        >
             <Container>
                 <OrdersList />
             </Container>
-        </div>
+        </Box>
     )
 }
 

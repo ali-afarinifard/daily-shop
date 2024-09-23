@@ -4,7 +4,7 @@ import { AuthContext } from "@/context/AuthContext";
 import { useContext, useEffect, useState } from "react"
 import Spinner from "../Spinner";
 import NullData from "../NullData";
-import { Pagination, Stack } from "@mui/material";
+import { Box, Pagination, Stack, Typography } from "@mui/material";
 import ProductBox from "./ProductBox";
 
 
@@ -95,41 +95,94 @@ const Products = () => {
 
 
     if (isLoading) return (
-        <div className='flex items-center justify-center translate-y-[150%] xl:translate-y-[50%] 2xl:translate-y-[50%]'>
+        <Box
+            sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transform: { xs: 'translateY(50%)', lg: 'translateY(150%)', xl: 'translateY(50%)' },
+            }}
+        >
             <Spinner size={35} />
-        </div>
+        </Box>
     );
 
 
     if (!products) {
         return (
-            <div>
+            <Box>
                 <NullData title='محصولی وجود ندارد' />
-            </div>
+            </Box>
         )
     }
 
 
     return (
-        <div>
+        <Box>
 
             {/* Heading */}
-            <div className='w-full flex items-center justify-center'>
-                <div className='relative text-center w-fit'>
-                    <h1 className='font-bold text-2xl'>محصولات</h1>
-                    <span className="w-full h-[2px] bg-slate-400 absolute left-0 -bottom-2"></span>
-                </div>
-            </div>
+            <Box
+                sx={{
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}
+            >
+                <Box
+                    sx={{
+                        position: 'relative',
+                        textAlign: 'center',
+                        widows: 'fit-content'
+                    }}
+                >
+                    <Typography variant="h2">محصولات</Typography>
+                    <Box
+                        sx={{
+                            width: '100%',
+                            height: '2px',
+                            background: '#94a3b8',
+                            position: 'absolute',
+                            left: 0,
+                            bottom: '-0.5rem'
+                        }}
+                    />
+                </Box>
+            </Box>
 
 
             {/* Content */}
-            <div className='flex flex-col'>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column'
+                }}
+            >
 
-                <div className='flex items-center justify-between mt-10 s:flex-col s:gap-4 s:items-stretch'>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: { xs: 'column', '2sm': 'row' },
+                        alignItems: { xs: 'stretch', '2sm': 'center' },
+                        justifyContent: 'space-between',
+                        mt: '2.5rem',
+                        gap: { xs: '1rem', '2sm': '0' },
+                    }}
+                >
 
-                    <div className='flex items-center gap-2'>
-                        <span>نمایش : </span>
-                        <div className="max-w-[20rem]">
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.5rem'
+                        }}
+                    >
+                        <Typography variant="h3">نمایش : </Typography>
+                        <Box
+                            sx={{
+                                maxWidth: '20rem'
+                            }}
+                        >
                             <FormControl fullWidth>
                                 <Select
                                     id="demo-simple-select"
@@ -140,21 +193,29 @@ const Products = () => {
                                         width: "10rem",
                                         height: "2.5rem",
                                         '& .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: "#252525", // Outline border color
-                                        },
+                                            borderColor: "#c9c9c9", // Outline border color
+                                        }
                                     }}
                                 >
-                                    <MenuItem value={'all'} sx={{ fontFamily: 'Vazir' }}>پیش فرض</MenuItem>
-                                    <MenuItem value={'isStatus'} sx={{ fontFamily: 'Vazir' }}>کالاهای موجود</MenuItem>
-                                    <MenuItem value={'priceDesc'} sx={{ fontFamily: 'Vazir' }}>گران ترین</MenuItem>
-                                    <MenuItem value={'priceAsc'} sx={{ fontFamily: 'Vazir' }}>ارزان ترین</MenuItem>
+                                    <MenuItem value={'all'} sx={{ fontFamily: 'Vazir' }}>
+                                        <Typography variant="body1">پیش فرض</Typography>
+                                    </MenuItem>
+                                    <MenuItem value={'isStatus'} sx={{ fontFamily: 'Vazir' }}>
+                                        <Typography variant="body1">کالاهای موجود</Typography>
+                                    </MenuItem>
+                                    <MenuItem value={'priceDesc'} sx={{ fontFamily: 'Vazir' }}>
+                                        <Typography variant="body1">گران ترین</Typography>
+                                    </MenuItem>
+                                    <MenuItem value={'priceAsc'} sx={{ fontFamily: 'Vazir' }}>
+                                        <Typography variant="body1">ارزان ترین</Typography>
+                                    </MenuItem>
                                 </Select>
                             </FormControl>
-                        </div>
+                        </Box>
 
-                    </div>
+                    </Box>
 
-                    <div>
+                    <Box>
                         <Stack spacing={2} sx={{ direction: 'ltr' }}>
                             <Pagination
                                 count={Math.ceil(filteredProducts.length / itemsPerPage)}
@@ -169,20 +230,27 @@ const Products = () => {
                                 }}
                             />
                         </Stack>
-                    </div>
+                    </Box>
 
-                </div>
+                </Box>
 
-                <div className='grid grid-cols-4 gap-8 my-8 xl:grid-cols-3 xl:gap-4 s:grid-cols-2 s:gap-2 xm:grid-cols-1'>
+                <Box
+                    sx={{
+                        display: 'grid',
+                        gridTemplateColumns: { xs: '1fr', '2xs': 'repeat(2, 1fr)', '2sm': 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' },
+                        gap: { xs: '0.5rem', '2sm': '1rem', lg: '2rem' },
+                        my: '2rem'
+                    }}
+                >
                     {paginatedProducts && paginatedProducts.map((product) => (
-                        <div key={product._id}>
+                        <Box key={product._id}>
                             <ProductBox product={product} user={user} />
-                        </div>
+                        </Box>
                     ))}
-                </div>
+                </Box>
 
 
-                <div>
+                <Box>
                     <Stack spacing={2} sx={{ direction: 'ltr' }}>
                         <Pagination
                             count={Math.ceil(filteredProducts.length / itemsPerPage)}
@@ -192,16 +260,16 @@ const Products = () => {
                             color="primary"
                             sx={{
                                 "& .MuiPagination-ul": {
-                                    justifyContent: "center", // Center the pagination
+                                    justifyContent: "center",
                                 },
                             }}
                         />
                     </Stack>
-                </div>
+                </Box>
 
-            </div>
+            </Box>
 
-        </div>
+        </Box>
     )
 }
 

@@ -19,6 +19,7 @@ import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
 // ** mockData
 import data from "@/utils/banner";
+import { Box } from "@mui/material";
 
 
 const Banner = () => {
@@ -26,7 +27,17 @@ const Banner = () => {
     const swiperRef = useRef<SwiperType>();
 
     return (
-        <div className="relative ___swiper-container mx-3 border-[2px] border-slate-200 rounded-md overflow-hidden" dir="ltr">
+        <Box
+            sx={{
+                position: 'relative',
+                mx: '0.75rem',
+                border: '2px solid',
+                borderColor: '#e2e8f0',
+                borderRadius: '0.37rem',
+                overflow: 'hidden',
+                direction: 'ltr'
+            }}
+        >
             <Swiper
                 pagination={{
                     clickable: true,
@@ -38,19 +49,33 @@ const Banner = () => {
                 }}
                 modules={[Pagination]}
                 loop
-                className="w-full mySwiper"
+                style={{
+                    width: '100%',
+                }}
+                className="mySwiper"
             >
                 {data.map((img) => (
                     <SwiperSlide key={img.id}>
-                        <div
-                            className="flex h-96 w-full items-center justify-center"
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                height: '24rem',
+                                width: '100%',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}
                         >
                             <Image
                                 src={img.image}
                                 alt={img.alt}
-                                className="block h-96 w-full object-cover"
+                                style={{
+                                    display: 'block',
+                                    height: '24rem',
+                                    width: '100%',
+                                    objectFit: 'cover'
+                                }}
                             />
-                        </div>
+                        </Box>
                     </SwiperSlide>
                 ))}
             </Swiper>
@@ -74,8 +99,8 @@ const Banner = () => {
                 </button>
             </div> */}
 
-            <div className="swiper-pagination" />
-        </div>
+            <Box className="swiper-pagination" />
+        </Box>
     )
 }
 

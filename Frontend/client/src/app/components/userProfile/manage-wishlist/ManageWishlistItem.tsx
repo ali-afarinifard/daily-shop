@@ -1,5 +1,6 @@
 import ProductType from "@/types/product"
 import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
+import { Box, Typography } from "@mui/material";
 import Image from "next/image"
 import Link from "next/link"
 import { FaChevronLeft } from "react-icons/fa"
@@ -14,42 +15,96 @@ const ManageWishlistItem: React.FC<ManageWishlistItemProps> = ({ product }) => {
     return (
         <Link href={`/product/${product._id}`}>
 
-            <div className="flex items-center justify-between gap-2">
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: '0.5rem'
+                }}
+            >
 
-                <div className="flex items-center gap-3">
-                    <div className="w-16 h-full">
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.75rem'
+                    }}
+                >
+                    <Box
+                        sx={{
+                            width: '4rem',
+                            height: '100%'
+                        }}
+                    >
                         <Image
                             src={product.images[0]}
                             alt={product.title}
                             width={100}
                             height={100}
-                            className="object-cover"
+                            style={{
+                                objectFit: 'cover'
+                            }}
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                         />
-                    </div>
+                    </Box>
 
-                    <div className="flex flex-col items-start gap-2">
-                        <span className="text-slate-400 text-[0.9rem]">{product.title}</span>
-                        <div className="text-slate-500 flex items-end gap-1">
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'start',
+                            gap: '0.5rem'
+                        }}
+                    >
+                        <Typography sx={{ color: '#94a3b8', fontWeight: '900', fontSize: '1rem' }}>{product.title}</Typography>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'end',
+                                gap: '0.25rem',
+                                color: '#64748b'
+                            }}
+                        >
                             {product.offer ? (
-                                <div className="flex flex-col gap-1">
-                                    <span className="text-offer text-sm text-slate-500">{formatPriceToFarsi(product?.price)}</span>
-                                    <span className="text-md text-slate-500">{formatPriceToFarsi(product?.offer)}</span>
-                                </div>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: '0.25rem'
+                                    }}
+                                >
+                                    <Typography
+                                        sx={{
+                                            fontSize: '0.75rem',
+                                            color: '#64748b',
+                                            fontWeight: '700',
+                                            textDecoration: 'line-through'
+                                        }}
+                                    >
+                                        {formatPriceToFarsi(product?.price)}
+                                    </Typography>
+
+                                    <Typography variant="body1" sx={{ color: '#64748b', fontWeight: 900 }}>
+                                        {formatPriceToFarsi(product?.offer)}
+                                    </Typography>
+                                </Box>
                             ) : (
-                                <span className="text-md text-slate-500">{formatPriceToFarsi(product?.price)}</span>
+                                <Typography variant="body1" sx={{ color: '#64748b' }}>
+                                    {formatPriceToFarsi(product?.price)}
+                                </Typography>
                             )}
-                            <span className="text-[0.85rem] relative -top-[2px] text-slate-500">تومان</span>
-                        </div>
-                    </div>
-                </div>
+                            <Typography variant="body2" sx={{ color: '#64748b', position: 'relative', top: '-2px' }}>تومان</Typography>
+                        </Box>
+                    </Box>
+                </Box>
 
 
-                <div>
+                <Box>
                     <FaChevronLeft size={20} />
-                </div>
+                </Box>
 
-            </div>
+            </Box>
 
         </Link>
     )

@@ -1,14 +1,19 @@
 // ** Components
+import { Box } from "@mui/material"
 import CartClient from "../components/cart/CartClient"
 import Container from "../components/Container"
 
 const CartPage = () => {
     return (
-        <div className="pt-20">
+        <Box
+            sx={{
+                pt: '5rem'
+            }}
+        >
             <Container>
                 <CartClient />
             </Container>
-        </div>
+        </Box>
     )
 }
 

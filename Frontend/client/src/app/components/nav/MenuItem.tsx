@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 
 interface MenuItemProps {
     children: React.ReactNode;
@@ -7,9 +8,20 @@ interface MenuItemProps {
 
 const MenuItem: React.FC<MenuItemProps> = ({ children, onClick }) => {
     return (
-        <div onClick={onClick} className="px-4 py-3 hover:bg-neutral-100 transition cursor-pointer">
+        <Box
+            sx={{
+                px: '1rem',
+                py: '0.75rem',
+                transition: 'all 0.3s',
+                cursor: 'pointer',
+                '&:hover': {
+                    background: '#f5f5f5',
+                }
+            }}
+            onClick={onClick}
+        >
             {children}
-        </div>
+        </Box>
     )
 }
 

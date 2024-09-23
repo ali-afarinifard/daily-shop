@@ -11,6 +11,7 @@ import { CiSearch } from "react-icons/ci";
 
 // ** Components
 import SearchBarItem from "../nav/SearchBar/SearchBarItem";
+import { Box, Divider, InputBase } from "@mui/material";
 
 
 interface CategoryListMobileProps {
@@ -68,33 +69,89 @@ const CatSearchBar: React.FC<CategoryListMobileProps> = ({ toggleMenu }) => {
 
 
     return (
-        <div ref={searchBarRef} className="relative w-full">
-            <div className="flex items-center justify-between">
-                <input
+        <Box ref={searchBarRef}
+            sx={{
+                position: 'relative',
+                width: '100%'
+            }}
+        >
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between'
+                }}
+            >
+                <InputBase
                     type="search"
                     placeholder="جستجوی محصولات"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    className="p-2 py-4 w-full outline-none"
+                    fullWidth
+                    autoComplete="off"
+                    sx={{
+                        width: '100%',
+                        p: '0.5rem',
+                        py: '1rem',
+                        outline: 'none',
+                        color: '#000000',
+                        fontWeight: '700',
+                    }}
+
                 />
-                <CiSearch size={25} />
-            </div>
+                <CiSearch size={25} style={{ color: '#6e6e6e' }} />
+            </Box>
             {noResults && (
-                <div className="absolute z-10 bg-white border border-gray-300 rounded-md mt-1 max-w-[24rem] w-full p-2">
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        zIndex: 10,
+                        background: '#fff',
+                        border: '1px solid',
+                        borderColor: '#d1d5db',
+                        borderRadius: '0.37rem',
+                        mt: '0.25rem',
+                        maxWidth: '24rem',
+                        width: '100%',
+                        p: '0.5rem'
+                    }}
+                >
                     هیچ محصولی یافت نشد
-                </div>
+                </Box>
             )}
             {showResults && results.length > 0 && (
-                <ul className="absolute z-10 bg-white border border-gray-300 rounded-md mt-1 p-1 py-2 w-full max-h-[20rem] overflow-auto">
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        zIndex: 10,
+                        background: '#fff',
+                        border: '1px solid',
+                        borderColor: '#d1d5db',
+                        borderRadius: '0.37rem',
+                        mt: '0.25rem',
+                        p: '0.25rem',
+                        py: '0.5rem',
+                        maxWidth: '24rem',
+                        maxHeight: '20rem',
+                        overflow: 'auto',
+                        width: '100%'
+                    }}
+                >
                     {results.map((product) => (
                         <>
                             <SearchBarItem key={product._id} product={product} onClick={handleClearProductClick} toggleMenu={toggleMenu} />
-                            <hr className="border-[1px] border-slate-200 my-2 last:hidden" />
+                            <Divider
+                                sx={{
+                                    border: '1px solid',
+                                    borderColor: '#e2e8f0',
+                                    my: '0.5rem',
+                                }}
+                            />
                         </>
                     ))}
-                </ul>
+                </Box>
             )}
-        </div>
+        </Box>
     )
 }
 

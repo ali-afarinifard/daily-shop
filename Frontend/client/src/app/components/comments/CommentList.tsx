@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { useGetCommentsQuery } from "@/store/apiSlice";
 
 // ** MUI
-import { Rating } from "@mui/material";
+import { Box, Divider, Rating, Typography } from "@mui/material";
 
 // ** Date FNS
 import { formatDistanceToNow, parseISO } from 'date-fns';
@@ -43,31 +43,49 @@ const CommentList: React.FC<CommentListProps> = ({ productId, commentsUpdated })
 
 
     return (
-        <div>
+        <Box>
             {comments.length > 0 ? (
                 comments.map(comment => (
-                    <div key={comment._id}>
-                        <div className="flex flex-col gap-6">
-                            <div className="flex flex-col gap-2">
-                                <div className="flex items-center gap-6">
-                                    <p className="font-semibold">{comment?.user?.fullName || 'مهمان'}</p>
-                                    <p className="text-xs text-slate-500">{formatDistanceToNow(parseISO(comment.createdAt), { addSuffix: true, locale: faIR })}</p>
-                                </div>
+                    <Box key={comment._id}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '1.5rem'
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '0.5rem'
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '1.5rem'
+                                    }}
+                                >
+                                    <Typography variant="h4">{comment?.user?.fullName || 'مهمان'}</Typography>
+                                    <Typography sx={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '700' }}>{formatDistanceToNow(parseISO(comment.createdAt), { addSuffix: true, locale: faIR })}</Typography>
+                                </Box>
                                 <Rating
                                     value={comment.rating || 0}
                                     readOnly
                                     sx={{ direction: 'ltr' }}
                                 />
-                            </div>
-                            <p className="text-slate-600">{comment.content}</p>
-                        </div>
-                        <hr className="my-4" />
-                    </div>
+                            </Box>
+                            <Typography variant="body1" sx={{ color: '#475569' }}>{comment.content}</Typography>
+                        </Box>
+                        <Divider sx={{ my: '1rem' }} />
+                    </Box>
                 ))
             ) : (
-                <p className="mt-10">هیچ دیدگاهی ثبت نشده</p>
+                <Typography variant="h4" sx={{ mt: '2.5rem' }}>هیچ دیدگاهی ثبت نشده</Typography>
             )}
-        </div>
+        </Box>
     )
 }
 

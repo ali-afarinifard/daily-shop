@@ -9,6 +9,7 @@ import { MdDashboard, MdFormatListBulleted, MdLogout } from "react-icons/md";
 import { IoIosHeart } from "react-icons/io";
 import MenuProfileItem from "./MenuProfileItem";
 import BackDropProfileNav from "../../backdrop/BackDropProfileNav";
+import { Box, Divider, Typography } from "@mui/material";
 
 
 
@@ -29,17 +30,57 @@ const UserProfileNavMobile: React.FC<UserProfileNavMobileProps> = ({ user, logou
 
     return (
         <>
-            <div className="relative z-30 w-fit">
+            <Box
+                sx={{
+                    position: 'relative',
+                    zIndex: 30,
+                    width: 'fit-content'
+                }}
+            >
 
-                <div onClick={toggleOpen} className="p-2 px-3 border-[1px] border-slate-400 flex flex-row items-center gap-1 rounded-full cursor-pointer hover:shadow-md transition text-slate-700 bg-slate-100">
+                <Box
+                    onClick={toggleOpen}
+                    sx={{
+                        p: '0.5rem',
+                        px: '0.75rem',
+                        border: '1px solid',
+                        borderColor: '#94a3b8',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.25rem',
+                        borderRadius: '40px',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease-in-out',
+                        color: '#334155',
+                        background: '#f1f5f9',
+                        '&:hover': {
+                            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)'
+                        }
+                    }}
+                >
                     <CiMenuKebab size={20} />
-                    <span>منوی حساب کاربری</span>
-                </div>
+                    <Typography variant="body1" sx={{ fontWeight: 900 }}>منوی حساب کاربری</Typography>
+                </Box>
 
                 {isOpen && (
-                    <div className="absolute rounded-md shadow-md w-[10.63rem] bg-white overflow-hidden right-0 top-12 text-sm flex flex-col cursor-pointer">
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            borderRadius: '0.37rem',
+                            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+                            width: '10.63rem',
+                            background: '#fff',
+                            overflow: 'hidden',
+                            right: 0,
+                            top: '3rem',
+                            fontSize: '0.8rem',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            cursor: 'pointer'
+                        }}
+                    >
 
-                        <div>
+                        <Box>
                             <Link href={'/user-account'}>
                                 <MenuProfileItem
                                     onClick={toggleOpen}
@@ -61,8 +102,8 @@ const UserProfileNavMobile: React.FC<UserProfileNavMobileProps> = ({ user, logou
                                     label="سفارش ها"
                                 />
                             </Link>
-                            <hr />
-                            <div>
+                            <Divider />
+                            <Box>
                                 <MenuProfileItem
                                     onClick={() => {
                                         logout();
@@ -71,13 +112,13 @@ const UserProfileNavMobile: React.FC<UserProfileNavMobileProps> = ({ user, logou
                                     icon={MdLogout}
                                     label="خروج"
                                 />
-                            </div>
-                        </div>
+                            </Box>
+                        </Box>
 
-                    </div>
+                    </Box>
                 )}
 
-            </div>
+            </Box>
             {isOpen ? <BackDropProfileNav onClick={toggleOpen} /> : null}
         </>
     )

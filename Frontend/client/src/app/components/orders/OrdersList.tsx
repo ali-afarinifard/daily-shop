@@ -1,9 +1,17 @@
+import { Box, Typography } from "@mui/material"
 
 const OrdersList = () => {
     return (
-        <div className="flex items-center justify-center text-xl font-bold">
+        <Typography
+            variant="h3"
+            sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}
+        >
             این صفحه در حال ساخت است
-        </div>
+        </Typography>
     )
 }
 

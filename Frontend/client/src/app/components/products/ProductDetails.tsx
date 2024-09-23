@@ -21,8 +21,7 @@ import { AuthContext } from "@/context/AuthContext";
 import Spinner from "../Spinner";
 import CommentForm from "../comments/CommentForm";
 import CommentList from "../comments/CommentList";
-import CommentType from "@/types/comment";
-import { Rating } from "@mui/material";
+import { Box, Divider, FormControl, MenuItem, Rating, Select, Typography } from "@mui/material";
 import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
 import { useAddToWishlistMutation, useGetCommentsQuery, useGetProductByIdQuery } from "@/store/apiSlice";
 
@@ -165,43 +164,102 @@ const ProductDetails: React.FC = () => {
 
 
     return (
-        <div>
+        <Box>
             {isProductLoading ? (
-                <div className="mt-32 flex items-center justify-center">
+                <Box
+                    sx={{
+                        mt: '8rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}
+                >
                     <Spinner size={40} />
-                </div>
+                </Box>
             ) : (
-                <div className="mt-20 xl:mt-5 w-full">
-                    <div className="flex flex-col">
-                        <div className="flex items-start xl:flex-col">
-                            <div className="w-[30rem] xl:flex xl:flex-col items-center justify-center xl:w-full">
-                                <div className="w-[30rem] h-full xl:flex xl:items-center xl:justify-center xl:w-full">
+                <Box
+                    sx={{
+                        mt: { xs: '1.25rem', lg: '5rem' },
+                        width: '100%',
+                    }}
+                >
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column'
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'start',
+                                flexDirection: { xs: 'column', lg: 'row' }
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    width: { xs: '100%', lg: '30rem' },
+                                    display: { xs: 'flex', lg: 'block' },
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        width: { xs: '100%', lg: '30rem' },
+                                        height: 'full',
+                                        display: { xs: 'flex', lg: 'block' },
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                    }}
+                                >
                                     <Swiper
                                         modules={[Thumbs]}
                                         slidesPerView={1}
                                         thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }} // Check if thumbsSwiper is initialized
-                                        className="w-[30rem] h-full flex items-center justify-center"
+                                        style={{
+                                            width: '30rem',
+                                            height: '100%',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center'
+                                        }}
                                         onSlideChange={(swiper) => setSelectedImage(product?.images[swiper.activeIndex] || null)}
                                     >
 
                                         {product?.images.map((image, index) => (
                                             <SwiperSlide key={index}>
-                                                <Image
+                                                <Box
+                                                    component='img'
                                                     src={image}
                                                     alt={`${product.title} ${index + 1}`}
                                                     width={450}
                                                     height={450}
-                                                    priority
-                                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-                                                    className="object-cover rounded-md h-[35rem] cursor-pointer"
                                                     onClick={handleMainImageClick}
+                                                    sx={{
+                                                        objectFit: 'cover',
+                                                        borderRadius: '0.37rem',
+                                                        height: '35rem',
+                                                        cursor: 'pointer',
+                                                    }}
                                                 />
                                             </SwiperSlide>
                                         ))}
                                     </Swiper>
-                                </div>
+                                </Box>
 
-                                <div className="max-w-[28rem] w-full mt-4 p-1 rounded-md border-[1px] border-slate-300">
+                                <Box
+                                    sx={{
+                                        maxWidth: '28rem',
+                                        width: '100%',
+                                        mt: '1rem',
+                                        p: '0.25rem',
+                                        borderRadius: '0.37rem',
+                                        border: '1px solid',
+                                        borderColor: '#cbd5e1'
+                                    }}
+                                >
                                     <Swiper
                                         modules={[Thumbs]}
                                         onSwiper={setThumbsSwiper}
@@ -220,49 +278,90 @@ const ProductDetails: React.FC = () => {
 
                                         {product?.images.map((image, index) => (
                                             <SwiperSlide key={index}>
-                                                <div
-                                                    className="w-[5rem] h-[5rem] rounded-md overflow-hidden cursor-pointer"
+                                                <Box
+                                                    style={{
+                                                        width: '5rem',
+                                                        height: '5rem',
+                                                        borderRadius: '0.37rem',
+                                                        overflow: 'hidden',
+                                                        cursor: 'pointer'
+                                                    }}
                                                     onClick={() => handleImageClick(image)}
                                                 >
-                                                    <Image
+                                                    <Box
+                                                        component="img"
                                                         src={image}
                                                         alt={`${product.title} ${index + 1}`}
                                                         width={100}
                                                         height={100}
-                                                        priority
-                                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-                                                        className="object-cover transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
+                                                        sx={{
+                                                            objectFit: 'cover',
+                                                            transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+                                                            '&:hover': {
+                                                                transform: 'scale(1.05)',
+                                                                boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)'
+                                                            }
+                                                        }}
                                                     />
-                                                </div>
+                                                </Box>
                                             </SwiperSlide>
                                         ))}
                                     </Swiper>
-                                </div>
+                                </Box>
 
-                                <div>
+                                <Box>
                                     {isModalOpen && (
-                                        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50" onClick={closeModal}>
-                                            <div className="relative">
-                                                <Image
+                                        <Box
+                                            sx={{
+                                                position: 'fixed',
+                                                inset: 0,
+                                                background: '#000000',
+                                                opacity: 1,
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                zIndex: '50'
+                                            }}
+                                            onClick={closeModal}>
+                                            <Box sx={{ position: 'relative' }}>
+                                                <Box
+                                                    component="img"
                                                     src={selectedImage || ""}
                                                     alt="تصویر"
-                                                    width={500}
-                                                    height={500}
-                                                    priority
-                                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-                                                    className="object-cover rounded-md w-[32rem] s:w-[26rem] m:w-[20rem]"
+                                                    width={700}
+                                                    height={600}
+                                                    loading="lazy"
+                                                    sx={{
+                                                        objectFit: 'cover',
+                                                        borderRadius: '0.37rem',
+                                                        width: { xs: '20rem', sm: '26rem', '2sm': '32rem' }
+                                                    }}
                                                 />
-                                            </div>
-                                        </div>
+                                            </Box>
+                                        </Box>
                                     )}
-                                </div>
+                                </Box>
 
-                            </div>
+                            </Box>
 
-                            <div className="mt-7 flex flex-col gap-5 flex-grow">
-                                <div className="flex flex-col gap-4">
-                                    <h1 className="text-3xl font-bold">{product?.title}</h1>
-                                    <div className="relative w-fit">
+                            <Box
+                                sx={{
+                                    mt: '1.75rem',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '1.25rem',
+                                    flexGrow: '1'
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: '1rem'
+                                    }}
+                                >
+                                    <Typography variant="h1">{product?.title}</Typography>
+                                    <Box sx={{ position: 'relative', width: 'fit-content' }}>
                                         {/* Display average rating */}
                                         <Rating
                                             value={averageRating || 0}
@@ -270,98 +369,180 @@ const ProductDetails: React.FC = () => {
                                             readOnly
                                             sx={{ direction: 'ltr', fontSize: '1.7rem' }}
                                         />
-                                        <div className="absolute -left-6 -bottom-3">
+                                        <Box sx={{ position: 'absolute', left: '-1.5rem', bottom: '-0.75rem' }}>
                                             {averageRating !== null && (
-                                                <span className="text-xs text-slate-500 ml-2">({averageRating.toFixed(1)})</span>
+                                                <Typography sx={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748b', marginLeft: '0.5rem' }}>
+                                                    ({averageRating.toFixed(1)})
+                                                </Typography>
                                             )}
-                                        </div>
-                                    </div>
-                                </div>
-                                <h3 className="flex items-center gap-1">
+                                        </Box>
+                                    </Box>
+                                </Box>
+                                <Typography sx={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                                     {product?.offer ? (
-                                        <div className="flex items-center gap-4">
-                                            <span className="text-[1.4rem] text-slate-400 text-offer">{formatPriceToFarsi(product?.price)}</span>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                            <Typography sx={{ fontSize: '1.4rem', fontWeight: 700, color: '#94a3b8' }} className="text-offer">
+                                                {formatPriceToFarsi(product?.price)}
+                                            </Typography>
 
-                                            <hr className="w-[1px] h-[1.6rem] bg-slate-400 relative -top-1" />
+                                            <Divider sx={{ width: '1px', height: '1.6rem', background: '#94a3b8', position: 'relative', top: '-0.25rem' }} />
 
-                                            <span className="text-[1.6rem] text-slate-500">{formatPriceToFarsi(product?.offer)}</span>
-                                        </div>
+                                            <Typography sx={{ fontSize: '1.6rem', fontWeight: 700, color: '#64748b' }}>
+                                                {formatPriceToFarsi(product?.offer)}
+
+                                            </Typography>
+                                        </Box>
                                     ) : (
-                                        <span className="text-[1.6rem] text-slate-500">{formatPriceToFarsi(product?.price)}</span>
+                                        <Typography sx={{ fontSize: '1.6rem', fontWeight: 700, color: '#64748b' }}>{formatPriceToFarsi(product?.price)}</Typography>
                                     )}
-                                    <span className="text-md">تومان</span>
-                                </h3>
+                                    <Typography variant="body1">تومان</Typography>
+                                </Typography>
 
-                                <div className="flex items-center gap-6">
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '1.5rem'
+                                    }}
+                                >
                                     {product?.isStatus && (
                                         <>
-                                            <p className="flex items-center gap-1">
-                                                <span>تعداد : </span>
-                                                <span className="font-bold">{formatPriceToFarsi(product?.stock)}</span>
-                                            </p>
-                                            <hr className="w-[1px] h-[1.1rem] bg-slate-300" />
+                                            <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                                                <Typography variant="body1">تعداد : </Typography>
+                                                <Typography variant="body1">{formatPriceToFarsi(product?.stock)}</Typography>
+                                            </Typography>
+                                            <Divider sx={{ width: '1px', height: '1.1rem', background: '#cbd5e1' }} />
                                         </>
                                     )}
-                                    <div className="flex items-center gap-1">
-                                        <span className="font-semibold">وضعیت : </span>
-                                        <div className={product?.isStatus ? 'text-teal-400' : 'text-rose-400'}>
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '0.25rem'
+                                        }}
+                                    >
+                                        <Typography variant="body1">وضعیت : </Typography>
+                                        <Typography variant="body1" sx={{ color: product?.isStatus ? '#2dd4bf' : '#fb7185' }}>
                                             {product?.isStatus ? 'موجود' : 'ناموجود'}
-                                        </div>
-                                    </div>
-                                </div>
+                                        </Typography>
+                                    </Box>
+                                </Box>
 
                                 {isProductInCart ? (
                                     <>
-                                        <p className="mb-2 text-slate-500 flex items-center gap-1">
-                                            <MdCheckCircle size={20} className="text-teal-400" />
-                                            <span> کالا به سبد خرید شما اضافه شد</span>
-                                        </p>
+                                        <Typography
+                                            sx={{
+                                                mb: '0.5rem',
+                                                color: '#64748b',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '0.25rem'
+                                            }}
+                                        >
+                                            <MdCheckCircle size={20} style={{ color: '#2dd4bf' }} />
+                                            <Typography variant="body1"> کالا به سبد خرید شما اضافه شد</Typography>
+                                        </Typography>
 
-                                        <div className="max-w-[18.75rem]">
+                                        <Box
+                                            sx={{
+                                                maxWidth: '18.75rem'
+                                            }}
+                                        >
                                             <Button label="مشاهده سبد خرید" outline onClick={() => { router.push('/cart') }} />
-                                        </div>
+                                        </Box>
                                     </>
                                 ) : (
                                     <>
                                         {product?.isStatus ? (
                                             <>
-                                                <div className="flex items-center gap-4 xl:gap-1 max-w-[30rem] xl:flex-row xl:w-full">
-                                                    <div className="flex flex-col gap-1 w-full">
-                                                        <label htmlFor="size" className="xl:hidden">سایز</label>
-                                                        <select
-                                                            id="size"
-                                                            name="size"
-                                                            value={selectedSize ?? ""}
-                                                            onChange={(e) => setSelectedSize(e.target.value)}
-                                                            className="p-2 border border-slate-300 rounded outline-none w-full"
-                                                        >
-                                                            <option value="">انتخاب سایز</option>
-                                                            {product?.sizes.map((size, index) => (
-                                                                <option key={index} value={size}>
-                                                                    {formatPriceToFarsi(size)}
-                                                                </option>
-                                                            ))}
-                                                        </select>
-                                                    </div>
+                                                <Box
+                                                    sx={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        maxWidth: { xs: '100%', lg: '30rem' },
+                                                        gap: { xs: '0.25rem', lg: '1rem' }
+                                                    }}
+                                                >
+                                                    <Box
+                                                        sx={{
+                                                            display: 'flex',
+                                                            flexDirection: 'column',
+                                                            gap: '0.25rem',
+                                                            width: '100%'
+                                                        }}
+                                                    >
+                                                        <FormControl fullWidth>
+                                                            <Typography variant="body1" sx={{ display: { xs: 'none', lg: 'block' } }}>سایز</Typography>
 
-                                                    <div className="flex flex-col gap-1 w-full">
-                                                        <label htmlFor="color" className="xl:hidden">رنگ</label>
-                                                        <select
-                                                            id="color"
+                                                            <Select
+                                                                labelId="size-label"
+                                                                name="size"
+                                                                value={selectedSize ?? ""}
+                                                                onChange={(e) => setSelectedSize(e.target.value)}
+                                                                sx={{
+                                                                    p: '0.5rem',
+                                                                    border: '1px solid',
+                                                                    borderColor: '#cbd5e1',
+                                                                    borderRadius: '0.37rem',
+                                                                    outline: 'none',
+                                                                    height: '2.6rem',
+                                                                    '&:focus': {
+                                                                        borderColor: 'primary.main',
+                                                                    }
+                                                                }}
+                                                            >
+                                                                <MenuItem value={"انتخاب سایز"} sx={{ fontWeight: '700', fontFamily: 'Vazir' }}>
+                                                                    <Typography variant="body1">انتخاب سایز</Typography>
+                                                                </MenuItem>
+
+                                                                {product?.sizes.map((size, index) => (
+                                                                    <MenuItem key={index} value={size} sx={{ fontWeight: '700', fontFamily: 'Vazir' }}>
+                                                                        <Typography variant="body1">{formatPriceToFarsi(size)}</Typography>
+                                                                    </MenuItem>
+                                                                ))}
+                                                            </Select>
+                                                        </FormControl>
+                                                    </Box>
+
+                                                    <Box
+                                                        sx={{
+                                                            display: 'flex',
+                                                            flexDirection: 'column',
+                                                            gap: '0.25rem',
+                                                            width: '100%'
+                                                        }}
+                                                    >
+                                                        <Typography variant="body1" sx={{ display: { xs: 'none', lg: 'block' } }}>رنگ</Typography>
+
+                                                        <Select
+                                                            labelId="color-label"
                                                             name="color"
                                                             value={selectedColor ?? ""}
                                                             onChange={(e) => setSelectedColor(e.target.value)}
-                                                            className="p-2 border border-slate-300 rounded outline-none w-full"
+                                                            sx={{
+                                                                p: '0.5rem',
+                                                                border: '1px solid',
+                                                                borderColor: '#cbd5e1',
+                                                                borderRadius: '0.37rem',
+                                                                outline: 'none',
+                                                                height: '2.6rem',
+                                                                '&:focus': {
+                                                                    borderColor: 'primary.main',
+                                                                }
+                                                            }}
                                                         >
-                                                            <option value="">انتخاب رنگ</option>
+                                                            <MenuItem value={"انتخاب رنگ"} sx={{ fontWeight: '700', fontFamily: 'Vazir' }}>
+                                                                <Typography variant="body1">انتخاب رنگ</Typography>
+                                                            </MenuItem>
+
                                                             {product?.colors.map((color, index) => (
-                                                                <option key={index} value={color}>
-                                                                    {color}
-                                                                </option>
+                                                                <MenuItem key={index} value={color}>
+                                                                    <Typography variant="body1">{color}</Typography>
+                                                                </MenuItem>
                                                             ))}
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                                        </Select>
+                                                    </Box>
+                                                </Box>
 
                                                 <SetQuantity
                                                     productType={{ ...product, quantity }}
@@ -369,37 +550,79 @@ const ProductDetails: React.FC = () => {
                                                     handleQtyDecrease={handleQtyDecrease}
                                                 />
 
-                                                <div className="max-w-[18.75rem]">
+                                                <Box
+                                                    sx={{
+                                                        maxWidth: '18.75rem'
+                                                    }}
+                                                >
                                                     <Button
                                                         label="افزودن به سبد"
                                                         onClick={handleAddToCart}
                                                     />
-                                                </div>
+                                                </Box>
                                             </>
                                         ) : (
                                             <>
-                                                <div className="max-w-[18.75rem]">
-                                                    <div className="rounded-md bg-rose-500 text-white px-2 py-3 text-[1.1rem] transition w-full border-slate-700 flex items-center justify-center gap-2">ناموجود</div>
-                                                </div>
+                                                <Box
+                                                    sx={{
+                                                        maxWidth: '18.75rem'
+                                                    }}
+                                                >
+                                                    <Box
+                                                        sx={{
+                                                            borderRadius: '0.37rem',
+                                                            background: '#f43f5e',
+                                                            color: '#fff',
+                                                            px: '0.5rem',
+                                                            py: '0.75rem',
+                                                            fontSize: '1.1rem',
+                                                            width: '100%',
+                                                            borderColor: '#334155',
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            justifyContent: 'center',
+                                                            gap: '0.5rem'
+                                                        }}
+                                                    >
+                                                        ناموجود
+                                                    </Box>
+                                                </Box>
                                             </>
                                         )}
                                     </>
                                 )}
 
-                                <div>
+                                <Box>
                                     {showWishlistMessage ? (
                                         <>
-                                            <p className="mb-2 text-slate-500 flex items-center gap-1">
-                                                <MdCheckCircle size={20} className="text-green-500" />
-                                                <span>کالا به لیست علاقه‌مندی‌ها اضافه شد</span>
-                                            </p>
+                                            <Typography
+                                                variant="body1"
+                                                sx={{
+                                                    mb: '0.5rem',
+                                                    color: '#64748b',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '0.25rem'
+                                                }}
+                                            >
+                                                <MdCheckCircle size={20} style={{ color: '#22c55e' }} />
+                                                <Typography variant="body1">کالا به لیست علاقه‌مندی‌ها اضافه شد</Typography>
+                                            </Typography>
 
-                                            <div className="max-w-[18.75rem]">
+                                            <Box
+                                                sx={{
+                                                    maxWidth: '18.75rem'
+                                                }}
+                                            >
                                                 <Button label="مشاهده لیست علاقه‌مندی‌ها" outline onClick={() => { router.push('/wishlist') }} />
-                                            </div>
+                                            </Box>
                                         </>
                                     ) : (
-                                        <div className="max-w-[18.75rem]">
+                                        <Box
+                                            sx={{
+                                                maxWidth: '18.75rem'
+                                            }}
+                                        >
                                             <Button
                                                 label="افزودن به لیست علاقه‌مندی‌ها"
                                                 onClick={() => {
@@ -411,33 +634,61 @@ const ProductDetails: React.FC = () => {
                                                 }}
                                                 custom="!bg-rose-500 !border-rose-500"
                                             />
-                                        </div>
+                                        </Box>
                                     )}
-                                </div>
-                            </div>
-                        </div>
+                                </Box>
+                            </Box>
+                        </Box>
 
-                        <div className="mt-16 w-full max-w-[60rem] leading-[1.9rem] text-justify">
-                            <p>{formatPriceToFarsi(product?.description)}</p>
-                        </div>
+                        <Box
+                            sx={{
+                                mt: '4rem',
+                                width: '100%',
+                                maxWidth: '60rem',
+                                lineHeight: '1.9rem',
+                                textAlign: 'justify'
+                            }}
+                        >
+                            <Typography variant="body1">{formatPriceToFarsi(product?.description)}</Typography>
+                        </Box>
 
 
-                        <div className="mt-10">
-                            <div className="flex gap-10 w-full s:flex-col s:gap-5">
-                                <div className="w-[24rem] s:w-full">
+                        <Box
+                            sx={{
+                                mt: '2.5rem'
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: { xs: 'column', '2sm': 'row' },
+                                    width: '100%',
+                                    gap: { xs: '1.25rem', '2sm': '2.5rem' }
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        width: { xs: '100%', '2sm': '24rem' }
+                                    }}
+                                >
                                     <CommentForm productId={productId} onCommentAdded={handleCommentsUpdate} />
-                                </div>
+                                </Box>
 
-                                <div className="w-full mt-[3.6rem]">
+                                <Box
+                                    sx={{
+                                        width: '100%',
+                                        mt: '3.6rem'
+                                    }}
+                                >
                                     <CommentList productId={productId} commentsUpdated={commentsUpdated} />
-                                </div>
-                            </div>
-                        </div>
+                                </Box>
+                            </Box>
+                        </Box>
 
-                    </div>
-                </div>
+                    </Box>
+                </Box>
             )}
-        </div>
+        </Box>
     );
 };
 

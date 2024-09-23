@@ -14,6 +14,7 @@ import CategoryType from "@/types/category"
 // ** Components
 import Container from "../Container"
 import CategoryItem from "./CategoryItem"
+import { Box } from "@mui/material"
 
 
 const CategoryList = () => {
@@ -41,16 +42,24 @@ const CategoryList = () => {
 
 
     return (
-        <div className={`bg-slate-100 mt-4 transform transition-all duration-300 ease-in-out ${isAtTop ? 'translate-y-0 opacity-100' : '-translate-y-full hidden mt-0'}`}>
+        <Box
+            sx={{
+                background: '#f1f5f9',
+                mt: '1rem',
+                transition: 'transform 300ms ease-in-out, display 300ms ease-in-out',
+                transform: isAtTop ? 'translateY(0)' : 'translateY(-100%)',
+                display: isAtTop ? 'block' : 'none'
+            }}
+        >
             <Container>
-                <div className="flex items-center gap-10 py-1 text-[0.94rem]">
+                <Box className="flex items-center gap-10 py-1 text-[0.94rem]">
                     <Link href={'/products'}>
                         <CategoryItem
                             label="همه"
                             selected={pathname === '/products'}
                         />
                     </Link>
-                    {categories?.map((category:CategoryType) => (
+                    {categories?.map((category: CategoryType) => (
                         <Link
                             key={category._id}
                             href={`/category/${category._id}`}
@@ -81,9 +90,9 @@ const CategoryList = () => {
                             selected={pathname === '/about-us'}
                         />
                     </Link>
-                </div>
+                </Box>
             </Container>
-        </div>
+        </Box>
     )
 }
 

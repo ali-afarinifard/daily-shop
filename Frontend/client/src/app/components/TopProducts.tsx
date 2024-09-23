@@ -2,7 +2,6 @@
 
 import { useContext, useRef } from "react";
 import Heading from "./Heading";
-import ProductType from "@/types/product";
 
 // ** Swiper
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -15,13 +14,14 @@ import ProductBox from "./products/ProductBox";
 import { AuthContext } from "@/context/AuthContext";
 import NullData from "./NullData";
 import { useGetAllProductsQuery } from "@/store/apiSlice";
+import { Box, IconButton } from "@mui/material";
 
 
 const TopProducts = () => {
 
     const swiperRef = useRef<SwiperType>();
 
-    const {data: products = [], isLoading, error } = useGetAllProductsQuery();
+    const { data: products = [], isLoading, error } = useGetAllProductsQuery();
 
 
     const authContext = useContext(AuthContext);
@@ -41,12 +41,22 @@ const TopProducts = () => {
 
 
     return (
-        <div className="mt-20">
-            <div className="flex items-center justify-start">
+        <Box
+            sx={{
+                mt: '5rem'
+            }}
+        >
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'start'
+                }}
+            >
                 <Heading title="پرفروش ترین محصولات" />
-            </div>
+            </Box>
 
-            <div className="relative ___swiper-container mt-10" dir="ltr">
+            <Box className="relative ___swiper-container mt-10" sx={{ direction: 'ltr' }}>
                 <Swiper
                     loop={products.length > 4}
                     slidesPerView={Math.min(1, products.length)}
@@ -76,25 +86,71 @@ const TopProducts = () => {
                 </Swiper>
 
 
-                <div
-                    className="flex items-center justify-center gap-5 ___swiper-buttons m:hidden"
+                <Box
+                    sx={{
+                        display: { xs: 'none', sm: 'flex' },
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '1.25rem',
+                    }}
+                    className="___swiper-buttons"
                 >
-                    <button
+                    <IconButton
                         onClick={() => swiperRef.current?.slidePrev()}
-                        className="bg-white rounded-full text-xl w-[3.2rem] h-[3.2rem] sl:w-[2.5rem] sl:h-[2.5rem] flex items-center justify-center shadow-[0px_0px_3px_1px_rgba(165,165,165,0.75)] absolute -left-8 sl:-left-2 top-0 translate-y-[270%] sl:translate-y-[340%] z-20"
-                    >
-                        <IoIosArrowBack size={32} className="relative right-[1px]" />
-                    </button>
+                        sx={{
+                            background: '#fff',
+                            borderRadius: '100%',
+                            fontSize: '1.25rem',
+                            lineHeight: '1.75rem',
+                            width: { xs: '2.5rem', md: '3.2rem' },
+                            height: { xs: '2.5rem', md: '3.2rem' },
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            boxShadow: '0px 0px 3px 1px rgba(165,165,165,0.75)',
+                            position: 'absolute',
+                            left: { xs: '-0.5rem', md: '-2rem' },
+                            top: '0',
+                            transform: { xs: 'translateY(340%)', md: 'translateY(270%)' },
+                            zIndex: 20,
+                            '&:hover': {
+                                background: '#fff'
+                            }
 
-                    <button
-                        onClick={() => swiperRef.current?.slideNext()}
-                        className="bg-white rounded-full text-xl w-[3.2rem] h-[3.2rem] sl:w-[2.5rem] sl:h-[2.5rem] flex items-center justify-center shadow-[0px_0px_3px_1px_rgba(165,165,165,0.75)] absolute -right-8 sl:-right-2 top-0 translate-y-[270%] sl:translate-y-[340%] z-20"
+                        }}
                     >
-                        <IoIosArrowForward size={32} className="relative left-[1px]" />
-                    </button>
-                </div>
-            </div>
-        </div >
+                        <IoIosArrowBack size={32} style={{ position: 'relative', right: '1px' }} />
+                    </IconButton>
+
+                    <IconButton
+                        onClick={() => swiperRef.current?.slideNext()}
+                        sx={{
+                            background: '#fff',
+                            borderRadius: '100%',
+                            fontSize: '1.25rem',
+                            lineHeight: '1.75rem',
+                            width: { xs: '2.5rem', md: '3.2rem' },
+                            height: { xs: '2.5rem', md: '3.2rem' },
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            boxShadow: '0px 0px 3px 1px rgba(165,165,165,0.75)',
+                            position: 'absolute',
+                            right: { xs: '-0.5rem', md: '-2rem' },
+                            top: 0,
+                            transform: { xs: 'translateY(340%)', md: 'translateY(270%)' },
+                            zIndex: 20,
+                            '&:hover': {
+                                background: '#fff'
+                            }
+                        }}
+
+                    >
+                        <IoIosArrowForward size={32} style={{ position: 'relative', left: '1px' }} />
+                    </IconButton>
+                </Box>
+            </Box>
+        </Box >
     )
 }
 

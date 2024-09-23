@@ -12,6 +12,7 @@ import { formatPriceToFarsi } from '@/utils/formatPriceToFarsi';
 
 // ** Icons
 import { FaChevronLeft } from 'react-icons/fa';
+import { Box, Typography } from '@mui/material';
 
 
 interface SearchBarItemProps {
@@ -26,11 +27,31 @@ const SearchBarItem: React.FC<SearchBarItemProps> = ({ product, onClick, toggleM
     const firstImage = product.images[0];
 
     return (
-        <li className="p-1 hover:bg-gray-100" onClick={onClick}>
+        <Box
+            sx={{
+                p: '0.25rem',
+                '&:hover': {
+                    background: '#f3f4f6 '
+                }
+            }}
+            onClick={onClick}>
             <Link href={`/product/${product._id}`} onClick={toggleMenu}>
-                <div className="flex items-center justify-between gap-1">
-                    <div className='flex items-center gap-2'>
-                        <div>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: '0.25rem'
+                    }}
+                >
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.5rem'
+                        }}
+                    >
+                        <Box>
                             <Image
                                 src={firstImage}
                                 alt={product.title}
@@ -38,40 +59,86 @@ const SearchBarItem: React.FC<SearchBarItemProps> = ({ product, onClick, toggleM
                                 height={70}
                                 priority
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-                                className="object-cover w-[3rem] h-[3rem]"
+                                style={{
+                                    objectFit: 'cover',
+                                    width: '3rem',
+                                    height: '3rem'
+                                }}
                             />
-                        </div>
+                        </Box>
 
-                        <div className='flex flex-col gap-1'>
-                            <span>{product.title}</span>
-                            <div className='flex items-center gap-1'>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '0.25rem'
+                            }}
+                        >
+                            <Typography variant='body1'>{product.title}</Typography>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.25rem'
+                                }}
+                            >
                                 {product.isStatus ? (
-                                    <div className="flex items-center justify-center gap-1">
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            gap: '0.25rem'
+                                        }}
+                                    >
                                         {product.offer ? (
                                             <>
-                                                <span className="text-offer text-[0.8rem] text-slate-500">{formatPriceToFarsi(product.price)}</span>
-                                                <span className="text-[0.92rem] text-green-500">{formatPriceToFarsi(product.offer)}</span>
+                                                <Typography variant='body2' sx={{ color: '#64748b' }} className="text-offer">
+                                                    {formatPriceToFarsi(product.price)}
+                                                </Typography>
+
+                                                <Typography variant='body1' sx={{ color: '#22c55e' }}>
+                                                    {formatPriceToFarsi(product.offer)}
+                                                </Typography>
                                             </>
                                         ) : (
-                                            <span className="text-[0.92rem] text-green-500">{formatPriceToFarsi(product.price)}</span>
+                                            <Typography variant='body1' sx={{ color: '#22c55e' }}>
+                                                {formatPriceToFarsi(product.price)}
+                                            </Typography>
                                         )}
-                                        <span className="text-[0.8rem]">تومان</span>
-                                    </div>
+                                        <Typography variant='body2'>تومان</Typography>
+                                    </Box>
                                 ) : (
-                                    <div>
-                                        <div className="rounded-md bg-rose-500 text-white px-3 py-[0.08rem] text-[0.7rem] w-full border-slate-700 flex items-center justify-center">ناموجود</div>
-                                    </div>
+                                    <Box>
+                                        <Typography
+                                            sx={{
+                                                borderRadius: '0.37rem',
+                                                borderColor: '#334155',
+                                                background: '#f43f5e',
+                                                color: '#fff',
+                                                px: '0.75rem',
+                                                py: '0.08rem',
+                                                fontSize: '0.7rem',
+                                                width: '100%',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center'
+                                            }}
+                                        >
+                                            ناموجود
+                                        </Typography>
+                                    </Box>
                                 )}
-                            </div>
-                        </div>
-                    </div>
+                            </Box>
+                        </Box>
+                    </Box>
 
 
                     <FaChevronLeft size={16} />
 
-                </div>
+                </Box>
             </Link>
-        </li>
+        </Box>
     )
 }
 

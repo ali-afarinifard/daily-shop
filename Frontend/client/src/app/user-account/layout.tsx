@@ -11,6 +11,7 @@ import { AuthContext } from "@/context/AuthContext";
 import Container from "../components/Container";
 import UserProfileNav from "../components/userProfile/user-account/UserProfileNav";
 import UserProfileNavMobile from "../components/userProfile/user-account/UserProfileNavMobile";
+import { Box } from "@mui/material";
 
 
 const UserLayout = ({ children }: { children: React.ReactNode }) => {
@@ -30,17 +31,45 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
 
     return (
         <Container>
-            <div className="flex xl:flex-col gap-10 xl:gap-20 h-full w-full py-24 xl:py-14">
-                <div className="xl:hidden">
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: { xs: 'column', lg: 'row' },
+                    height: '100%',
+                    width: '100%',
+                    py: { xs: '3.5rem', lg: '6rem' },
+                    gap: { xs: '5rem', lg: '2.5rem' }
+                }}
+            >
+                <Box
+                    sx={{
+                        display: { xs: 'none', lg: 'block' }
+                    }}
+                >
                     <UserProfileNav user={user} logout={logout} />
-                </div>
-                <div className="hidden xl:block sl:mt-16">
+                </Box>
+
+                <Box
+                    sx={{
+                        display: { xs: 'block', lg: 'none' },
+                        mt: { xs: '4rem', md: 0 }
+                    }}
+                >
                     <UserProfileNavMobile user={user} logout={logout} />
-                </div>
-                <div className="w-full shadow-md py-5 px-6 xm:px-3 rounded-lg">
+                </Box>
+
+                <Box
+                    sx={{
+                        width: '100%',
+                        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+                        py: '1.25rem',
+                        px: { xs: '0.75rem', '2xs': '1.5rem' },
+                        borderRadius: '0.5rem'
+                    }}
+                >
                     {children}
-                </div>
-            </div>
+                </Box>
+            </Box>
         </Container>
     )
 }

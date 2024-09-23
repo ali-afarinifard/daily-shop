@@ -2,6 +2,7 @@
 
 import ProductType from "@/types/product";
 import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
+import { Box, Button, Typography } from "@mui/material";
 
 
 interface SetQtyProps {
@@ -9,10 +10,10 @@ interface SetQtyProps {
     productType: ProductType,
     handleQtyIncrease: () => void,
     handleQtyDecrease: () => void,
-    custom?: string;
+    custom?: React.CSSProperties;
 }
 
-const btnStyles = "border-[1.2px] border-slate-300 px-2 rounded";
+const btnStyles = "";
 
 
 const SetQuantity: React.FC<SetQtyProps> = ({
@@ -23,17 +24,69 @@ const SetQuantity: React.FC<SetQtyProps> = ({
     custom
 }) => {
     return (
-        <div className="flex items-center gap-4 my-2">
+        <Box
+            sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                my: '0.5rem'
+            }}
+        >
 
-            {cardCounter ? null : <div className="font-semibold">تعداد :</div>}
+            {cardCounter ? null : <Typography variant="body1">تعداد :</Typography>}
 
-            <div className={`flex items-center gap-4 text-base ${custom ? custom : ''}`}>
-                <button onClick={handleQtyIncrease} className={btnStyles}>+</button>
-                <div>{formatPriceToFarsi(productType?.quantity)}</div>
-                <button onClick={handleQtyDecrease} className={`${btnStyles} px-[11px] py-[0.5px]`}>-</button>
-            </div>
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '1rem',
+                    fontSize: '1rem',
+                    lineHeight: '1.5rem',
+                    ...(custom ? { ...custom } : {})
+                }}
+            >
+                <Button
+                    onClick={handleQtyIncrease}
+                    sx={{
+                        border: '1.2px solid',
+                        borderColor: '#cbd5e1',
+                        color: '#000000',
+                        fontSize: '1.2rem',
+                        fontWeight: 900,
+                        borderRadius: '0.37rem',
+                        minWidth: 'unset',
+                        minHeight: 0,
+                        height: 0,
+                        px: '0.7rem',
+                        py: '0.9rem',
+                    }}
+                >
+                    +
+                </Button>
 
-        </div>
+                <Typography variant="body1">{formatPriceToFarsi(productType?.quantity)}</Typography>
+
+                <Button
+                    onClick={handleQtyDecrease}
+                    sx={{
+                        border: '1.2px solid',
+                        borderColor: '#cbd5e1',
+                        color: '#000000',
+                        fontSize: '1.2rem',
+                        fontWeight: 900,
+                        borderRadius: '0.37rem',
+                        minWidth: 'unset',
+                        minHeight: 0,
+                        height: 0,
+                        px: '0.8rem',
+                        py: '0.95rem',
+                    }}
+                >
+                    -
+                </Button>
+            </Box>
+
+        </Box>
     )
 }
 

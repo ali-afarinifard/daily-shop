@@ -14,6 +14,7 @@ import { AiFillCaretDown } from "react-icons/ai";
 import BackDrop from "./BackDrop";
 import MenuItem from "./MenuItem";
 import Avatar from "../Avatar";
+import { Box, IconButton, Typography } from "@mui/material";
 
 
 const UserMenu = () => {
@@ -35,55 +36,83 @@ const UserMenu = () => {
 
     return (
         <>
-            <div className="relative z-30">
-
-                <div onClick={toggleOpen} className="p-2 border-[1px] border-slate-400 flex flex-row items-center gap-1 rounded-full cursor-pointer hover:shadow-md transition text-slate-700">
-                    <Avatar src={''} />
-                    <AiFillCaretDown />
-                </div>
+            <Box
+                sx={{
+                    position: 'relative',
+                    zIndex: 30
+                }}
+            >
+                <Box onClick={toggleOpen} sx={{ padding: 1, border: "1px solid", borderColor: "slate.400", borderRadius: "40px", display: 'flex', alignItems: 'center', gap: '3px', cursor: 'pointer', "&:hover": { boxShadow: 2 } }}>
+                    <Avatar src={""} />
+                    <AiFillCaretDown style={{ marginLeft: "4px" }} />
+                </Box>
 
                 {isOpen && (
-                    <div className="absolute rounded-md shadow-md w-[10.63rem] bg-white overflow-hidden left-0 top-12 text-sm flex flex-col cursor-pointer">
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            borderRadius: '0.37rem',
+                            width: '10.63rem',
+                            background: '#fff',
+                            overflow: 'hidden',
+                            left: 0,
+                            top: '3rem',
+                            fontSize: '0.87rem',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            cursor: 'pointer'
+                        }}
+                    >
 
                         {user
                             ?
                             (
-                                <div>
-                                    <Link href={'/user-account'}>
-                                        <MenuItem onClick={toggleOpen}>حساب کاربری</MenuItem>
+                                <Box>
+                                    <Link href={'/user-account'} passHref>
+                                        <MenuItem onClick={toggleOpen}>
+                                            <Typography variant="body1">حساب کاربری</Typography>
+                                        </MenuItem>
                                     </Link>
-                                    <Link href={'/wishlist'}>
-                                        <MenuItem onClick={toggleOpen}>علاقه مندی ها</MenuItem>
+                                    <Link href={'/wishlist'} passHref>
+                                        <MenuItem onClick={toggleOpen}>
+                                            <Typography variant="body1">علاقه مندی ها</Typography>
+                                        </MenuItem>
                                     </Link>
-                                    <Link href={'/orders'}>
-                                        <MenuItem onClick={toggleOpen}>سفارش ها</MenuItem>
+                                    <Link href={'/orders'} passHref>
+                                        <MenuItem onClick={toggleOpen}>
+                                            <Typography variant="body1">سفارش ها</Typography>
+                                        </MenuItem>
                                     </Link>
                                     <hr />
                                     <MenuItem onClick={() => {
                                         toggleOpen();
                                         logout();
                                     }}>
-                                        خروج
+                                        <Typography variant="body1">خروج</Typography>
                                     </MenuItem>
-                                </div>
+                                </Box>
                             )
                             :
                             (
-                                <div>
-                                    <Link href={'/login'}>
-                                        <MenuItem onClick={toggleOpen}>ورود</MenuItem>
+                                <Box>
+                                    <Link href={'/login'} passHref>
+                                        <MenuItem onClick={toggleOpen}>
+                                            <Typography variant="body1">ورود</Typography>
+                                        </MenuItem>
                                     </Link>
-                                    <Link href={'/register'}>
-                                        <MenuItem onClick={toggleOpen}>عضویت</MenuItem>
+                                    <Link href={'/register'} passHref>
+                                        <MenuItem onClick={toggleOpen}>
+                                            <Typography variant="body1">عضویت</Typography>
+                                        </MenuItem>
                                     </Link>
-                                </div>
+                                </Box>
                             )
                         }
 
-                    </div>
+                    </Box>
                 )}
 
-            </div>
+            </Box>
             {isOpen ? <BackDrop onClick={toggleOpen} /> : null}
         </>
     )

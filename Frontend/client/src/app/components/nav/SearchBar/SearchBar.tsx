@@ -8,6 +8,7 @@ import { useSearchProductsQuery } from "@/store/apiSlice";
 
 // ** Components
 import SearchBarItem from "./SearchBarItem";
+import { Box, Divider, InputBase, Typography } from "@mui/material";
 
 
 const SearchBar = () => {
@@ -64,32 +65,85 @@ const SearchBar = () => {
 
 
     return (
-        <div ref={searchBarRef} className="relative w-full">
-            <div className="w-full">
-                <input
+        <Box
+            ref={searchBarRef}
+            sx={{
+                position: 'relative',
+                width: '100%'
+            }}
+        >
+            <Box sx={{ width: '100%' }}>
+                <InputBase
                     type="search"
+                    fullWidth
                     placeholder="جستجو"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    className="p-2 pl-5 border-[1px] border-slate-300 rounded-md outline-slate-400 w-[22rem]"
+                    autoComplete="off"
+                    sx={{
+                        width: '22rem',
+                        border: '1px solid',
+                        borderColor: '#adadad',
+                        borderRadius: '6px',
+                        p: '0.5rem',
+                        pl: '1.25rem',
+                        color: '#000000',
+                        fontWeight: '700',
+                    }}
                 />
-            </div>
+            </Box>
             {noResults && (
-                <div className="absolute z-10 bg-white border border-gray-300 rounded-md mt-1 max-w-[24rem] w-full p-2">
+                <Typography variant="body1" sx={{
+                    position: 'absolute',
+                    zIndex: 10,
+                    background: '#fcfcfc',
+                    border: '1px solid',
+                    borderColor: '#d1d5db',
+                    borderRadius: '0.37rem',
+                    mt: '0.20rem',
+                    maxWidth: '24rem',
+                    width: '100%',
+                    p: '0.5rem'
+                }}
+                >
                     هیچ محصولی یافت نشد
-                </div>
+                </Typography>
             )}
             {showResults && results.length > 0 && (
-                <ul className="absolute z-10 bg-white border border-gray-300 rounded-md mt-1 p-1 py-2 max-w-[24rem] max-h-[20rem] overflow-auto w-full">
-                    {results.map((product) => (
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        zIndex: 10,
+                        background: '#fff',
+                        border: '1px solid',
+                        borderColor: '#d1d5db',
+                        borderRadius: '0.37rem',
+                        mt: '0.25rem',
+                        p: '0.25rem',
+                        py: '0.5rem',
+                        maxWidth: '24rem',
+                        maxHeight: '20rem',
+                        overflow: 'auto',
+                        width: '100%'
+                    }}
+                >
+                    {results.map((product, index) => (
                         <>
                             <SearchBarItem key={product._id} product={product} onClick={handleClearProductClick} />
-                            <hr className="border-[1px] border-slate-200 my-2 last:hidden" />
+                            {index < results.length - 1 && (
+                                <Divider
+                                    sx={{
+                                        border: '1px solid',
+                                        borderColor: '#e2e8f0',
+                                        my: '0.5rem',
+                                    }}
+                                />
+                            )}
                         </>
                     ))}
-                </ul>
+                </Box>
             )}
-        </div>
+        </Box>
     )
 }
 

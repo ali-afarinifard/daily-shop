@@ -23,6 +23,7 @@ import Container from '@/app/components/Container';
 import NullData from '@/app/components/NullData';
 import ProductBox from '@/app/components/products/ProductBox';
 import Spinner from '@/app/components/Spinner';
+import { Box, Divider, Typography } from '@mui/material';
 
 
 
@@ -112,39 +113,98 @@ const CategoryPage = () => {
 
 
     if (productsLoading) return (
-        <div className='flex items-center justify-center translate-y-[350%]'>
+        <Box
+            sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transform: 'translateY(350%)'
+            }}>
             <Spinner size={35} />
-        </div>
+        </Box>
     );
 
     if (!categoryId || products.length === 0) {
         return (
-            <div>
+            <Box>
                 <NullData title='محصولی وجود ندارد' center='!text-md' />
-            </div>
+            </Box>
         )
     }
 
 
     return (
-        <div className='mt-20 xl:mt-10'>
+        <Box
+            sx={{
+                marginTop: { xs: '2.5rem', lg: '5rem' }
+            }}
+        >
             <Container>
                 {/* Heading */}
-                <div className='w-full flex items-center justify-center'>
-                    <div className='relative text-center w-fit'>
-                        <h1 className='font-bold text-2xl'>{category?.name}</h1>
-                        <span className="w-full h-[2px] bg-slate-400 absolute left-0 -bottom-2"></span>
-                    </div>
-                </div>
+                <Box
+                    sx={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}
+                >
+                    <Box
+                        sx={{
+                            position: 'relative',
+                            textAlign: 'center',
+                            width: 'fit-content'
+                        }}
+                    >
+                        <Typography variant='h2'>
+                            {category?.name}
+                        </Typography>
+
+                        <Divider
+                            sx={{
+                                width: '100%',
+                                height: '2px',
+                                background: '#94a3b8',
+                                position: 'absolute',
+                                left: 0,
+                                bottom: '-0.5rem'
+                            }}
+                        />
+                    </Box>
+                </Box>
 
                 {/* Content */}
-                <div className='flex flex-col'>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column'
+                    }}
+                >
 
-                    <div className='flex items-center justify-between mt-10 s:flex-col s:gap-4 s:items-stretch'>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: { xs: 'column', '2sm': 'row' },
+                            alignItems: { xs: 'stretch', '2sm': 'center' },
+                            justifyContent: 'space-between',
+                            mt: '2.5rem',
+                            gap: { xs: '1rem', '2sm': 0 }
+                        }}
+                    >
 
-                        <div className='flex items-center gap-2'>
-                            <span>نمایش : </span>
-                            <div className="max-w-[20rem]">
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.5rem'
+                            }}
+                        >
+                            <Typography variant='body1'>نمایش : </Typography>
+                            <Box
+                                sx={{
+                                    maxWidth: '20rem'
+                                }}
+                            >
                                 <FormControl fullWidth>
                                     <Select
                                         id="demo-simple-select"
@@ -165,11 +225,15 @@ const CategoryPage = () => {
                                         <MenuItem value={'priceAsc'} sx={{ fontFamily: 'Vazir' }}>ارزان ترین</MenuItem>
                                     </Select>
                                 </FormControl>
-                            </div>
+                            </Box>
 
-                        </div>
+                        </Box>
 
-                        <div className='mt-10'>
+                        <Box
+                            sx={{
+                                mt: '2.5rem'
+                            }}
+                        >
                             <Stack spacing={2} sx={{ direction: 'ltr' }}>
                                 <Pagination
                                     count={Math.ceil(filteredProducts.length / itemsPerPage)}
@@ -184,20 +248,27 @@ const CategoryPage = () => {
                                     }}
                                 />
                             </Stack>
-                        </div>
+                        </Box>
 
-                    </div>
+                    </Box>
 
-                    <div className='grid grid-cols-4 gap-8 my-8 xl:grid-cols-3 xl:gap-4 s:grid-cols-2 s:gap-2 xm:grid-cols-1'>
+                    <Box
+                        sx={{
+                            display: 'grid',
+                            gridTemplateColumns: { xs: '1fr', '2xs': 'repeat(2, 1fr)', '2sm': 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' },
+                            gap: { xs: '0.5rem', '2sm': '1rem', lg: '2rem' },
+                            my: '2rem'
+                        }}
+                    >
                         {paginatedProducts && paginatedProducts.map((product) => (
-                            <div key={product._id}>
+                            <Box key={product._id}>
                                 <ProductBox product={product} user={user} />
-                            </div>
+                            </Box>
                         ))}
-                    </div>
+                    </Box>
 
 
-                    <div>
+                    <Box>
                         <Stack spacing={2} sx={{ direction: 'ltr' }}>
                             <Pagination
                                 count={Math.ceil(filteredProducts.length / itemsPerPage)}
@@ -212,11 +283,11 @@ const CategoryPage = () => {
                                 }}
                             />
                         </Stack>
-                    </div>
+                    </Box>
 
-                </div>
+                </Box>
             </Container>
-        </div>
+        </Box>
     );
 }
 

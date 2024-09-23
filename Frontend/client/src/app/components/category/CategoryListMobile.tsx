@@ -17,6 +17,7 @@ import { IoLogoWhatsapp } from "react-icons/io5";
 // ** Components
 import CatSearchBar from "./CatSearchBar";
 import CategoryItem from "./CategoryItem";
+import { Box, Divider, Typography } from "@mui/material";
 
 
 interface CategoryListMobileProps {
@@ -27,21 +28,45 @@ interface CategoryListMobileProps {
 
 const CategoryListMobile: React.FC<CategoryListMobileProps> = ({ toggleMenu }) => {
 
-    const {data:categories} = useGetAllCategoriesQuery();
+    const { data: categories } = useGetAllCategoriesQuery();
 
     return (
-        <div>
-            <div className="flex flex-col">
+        <Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column'
+                }}
+            >
 
-                <div className="mt-3">
+                <Box
+                    sx={{
+                        mt: '0.75rem'
+                    }}
+                >
                     <CatSearchBar toggleMenu={toggleMenu} />
-                </div>
+                </Box>
 
-                <div className="w-full h-12 bg-gray-200 border-b-[2px] border-b-slate-700 flex items-center justify-center">
-                    <h1 className="font-bold text-[1rem]">منو</h1>
-                </div>
+                <Box
+                    sx={{
+                        width: '100%',
+                        height: '3rem',
+                        background: '#e5e7eb',
+                        borderBottom: '2px',
+                        borderColor: '#334155',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}
+                >
+                    <Typography variant="body1">منو</Typography>
+                </Box>
 
-                <div className="mt-3">
+                <Box
+                    sx={{
+                        mt: '0.75rem',
+                    }}
+                >
 
                     <Link href={'/'} onClick={toggleMenu}>
                         <CategoryItem
@@ -51,7 +76,11 @@ const CategoryListMobile: React.FC<CategoryListMobileProps> = ({ toggleMenu }) =
                         />
                     </Link>
 
-                    <hr className="w-full h-[1px] bg-slate-300 my-2" />
+                    <Divider sx={{
+                        width: '100%',
+                        height: '1px',
+                        my: '0.5rem'
+                    }} />
 
                     <Link href={'/products'} onClick={toggleMenu}>
                         <CategoryItem
@@ -61,10 +90,14 @@ const CategoryListMobile: React.FC<CategoryListMobileProps> = ({ toggleMenu }) =
                         />
                     </Link>
 
-                    <hr className="w-full h-[1px] bg-slate-300 my-2" />
+                    <Divider sx={{
+                        width: '100%',
+                        height: '1px',
+                        my: '0.5rem'
+                    }} />
 
-                    {categories?.map((category:CategoryType) => (
-                        <div key={category._id}>
+                    {categories?.map((category: CategoryType) => (
+                        <Box key={category._id}>
                             <Link
                                 href={`/category/${category._id}`}
                                 onClick={toggleMenu}
@@ -75,8 +108,14 @@ const CategoryListMobile: React.FC<CategoryListMobileProps> = ({ toggleMenu }) =
                                     centerChild="!font-bold !text-[1rem]"
                                 />
                             </Link>
-                            <hr className="w-full h-[1px] bg-slate-300 my-2" />
-                        </div>
+                            <Divider
+                                sx={{
+                                    width: '100%',
+                                    height: '1px',
+                                    my: '0.5rem'
+                                }}
+                            />
+                        </Box>
                     ))}
 
                     <Link href={'/top-sales-products'} onClick={toggleMenu}>
@@ -87,7 +126,13 @@ const CategoryListMobile: React.FC<CategoryListMobileProps> = ({ toggleMenu }) =
                         />
                     </Link>
 
-                    <hr className="w-full h-[1px] bg-slate-300 my-2" />
+                    <Divider
+                        sx={{
+                            width: '100%',
+                            height: '1px',
+                            my: '0.5rem'
+                        }}
+                    />
 
                     <Link href={'#'} onClick={toggleMenu}>
                         <CategoryItem
@@ -97,7 +142,13 @@ const CategoryListMobile: React.FC<CategoryListMobileProps> = ({ toggleMenu }) =
                         />
                     </Link>
 
-                    <hr className="w-full h-[1px] bg-slate-300 my-2" />
+                    <Divider
+                        sx={{
+                            width: '100%',
+                            height: '1px',
+                            my: '0.5rem'
+                        }}
+                    />
 
                     <Link href={'#'} onClick={toggleMenu}>
                         <CategoryItem
@@ -107,9 +158,23 @@ const CategoryListMobile: React.FC<CategoryListMobileProps> = ({ toggleMenu }) =
                         />
                     </Link>
 
-                    <hr className="w-full h-[1px] bg-slate-500 my-2" />
+                    <Divider
+                        sx={{
+                            width: '100%',
+                            height: '1px',
+                            my: '0.5rem'
+                        }}
+                    />
 
-                    <div className="flex items-center justify-center gap-4 py-5">
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '1rem',
+                            py: '1.25rem'
+                        }}
+                    >
 
                         <Link href={'#'}>
                             <FaInstagram size={30} />
@@ -123,12 +188,12 @@ const CategoryListMobile: React.FC<CategoryListMobileProps> = ({ toggleMenu }) =
                             <IoLogoWhatsapp size={32} />
                         </Link>
 
-                    </div>
+                    </Box>
 
-                </div>
+                </Box>
 
-            </div>
-        </div>
+            </Box>
+        </Box>
     )
 }
 

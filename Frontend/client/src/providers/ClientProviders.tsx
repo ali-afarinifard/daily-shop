@@ -10,12 +10,21 @@ import { AuthProvider } from "@/context/AuthContext";
 // ** Provider Components
 import CartProvider from "@/providers/CartProvider";
 
+import { useTheme } from "@mui/material"
+import { ThemeProvider } from '@mui/material/styles';
+import theme from "@/app/theme";
+import CssBaseline from '@mui/material/CssBaseline';
+
+
 const ClientProviders = ({ children }: { children: React.ReactNode }) => {
   return (
     <Provider store={store}>
       <AuthProvider>
         <CartProvider>
-          {children}
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {children}
+          </ThemeProvider>
         </CartProvider>
       </AuthProvider>
     </Provider>

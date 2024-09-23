@@ -1,3 +1,4 @@
+import { Box, Typography } from "@mui/material";
 import { IconType } from "react-icons";
 
 interface MenuProfileItemProps {
@@ -9,10 +10,26 @@ interface MenuProfileItemProps {
 
 const MenuProfileItem: React.FC<MenuProfileItemProps> = ({ onClick, icon: Icon, label }) => {
     return (
-        <div onClick={onClick} className="px-4 py-3 hover:bg-neutral-100 transition cursor-pointer flex items-center gap-2">
+        <Box
+            onClick={onClick}
+            sx={{
+                py: '0.75rem',
+                px: '1rem',
+                transition: 'all 0.2s ease-in-out',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                '&:hover': {
+                    background: '#f5f5f5'
+                }
+            }}
+        >
             <Icon size={20} />
-            {label}
-        </div>
+            <Typography variant="body1">
+                {label}
+            </Typography>
+        </Box>
     )
 }
 

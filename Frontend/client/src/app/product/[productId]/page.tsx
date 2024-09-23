@@ -4,15 +4,16 @@
 // ** Components
 import Container from "@/app/components/Container"
 import ProductDetails from "@/app/components/products/ProductDetails"
+import { Box } from "@mui/material"
 
 const ProductPage = () => {
 
     return (
-        <div>
+        <Box>
             <Container>
                 <ProductDetails/>
             </Container>
-        </div>
+        </Box>
     )
 }
 

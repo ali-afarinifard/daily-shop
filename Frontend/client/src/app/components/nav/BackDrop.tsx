@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 
 interface BackDropProps {
     onClick: () => void;
@@ -5,7 +6,20 @@ interface BackDropProps {
 
 const BackDrop: React.FC<BackDropProps> = ({ onClick }) => {
     return (
-        <div onClick={onClick} className="z-20 bg-slate-700 opacity-50 w-screen h-screen fixed top-0 left-0"></div>
+        <Box
+            sx={{
+                zIndex: 20,
+                background: '#334155',
+                opacity: '0.5',
+                width: '100vw',
+                height: '100vh',
+                position: 'fixed',
+                top: 0,
+                left: 0
+            }}
+            onClick={onClick}
+        >
+        </Box>
     )
 }
 

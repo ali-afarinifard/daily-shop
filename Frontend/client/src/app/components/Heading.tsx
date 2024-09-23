@@ -1,3 +1,4 @@
+import { Box, Typography } from "@mui/material";
 
 interface HeadingProps {
     title: string;
@@ -6,12 +7,27 @@ interface HeadingProps {
 };
 
 
-const Heading: React.FC<HeadingProps> = ({ title, center, custom }) => {
+const Heading: React.FC<HeadingProps> = ({ title, center, custom = '' }) => {
     return (
-        <div className={`${center ? 'text-center' : 'text-start'} relative`}>
-            <h1 className={`font-bold text-2xl ${custom ? custom : ''}`}>{title}</h1>
-            <span className="w-full h-[2px] bg-slate-400 absolute left-0 -bottom-2"></span>
-        </div>
+        <Box
+            sx={{
+                position: 'relative',
+                textAlign: center ? 'center' : 'start'
+            }}
+        >
+            <Typography variant="h2" sx={{ ...(custom && { className: custom }) }}>{title}</Typography>
+            <Typography
+                sx={{
+                    width: '100%',
+                    height: '2px',
+                    background: '#94a3b8',
+                    position: 'absolute',
+                    left: 0,
+                    bottom: '-0.5rem'
+                }}
+            >
+            </Typography>
+        </Box>
     )
 }
 

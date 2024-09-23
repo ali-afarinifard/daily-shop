@@ -9,6 +9,7 @@ import { AuthContext } from '@/context/AuthContext';
 
 // ** Components
 import Summary from '../components/userProfile/user-account/Summary';
+import { Box } from '@mui/material';
 
 
 const UserAccount = () => {
@@ -28,9 +29,14 @@ const UserAccount = () => {
     }
 
     return (
-        <div className='w-full h-full'>
+        <Box
+            sx={{
+                width: '100%',
+                height: '100%'
+            }}
+        >
             <Summary user={user} updateUserInContext={updateUserInContext} />
-        </div>
+        </Box>
     )
 }
 

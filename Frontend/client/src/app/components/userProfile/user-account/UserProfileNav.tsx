@@ -6,6 +6,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { User } from "@/context/AuthContext";
 import { MdLogout } from "react-icons/md";
 import { IoIosHeart } from "react-icons/io";
+import { Box, Divider, Typography } from "@mui/material";
 
 
 
@@ -21,28 +22,69 @@ const UserProfileNav: React.FC<UserProfileNavProps> = ({ user, logout }) => {
     const pathname = usePathname();
 
     return (
-        <div className="max-w-[16rem] shadow-md px-12 py-5 rounded-lg">
+        <Box
+            sx={{
+                maxWidth: '16rem',
+                px: '3rem',
+                py: '1.25rem',
+                borderRadius: '0.5rem',
+                boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)'
+            }}
+        >
             {user && (
-                <div>
+                <Box>
 
-                    <div className="flex flex-col items-start gap-5 xl:hidden">
-                        <div className="flex flex-col items-center justify-center w-full">
+                    <Box
+                        sx={{
+                            display: { xs: 'none', lg: 'flex' },
+                            flexDirection: 'column',
+                            alignItems: 'start',
+                            gap: '1.25rem',
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '100%'
+                            }}
+                        >
 
-                            <div className="bg-slate-50 rounded-full p-2">
-                                <div className="bg-slate-100 rounded-full p-2">
-                                    <div className="bg-slate-200 rounded-full p-2">
+                            <Box
+                                sx={{
+                                    background: '#f8fafc',
+                                    borderRadius: '100%',
+                                    p: '0.5rem'
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        background: '#f1f5f9',
+                                        borderRadius: '100%',
+                                        p: '0.5rem'
+                                    }}
+                                >
+                                    <Box
+                                        sx={{
+                                            background: '#e2e8f0',
+                                            borderRadius: '100%',
+                                            p: '0.5rem'
+                                        }}
+                                    >
                                         <FaUserCircle size={100} />
-                                    </div>
-                                </div>
-                            </div>
+                                    </Box>
+                                </Box>
+                            </Box>
 
-                            <div className="text-slate-600 text-[1.2rem]">
-                                <p className="font-bold">{user?.fullName || 'مهمان'}</p>
-                            </div>
+                            <Box>
+                                <Typography variant="h3">{user?.fullName || 'مهمان'}</Typography>
+                            </Box>
 
-                        </div>
+                        </Box>
 
-                        <hr className="bg-slate-200 w-full h-[2px]" />
+                        <Divider sx={{ background: '#e2e8f0', width: '100%', height: '1px' }} />
 
                         <Link href={'/user-account'}>
                             <UserProfileNavItem
@@ -69,7 +111,7 @@ const UserProfileNav: React.FC<UserProfileNavProps> = ({ user, logout }) => {
                         </Link>
 
 
-                        <div>
+                        <Box>
                             <UserProfileNavItem
                                 label="خروج"
                                 icon={MdLogout}
@@ -78,12 +120,12 @@ const UserProfileNav: React.FC<UserProfileNavProps> = ({ user, logout }) => {
                                     logout();
                                 }}
                             />
-                        </div>
-                    </div>
+                        </Box>
+                    </Box>
 
-                </div>
+                </Box>
             )}
-        </div>
+        </Box>
     )
 }
 

@@ -11,18 +11,36 @@ import data from "@/utils/accordion"
 
 // ** Components
 import Heading from "../Heading"
+import { Box, Typography } from "@mui/material"
 
 const Guidance = () => {
 
     const [className, setClassName] = useState("collapsed");
 
     return (
-        <div className="mt-20">
-            <div className="flex flex-col items-center justify-center">
+        <Box
+            sx={{
+                mt: '5rem'
+            }}
+        >
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}
+            >
                 <Heading title="سوالات پرتکرار" center />
-            </div>
+            </Box>
 
-            <div className="mt-10 max-w-[70rem] mx-auto">
+            <Box
+                sx={{
+                    mt: '2.5rem',
+                    maxWidth: '70rem',
+                    mx: 'auto'
+                }}
+            >
 
                 <Accordion
                     className="mt-7 border-none"
@@ -37,27 +55,31 @@ const Guidance = () => {
 
                                         <AccordionItemState>
                                             {({ expanded }) => (
-                                                <span
+                                                <Typography
+                                                variant="h3"
+                                                sx={{
+                                                    color: '#1f3e72',
+                                                }}
                                                     className={`${expanded ? "expanded" : "collapsed"
-                                                        } text-[#1f3e72] font-bold text-[1.2rem]`}
+                                                        }`}
                                                 >
                                                     {item.heading}
-                                                </span>
+                                                </Typography>
                                             )}
                                         </AccordionItemState>
 
                                     </AccordionItemButton>
                                 </AccordionItemHeading>
                                 <AccordionItemPanel>
-                                    <p className='text-[#8c8b8b] text-[0.9rem] leading-9'>{item.details}</p>
+                                    <Typography variant="body1" sx={{ color: '#8c8b8b', lineHeight: '2.25REM' }} className='text-[#8c8b8b] text-[0.9rem] leading-9'>{item.details}</Typography>
                                 </AccordionItemPanel>
                             </AccordionItem>
                         )
                     })}
                 </Accordion>
 
-            </div>
-        </div>
+            </Box>
+        </Box>
     )
 }
 

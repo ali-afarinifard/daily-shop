@@ -1,3 +1,4 @@
+import { Box, Typography } from "@mui/material";
 
 interface CategoryItemProps {
     selected?: boolean;
@@ -8,11 +9,32 @@ interface CategoryItemProps {
 
 const CategoryItem: React.FC<CategoryItemProps> = ({ selected, label, centerParent, centerChild }) => {
     return (
-        <div
-            className={`flex items-center justify-center text-center gap-2 p-2  border-b-2 transition cursor-pointer ${selected ? 'border-b-slate-800' : 'border-transparent'} ${centerParent ? centerParent : ''}`}
+        <Box
+            sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'start',
+                textAlign: 'center',
+                gap: '0.5rem',
+                p: '0.5rem',
+                borderBottom: selected ? '2px solid' : '2px solid transparent',
+                borderBottomColor: selected ? 'grey.800' : 'transparent',
+                transition: 'border-bottom-color 0.3s ease',
+                cursor: 'pointer',
+                ...(centerParent ? { [centerParent]: '' } : {}),
+            }}
         >
-            <div className={`font-medium text-sm text-center break-normal ${centerChild ? centerChild : ''}`}>{label}</div>
-        </div>
+            <Typography
+                variant="body2"
+                sx={{
+                    textAlign: 'center',
+                    wordBreak: 'break-word',
+                    ...(centerChild ? { [centerChild]: '' } : {}),
+                }}
+            >
+                {label}
+            </Typography>
+        </Box>
     )
 }
 

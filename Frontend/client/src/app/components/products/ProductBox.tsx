@@ -3,7 +3,6 @@
 
 // ** Next
 import Image from "next/image"
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 // ** Auth Context
@@ -20,7 +19,7 @@ import CommentType from "@/types/comment";
 import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
 
 // ** MUI
-import { Rating } from "@mui/material";
+import { Box, Divider, IconButton, Link, Rating, Typography } from "@mui/material";
 
 // ** Toast
 import toast from "react-hot-toast";
@@ -39,8 +38,8 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
 
     const [isWhitelisted, setIsWhitelisted] = useState<boolean>(false);
     const [showWishlistMessage, setShowWishlistMessage] = useState(false);
-    // const [wishlist, setWishlist] = useState<string[]>([]);
     const [averageRating, setAverageRating] = useState<number>(0);
+    const [hovered, setHovered] = useState<boolean>(false);
 
     const firstImage = product.images[0];
     const secondImage = product.images[1];
@@ -68,15 +67,14 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
     };
 
 
-    // Function to calculate average rating
     const calculateAverageRating = (comments: CommentType[]) => {
         if (comments.length === 0) {
             setAverageRating(0);
             return;
         }
-        const totalRating = comments.reduce((sum, comment) => sum + comment.rating, 0); // Calculate total rating
-        const average = totalRating / comments.length; // Calculate average rating
-        setAverageRating(average); // Update state with average rating
+        const totalRating = comments.reduce((sum, comment) => sum + comment.rating, 0);
+        const average = totalRating / comments.length;
+        setAverageRating(average);
     };
 
 
@@ -110,7 +108,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
             if (!user?._id) {
                 return;
             }
-            await addToWishlist({ userId: user._id, productId }); // Using RTK mutation to add to wishlist
+            await addToWishlist({ userId: user._id, productId });
             setIsWhitelisted(true);
             setShowWishlistMessage(true);
             localStorage.setItem(`showWishlistMessage_${user._id}_${productId}`, "true");
@@ -137,15 +135,38 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
 
 
     return (
-        <div className="w-full rounded-md overflow-hidden shadow-md relative">
-            <Link href={`/product/${product._id}`} className="relative">
+        <Box
+            sx={{
+                width: '100%',
+                borderRadius: '0.37rem',
+                overflow: 'hidden',
+                position: 'relative',
+                boxShadow: '2px 10px 9px -2px rgba(0,0,0,0.05);'
+            }}
+        >
+            <Link href={`/product/${product._id}`} sx={{ position: 'relative', textDecoration: 'none' }}>
 
-                <div className="relative w-full h-80 group">
+                <Box
+                    onMouseEnter={() => setHovered(true)}
+                    onMouseLeave={() => setHovered(false)}
+                    sx={{
+                        position: 'relative',
+                        width: '100%',
+                        height: '20rem',
+                        overflow: 'hidden'
+                    }}
+                >
                     {firstImage && (
                         <Image
                             src={firstImage}
                             alt={product.title}
-                            className="object-cover rounded-t-md transition-opacity duration-500 ease-in-out group-hover:opacity-0"
+                            style={{
+                                objectFit: 'cover',
+                                borderTopLeftRadius: '0.37rem',
+                                borderTopRightRadius: '0.37rem',
+                                transition: 'opacity 0.5s ease-in-out',
+                                opacity: hovered ? 0 : 1
+                            }}
                             fill
                             priority
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
@@ -156,71 +177,168 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                         <Image
                             src={secondImage}
                             alt={product.title}
-                            className="object-cover absolute inset-0 transition-opacity duration-500 ease-in-out opacity-0 group-hover:opacity-100"
+                            style={{
+                                objectFit: 'cover',
+                                transition: 'opacity 0.5s ease-in-out',
+                                opacity: hovered ? 1 : 0,
+                                position: 'absolute',
+                                inset: 0,
+                            }}
                             fill
                             priority
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                         />
                     )}
 
-                    <div
-                        className="absolute top-4 left-4 transform -translate-x-10 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500 ease-in-out"
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            top: '1rem',
+                            left: '1rem',
+                            transform: hovered ? 'translateX(0)' : 'translateX(-2.5rem)',
+                            transition: 'all 0.3s ease-in-out',
+                        }}
                         onClick={handleWhitelistClick}
                     >
 
 
                         {isWhitelisted ? (
-                            <button onClick={() => handleRemoveFromWishlist(product._id)}>
-                                <FaHeart className="h-6 w-6 text-red-500" />
-                            </button>
+                            <IconButton sx={{ p: 0 }} onClick={() => handleRemoveFromWishlist(product._id)}>
+                                <FaHeart style={{ height: '1.5rem', width: '1.5rem', color: '#ef4444' }} />
+                            </IconButton>
                         ) : (
-                            <button onClick={() => handleAddToWishlist(product._id)}>
-                                <FaRegHeart className="h-6 w-6 text-white" />
-                            </button>
+                            <IconButton sx={{ p: 0 }} onClick={() => handleAddToWishlist(product._id)}>
+                                <FaRegHeart style={{ height: '1.5rem', width: '1.5rem', color: '#fff' }} />
+                            </IconButton>
                         )}
-                    </div>
 
-                </div>
+                    </Box>
 
-                <div className="p-4 bg-white flex flex-col gap-3">
-                    <div className="text-center text-gray-600 text-md">{product.title}</div>
-                    <div className="flex items-center justify-center">
+                </Box>
+
+                <Box
+                    sx={{
+                        p: '1rem',
+                        background: '#fff',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '0.75rem'
+                    }}
+                >
+                    <Typography sx={{ textAlign: 'center', color: '#4b5563', fontSize: '1.2rem', fontWeight: 700 }}>{product.title}</Typography>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
+                    >
                         <Rating
                             readOnly
                             value={averageRating || 0} // Set the calculated average rating
                             precision={0.5} // Optional: set precision for half-star ratings
                             sx={{ direction: 'ltr' }}
                         />
-                    </div>
-                    <hr className="w-full h-[1px] bg-slate-700" />
-                    <div className="text-center text-slate-700 text-lg w-full">
+                    </Box>
+
+                    <Divider sx={{ width: '100%', height: '1px', background: '#fcfcfc' }} />
+
+                    <Box
+                        sx={{
+                            textAlign: 'center',
+                            color: '#334155',
+                            fontSize: '1.12rem',
+                            width: '100%'
+                        }}
+                    >
                         {product.isStatus ? (
-                            <div className="flex items-center justify-center gap-1">
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: '0.25rem'
+                                }}
+                            >
                                 {product.offer ? (
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-offer text-sm text-slate-500">{formatPriceToFarsi(product.price)}</span>
-                                        <span className="text-[1.2rem] text-slate-500">{formatPriceToFarsi(product.offer)}</span>
-                                    </div>
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '0.5rem'
+                                        }}
+                                    >
+                                        <Typography
+                                            variant="body2"
+                                            sx={{
+                                                color: '#64748b'
+                                            }}
+                                        >
+                                            {formatPriceToFarsi(product.price)}
+                                        </Typography>
+
+                                        <Typography
+                                            sx={{
+                                                fontSize: '1.2rem',
+                                                fontWeight: '700',
+                                                color: '#64748b'
+                                            }}
+                                        >
+                                            {formatPriceToFarsi(product.offer)}
+                                        </Typography>
+                                    </Box>
                                 ) : (
-                                    <span className="text-[1.2rem] text-slate-500">{formatPriceToFarsi(product.price)}</span>
+                                    <Typography sx={{
+                                        fontSize: '1.2rem',
+                                        color: '#64748b'
+                                    }}>
+                                        {formatPriceToFarsi(product.price)}
+                                    </Typography>
                                 )}
-                                <span className="text-sm text-slate-500">تومان</span>
-                            </div>
+                                <Typography variant="body2">تومان</Typography>
+                            </Box>
                         ) : (
-                            <div>
-                                <div className="rounded-md bg-rose-500 text-white px-3 py-[0.05rem] text-[0.8rem] w-full border-slate-700 flex items-center justify-center">ناموجود</div>
-                            </div>
+                            <Box>
+                                <Typography
+                                    variant="body1"
+                                    sx={{
+                                        borderRadius: '0.37rem',
+                                        background: '#f43f5e',
+                                        color: '#fff',
+                                        px: '0.75rem',
+                                        py: '0.17rem',
+                                        width: '100%',
+                                        borderColor: '#334155',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                    }}
+                                >ناموجود</Typography>
+                            </Box>
                         )}
-                    </div>
-                </div>
+                    </Box>
+                </Box>
 
                 {product.offer && (
-                    <div className="border-rose-500 border absolute top-0 right-0 bg-rose-500 py-1 px-2 rounded-b-md">
-                        <span className="text-white text-sm">% تخفیف</span>
-                    </div>
+                    <Box
+                        sx={{
+                            background: '#f43f5e',
+                            border: '1px',
+                            position: 'absolute',
+                            top: 0,
+                            right: 0,
+                            borderRadius: '#f43f5e',
+                            py: '0.5rem',
+                            px: '0.5rem',
+                            borderBottomLeftRadius: '0.37rem',
+                            borderBottomRightRadius: '0.37rem'
+                        }}
+                    >
+                        <Typography variant="body2" sx={{ color: '#fff', fontSize: '0.9rem' }} >% تخفیف</Typography>
+                    </Box>
                 )}
             </Link>
-        </div>
+        </Box>
     )
 }
 
