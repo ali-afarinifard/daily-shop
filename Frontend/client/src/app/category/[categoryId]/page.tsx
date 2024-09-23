@@ -219,10 +219,23 @@ const CategoryPage = () => {
                                             },
                                         }}
                                     >
-                                        <MenuItem value={'all'} sx={{ fontFamily: 'Vazir' }}>پیش فرض</MenuItem>
-                                        <MenuItem value={'isStatus'} sx={{ fontFamily: 'Vazir' }}>کالاهای موجود</MenuItem>
-                                        <MenuItem value={'priceDesc'} sx={{ fontFamily: 'Vazir' }}>گران ترین</MenuItem>
-                                        <MenuItem value={'priceAsc'} sx={{ fontFamily: 'Vazir' }}>ارزان ترین</MenuItem>
+                                        <MenuItem value={'all'} sx={{ fontFamily: 'Vazir' }}>
+                                            <Typography variant='body1'>
+                                                پیش فرض
+                                            </Typography>
+                                        </MenuItem>
+
+                                        <MenuItem value={'isStatus'} sx={{ fontFamily: 'Vazir' }}>
+                                            <Typography variant='body1'>کالاهای موجود</Typography>
+                                        </MenuItem>
+
+                                        <MenuItem value={'priceDesc'} sx={{ fontFamily: 'Vazir' }}>
+                                            <Typography variant='body1'>گران ترین</Typography>
+                                        </MenuItem>
+
+                                        <MenuItem value={'priceAsc'} sx={{ fontFamily: 'Vazir' }}>
+                                            <Typography variant='body1'>ارزان ترین</Typography>
+                                        </MenuItem>
                                     </Select>
                                 </FormControl>
                             </Box>
