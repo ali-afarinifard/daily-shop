@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import Spinner from "../../Spinner";
 import { validateEmail } from "@/utils/emailVal";
 import { useUpdateUserMutation } from "@/store/apiSlice";
+import { Box, Button, InputLabel, TextareaAutosize, TextField, Typography } from "@mui/material";
 
 
 interface SummaryProps {
@@ -184,155 +185,349 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
 
 
     return (
-        <div className="w-full h-full">
+        <Box
+            sx={{
+                width: '100%',
+                height: '100%'
+            }}
+        >
 
-            <form onSubmit={handleSubmit} className="w-full h-full">
-                <div className="flex flex-col justify-between h-full">
+            <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%', height: '100%' }}>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        height: '100%'
+                    }}
+                >
 
                     {/* Inputs */}
-                    <div className="flex flex-col gap-4 w-full">
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '1rem',
+                            width: '100%'
+                        }}
+                    >
 
-                        <div className="flex items-center justify-between gap-8 w-fll 2xl:flex-col 2xl:justify-center 2xl:gap-4">
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: { xs: 'center', xl: 'space-between' },
+                                gap: { xs: '1rem', xl: '2rem' },
+                                width: '100%',
+                                flexDirection: { xs: 'column', xl: 'row' }
+                            }}
+                        >
 
-                            <div className="flex flex-col gap-1 w-full">
-                                <label htmlFor="fullName" className="text-slate-500">نام و نام خانوادگی</label>
-                                <input
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '0.25rem',
+                                    width: '100%'
+                                }}
+                            >
+                                <InputLabel htmlFor="fullName" sx={{ color: '#64748b', fontSize: '0.95rem', fontWeight: 700 }}>نام و نام خانوادگی</InputLabel>
+                                <Box
+                                    component="input"
                                     id="fullName"
                                     type="text"
                                     name="fullName"
                                     value={formData.fullName}
                                     onChange={handleChange}
-                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md w-full"
+                                    sx={{
+                                        border: '1px solid',
+                                        borderColor: '#cbd5e1',
+                                        p: '0.5rem',
+                                        outlineColor: '#64748b',
+                                        width: '100%',
+                                        borderRadius: '0.37rem'
+                                    }}
                                 />
-                                {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName}</p>}
-                            </div>
+                                {errors.fullName && <Typography variant="body2" sx={{ color: '#ef4444' }}>{errors.fullName}</Typography>}
+                            </Box>
 
-                            <div className="flex flex-col gap-1 w-full">
-                                <label htmlFor="username" className="text-slate-500">نام کاربری</label>
-                                <input
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '0.25rem',
+                                    width: '100%'
+                                }}
+                            >
+                                <InputLabel htmlFor="fullName" sx={{ color: '#64748b', fontSize: '0.95rem', fontWeight: 700 }}>نام کاربری</InputLabel>
+                                <Box
+                                    component="input"
                                     id="username"
                                     type="text"
                                     name="username"
                                     value={formData.username}
                                     onChange={handleChange}
-                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md w-full"
+                                    sx={{
+                                        border: '1px solid',
+                                        borderColor: '#cbd5e1',
+                                        p: '0.5rem',
+                                        outlineColor: '#64748b',
+                                        width: '100%',
+                                        borderRadius: '0.37rem'
+                                    }}
                                 />
-                                {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
-                            </div>
+                                {errors.username && <Typography variant="body2" sx={{ color: '#ef4444' }}>{errors.username}</Typography>}
+                            </Box>
 
-                        </div>
+                        </Box>
 
 
-                        <div className="flex items-center justify-between gap-8 2xl:flex-col 2xl:justify-center 2xl:gap-4">
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: { xs: 'column', xl: 'row' },
+                                alignItems: 'center',
+                                justifyContent: { xs: 'center', xl: 'space-between' },
+                                gap: { xs: '1rem', xl: '2rem' }
+                            }}
+                        >
 
-                            <div className="flex flex-col gap-1 w-full">
-                                <label htmlFor="email" className="text-slate-500">ایمیل</label>
-                                <input
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    width: '100%',
+                                    gap: '0.25rem'
+                                }}
+                            >
+                                <InputLabel htmlFor="fullName" sx={{ color: '#64748b', fontSize: '0.95rem', fontWeight: 700 }}>ایمیل</InputLabel>
+                                <Box
+                                    component="input"
                                     id="email"
                                     type="email"
                                     name="email"
                                     value={formData.email}
                                     onChange={handleChange}
-                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md w-full"
+                                    sx={{
+                                        border: '1px solid',
+                                        borderColor: '#cbd5e1',
+                                        p: '0.5rem',
+                                        outlineColor: '#64748b',
+                                        width: '100%',
+                                        borderRadius: '0.37rem'
+                                    }}
                                 />
-                                {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-                            </div>
+                                {errors.email && <Typography variant="body2" sx={{ color: '#ef4444' }}>{errors.email}</Typography>}
+                            </Box>
 
-                            <div className="flex flex-col gap-1 w-full">
-                                <label htmlFor="password" className="text-slate-500">رمز عبور</label>
-                                <input
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    width: '100%',
+                                    gap: '0.25rem'
+                                }}
+                            >
+                                <InputLabel htmlFor="fullName" sx={{ color: '#64748b', fontSize: '0.95rem', fontWeight: 700 }}>رمز عبور</InputLabel>
+                                <Box
+                                    component="input"
                                     id="password"
                                     type="password"
                                     name="password"
                                     value={formData.password}
                                     onChange={handleChange}
-                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md w-full"
+                                    sx={{
+                                        border: '1px solid',
+                                        borderColor: '#cbd5e1',
+                                        p: '0.5rem',
+                                        outlineColor: '#64748b',
+                                        width: '100%',
+                                        borderRadius: '0.37rem'
+                                    }}
                                 />
-                            </div>
-                            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
-                        </div>
+                            </Box>
+                            {errors.password && <Typography variant="body2" sx={{ color: '#ef4444' }}>{errors.password}</Typography>}
 
-                        <div className="flex items-center justify-between gap-8 2xl:flex-col 2xl:justify-center 2xl:gap-4">
+                        </Box>
 
-                            <div className="flex flex-col gap-1 w-full">
-                                <label htmlFor="city" className="text-slate-500">شهر</label>
-                                <input
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: { xs: 'column', xl: 'row' },
+                                alignItems: 'center',
+                                justifyContent: { xs: 'center', xl: 'space-between' },
+                                gap: { xs: '1rem', xl: '2rem' }
+                            }}
+                        >
+
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    width: '100%',
+                                    gap: '0.25rem'
+                                }}
+                            >
+                                <InputLabel htmlFor="fullName" sx={{ color: '#64748b', fontSize: '0.95rem', fontWeight: 700 }}>شهر</InputLabel>
+                                <Box
+                                    component="input"
                                     id="city"
                                     type="text"
                                     name="city"
                                     value={formData.city}
                                     onChange={handleChange}
-                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md w-full"
+                                    sx={{
+                                        border: '1px solid',
+                                        borderColor: '#cbd5e1',
+                                        p: '0.5rem',
+                                        outlineColor: '#64748b',
+                                        width: '100%',
+                                        borderRadius: '0.37rem'
+                                    }}
                                 />
-                                {errors.city && <p className="text-red-500 text-sm">{errors.city}</p>}
-                            </div>
+                                {errors.city && <Typography variant="body2" sx={{ color: '#ef4444' }}>{errors.city}</Typography>}
 
-                            <div className="flex flex-col gap-1 w-full">
-                                <label htmlFor="postalCode" className="text-slate-500">کد پستی</label>
-                                <input
+                            </Box>
+
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    width: '100%',
+                                    gap: '0.25rem'
+                                }}
+                            >
+                                <InputLabel htmlFor="fullName" sx={{ color: '#64748b', fontSize: '0.95rem', fontWeight: 700 }}>کد پستی</InputLabel>
+                                <Box
+                                    component="input"
                                     id="postalCode"
                                     type="text"
                                     name="postalCode"
                                     value={formData.postalCode}
                                     onChange={handleChange}
-                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md w-full"
+                                    sx={{
+                                        border: '1px solid',
+                                        borderColor: '#cbd5e1',
+                                        p: '0.5rem',
+                                        outlineColor: '#64748b',
+                                        width: '100%',
+                                        borderRadius: '0.37rem'
+                                    }}
                                 />
-                                {errors.postalCode && <p className="text-red-500 text-sm">{errors.postalCode}</p>}
-                            </div>
+                                {errors.postalCode && <Typography variant="body2" sx={{ color: '#ef4444' }}>{errors.postalCode}</Typography>}
 
-                            <div className="flex flex-col gap-1 w-full">
-                                <label htmlFor="phoneNumber" className="text-slate-500">شماره همراه</label>
-                                <input
+                            </Box>
+
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    width: '100%',
+                                    gap: '0.25rem'
+                                }}
+                            >
+                                <InputLabel htmlFor="fullName" sx={{ color: '#64748b', fontSize: '0.95rem', fontWeight: 700 }}>شماره همراه</InputLabel>
+                                <Box
+                                    component="input"
                                     id="phoneNumber"
                                     type="text"
                                     name="phoneNumber"
                                     value={formData.phoneNumber}
                                     onChange={handleChange}
-                                    placeholder="+98"
-                                    dir="ltr"
-                                    className="border-[1px] border-slate-300 py-2 px-2 outline-slate-500 rounded-md w-full"
+                                    sx={{
+                                        border: '1px solid',
+                                        borderColor: '#cbd5e1',
+                                        p: '0.5rem',
+                                        outlineColor: '#64748b',
+                                        width: '100%',
+                                        borderRadius: '0.37rem',
+                                        direction: 'ltr'
+                                    }}
                                 />
-                                {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber}</p>}
-                            </div>
+                                {errors.phoneNumber && <Typography variant="body2" sx={{ color: '#ef4444' }}>{errors.phoneNumber}</Typography>}
+                            </Box>
 
-                        </div>
+                        </Box>
 
-                        <div className="max-w-[21.3rem]">
-                            <div className="flex flex-col gap-1 w-full">
-                                <label htmlFor="city" className="text-slate-500">آدرس</label>
-                                <textarea
+                        <Box
+                            sx={{
+                                maxWidth: '21.3rem'
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    width: '100%',
+                                    gap: '0.25rem'
+                                }}
+                            >
+                                <InputLabel htmlFor="fullName" sx={{ color: '#64748b', fontSize: '0.95rem', fontWeight: 700 }}>آدرس</InputLabel>
+                                <TextareaAutosize
                                     id="address"
                                     name="address"
                                     value={formData.address}
                                     onChange={handleChange}
-                                    className="resize-none text-sm border-[1px] py-2 px-2 border-slate-300 outline-slate-500 rounded-md p-3 w-full"
+                                    style={{
+                                        resize: 'none',
+                                        fontSize: '0.85rem',
+                                        border: '1px solid',
+                                        borderColor: '#cbd5e1',
+                                        padding: '0.5rem',
+                                        borderRadius: '0.37rem',
+                                        width: '100%',
+                                        height: '6rem'
+                                    }}
                                 />
-                            </div>
-                        </div>
+                            </Box>
+                        </Box>
 
-                    </div>
+                    </Box>
 
 
                     {/* Submit BTN */}
-                    <div className="mt-8 flex items-end justify-end">
+                    <Box
+                        sx={{
+                            mt: '2rem',
+                            display: 'flex',
+                            alignItems: 'end',
+                            justifyContent: 'end'
+                        }}
+                    >
                         {isLoading ? (
                             <Spinner size={30} />
                         ) : (
-                            <button
+                            <Button
                                 type="submit"
-                                className="disabled:opacity-70 bg-slate-700 text-white py-2 px-4 disabled:cursor-not-allowed rounded-md hover:opacity-80 transition border-slate-700 flex items-center justify-center gap-2"
+                                sx={{
+                                    background: '#334155',
+                                    py: '0.5rem',
+                                    px: '1rem',
+                                    transition: 'all 0.2s ease-in-out',
+                                    border: '1px solid',
+                                    borderColor: '#334155',
+                                    gap: '0.5rem',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    borderRadius: '0.37rem',
+                                    '&:hover': {
+                                        opacity: '0.8',
+                                        background: '#334155'
+                                    }
+                                }}
                                 disabled={isLoading}
                             >
-                                ویرایش
-                            </button>
+                                <Typography variant="body1" sx={{ color: '#fff' }}>ویرایش</Typography>
+                            </Button>
                         )}
 
-                    </div>
+                    </Box>
 
-                </div>
-            </form>
+                </Box>
+            </Box>
 
-        </div>
+        </Box>
     )
 }
 

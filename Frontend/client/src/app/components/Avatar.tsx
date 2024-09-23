@@ -15,7 +15,9 @@ const Avatar: React.FC<AvatarProps> = ({ src }) => {
                 alt="avatar"
                 height={30}
                 width={30}
-                className='rounded-full'
+                style={{
+                    borderRadius: '100%'
+                }}
             />
         )
     }

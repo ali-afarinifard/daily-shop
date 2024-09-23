@@ -1,11 +1,35 @@
+import { Box } from "@mui/material"
+
 const FormWrap = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div className="min-h-fit h-full flex items-center justify-center pb-12 pt-24">
+        <Box
+            sx={{
+                minHeight: 'fit-content',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                pb: '3rem',
+                pt: '6rem'
+            }}
+        >
             {/* max-h-[55.625rem]  */}
-            <div className="md:max-w-[56.25rem] w-full flex flex-col items-center gap-6 shadow-xl shadow-slate-200 rounded-md p-4 md:p-8">
+            <Box
+                sx={{
+                    maxWidth: { xs: 'full', md: '56.25rem' },
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '1.5rem',
+                    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+                    borderRadius: '0.37rem',
+                    p: { xs: '1rem', md: '2rem' }
+                }}
+            >
                 {children}
-            </div>
-        </div>
+            </Box>
+        </Box>
     )
 }
 

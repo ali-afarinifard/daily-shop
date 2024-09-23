@@ -1,3 +1,4 @@
+import { Box } from "@mui/material"
 import { ReactNode } from "react"
 
 interface ContainerProps {
@@ -7,11 +8,15 @@ interface ContainerProps {
 
 const Container: React.FC<ContainerProps> = ({ children }) => {
     return (
-        <div
-            className="max-w-[1920px] mx-auto px-4 md:px-20"
+        <Box
+        sx={{
+            maxWidth: '1920px',
+            mx: 'auto',
+            px: {xs: '1rem', md: '5rem'},
+        }}
         >
             {children}
-        </div>
+        </Box>
     )
 }
 
