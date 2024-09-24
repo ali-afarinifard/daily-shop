@@ -1,7 +1,6 @@
 'use client'
 
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react"
 import toast from "react-hot-toast";
@@ -9,10 +8,15 @@ import { IoChevronBackOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FiEye } from "react-icons/fi";
 import { useResetAccountMutation } from "@/store/apiSlice";
+import { Box, Button, Link, Typography } from "@mui/material";
 
 
 
 const ResetAccountForm = () => {
+
+    const [emailFocused, setEmailFocused] = useState(false);
+    const [newPasswordFocused, setNewPasswordFocused] = useState(false);
+    const [confirmPasswordFocused, setConfirmNewPasswordFocused] = useState(false);
 
     const [email, setEmail] = useState('');
     const [newPassword, setNewPassword] = useState('');
@@ -75,96 +79,253 @@ const ResetAccountForm = () => {
 
 
     return (
-        <div className="w-full relative">
-            <h1 className="text-2xl text-center">بازیابی رمز عبور</h1>
+        <Box
+            sx={{
+                width: '100%',
+                position: 'relative'
+            }}
+        >
+            <Typography variant="h2" sx={{ textAlign: 'center' }}>بازیابی رمز عبور</Typography>
 
-            <div className="absolute left-0 top-0">
-                <Link href={'/login'} className="text-blue-600">
-                    <div className="w-10 h-10 border-[1px] border-slate-200 rounded-full flex items-center justify-center shadow-md bg-slate-200">
-                        <IoChevronBackOutline size={23} className="relative right-[1px]" />
-                    </div>
+            <Box
+                sx={{
+                    position: 'absolute',
+                    left: 0,
+                    top: 0
+                }}
+            >
+                <Link href={'/login'} sx={{ color: '#2563eb', textDecoration: 'none' }}>
+                    <Box
+                        sx={{
+                            width: '2.5rem',
+                            height: '2.5rem',
+                            border: '1px solid',
+                            borderColor: '#e2e8f0',
+                            borderRadius: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+                            background: '#e2e8f0',
+                        }}
+                    >
+                        <IoChevronBackOutline size={23} style={{ position: 'relative', right: '1px' }} />
+                    </Box>
                 </Link>
-            </div>
+            </Box>
 
-            <form onSubmit={handleAccountReset} className="mt-10 flex flex-col gap-3">
+            <Box
+                component="form"
+                onSubmit={handleAccountReset}
+                sx={{
+                    mt: '2.5rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.75rem'
+                }}
+            >
 
                 {/* Email */}
-                <div className="w-full relative flex flex-col gap-1">
-                    <input
-                        id="email"
+                <Box
+                    sx={{
+                        width: '100%',
+                        position: 'relative',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '0.25rem'
+                    }}
+                >
+                    <Box
+                        component="input"
+                        id='email'
                         type="email"
-                        autoComplete="off"
+                        autoComplete='off'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed"
+                        onFocus={() => setEmailFocused(true)}
+                        onBlur={(e) => {
+                            if (!e.target.value) setEmailFocused(false);
+                        }}
+                        sx={{
+                            width: '100%',
+                            p: '1rem',
+                            pt: '1.5rem',
+                            outline: 'none',
+                            background: '#fff',
+                            fontWeight: 700,
+                            border: '2px solid',
+                            borderRadius: '0.37rem',
+                            transition: 'all 0.2s ease-in-out',
+                            borderColor: '#e0e0e0'
+                        }}
                     />
-                    <label
+                    <Box
+                        component="label"
                         htmlFor="email"
-                        className="absolute text-[0.88rem] duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                        sx={{
+                            position: 'absolute',
+                            right: '1rem',
+                            top: emailFocused || email ? '0.4rem' : '1rem',
+                            transform: emailFocused || email ? 'scale(0.9)' : 'scale(1)',
+                            transformOrigin: 'top right',
+                            transition: 'all 0.2s ease-in-out',
+                            zIndex: 10,
+                            pointerEvents: 'none'
+                        }}
                     >
-                        ایمیل
-                    </label>
-                    {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-                </div>
+                        <Typography variant='body1' sx={{ fontSize: '1rem' }}>ایمیل</Typography>
+                    </Box>
+                    {errors.email && <Typography variant='body1' sx={{ color: '#ef4444' }}>{errors.email}</Typography>}
+                </Box>
 
                 {/* New Password */}
-                <div className="w-full relative flex flex-col gap-1">
-                    <input
-                        id="newPassword"
+                <Box
+                    sx={{
+                        width: '100%',
+                        position: 'relative',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '0.25rem'
+                    }}
+                >
+                    <Box
+                        component="input"
+                        id='newPassword'
                         type={showPassword ? "text" : "password"}
-                        autoComplete="off"
+                        autoComplete='off'
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
-                        className="peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed"
+                        onFocus={() => setNewPasswordFocused(true)}
+                        onBlur={(e) => {
+                            if (!e.target.value) setNewPasswordFocused(false);
+                        }}
+                        sx={{
+                            width: '100%',
+                            p: '1rem',
+                            pt: '1.5rem',
+                            outline: 'none',
+                            background: '#fff',
+                            fontWeight: 700,
+                            border: '2px solid',
+                            borderRadius: '0.37rem',
+                            transition: 'all 0.2s ease-in-out',
+                            borderColor: '#e0e0e0'
+                        }}
                     />
-                    <label
+                    <Box
+                        component="label"
                         htmlFor="newPassword"
-                        className="absolute text-[0.88rem] duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                        sx={{
+                            position: 'absolute',
+                            right: '1rem',
+                            top: newPasswordFocused || newPassword ? '0.4rem' : '1rem',
+                            transform: newPasswordFocused || newPassword ? 'scale(0.9)' : 'scale(1)',
+                            transformOrigin: 'top right',
+                            transition: 'all 0.2s ease-in-out',
+                            zIndex: 10,
+                            pointerEvents: 'none'
+                        }}
                     >
-                        رمز عبور جدید
-                    </label>
-                    <div
-                        className='absolute left-3 top-6 cursor-pointer' // Position the eye icon
-                        onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
+                        <Typography variant='body1' sx={{ fontSize: '1rem' }}>رمز عبور جدید</Typography>
+                    </Box>
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            left: '0.75rem',
+                            top: '1.5rem',
+                            cursor: 'pointer'
+                        }}
+                        onClick={() => setShowPassword(!showPassword)}
                     >
-                        {showPassword ? <FiEye size={20} className='text-slate-400' /> : <FaRegEyeSlash size={20} className='text-slate-400' />} {/* Display eye or eye-slash icon */}
-                    </div>
-                    {errors.newPassword && <p className="text-red-500 text-sm">{errors.newPassword}</p>}
-                </div>
+                        {showPassword ? <FiEye size={20} style={{ color: '#94a3b8' }} /> : <FaRegEyeSlash size={20} style={{ color: '#94a3b8' }} />}
+                    </Box>
+                    {errors.newPassword && <Typography variant="body1" sx={{ color: '#ef4444' }}>{errors.newPassword}</Typography>}
+                </Box>
 
                 {/* Confirm Password */}
-                <div className="w-full relative flex flex-col gap-1">
-                    <input
+                <Box
+                    sx={{
+                        width: '100%',
+                        position: 'relative',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '0.25rem'
+                    }}
+                >
+                    <Box
+                        component="input"
                         id="confirmPassword"
                         type={showPassword ? "text" : "password"}
                         autoComplete="off"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed"
+                        onFocus={() => setConfirmNewPasswordFocused(true)}
+                        onBlur={(e) => {
+                            if (!e.target.value) setConfirmNewPasswordFocused(false);
+                        }}
+                        sx={{
+                            width: '100%',
+                            p: '1rem',
+                            pt: '1.5rem',
+                            outline: 'none',
+                            background: '#fff',
+                            fontWeight: 700,
+                            border: '2px solid',
+                            borderRadius: '0.37rem',
+                            transition: 'all 0.2s ease-in-out',
+                            borderColor: '#e0e0e0'
+                        }}
                     />
-                    <label
+                    <Box
+                        component="label"
                         htmlFor="confirmPassword"
-                        className="absolute text-[0.88rem] duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                        sx={{
+                            position: 'absolute',
+                            right: '1rem',
+                            top: confirmPasswordFocused || confirmPassword ? '0.4rem' : '1rem',
+                            transform: confirmPasswordFocused || confirmPassword ? 'scale(0.9)' : 'scale(1)',
+                            transformOrigin: 'top right',
+                            transition: 'all 0.2s ease-in-out',
+                            zIndex: 10,
+                            pointerEvents: 'none'
+                        }}
                     >
                         تایید رمز عبور
-                    </label>
-                    <div
-                        className='absolute left-3 top-6 cursor-pointer' // Position the eye icon
-                        onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
+                    </Box>
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            left: '0.75rem',
+                            top: '1.5rem',
+                            cursor: 'pointer'
+                        }}
+                        onClick={() => setShowPassword(!showPassword)}
                     >
-                        {showPassword ? <FiEye size={20} className='text-slate-400' /> : <FaRegEyeSlash size={20} className='text-slate-400' />} {/* Display eye or eye-slash icon */}
-                    </div>
-                    {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
-                </div>
+                        {showPassword ? <FiEye size={20} style={{ color: '#94a3b8' }} /> : <FaRegEyeSlash size={20} style={{ color: '#94a3b8' }} />}
+                    </Box>
+                    {errors.confirmPassword && <Typography variant="body1">{errors.confirmPassword}</Typography>}
+                </Box>
 
-                <button
+                <Button
                     type="submit"
-                    className="disabled:opacity-70 disabled:cursor-not-allowed rounded-md hover:opacity-80 transition w-full border-slate-700 flex items-center justify-center gap-2 bg-slate-700 text-white text-md p-4"
+                    sx={{
+                        background: '#334155',
+                        borderRadius: '0.37rem',
+                        p: '1rem',
+                        width: '100%',
+                        border: '1px solid',
+                        borderColor: '#334155',
+                        transition: 'all 0.3s ease-in-out',
+                        '&:hover': {
+                            background: '#334155',
+                            opacity: '0.8'
+                        }
+                    }}
                 >
-                    تغییر رمز عبور
-                </button>
-            </form>
-        </div>
+                    <Typography variant='body1' sx={{ color: '#fff' }}>تغییر رمز عبور</Typography>
+                </Button>
+            </Box>
+        </Box>
     )
 }
 
