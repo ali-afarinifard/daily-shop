@@ -38,11 +38,11 @@ const SetQuantity: React.FC<SetQtyProps> = ({
             <Box
                 sx={{
                     display: 'flex',
+                    flexDirection: {xs: 'column', sm: 'row'},
                     alignItems: 'center',
-                    gap: '1rem',
+                    gap: {xs: '0.5rem', sm: '1rem'},
                     fontSize: '1rem',
                     lineHeight: '1.5rem',
-                    ...(custom ? { ...custom } : {})
                 }}
             >
                 <Button

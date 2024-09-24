@@ -17,6 +17,7 @@ import ProductType from "@/types/product";
 
 // ** Components
 import SetQuantity from "../products/SetQuantity";
+import { Box, Button, Typography } from "@mui/material";
 
 
 interface ItemContentProps {
@@ -28,51 +29,107 @@ const CartItem: React.FC<ItemContentProps> = ({ item }) => {
     const { handleRemoveProductFromCart, handleCartQtyIncrease, handleCartQtyDecrease } = useCart();
 
     return (
-        <div className="grid grid-cols-5 text-xs md:text-sm gap-4 border-t-[1.5px] border-slate-200 py-4 items-center">
-            <div className="col-span-2 justify-self-start flex gap-2 md:gap-4 m:flex-col">
+        <Box
+            sx={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(5, 1fr)',
+                fontSize: { xs: '0.75rem', md: '0.87rem' },
+                lineHeight: { xs: '1rem', md: '1.25rem' },
+                gap: '1rem',
+                borderTop: '1.5px',
+                color: '#e2e8f0',
+                py: '1rem',
+                alignItems: 'center'
+            }}
+        >
+            <Box
+                sx={{
+                    gridColumn: 'span 2',
+                    justifySelf: 'start',
+                    display: 'flex',
+                    gap: { xs: '0.5rem', md: '1rem' },
+                    flexDirection: { xs: 'column', sm: 'row' },
+                }}
+            >
                 <Link href={`/product/${item._id}`}>
-                    <div className="relative w-[6.4rem] aspect-square">
+                    <Box
+                        sx={{
+                            position: 'relative',
+                            width: '6.4rem',
+                            aspectRatio: '1 / 1'
+                        }}
+                    >
                         <Image
                             src={item.images[0]}
                             alt={item.title}
                             fill
                             priority
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-                            className="object-contain"
+                            style={{
+                                objectFit: 'contain'
+                            }}
                         />
-                    </div>
+                    </Box>
                 </Link>
-                <div className="flex flex-col justify-between gap-1 m:pr-[0.7rem]">
+
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        gap: '0.25rem',
+                        pr: { xs: '0.7rem', sm: 0 }
+                    }}
+                >
                     <Link href={`/product/${item._id}`}>
-                        {truncateText(item.title)}
+                        <Typography variant="body1">{truncateText(item.title)}</Typography>
                     </Link>
-                    <div className="text-slate-500 flex flex-col items-start gap-1">
-                        <p>رنگ: {item.selectedColor}</p>
-                        <p>سایز: {formatPriceToFarsi(item.selectedSize)}</p>
-                    </div>
-                    <div className="w-[4.4rem]">
-                        <button className="text-slate-500 underline" onClick={() => { handleRemoveProductFromCart(item) }}>
-                            حذف
-                        </button>
-                    </div>
-                </div>
-            </div>
+
+                    <Box
+                        sx={{
+                            color: '#64748b',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'start',
+                            gap: '0.25rem'
+                        }}
+                    >
+                        <Typography variant="body2">رنگ: {item.selectedColor}</Typography>
+                        <Typography variant="body2">سایز: {formatPriceToFarsi(item.selectedSize)}</Typography>
+                    </Box>
+
+                    <Box
+                        sx={{
+                            width: '4.4rem'
+                        }}
+                    >
+                        <Button sx={{ '& .MuiButton-label': { padding: 0 }, padding: 0, minWidth: 'auto' }} onClick={() => { handleRemoveProductFromCart(item) }}>
+                            <Typography variant="body1" sx={{ color: '#64748b', textDecoration: 'underline' }}>حذف</Typography>
+                        </Button>
+                    </Box>
+                </Box>
+            </Box>
             {item?.offer ? (
-                <div className="justify-self-center">{formatPriceToFarsi(item?.offer)}</div>
+                <Typography variant="body2" sx={{ justifySelf: 'center' }}>{formatPriceToFarsi(item?.offer)}</Typography>
             ) : (
-                <div className="justify-self-center">{formatPriceToFarsi(item?.price)}</div>
+                <Typography variant="body2" sx={{ justifySelf: 'center' }}>{formatPriceToFarsi(item?.price)}</Typography>
             )}
-            <div className="justify-self-center">
+            <Box
+                sx={{
+                    justifySelf: 'center'
+                }}
+            >
                 <SetQuantity
                     cardCounter={true}
                     productType={item}
                     handleQtyIncrease={() => { handleCartQtyIncrease(item) }}
                     handleQtyDecrease={() => { handleCartQtyDecrease(item) }}
-                    custom="m:flex-col m:gap-2"
                 />
-            </div>
-            <div className="justify-self-end font-semibold">{formatPriceToFarsi(item.price * item.quantity)}</div>
-        </div>
+            </Box>
+            <Typography variant="body1" sx={{ justifySelf: 'end' }}>
+                {formatPriceToFarsi(item.price * item.quantity)}
+            </Typography>
+        </Box>
     );
 };
 

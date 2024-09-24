@@ -87,7 +87,7 @@ const theme = createTheme({
         },
         h4: {
             fontSize: '1.1rem',
-            fontWeight: '900'
+            fontWeight: 900
         },
         body1: {
             fontSize: '0.95rem',
