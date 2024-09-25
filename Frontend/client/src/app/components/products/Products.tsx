@@ -114,7 +114,7 @@ const Products = () => {
                 <NullData title='محصولی وجود ندارد' />
             </Box>
         )
-    }
+    };
 
 
     return (

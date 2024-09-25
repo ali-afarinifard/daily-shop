@@ -14,7 +14,7 @@ import { AiFillCaretDown } from "react-icons/ai";
 import BackDrop from "./BackDrop";
 import MenuItem from "./MenuItem";
 import Avatar from "../Avatar";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, Divider, IconButton, Typography } from "@mui/material";
 
 
 const UserMenu = () => {
@@ -83,7 +83,7 @@ const UserMenu = () => {
                                             <Typography variant="body1">سفارش ها</Typography>
                                         </MenuItem>
                                     </Link>
-                                    <hr />
+                                    <Divider />
                                     <MenuItem onClick={() => {
                                         toggleOpen();
                                         logout();

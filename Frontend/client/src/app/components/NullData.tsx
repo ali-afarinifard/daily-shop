@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 
 interface NullDataProps {
     title: string;
@@ -7,9 +8,19 @@ interface NullDataProps {
 
 const NullData: React.FC<NullDataProps> = ({ title, center }) => {
     return (
-        <div className={`w-full h-[50vh] flex items-center justify-center text-xl md:text-2xl ${center ? center : ''}`}>
+        <Box
+        sx={{
+            width: '100%',
+            height: '50vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: {xs: '1.25rem', md: '1.5rem'},
+            lineHeight: {xs: '1.75rem', md: '2rem'},
+        }}
+         className={`${center ? center : ''}`}>
             <p className='font-medium'>{title}</p>
-        </div>
+        </Box>
     )
 }
 
