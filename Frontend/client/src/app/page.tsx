@@ -18,7 +18,7 @@ export default function Home() {
         component="div"
         sx={{
           pt: '2.5rem',
-          mt: { xs: 0, lg: '3rem' }
+          mt: { xs: 0, lg: '1.6rem' }
         }}
       >
         <Banner />
