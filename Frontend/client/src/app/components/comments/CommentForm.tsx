@@ -10,7 +10,7 @@ import { AuthContext } from "@/context/AuthContext";
 import { useCreateCommentMutation } from "@/store/apiSlice";
 
 // ** MUI
-import { Box, Button, FormControl, Rating, TextareaAutosize, Typography } from "@mui/material";
+import { Box, Button, Rating, TextareaAutosize, Typography } from "@mui/material";
 
 // ** Toast
 import toast from "react-hot-toast";

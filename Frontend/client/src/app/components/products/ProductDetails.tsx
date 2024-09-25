@@ -1,29 +1,44 @@
 'use client';
 
 
-import Image from "next/image";
+// ** Next
+import { useContext } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { MdCheckCircle } from "react-icons/md";
 
+// ** Swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Thumbs } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/thumbs';
 
-
+// ** Hooks
 import { useCart } from "@/hooks/useCart";
+
+// ** Utils
+import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
+
+// ** Store - RTK-Q
+import { useAddToWishlistMutation, useGetCommentsQuery, useGetProductByIdQuery } from "@/store/apiSlice";
+
+// ** Components
 import Button from "../Button";
 import SetQuantity from "./SetQuantity";
-import toast from "react-hot-toast";
-import { useContext } from "react";
-import { AuthContext } from "@/context/AuthContext";
 import Spinner from "../Spinner";
 import CommentForm from "../comments/CommentForm";
 import CommentList from "../comments/CommentList";
+
+// ** Auth Context
+import { AuthContext } from "@/context/AuthContext";
+
+// ** Toast
+import toast from "react-hot-toast";
+
+// ** MUI
 import { Box, Divider, FormControl, MenuItem, Rating, Select, Typography } from "@mui/material";
-import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
-import { useAddToWishlistMutation, useGetCommentsQuery, useGetProductByIdQuery } from "@/store/apiSlice";
+
+// ** Icons
+import { MdCheckCircle } from "react-icons/md";
 
 
 

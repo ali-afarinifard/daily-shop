@@ -8,6 +8,8 @@ import { useSearchProductsQuery } from "@/store/apiSlice";
 
 // ** Components
 import SearchBarItem from "./SearchBarItem";
+
+// ** MUI
 import { Box, Divider, InputBase, Typography } from "@mui/material";
 
 

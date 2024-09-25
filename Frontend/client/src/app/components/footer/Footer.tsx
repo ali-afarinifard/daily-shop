@@ -17,6 +17,8 @@ import CategoryType from "@/types/category";
 // ** Components
 import Container from "../Container"
 import FooterList from "./FooterList";
+
+// ** MUI
 import { Box, Typography } from "@mui/material";
 
 

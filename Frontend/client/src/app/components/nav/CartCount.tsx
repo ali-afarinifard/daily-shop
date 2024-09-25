@@ -8,6 +8,8 @@ import { useCart } from "@/hooks/useCart"
 
 // ** Icons
 import { CiShoppingCart } from 'react-icons/ci'
+
+// ** MUI
 import { Box, Typography } from "@mui/material"
 
 

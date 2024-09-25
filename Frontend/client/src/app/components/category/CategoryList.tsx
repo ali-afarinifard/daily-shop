@@ -14,6 +14,8 @@ import CategoryType from "@/types/category"
 // ** Components
 import Container from "../Container"
 import CategoryItem from "./CategoryItem"
+
+// ** MUI
 import { Box } from "@mui/material"
 
 
@@ -54,6 +56,7 @@ const CategoryList = () => {
         >
             <Container>
                 <Box
+                    component={'div'}
                     sx={{
                         display: 'flex',
                         alignItems: 'center',

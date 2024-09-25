@@ -1,6 +1,9 @@
 // ** React
-import { Box } from "@mui/material";
 import { ReactNode } from "react"
+
+// ** MUI
+import { Box } from "@mui/material";
+
 
 interface FooterListProps {
     children: ReactNode;

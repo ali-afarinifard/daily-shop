@@ -1,18 +1,28 @@
 'use client'
 
-import { AuthContext } from "@/context/AuthContext";
+
+// ** Next
 import { useContext, useEffect, useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation";
+
+// ** Auth Context
+import { AuthContext } from "@/context/AuthContext";
+
+// ** MUI
+import { Box, Pagination, Stack, Typography } from "@mui/material";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+
+// ** Store - RTK-Q
+import { useGetAllProductsQuery } from "@/store/apiSlice";
+
+// ** Components
 import Spinner from "../Spinner";
 import NullData from "../NullData";
-import { Box, Pagination, Stack, Typography } from "@mui/material";
 import ProductBox from "./ProductBox";
 
 
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useGetAllProductsQuery } from "@/store/apiSlice";
 
 
 const Products = () => {

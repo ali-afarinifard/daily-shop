@@ -11,6 +11,8 @@ import data from "@/utils/accordion"
 
 // ** Components
 import Heading from "../Heading"
+
+// ** MUI
 import { Box, Typography } from "@mui/material"
 
 const Guidance = () => {

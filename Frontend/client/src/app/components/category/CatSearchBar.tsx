@@ -11,7 +11,9 @@ import { CiSearch } from "react-icons/ci";
 
 // ** Components
 import SearchBarItem from "../nav/SearchBar/SearchBarItem";
-import { Box, Divider, InputBase } from "@mui/material";
+
+// ** MUI
+import { Box, Divider } from "@mui/material";
 
 
 interface CategoryListMobileProps {

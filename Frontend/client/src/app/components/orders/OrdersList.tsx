@@ -1,4 +1,6 @@
-import { Box, Typography } from "@mui/material"
+// ** MUI
+import { Typography } from "@mui/material"
+
 
 const OrdersList = () => {
     return (

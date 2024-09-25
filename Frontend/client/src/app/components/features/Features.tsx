@@ -1,6 +1,8 @@
 'use client'
 
+// ** MUI
 import { Box, Typography } from "@mui/material"
+
 // ** Components
 import Heading from "../Heading"
 

@@ -17,6 +17,8 @@ import { IoLogoWhatsapp } from "react-icons/io5";
 // ** Components
 import CatSearchBar from "./CatSearchBar";
 import CategoryItem from "./CategoryItem";
+
+// ** MUI
 import { Box, Divider, Typography } from "@mui/material";
 
 
