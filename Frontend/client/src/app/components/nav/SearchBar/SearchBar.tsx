@@ -73,9 +73,9 @@ const SearchBar = () => {
             }}
         >
             <Box sx={{ width: '100%' }}>
-                <InputBase
+                <Box
+                    component="input"
                     type="search"
-                    fullWidth
                     placeholder="جستجو"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
@@ -89,6 +89,8 @@ const SearchBar = () => {
                         pl: '1.25rem',
                         color: '#000000',
                         fontWeight: '700',
+                        background: '#f7f7f7',
+                        outline: 'none'
                     }}
                 />
             </Box>

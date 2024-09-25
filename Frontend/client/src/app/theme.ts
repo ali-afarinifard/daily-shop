@@ -7,7 +7,7 @@ declare module '@mui/material/styles' {
         '2xs': true;
         '2xl': true;
         '2sm': true;
-        '2md': true;
+        '3sm': true;
     }
     interface Palette {
         customBackground: {
@@ -39,11 +39,11 @@ const theme = createTheme({
             '2xs': 400,
             sm: 460,
             '2sm': 580, 
+            '3sm': 640,
             md: 770,
             lg: 880,
             xl: 1000,
-            '2xl': 1920,
-            '2md': 1000,
+            '2xl': 1024
         },
     },
     palette: {

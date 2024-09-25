@@ -17,6 +17,7 @@ import CategoryType from "@/types/category";
 // ** Components
 import Container from "../Container"
 import FooterList from "./FooterList";
+import { Box, Typography } from "@mui/material";
 
 
 const Footer = () => {
@@ -24,74 +25,135 @@ const Footer = () => {
     const { data: categories } = useGetAllCategoriesQuery();
 
     return (
-        <footer className="bg-slate-700 text-slate-200 text-sm mt-16">
+        <Box
+            component="footer"
+            sx={{
+                background: '#334155',
+                color: '#e2e8f0',
+                fontSize: '0.87rem',
+                lineHeight: '1.25rem',
+                mt: '4rem'
+            }}
+        >
             <Container>
-                <div className="flex xl:flex-col justify-between pt-16 pb-8">
+                <Box
+                    component="div"
+                    sx={{
+                        display: 'flex',
+                        flexDirection: { xs: 'column', lg: 'row' },
+                        justifyContent: 'space-between',
+                        pt: '4rem',
+                        pb: '2rem'
+                    }}
+                >
                     <FooterList>
 
-                        <h3 className="text-base font-bold mb-2">دسته بندی ها</h3>
-                        <div className="flex flex-col gap-5">
+                        <Typography sx={{ color: '#fff', fontWeight: 900, mb: '0.5rem', fontSize: '1rem', lineHeight: '1.5rem' }} >دسته بندی ها</Typography>
+
+                        <Box
+                            component="div"
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '1.25rem'
+                            }}
+                        >
                             <Link href={`/products`}>
                                 همه
                             </Link>
 
                             {categories?.map((category: CategoryType) => (
-                                <div key={category._id}>
+                                <Box
+                                    component="div"
+                                    key={category._id}>
                                     <Link href={`/category/${category._id}`}>
                                         {category.name}
                                     </Link>
-                                </div>
+                                </Box>
                             ))}
-                        </div>
+                        </Box>
 
                     </FooterList>
 
                     <FooterList>
 
-                        <h3 className="text-base font-bold mb-2">خدمات ما</h3>
-                        <div className="flex flex-col gap-5">
+                        <Typography sx={{ color: '#fff', fontWeight: 900, mb: '0.5rem', fontSize: '1rem', lineHeight: '1.5rem' }}>خدمات ما</Typography>
+
+                        <Box
+                            component="div"
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '1.25rem'
+                            }}
+                        >
                             <Link href={'#'}>پاسخ به پرسش های متداول</Link>
                             <Link href={'#'}>رویه های بازگرداندن کالا</Link>
                             <Link href={'#'}>نحوه ثبت سفارش</Link>
                             <Link href={'#'}>تماس با دیجی شاپ</Link>
                             <Link href={'#'}>حریم خصوصی</Link>
                             <Link href={'#'}>شرایط استفاده</Link>
-                        </div>
+                        </Box>
 
                     </FooterList>
 
-                    <div className="xl:w-full w-1/3 mb-6 md:mb-0">
-                        <h3 className="text-base font-bold mb-2">درباره دیلی شاپ</h3>
-                        <p className="mb-2 text-justify leading-[1.7rem]">
+                    <Box
+                        component="div"
+                        sx={{
+                            width: { xs: '100%', lg: '33%' },
+                            mb: { xs: '1.5rem', md: 0 }
+                        }}
+                    >
+                        <Typography sx={{ fontWeight: 900, mb: '0.5rem', fontSize: '1rem', lineHeight: '1.5rem', color: '#fff' }}>درباره دیلی شاپ</Typography>
+
+                        <Typography variant="body2" sx={{ mb: '0.5rem', textAlign: 'justify', lineHeight: '1.7rem', color: '#fff' }}>
                             یک خرید اینترنتی مطمئن، نیازمند فروشگاهی است که بتواند کالاهایی متنوع، باکیفیت و دارای قیمت مناسب را در مدت زمان ی کوتاه به دست مشتریان خود برساند و ضمانت بازگشت کالا هم داشته باشد؛ ویژگی‌هایی که فروشگاه اینترنتی دیجی‌کالا سال‌هاست بر روی آن‌ها کار کرده و توانسته از این طریق مشتریان ثابت خود را داشته باشد. یکی از مهم‌ترین دغدغه‌های کاربران دیجی‌کالا یا هر فروشگاه‌ اینترنتی دیگری، این است که کالای خریداری شده چه زمانی به دستشان می‌رسد.
-                        </p>
-                        <p dir="ltr" className="text-end">&copy; {new Date().getFullYear()} Daily~Shop.</p>
-                    </div>
+                        </Typography>
+
+                        <Typography variant="body2" dir="ltr" sx={{ textAlign: 'end', color: '#fff' }}>&copy; {new Date().getFullYear()} Daily~Shop.</Typography>
+                    </Box>
+
                     <FooterList>
 
-                        <h3 className="text-base font-bold mb-2 ml-3 lg:ml-0">همراه ما باشید</h3>
+                        <Box
+                            component="div"
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                mr: {xs: 0, lg: '2rem'}
+                            }}
+                        >
+                            <Typography variant="body1" sx={{ mb: '0.5rem', ml: { xs: '0.75rem', '2xl': 0 }, color: '#fff' }}>همراه ما باشید</Typography>
 
-                        <div className="flex gap-2 ml-3 lg:ml-0">
+                            <Box
+                                component="div"
+                                sx={{
+                                    display: 'flex',
+                                    gap: '0.5rem',
+                                    ml: { xs: '0.75rem', '2xl': 0 }
+                                }}
+                            >
 
-                            <Link href={'#'}>
-                                <MdFacebook size={24} />
-                            </Link>
-                            <Link href={'#'}>
-                                <AiFillTwitterCircle size={24} />
-                            </Link>
-                            <Link href={'#'}>
-                                <AiFillInstagram size={24} />
-                            </Link>
-                            <Link href={'#'}>
-                                <AiFillYoutube size={24} />
-                            </Link>
+                                <Link href={'#'}>
+                                    <MdFacebook size={24} />
+                                </Link>
+                                <Link href={'#'}>
+                                    <AiFillTwitterCircle size={24} />
+                                </Link>
+                                <Link href={'#'}>
+                                    <AiFillInstagram size={24} />
+                                </Link>
+                                <Link href={'#'}>
+                                    <AiFillYoutube size={24} />
+                                </Link>
 
-                        </div>
+                            </Box>
+                        </Box>
 
                     </FooterList>
-                </div>
+                </Box>
             </Container>
-        </footer>
+        </Box>
     )
 }
 

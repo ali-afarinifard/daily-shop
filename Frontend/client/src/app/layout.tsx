@@ -4,6 +4,7 @@ import Navbar from "./components/nav/(page)/Navbar";
 import Footer from "./components/footer/Footer";
 import { Toaster } from "react-hot-toast";
 import ClientProviders from "@/providers/ClientProviders";
+import { Box } from "@mui/material";
 
 
 export const metadata: Metadata = {
@@ -20,7 +21,7 @@ export default function RootLayout({
 
   return (
     <html lang="fa" dir="rtl">
-      <body className="text-slate-700">
+      <body style={{ color: '#334155' }}>
 
         <Toaster toastOptions={{
           style: {
@@ -29,11 +30,25 @@ export default function RootLayout({
           },
         }} />
         <ClientProviders>
-          <div className="flex flex-col min-h-screen">
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              minHeight: '100vh'
+            }}
+          >
             <Navbar />
-            <main className="flex-grow mt-[4.5rem]">{children}</main>
+            <Box
+              component="main"
+              sx={{
+                flexGrow: '1',
+                mt: '2.6rem'
+              }}
+            >
+              {children}
+            </Box>
             <Footer />
-          </div>
+          </Box>
         </ClientProviders>
       </body>
     </html>
