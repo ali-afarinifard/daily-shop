@@ -1,4 +1,6 @@
+// ** MUI
 import { Box, Typography } from "@mui/material";
+
 
 interface NullDataProps {
     title: string;

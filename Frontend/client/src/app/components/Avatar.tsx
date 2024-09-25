@@ -1,4 +1,7 @@
+// ** Next
 import Image from "next/image"
+
+// ** Icons
 import { FaUserCircle } from 'react-icons/fa'
 
 interface AvatarProps {

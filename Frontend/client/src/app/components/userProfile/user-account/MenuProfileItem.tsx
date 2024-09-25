@@ -1,5 +1,9 @@
+// ** MUI
 import { Box, Typography } from "@mui/material";
+
+// ** Icons
 import { IconType } from "react-icons";
+
 
 interface MenuProfileItemProps {
     onClick: () => void;

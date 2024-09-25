@@ -1,9 +1,18 @@
+// ** Next
 import type { Metadata } from "next";
+
+// ** Global CSS
 import "./globals.css";
+
+// ** Components
 import Navbar from "./components/nav/(page)/Navbar";
 import Footer from "./components/footer/Footer";
-import { Toaster } from "react-hot-toast";
 import ClientProviders from "@/providers/ClientProviders";
+
+// ** Toaster
+import { Toaster } from "react-hot-toast";
+
+// ** MUI
 import { Box } from "@mui/material";
 
 

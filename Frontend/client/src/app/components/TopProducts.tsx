@@ -1,7 +1,7 @@
 'use client'
 
+// ** Next
 import { useContext, useRef } from "react";
-import Heading from "./Heading";
 
 // ** Swiper
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -9,11 +9,23 @@ import { Swiper as SwiperType } from 'swiper';
 import 'swiper/css'
 import 'swiper/css/pagination'
 
+// ** Components
+import Heading from "./Heading";
+
+// ** Icons
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+
+// ** Components
 import ProductBox from "./products/ProductBox";
-import { AuthContext } from "@/context/AuthContext";
 import NullData from "./NullData";
+
+// ** Auth Context
+import { AuthContext } from "@/context/AuthContext";
+
+// ** Store - RTK-Q
 import { useGetAllProductsQuery } from "@/store/apiSlice";
+
+// ** MUI
 import { Box, IconButton } from "@mui/material";
 
 

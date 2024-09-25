@@ -1,6 +1,10 @@
 'use client'
 
-import { ButtonBase, IconButton, Typography } from "@mui/material"
+
+// ** MUI
+import { ButtonBase, Typography } from "@mui/material"
+
+// ** Icons
 import { IconType } from "react-icons"
 
 

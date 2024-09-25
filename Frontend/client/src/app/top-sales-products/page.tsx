@@ -1,7 +1,10 @@
 // ** Components
-import { Box } from "@mui/material"
 import Container from "../components/Container"
 import TopSalesProducts from "../components/products/TopSalesProducts"
+
+// ** mui
+import { Box } from "@mui/material"
+
 
 const topSalesProductsPage = () => {
     return (

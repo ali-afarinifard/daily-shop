@@ -1,16 +1,25 @@
 'use client'
 
-import { AuthContext } from "@/context/AuthContext";
-import { Box, Pagination, Stack, Typography } from "@mui/material"
+
+// ** Next
 import { useContext, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+
+// Auth Context
+import { AuthContext } from "@/context/AuthContext";
+
+// ** MUI
+import { Box, Pagination, Stack, Typography } from "@mui/material"
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+
+// ** Components
 import Spinner from "../Spinner";
 import NullData from "../NullData";
 import ProductBox from "./ProductBox";
 
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import { useRouter, useSearchParams } from "next/navigation";
+// ** Store - RTK-Q
 import { useGetAllProductsQuery } from "@/store/apiSlice";
 
 

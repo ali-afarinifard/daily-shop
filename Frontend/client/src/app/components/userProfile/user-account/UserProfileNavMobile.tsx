@@ -1,14 +1,24 @@
 'use client'
 
-import { User } from "@/context/AuthContext"
+
+// ** Next
 import Link from "next/link";
 import { useCallback, useState } from "react";
-import { CiMenuKebab } from "react-icons/ci";
 import { useRouter } from "next/navigation";
+
+// ** Auth Context
+import { User } from "@/context/AuthContext"
+
+// ** Icons
+import { CiMenuKebab } from "react-icons/ci";
 import { MdDashboard, MdFormatListBulleted, MdLogout } from "react-icons/md";
 import { IoIosHeart } from "react-icons/io";
+
+// ** Components
 import MenuProfileItem from "./MenuProfileItem";
 import BackDropProfileNav from "../../backdrop/BackDropProfileNav";
+
+// ** MUI
 import { Box, Divider, Typography } from "@mui/material";
 
 

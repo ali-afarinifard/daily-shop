@@ -10,6 +10,8 @@ import { AuthContext } from "@/context/AuthContext";
 // ** Components
 import Container from "../components/Container"
 import Wishlist from "../components/wishlists/Wishlist"
+
+// ** MUI
 import { Box } from "@mui/material";
 
 const WishlistPage = () => {

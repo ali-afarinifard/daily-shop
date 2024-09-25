@@ -1,7 +1,12 @@
 'use client'
 
+// ** Types
 import ProductType from "@/types/product";
+
+// ** Utils
 import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
+
+// ** MUI
 import { Box, Button, Typography } from "@mui/material";
 
 

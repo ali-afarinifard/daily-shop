@@ -1,10 +1,17 @@
 'use client'
 
-import GetManageWishlist from "@/app/components/userProfile/manage-wishlist/GetManageWishlist";
-import { AuthContext } from "@/context/AuthContext";
-import { Box } from "@mui/material";
+
+// ** Next
 import { useContext } from "react";
 
+// ** Components
+import GetManageWishlist from "@/app/components/userProfile/manage-wishlist/GetManageWishlist";
+
+// ** Auth Context
+import { AuthContext } from "@/context/AuthContext";
+
+// ** MUI
+import { Box } from "@mui/material";
 
 
 const ManageWishlist = () => {

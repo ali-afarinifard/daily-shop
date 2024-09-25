@@ -1,13 +1,21 @@
-import { usePathname, useRouter } from "next/navigation";
+// ** Next
+import { usePathname } from "next/navigation";
 import Link from "next/link";
+
+// ** Components
 import UserProfileNavItem from "./UserProfileNavItem";
+
+// ** Icons
 import { MdDashboard, MdFormatListBulleted } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
-import { User } from "@/context/AuthContext";
 import { MdLogout } from "react-icons/md";
 import { IoIosHeart } from "react-icons/io";
-import { Box, Divider, Typography } from "@mui/material";
 
+// ** Auth Context
+import { User } from "@/context/AuthContext";
+
+// ** MUI
+import { Box, Divider, Typography } from "@mui/material";
 
 
 

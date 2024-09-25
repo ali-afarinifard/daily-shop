@@ -1,8 +1,17 @@
-import ProductType from "@/types/product"
-import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
-import { Box, Typography } from "@mui/material";
+// ** Next
 import Image from "next/image"
 import Link from "next/link"
+
+// ** Types
+import ProductType from "@/types/product"
+
+// ** Utils
+import { formatPriceToFarsi } from "@/utils/formatPriceToFarsi";
+
+// ** MUI
+import { Box, Typography } from "@mui/material";
+
+// ** Icons
 import { FaChevronLeft } from "react-icons/fa"
 
 

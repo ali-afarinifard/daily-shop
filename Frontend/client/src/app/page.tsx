@@ -1,8 +1,11 @@
+// ** Components
 import Container from "./components/Container";
 import Features from "./components/features/Features";
 import TopProducts from "./components/TopProducts";
 import Guidance from "./components/guidance/Guidance";
 import Banner from "./components/banner/Banner";
+
+// ** MUI
 import { Box } from "@mui/material";
 
 export default function Home() {

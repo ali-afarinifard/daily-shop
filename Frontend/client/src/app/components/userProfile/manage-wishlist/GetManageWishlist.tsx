@@ -1,20 +1,33 @@
 'use client'
 
 
-import ProductType from "@/types/product";
-import { useEffect, useState } from "react";
-import ManageWishlistItem from "./ManageWishlistItem";
 
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
-import NullData from "../../NullData";
+// ** PUBLIC
+import not_product from "../../../../../public/images/product/no-product.webp";
+
+// ** Next
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
-import not_product from "../../../../../public/images/product/no-product.webp";
-import { IoMdClose } from "react-icons/io";
+// ** Types
+import ProductType from "@/types/product";
+
+// ** Components
+import ManageWishlistItem from "./ManageWishlistItem";
+import NullData from "../../NullData";
 import Spinner from "../../Spinner";
-import { useGetWishlistQuery, useRemoveFromWishlistMutation } from "@/store/apiSlice";
+
+// ** MUI
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 import { Box } from "@mui/material";
+
+// ** Icons
+import { IoMdClose } from "react-icons/io";
+
+// ** Store - RTK-Q
+import { useGetWishlistQuery, useRemoveFromWishlistMutation } from "@/store/apiSlice";
+
 
 
 interface GetManageWishlistProps {
@@ -24,7 +37,6 @@ interface GetManageWishlistProps {
 
 const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
 
-    // const [wishlist, setWishlist] = useState<ProductType[]>([]);
     const [isWhitelisted, setIsWhitelisted] = useState<boolean>(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [loading, setLoading] = useState<boolean>(false);

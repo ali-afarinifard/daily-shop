@@ -1,13 +1,26 @@
 'use client'
 
+// ** Next
 import { useContext, useEffect, useState } from 'react';
-import Heading from '../Heading';
 import { useRouter } from 'next/navigation';
+
+// ** Components
+import Heading from '../Heading';
+
+// ** Toaster
 import toast from 'react-hot-toast';
+
+// ** Auth Context
 import { AuthContext } from '@/context/AuthContext';
+
+// ** Icons
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FiEye } from "react-icons/fi";
+
+// ** Store - RTK-Q
 import { useRegisterMutation } from '@/store/apiSlice';
+
+// ** MUI
 import { Box, Button, Link, Typography } from '@mui/material';
 
 

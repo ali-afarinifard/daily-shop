@@ -1,7 +1,10 @@
 // ** Components
-import { Box } from "@mui/material"
 import Container from "../components/Container"
 import OrdersList from "../components/orders/OrdersList"
+
+// ** MUI
+import { Box } from "@mui/material"
+
 
 const OrdersPage = () => {
     return (

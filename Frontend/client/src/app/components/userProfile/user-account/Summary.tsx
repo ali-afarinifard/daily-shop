@@ -1,13 +1,25 @@
 'use client'
 
 
+// ** Auth Context
 import { User } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
+
+// ** Toaster
 import toast from "react-hot-toast";
+
+// ** Components
 import Spinner from "../../Spinner";
+
+// ** Utils
 import { validateEmail } from "@/utils/emailVal";
+
+// ** Store - RTK-Q
 import { useUpdateUserMutation } from "@/store/apiSlice";
-import { Box, Button, InputLabel, TextareaAutosize, TextField, Typography } from "@mui/material";
+
+// ** MUI
+import { Box, Button, InputLabel, TextareaAutosize, Typography } from "@mui/material";
+
 
 
 interface SummaryProps {

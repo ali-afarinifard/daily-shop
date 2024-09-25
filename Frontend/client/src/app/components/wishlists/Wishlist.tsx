@@ -1,12 +1,22 @@
 'use client'
 
 
+// ** Next
+import { useEffect } from "react";
+
+// ** Types
 import ProductType from "@/types/product";
-import { useEffect, useState } from "react";
+
+// ** Components
 import WishlistProduct from "../products/WishlistProduct";
 import Spinner from "../Spinner";
+
+// ** Store - RTK-Q
 import { useGetWishlistQuery, useRemoveFromWishlistMutation } from "@/store/apiSlice";
+
+// ** MUI
 import { Box, Typography } from "@mui/material";
+
 
 
 interface WishlistProps {

@@ -1,7 +1,10 @@
 // ** Components
-import { Box } from "@mui/material"
 import Container from "../components/Container"
 import Weblog from "../components/weblog/Weblog"
+
+// ** MUI
+import { Box } from "@mui/material"
+
 
 const WeblogPage = () => {
     return (

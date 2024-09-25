@@ -1,7 +1,9 @@
 // ** Components
-import { Box } from "@mui/material"
 import Container from "../components/Container"
 import Products from "../components/products/Products"
+
+// ** MUI
+import { Box } from "@mui/material"
 
 
 const ProductsPage = () => {
