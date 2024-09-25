@@ -16,6 +16,7 @@ const ManageWishlistItem: React.FC<ManageWishlistItemProps> = ({ product }) => {
         <Link href={`/product/${product._id}`}>
 
             <Box
+                component="div"
                 sx={{
                     display: 'flex',
                     alignItems: 'center',
@@ -25,6 +26,7 @@ const ManageWishlistItem: React.FC<ManageWishlistItemProps> = ({ product }) => {
             >
 
                 <Box
+                    component="div"
                     sx={{
                         display: 'flex',
                         alignItems: 'center',
@@ -32,6 +34,7 @@ const ManageWishlistItem: React.FC<ManageWishlistItemProps> = ({ product }) => {
                     }}
                 >
                     <Box
+                        component="div"
                         sx={{
                             width: '4rem',
                             height: '100%'
@@ -50,6 +53,7 @@ const ManageWishlistItem: React.FC<ManageWishlistItemProps> = ({ product }) => {
                     </Box>
 
                     <Box
+                        component="div"
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
@@ -59,6 +63,7 @@ const ManageWishlistItem: React.FC<ManageWishlistItemProps> = ({ product }) => {
                     >
                         <Typography sx={{ color: '#94a3b8', fontWeight: '900', fontSize: '1rem' }}>{product.title}</Typography>
                         <Box
+                            component="div"
                             sx={{
                                 display: 'flex',
                                 alignItems: 'end',
@@ -68,6 +73,7 @@ const ManageWishlistItem: React.FC<ManageWishlistItemProps> = ({ product }) => {
                         >
                             {product.offer ? (
                                 <Box
+                                    component="div"
                                     sx={{
                                         display: 'flex',
                                         flexDirection: 'column',
@@ -100,7 +106,7 @@ const ManageWishlistItem: React.FC<ManageWishlistItemProps> = ({ product }) => {
                 </Box>
 
 
-                <Box>
+                <Box component="div">
                     <FaChevronLeft size={20} />
                 </Box>
 

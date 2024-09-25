@@ -8,8 +8,11 @@ import { Box } from "@mui/material";
 export default function Home() {
 
   return (
-    <Box>
+    <Box
+      component="div"
+    >
       <Box
+        component="div"
         sx={{
           pt: '2.5rem',
           mt: { xs: 0, lg: '3rem' }

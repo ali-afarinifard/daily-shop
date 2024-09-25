@@ -11,6 +11,7 @@ interface MenuProfileItemProps {
 const MenuProfileItem: React.FC<MenuProfileItemProps> = ({ onClick, icon: Icon, label }) => {
     return (
         <Box
+            component="div"
             onClick={onClick}
             sx={{
                 py: '0.75rem',

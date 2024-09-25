@@ -31,8 +31,9 @@ const CategoryListMobile: React.FC<CategoryListMobileProps> = ({ toggleMenu }) =
     const { data: categories } = useGetAllCategoriesQuery();
 
     return (
-        <Box>
+        <Box component="div">
             <Box
+                component="div"
                 sx={{
                     display: 'flex',
                     flexDirection: 'column'
@@ -40,6 +41,7 @@ const CategoryListMobile: React.FC<CategoryListMobileProps> = ({ toggleMenu }) =
             >
 
                 <Box
+                    component="div"
                     sx={{
                         mt: '0.75rem'
                     }}
@@ -48,6 +50,7 @@ const CategoryListMobile: React.FC<CategoryListMobileProps> = ({ toggleMenu }) =
                 </Box>
 
                 <Box
+                    component="div"
                     sx={{
                         width: '100%',
                         height: '3rem',
@@ -63,6 +66,7 @@ const CategoryListMobile: React.FC<CategoryListMobileProps> = ({ toggleMenu }) =
                 </Box>
 
                 <Box
+                    component="div"
                     sx={{
                         mt: '0.75rem',
                     }}
@@ -97,7 +101,7 @@ const CategoryListMobile: React.FC<CategoryListMobileProps> = ({ toggleMenu }) =
                     }} />
 
                     {categories?.map((category: CategoryType) => (
-                        <Box key={category._id}>
+                        <Box component="div" key={category._id}>
                             <Link
                                 href={`/category/${category._id}`}
                                 onClick={toggleMenu}
@@ -167,6 +171,7 @@ const CategoryListMobile: React.FC<CategoryListMobileProps> = ({ toggleMenu }) =
                     />
 
                     <Box
+                        component="div"
                         sx={{
                             display: 'flex',
                             alignItems: 'center',

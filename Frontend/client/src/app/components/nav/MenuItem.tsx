@@ -9,6 +9,7 @@ interface MenuItemProps {
 const MenuItem: React.FC<MenuItemProps> = ({ children, onClick }) => {
     return (
         <Box
+            component="div"
             sx={{
                 px: '1rem',
                 py: '0.75rem',

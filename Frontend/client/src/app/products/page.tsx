@@ -7,6 +7,7 @@ import Products from "../components/products/Products"
 const ProductsPage = () => {
     return (
         <Box
+            component="div"
             sx={{
                 pt: { xs: '2.5rem', lg: '5rem' }
             }}

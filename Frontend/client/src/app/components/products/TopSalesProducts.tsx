@@ -120,10 +120,11 @@ const TopSalesProducts = () => {
 
 
     return (
-        <Box>
+        <Box component="div">
 
             {/* Heading */}
             <Box
+                component="div"
                 sx={{
                     width: '100%',
                     display: 'flex',
@@ -132,6 +133,7 @@ const TopSalesProducts = () => {
                 }}
             >
                 <Box
+                    component="div"
                     sx={{
                         position: 'relative',
                         textAlign: 'center',
@@ -145,6 +147,7 @@ const TopSalesProducts = () => {
 
 
             <Box
+                component="div"
                 sx={{
                     display: 'flex',
                     flexDirection: 'column'
@@ -152,6 +155,7 @@ const TopSalesProducts = () => {
             >
 
                 <Box
+                    component="div"
                     sx={{
                         display: 'flex',
                         flexDirection: { xs: 'column', '2sm': 'row' },
@@ -163,6 +167,7 @@ const TopSalesProducts = () => {
                 >
 
                     <Box
+                        component="div"
                         sx={{
                             display: 'flex',
                             alignItems: 'center',
@@ -171,6 +176,7 @@ const TopSalesProducts = () => {
                     >
                         <Typography variant="h3">نمایش : </Typography>
                         <Box
+                            component="div"
                             sx={{
                                 maxWidth: '20rem'
                             }}
@@ -204,7 +210,7 @@ const TopSalesProducts = () => {
 
                     </Box>
 
-                    <Box>
+                    <Box component="div">
                         <Stack spacing={2} sx={{ direction: 'ltr' }}>
                             <Pagination
                                 count={Math.ceil(filteredProducts.length / itemsPerPage)}
@@ -225,6 +231,7 @@ const TopSalesProducts = () => {
 
 
                 <Box
+                    component="div"
                     sx={{
                         display: 'grid',
                         gridTemplateColumns: { xs: '1fr', '2xs': 'repeat(2, 1fr)', '2sm': 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' },
@@ -240,7 +247,7 @@ const TopSalesProducts = () => {
                 </Box>
 
 
-                <Box>
+                <Box component="div">
                     <Stack spacing={2} sx={{ direction: 'ltr' }}>
                         <Pagination
                             count={Math.ceil(filteredProducts.length / itemsPerPage)}

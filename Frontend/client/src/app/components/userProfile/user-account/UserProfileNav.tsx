@@ -23,6 +23,7 @@ const UserProfileNav: React.FC<UserProfileNavProps> = ({ user, logout }) => {
 
     return (
         <Box
+            component="div"
             sx={{
                 maxWidth: '16rem',
                 px: '3rem',
@@ -32,9 +33,10 @@ const UserProfileNav: React.FC<UserProfileNavProps> = ({ user, logout }) => {
             }}
         >
             {user && (
-                <Box>
+                <Box component="div">
 
                     <Box
+                        component="div"
                         sx={{
                             display: { xs: 'none', lg: 'flex' },
                             flexDirection: 'column',
@@ -43,6 +45,7 @@ const UserProfileNav: React.FC<UserProfileNavProps> = ({ user, logout }) => {
                         }}
                     >
                         <Box
+                            component="div"
                             sx={{
                                 display: 'flex',
                                 flexDirection: 'column',
@@ -53,6 +56,7 @@ const UserProfileNav: React.FC<UserProfileNavProps> = ({ user, logout }) => {
                         >
 
                             <Box
+                                component="div"
                                 sx={{
                                     background: '#f8fafc',
                                     borderRadius: '100%',
@@ -60,6 +64,7 @@ const UserProfileNav: React.FC<UserProfileNavProps> = ({ user, logout }) => {
                                 }}
                             >
                                 <Box
+                                    component="div"
                                     sx={{
                                         background: '#f1f5f9',
                                         borderRadius: '100%',
@@ -67,6 +72,7 @@ const UserProfileNav: React.FC<UserProfileNavProps> = ({ user, logout }) => {
                                     }}
                                 >
                                     <Box
+                                        component="div"
                                         sx={{
                                             background: '#e2e8f0',
                                             borderRadius: '100%',
@@ -78,7 +84,7 @@ const UserProfileNav: React.FC<UserProfileNavProps> = ({ user, logout }) => {
                                 </Box>
                             </Box>
 
-                            <Box>
+                            <Box component="div">
                                 <Typography variant="h3">{user?.fullName || 'مهمان'}</Typography>
                             </Box>
 
@@ -111,7 +117,9 @@ const UserProfileNav: React.FC<UserProfileNavProps> = ({ user, logout }) => {
                         </Link>
 
 
-                        <Box>
+                        <Box
+                            component={'div'}
+                        >
                             <UserProfileNavItem
                                 label="خروج"
                                 icon={MdLogout}

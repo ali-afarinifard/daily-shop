@@ -29,6 +29,7 @@ const WishlistPage = () => {
 
     return (
         <Box
+            component="div"
             sx={{
                 pt: '5rem'
             }}

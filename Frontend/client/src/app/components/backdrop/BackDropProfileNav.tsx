@@ -1,3 +1,4 @@
+// ** MUI
 import { Box } from "@mui/material";
 
 interface BackDropProfileNavProps {
@@ -7,6 +8,7 @@ interface BackDropProfileNavProps {
 const BackDropProfileNav: React.FC<BackDropProfileNavProps> = ({ onClick }) => {
     return (
         <Box
+            component="div"
             sx={{
                 zIndex: 20,
                 background: '#334155',

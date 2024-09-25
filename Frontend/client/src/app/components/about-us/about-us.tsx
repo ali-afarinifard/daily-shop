@@ -1,8 +1,10 @@
+// ** MUI
 import { Box } from "@mui/material"
 
 const AboutUs = () => {
     return (
         <Box
+            component="div"
             sx={{
                 display: 'flex',
                 alignItems: 'center',

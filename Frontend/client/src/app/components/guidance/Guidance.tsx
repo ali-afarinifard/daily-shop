@@ -19,11 +19,13 @@ const Guidance = () => {
 
     return (
         <Box
+            component="div"
             sx={{
                 mt: '5rem'
             }}
         >
             <Box
+                component="div"
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -35,6 +37,7 @@ const Guidance = () => {
             </Box>
 
             <Box
+                component="div"
                 sx={{
                     mt: '2.5rem',
                     maxWidth: '70rem',

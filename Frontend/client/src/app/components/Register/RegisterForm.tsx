@@ -103,6 +103,7 @@ export default function RegisterPage() {
 
     return (
         <Box
+            component="div"
             sx={{
                 width: '100%',
             }}
@@ -121,6 +122,7 @@ export default function RegisterPage() {
 
                 {/* Username */}
                 <Box
+                    component="div"
                     sx={{
                         width: '100%',
                         position: 'relative',
@@ -129,7 +131,7 @@ export default function RegisterPage() {
                         gap: '0.25rem'
                     }}
                 >
-                    <Box>
+                    <Box component="div">
                         <Box
                             component="input"
                             id='username'
@@ -176,6 +178,7 @@ export default function RegisterPage() {
 
                 {/* Email */}
                 <Box
+                    component="div"
                     sx={{
                         width: '100%',
                         position: 'relative',
@@ -184,7 +187,7 @@ export default function RegisterPage() {
                         gap: '0.25rem'
                     }}
                 >
-                    <Box>
+                    <Box component="div">
                         <Box
                             component="input"
                             id='email'
@@ -232,6 +235,7 @@ export default function RegisterPage() {
 
                 {/* Password */}
                 <Box
+                    component="div"
                     sx={{
                         width: '100%',
                         position: 'relative',
@@ -240,7 +244,7 @@ export default function RegisterPage() {
                         gap: '0.25rem'
                     }}
                 >
-                    <Box>
+                    <Box component="div">
                         <Box
                             component="input"
                             id='password'
@@ -282,6 +286,7 @@ export default function RegisterPage() {
                             <Typography variant='body1' sx={{ fontSize: '1rem' }}>رمز عبور</Typography>
                         </Box>
                         <Box
+                            component="div"
                             sx={{
                                 position: 'absolute',
                                 left: '0.75rem',

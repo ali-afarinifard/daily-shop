@@ -19,6 +19,8 @@ import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
 // ** mockData
 import data from "@/utils/banner";
+
+// ** MUI
 import { Box } from "@mui/material";
 
 
@@ -28,6 +30,7 @@ const Banner = () => {
 
     return (
         <Box
+            component="div"
             sx={{
                 position: 'relative',
                 mx: '0.75rem',
@@ -57,6 +60,7 @@ const Banner = () => {
                 {data.map((img) => (
                     <SwiperSlide key={img.id}>
                         <Box
+                            component="div"
                             sx={{
                                 display: 'flex',
                                 height: '24rem',

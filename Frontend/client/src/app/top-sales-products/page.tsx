@@ -6,6 +6,7 @@ import TopSalesProducts from "../components/products/TopSalesProducts"
 const topSalesProductsPage = () => {
     return (
         <Box
+            component="div"
             sx={{
                 pt: { xs: '2.5rem', lg: '5rem' }
             }}

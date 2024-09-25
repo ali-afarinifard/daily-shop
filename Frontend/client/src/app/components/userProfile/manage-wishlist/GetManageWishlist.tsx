@@ -81,6 +81,7 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
     if (wishlist.length === 0 && !isLoading) {
         return (
             <Box
+                component="div"
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -90,6 +91,7 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
                 }}
             >
                 <Box
+                    component="div"
                     sx={{
                         display: 'flex',
                         alignItems: 'center',
@@ -113,12 +115,14 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
 
     return (
         <Box
+            component="div"
             sx={{
                 height: '100%'
             }}
         >
             {isLoading ? (
                 <Box
+                    component="div"
                     sx={{
                         mt: '8rem',
                         display: 'flex',
@@ -130,6 +134,7 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
                 </Box>
             ) : (
                 <Box
+                    component="div"
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',
@@ -139,6 +144,7 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
                 >
 
                     <Box
+                        component="div"
                         sx={{
                             width: '100%',
                             display: 'flex',
@@ -148,6 +154,7 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
                     >
                         {paginatedWishlist.length > 0 && paginatedWishlist.map((product: ProductType) => (
                             <Box
+                                component="div"
                                 key={product._id}
                                 sx={{
                                     display: 'flex',
@@ -157,6 +164,7 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
                             >
 
                                 <Box
+                                    component="div"
                                     onClick={() => handleRemoveFromWishlist(product._id)}
                                     sx={{
                                         cursor: 'pointer',
@@ -173,6 +181,7 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
                                 </Box>
 
                                 <Box
+                                    component="div"
                                     sx={{
                                         width: '100%',
                                         height: '100%',
@@ -192,6 +201,7 @@ const GetManageWishlist: React.FC<GetManageWishlistProps> = ({ userId }) => {
 
 
                     <Box
+                        component="div"
                         sx={{
                             mt: { xs: 0, lg: '2rem' }
                         }}

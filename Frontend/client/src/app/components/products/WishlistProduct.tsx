@@ -55,6 +55,7 @@ const WishlistProduct: React.FC<WishlistProductProps> = ({ product, userId, onRe
 
     return (
         <Box
+            component="div"
             sx={{
                 width: '100%',
                 borderRadius: '0.37rem',
@@ -65,6 +66,7 @@ const WishlistProduct: React.FC<WishlistProductProps> = ({ product, userId, onRe
             <Link href={`/product/${product._id}`} sx={{ position: 'relative', textDecoration: 'none' }}>
 
                 <Box
+                    component="div"
                     onMouseEnter={() => setHovered(true)}
                     onMouseLeave={() => setHovered(false)}
                     sx={{
@@ -111,6 +113,7 @@ const WishlistProduct: React.FC<WishlistProductProps> = ({ product, userId, onRe
                 </Box>
 
                 <Box
+                    component="div"
                     sx={{
                         p: '1rem',
                         background: '#fff',
@@ -121,6 +124,7 @@ const WishlistProduct: React.FC<WishlistProductProps> = ({ product, userId, onRe
                 >
                     <Typography variant="h3" sx={{ color: '#4b5563', textAlign: 'center' }}>{product.title}</Typography>
                     <Box
+                        component="div"
                         sx={{
                             display: 'flex',
                             alignItems: 'center',
@@ -136,6 +140,7 @@ const WishlistProduct: React.FC<WishlistProductProps> = ({ product, userId, onRe
                     </Box>
                     <Divider />
                     <Box
+                        component="div"
                         sx={{
                             textAlign: 'center',
                             color: '#334155',
@@ -149,6 +154,7 @@ const WishlistProduct: React.FC<WishlistProductProps> = ({ product, userId, onRe
                     >
                         {product.isStatus ? (
                             <Box
+                                component="div"
                                 sx={{
                                     display: 'flex',
                                     alignItems: 'center',
@@ -158,6 +164,7 @@ const WishlistProduct: React.FC<WishlistProductProps> = ({ product, userId, onRe
                             >
                                 {product.offer ? (
                                     <Box
+                                        component="div"
                                         sx={{
                                             display: 'flex',
                                             alignItems: 'center',
@@ -181,6 +188,7 @@ const WishlistProduct: React.FC<WishlistProductProps> = ({ product, userId, onRe
                             </Box>
                         ) : (
                             <Box
+                                component="div"
                                 sx={{
                                     width: '100%',
                                     background: '#f43f5e',
@@ -209,6 +217,7 @@ const WishlistProduct: React.FC<WishlistProductProps> = ({ product, userId, onRe
             </Link>
 
             <Box
+                component="div"
                 sx={{
                     background: '#475569'
                 }}

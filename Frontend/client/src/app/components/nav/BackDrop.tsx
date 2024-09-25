@@ -7,6 +7,7 @@ interface BackDropProps {
 const BackDrop: React.FC<BackDropProps> = ({ onClick }) => {
     return (
         <Box
+            component="div"
             sx={{
                 zIndex: 20,
                 background: '#334155',

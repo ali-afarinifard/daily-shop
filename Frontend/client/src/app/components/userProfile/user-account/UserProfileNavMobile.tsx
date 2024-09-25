@@ -31,6 +31,7 @@ const UserProfileNavMobile: React.FC<UserProfileNavMobileProps> = ({ user, logou
     return (
         <>
             <Box
+                component={'div'}
                 sx={{
                     position: 'relative',
                     zIndex: 30,
@@ -39,6 +40,7 @@ const UserProfileNavMobile: React.FC<UserProfileNavMobileProps> = ({ user, logou
             >
 
                 <Box
+                    component={'div'}
                     onClick={toggleOpen}
                     sx={{
                         p: '0.5rem',
@@ -64,6 +66,7 @@ const UserProfileNavMobile: React.FC<UserProfileNavMobileProps> = ({ user, logou
 
                 {isOpen && (
                     <Box
+                        component={'div'}
                         sx={{
                             position: 'absolute',
                             borderRadius: '0.37rem',
@@ -80,7 +83,7 @@ const UserProfileNavMobile: React.FC<UserProfileNavMobileProps> = ({ user, logou
                         }}
                     >
 
-                        <Box>
+                        <Box component='div'>
                             <Link href={'/user-account'}>
                                 <MenuProfileItem
                                     onClick={toggleOpen}
@@ -103,7 +106,7 @@ const UserProfileNavMobile: React.FC<UserProfileNavMobileProps> = ({ user, logou
                                 />
                             </Link>
                             <Divider />
-                            <Box>
+                            <Box component='div'>
                                 <MenuProfileItem
                                     onClick={() => {
                                         logout();

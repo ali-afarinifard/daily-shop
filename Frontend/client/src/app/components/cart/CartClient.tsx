@@ -24,6 +24,8 @@ import Button from "../Button";
 
 // ** Public
 import emptyCart from "../../../../public/images/cart/empty-cart.webp";
+
+// ** MUI
 import { Box, Link, Typography } from "@mui/material";
 
 
@@ -43,6 +45,7 @@ const CartClient = () => {
     if (!cartProducts || cartProducts.length === 0 || !user) {
         return (
             <Box
+                component="div"
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -53,7 +56,7 @@ const CartClient = () => {
 
                 <Image src={emptyCart} alt="empty cart" style={{ width: '20rem' }} />
 
-                <Box>
+                <Box component="div">
                     <Link href={'/'} sx={{ color: '#64748b', display: 'flex', alignItems: 'center', gap: '0.25rem', mt: '0.5rem' }}>
                         <Typography variant="body1"> رفتن به فروشگاه</Typography>
                         <MdArrowBack />
@@ -66,10 +69,11 @@ const CartClient = () => {
 
 
     return (
-        <Box>
+        <Box component="div">
             <Heading title="سبد خرید شما" center />
 
             <Box
+                component="div"
                 sx={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(5, 1fr)',
@@ -81,6 +85,7 @@ const CartClient = () => {
                 }}
             >
                 <Box
+                    component="div"
                     sx={{
                         gridColumn: 'span 2',
                         display: 'flex',
@@ -96,6 +101,7 @@ const CartClient = () => {
                 <Typography variant="body2" sx={{ justifySelf: 'center' }}>قیمت</Typography>
                 <Typography variant="body2" sx={{ justifySelf: 'center' }}>تعداد</Typography>
                 <Box
+                    component="div"
                     sx={{
                         justifySelf: 'end',
                         display: 'flex',
@@ -108,13 +114,14 @@ const CartClient = () => {
                 </Box>
             </Box>
 
-            <Box>
+            <Box component="div">
                 {cartProducts && cartProducts.map((item) => (
                     <CartItem key={item._id} item={item} />
                 ))}
             </Box>
 
             <Box
+                component="div"
                 sx={{
                     borderTop: '1.5px',
                     borderColor: '#e2e8f0',
@@ -126,6 +133,7 @@ const CartClient = () => {
                 }}
             >
                 <Box
+                    component="div"
                     sx={{
                         width: '6rem'
                     }}
@@ -134,6 +142,7 @@ const CartClient = () => {
                 </Box>
 
                 <Box
+                    component="div"
                     sx={{
                         fontSize: '0.85rem',
                         display: 'flex',
@@ -144,6 +153,7 @@ const CartClient = () => {
                 >
 
                     <Box
+                        component="div"
                         sx={{
                             display: 'flex',
                             justifyContent: 'space-between',
@@ -164,6 +174,7 @@ const CartClient = () => {
                     <Button label="تایید و تکمیل سفارش" onClick={() => { }} />
 
                     <Box
+                        component="div"
                         sx={{
                             display: 'flex',
                             justifyContent: 'flex-end',

@@ -3,6 +3,7 @@ import { Box } from "@mui/material"
 const ManageOrders = () => {
     return (
         <Box
+            component="div"
             sx={{
                 display: 'flex',
                 alignItems: 'center',

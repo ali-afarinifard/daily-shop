@@ -3,6 +3,7 @@ import { Box } from "@mui/material"
 const FormWrap = ({ children }: { children: React.ReactNode }) => {
     return (
         <Box
+            component="div"
             sx={{
                 minHeight: 'fit-content',
                 height: '100%',
@@ -15,6 +16,7 @@ const FormWrap = ({ children }: { children: React.ReactNode }) => {
         >
             {/* max-h-[55.625rem]  */}
             <Box
+                component="div"
                 sx={{
                     maxWidth: { xs: 'full', md: '56.25rem' },
                     width: '100%',

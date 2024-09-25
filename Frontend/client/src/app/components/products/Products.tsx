@@ -96,6 +96,7 @@ const Products = () => {
 
     if (isLoading) return (
         <Box
+            component="div"
             sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -110,7 +111,7 @@ const Products = () => {
 
     if (!products) {
         return (
-            <Box>
+            <Box component="div">
                 <NullData title='محصولی وجود ندارد' />
             </Box>
         )
@@ -118,10 +119,11 @@ const Products = () => {
 
 
     return (
-        <Box>
+        <Box component="div">
 
             {/* Heading */}
             <Box
+                component="div"
                 sx={{
                     width: '100%',
                     display: 'flex',
@@ -130,6 +132,7 @@ const Products = () => {
                 }}
             >
                 <Box
+                    component="div"
                     sx={{
                         position: 'relative',
                         textAlign: 'center',
@@ -138,6 +141,7 @@ const Products = () => {
                 >
                     <Typography variant="h2">محصولات</Typography>
                     <Box
+                        component="div"
                         sx={{
                             width: '100%',
                             height: '2px',
@@ -153,6 +157,7 @@ const Products = () => {
 
             {/* Content */}
             <Box
+                component="div"
                 sx={{
                     display: 'flex',
                     flexDirection: 'column'
@@ -160,6 +165,7 @@ const Products = () => {
             >
 
                 <Box
+                    component="div"
                     sx={{
                         display: 'flex',
                         flexDirection: { xs: 'column', '2sm': 'row' },
@@ -171,6 +177,7 @@ const Products = () => {
                 >
 
                     <Box
+                        component="div"
                         sx={{
                             display: 'flex',
                             alignItems: 'center',
@@ -179,6 +186,7 @@ const Products = () => {
                     >
                         <Typography variant="h3">نمایش : </Typography>
                         <Box
+                            component="div"
                             sx={{
                                 maxWidth: '20rem'
                             }}
@@ -215,7 +223,7 @@ const Products = () => {
 
                     </Box>
 
-                    <Box>
+                    <Box component="div">
                         <Stack spacing={2} sx={{ direction: 'ltr' }}>
                             <Pagination
                                 count={Math.ceil(filteredProducts.length / itemsPerPage)}
@@ -235,6 +243,7 @@ const Products = () => {
                 </Box>
 
                 <Box
+                    component="div"
                     sx={{
                         display: 'grid',
                         gridTemplateColumns: { xs: '1fr', '2xs': 'repeat(2, 1fr)', '2sm': 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' },
@@ -243,14 +252,14 @@ const Products = () => {
                     }}
                 >
                     {paginatedProducts && paginatedProducts.map((product) => (
-                        <Box key={product._id}>
+                        <Box component="div" key={product._id}>
                             <ProductBox product={product} user={user} />
                         </Box>
                     ))}
                 </Box>
 
 
-                <Box>
+                <Box component="div">
                     <Stack spacing={2} sx={{ direction: 'ltr' }}>
                         <Pagination
                             count={Math.ceil(filteredProducts.length / itemsPerPage)}

@@ -69,25 +69,26 @@ const CatSearchBar: React.FC<CategoryListMobileProps> = ({ toggleMenu }) => {
 
 
     return (
-        <Box ref={searchBarRef}
+        <Box component="div" ref={searchBarRef}
             sx={{
                 position: 'relative',
                 width: '100%'
             }}
         >
             <Box
+                component="div"
                 sx={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between'
                 }}
             >
-                <InputBase
+                <Box
+                    component="input"
                     type="search"
                     placeholder="جستجوی محصولات"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    fullWidth
                     autoComplete="off"
                     sx={{
                         width: '100%',
@@ -103,6 +104,7 @@ const CatSearchBar: React.FC<CategoryListMobileProps> = ({ toggleMenu }) => {
             </Box>
             {noResults && (
                 <Box
+                    component="div"
                     sx={{
                         position: 'absolute',
                         zIndex: 10,
@@ -121,6 +123,7 @@ const CatSearchBar: React.FC<CategoryListMobileProps> = ({ toggleMenu }) => {
             )}
             {showResults && results.length > 0 && (
                 <Box
+                    component="div"
                     sx={{
                         position: 'absolute',
                         zIndex: 10,
@@ -128,7 +131,7 @@ const CatSearchBar: React.FC<CategoryListMobileProps> = ({ toggleMenu }) => {
                         border: '1px solid',
                         borderColor: '#d1d5db',
                         borderRadius: '0.37rem',
-                        mt: '0.25rem',
+                        mt: 0,
                         p: '0.25rem',
                         py: '0.5rem',
                         maxWidth: '24rem',

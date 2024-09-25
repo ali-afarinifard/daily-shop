@@ -110,6 +110,7 @@ export default function LoginPage() {
 
     return (
         <Box
+            component="div"
             sx={{
                 width: '100%'
             }}
@@ -129,6 +130,7 @@ export default function LoginPage() {
 
                 {/* Email */}
                 <Box
+                    component="div"
                     sx={{
                         width: '100%',
                         position: 'relative',
@@ -137,7 +139,7 @@ export default function LoginPage() {
                         gap: '0.25rem'
                     }}
                 >
-                    <Box>
+                    <Box component="div">
                         <Box
                             component="input"
                             id='email'
@@ -185,6 +187,7 @@ export default function LoginPage() {
 
                 {/* Password */}
                 <Box
+                    component="div"
                     sx={{
                         width: '100%',
                         position: 'relative',
@@ -193,7 +196,7 @@ export default function LoginPage() {
                         gap: '0.25rem'
                     }}
                 >
-                    <Box>
+                    <Box component="div">
                         <Box
                             component="input"
                             id='password'
@@ -235,6 +238,7 @@ export default function LoginPage() {
                             <Typography variant='body1' sx={{ fontSize: '1rem' }}>رمز عبور</Typography>
                         </Box>
                         <Box
+                            component="div"
                             sx={{
                                 position: 'absolute',
                                 left: '0.75rem',
@@ -270,6 +274,7 @@ export default function LoginPage() {
                 </Button>
 
                 <Box
+                    component="div"
                     sx={{
                         display: 'flex',
                         alignItems: 'center',

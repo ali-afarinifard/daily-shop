@@ -42,11 +42,13 @@ const TopProducts = () => {
 
     return (
         <Box
+            component="div"
             sx={{
                 mt: '5rem'
             }}
         >
             <Box
+                component="div"
                 sx={{
                     display: 'flex',
                     alignItems: 'center',
@@ -56,7 +58,7 @@ const TopProducts = () => {
                 <Heading title="پرفروش ترین محصولات" />
             </Box>
 
-            <Box className="relative ___swiper-container mt-10" sx={{ direction: 'ltr' }}>
+            <Box className="relative ___swiper-container mt-10" component="div" sx={{ direction: 'ltr' }}>
                 <Swiper
                     loop={products.length > 4}
                     slidesPerView={Math.min(1, products.length)}
@@ -87,6 +89,7 @@ const TopProducts = () => {
 
 
                 <Box
+                    component="div"
                     sx={{
                         display: { xs: 'none', sm: 'flex' },
                         alignItems: 'center',

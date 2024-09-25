@@ -23,6 +23,8 @@ import Container from '@/app/components/Container';
 import NullData from '@/app/components/NullData';
 import ProductBox from '@/app/components/products/ProductBox';
 import Spinner from '@/app/components/Spinner';
+
+// ** MUI
 import { Box, Divider, Typography } from '@mui/material';
 
 
@@ -114,6 +116,7 @@ const CategoryPage = () => {
 
     if (productsLoading) return (
         <Box
+            component="div"
             sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -126,7 +129,9 @@ const CategoryPage = () => {
 
     if (!categoryId || products.length === 0) {
         return (
-            <Box>
+            <Box
+                component="div"
+            >
                 <NullData title='محصولی وجود ندارد' center='!text-md' />
             </Box>
         )
@@ -135,6 +140,7 @@ const CategoryPage = () => {
 
     return (
         <Box
+            component="div"
             sx={{
                 marginTop: { xs: '2.5rem', lg: '5rem' }
             }}
@@ -142,6 +148,7 @@ const CategoryPage = () => {
             <Container>
                 {/* Heading */}
                 <Box
+                    component="div"
                     sx={{
                         width: '100%',
                         display: 'flex',
@@ -150,6 +157,7 @@ const CategoryPage = () => {
                     }}
                 >
                     <Box
+                        component="div"
                         sx={{
                             position: 'relative',
                             textAlign: 'center',
@@ -175,6 +183,7 @@ const CategoryPage = () => {
 
                 {/* Content */}
                 <Box
+                    component="div"
                     sx={{
                         display: 'flex',
                         flexDirection: 'column'
@@ -182,6 +191,7 @@ const CategoryPage = () => {
                 >
 
                     <Box
+                        component="div"
                         sx={{
                             display: 'flex',
                             flexDirection: { xs: 'column', '2sm': 'row' },
@@ -193,6 +203,7 @@ const CategoryPage = () => {
                     >
 
                         <Box
+                            component="div"
                             sx={{
                                 display: 'flex',
                                 alignItems: 'center',
@@ -201,6 +212,7 @@ const CategoryPage = () => {
                         >
                             <Typography variant='body1'>نمایش : </Typography>
                             <Box
+                                component="div"
                                 sx={{
                                     maxWidth: '20rem'
                                 }}
@@ -243,6 +255,7 @@ const CategoryPage = () => {
                         </Box>
 
                         <Box
+                            component="div"
                             sx={{
                                 mt: '2.5rem'
                             }}
@@ -266,6 +279,7 @@ const CategoryPage = () => {
                     </Box>
 
                     <Box
+                        component="div"
                         sx={{
                             display: 'grid',
                             gridTemplateColumns: { xs: '1fr', '2xs': 'repeat(2, 1fr)', '2sm': 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' },
@@ -274,14 +288,14 @@ const CategoryPage = () => {
                         }}
                     >
                         {paginatedProducts && paginatedProducts.map((product) => (
-                            <Box key={product._id}>
+                            <Box component="div" key={product._id}>
                                 <ProductBox product={product} user={user} />
                             </Box>
                         ))}
                     </Box>
 
 
-                    <Box>
+                    <Box component="div">
                         <Stack spacing={2} sx={{ direction: 'ltr' }}>
                             <Pagination
                                 count={Math.ceil(filteredProducts.length / itemsPerPage)}

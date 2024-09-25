@@ -14,7 +14,7 @@ import { AiFillCaretDown } from "react-icons/ai";
 import BackDrop from "./BackDrop";
 import MenuItem from "./MenuItem";
 import Avatar from "../Avatar";
-import { Box, Divider, IconButton, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 
 
 const UserMenu = () => {
@@ -37,18 +37,20 @@ const UserMenu = () => {
     return (
         <>
             <Box
+                component="div"
                 sx={{
                     position: 'relative',
                     zIndex: 30
                 }}
             >
-                <Box onClick={toggleOpen} sx={{ padding: 1, border: "1px solid", borderColor: "slate.400", borderRadius: "40px", display: 'flex', alignItems: 'center', gap: '3px', cursor: 'pointer', "&:hover": { boxShadow: 2 } }}>
+                <Box component="div" onClick={toggleOpen} sx={{ padding: 1, border: "1px solid", borderColor: "slate.400", borderRadius: "40px", display: 'flex', alignItems: 'center', gap: '3px', cursor: 'pointer', "&:hover": { boxShadow: 2 } }}>
                     <Avatar src={""} />
                     <AiFillCaretDown style={{ marginLeft: "4px" }} />
                 </Box>
 
                 {isOpen && (
                     <Box
+                        component="div"
                         sx={{
                             position: 'absolute',
                             borderRadius: '0.37rem',
@@ -67,7 +69,7 @@ const UserMenu = () => {
                         {user
                             ?
                             (
-                                <Box>
+                                <Box component="div">
                                     <Link href={'/user-account'} passHref>
                                         <MenuItem onClick={toggleOpen}>
                                             <Typography variant="body1">حساب کاربری</Typography>
@@ -94,7 +96,7 @@ const UserMenu = () => {
                             )
                             :
                             (
-                                <Box>
+                                <Box component="div">
                                     <Link href={'/login'} passHref>
                                         <MenuItem onClick={toggleOpen}>
                                             <Typography variant="body1">ورود</Typography>

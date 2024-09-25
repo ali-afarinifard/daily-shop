@@ -28,6 +28,7 @@ const SearchBarItem: React.FC<SearchBarItemProps> = ({ product, onClick, toggleM
 
     return (
         <Box
+            component="div"
             sx={{
                 p: '0.25rem',
                 '&:hover': {
@@ -37,6 +38,7 @@ const SearchBarItem: React.FC<SearchBarItemProps> = ({ product, onClick, toggleM
             onClick={onClick}>
             <Link href={`/product/${product._id}`} onClick={toggleMenu}>
                 <Box
+                    component="div"
                     sx={{
                         display: 'flex',
                         alignItems: 'center',
@@ -45,13 +47,14 @@ const SearchBarItem: React.FC<SearchBarItemProps> = ({ product, onClick, toggleM
                     }}
                 >
                     <Box
+                        component="div"
                         sx={{
                             display: 'flex',
                             alignItems: 'center',
                             gap: '0.5rem'
                         }}
                     >
-                        <Box>
+                        <Box component="div">
                             <Image
                                 src={firstImage}
                                 alt={product.title}
@@ -68,6 +71,7 @@ const SearchBarItem: React.FC<SearchBarItemProps> = ({ product, onClick, toggleM
                         </Box>
 
                         <Box
+                            component="div"
                             sx={{
                                 display: 'flex',
                                 flexDirection: 'column',
@@ -76,6 +80,7 @@ const SearchBarItem: React.FC<SearchBarItemProps> = ({ product, onClick, toggleM
                         >
                             <Typography variant='body1'>{product.title}</Typography>
                             <Box
+                                component="div"
                                 sx={{
                                     display: 'flex',
                                     alignItems: 'center',
@@ -84,6 +89,7 @@ const SearchBarItem: React.FC<SearchBarItemProps> = ({ product, onClick, toggleM
                             >
                                 {product.isStatus ? (
                                     <Box
+                                        component="div"
                                         sx={{
                                             display: 'flex',
                                             alignItems: 'center',
@@ -109,7 +115,7 @@ const SearchBarItem: React.FC<SearchBarItemProps> = ({ product, onClick, toggleM
                                         <Typography variant='body2'>تومان</Typography>
                                     </Box>
                                 ) : (
-                                    <Box>
+                                    <Box component="div">
                                         <Typography
                                             sx={{
                                                 borderRadius: '0.37rem',

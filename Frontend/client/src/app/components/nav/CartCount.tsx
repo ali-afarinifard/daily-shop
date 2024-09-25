@@ -18,7 +18,8 @@ const CartCount = () => {
     const router = useRouter();
 
     return (
-        <Box
+        <Box    
+            component="div"
             sx={{
                 position: 'relative',
                 cursor: 'pointer'

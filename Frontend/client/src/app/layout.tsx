@@ -31,6 +31,7 @@ export default function RootLayout({
         }} />
         <ClientProviders>
           <Box
+            component="div"
             sx={{
               display: 'flex',
               flexDirection: 'column',

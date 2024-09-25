@@ -136,6 +136,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
 
     return (
         <Box
+            component="div"
             sx={{
                 width: '100%',
                 borderRadius: '0.37rem',
@@ -147,6 +148,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
             <Link href={`/product/${product._id}`} sx={{ position: 'relative', textDecoration: 'none' }}>
 
                 <Box
+                    component="div"
                     onMouseEnter={() => setHovered(true)}
                     onMouseLeave={() => setHovered(false)}
                     sx={{
@@ -191,6 +193,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                     )}
 
                     <Box
+                        component="div"
                         sx={{
                             position: 'absolute',
                             top: '1rem',
@@ -217,6 +220,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                 </Box>
 
                 <Box
+                    component="div"
                     sx={{
                         p: '1rem',
                         background: '#fff',
@@ -227,6 +231,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                 >
                     <Typography sx={{ textAlign: 'center', color: '#4b5563', fontSize: '1.2rem', fontWeight: 700 }}>{product.title}</Typography>
                     <Box
+                        component="div"
                         sx={{
                             display: 'flex',
                             alignItems: 'center',
@@ -244,6 +249,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                     <Divider sx={{ width: '100%', height: '1px', background: '#fcfcfc' }} />
 
                     <Box
+                        component="div"
                         sx={{
                             textAlign: 'center',
                             color: '#334155',
@@ -253,6 +259,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                     >
                         {product.isStatus ? (
                             <Box
+                                component="div"
                                 sx={{
                                     display: 'flex',
                                     alignItems: 'center',
@@ -262,6 +269,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                             >
                                 {product.offer ? (
                                     <Box
+                                        component="div"
                                         sx={{
                                             display: 'flex',
                                             alignItems: 'center',
@@ -298,7 +306,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                                 <Typography variant="body2">تومان</Typography>
                             </Box>
                         ) : (
-                            <Box>
+                            <Box component="div">
                                 <Typography
                                     variant="body1"
                                     sx={{
@@ -321,6 +329,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
 
                 {product.offer && (
                     <Box
+                        component="div"
                         sx={{
                             background: '#f43f5e',
                             border: '1px',

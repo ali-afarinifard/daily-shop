@@ -54,10 +54,11 @@ const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
 
 
     return (
-        <Box>
+        <Box component={'div'}>
 
             {isLoading ? (
                 <Box
+                    component={'div'}
                     sx={{
                         mt: '2.5rem',
                         display: 'flex',
@@ -70,6 +71,7 @@ const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
             ) : (
                 <>
                     <Box
+                        component={'div'}
                         sx={{
                             display: 'flex',
                             alignItems: 'center',
@@ -78,6 +80,7 @@ const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
                         }}
                     >
                         <Box
+                            component={'div'}
                             sx={{
                                 position: 'relative',
                                 textAlign: 'center',
@@ -91,6 +94,7 @@ const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
 
 
                     <Box
+                        component={'div'}
                         sx={{
                             display: 'grid',
                             gridTemplateColumns: { xs: '1fr', '2xs': 'repeat(2, 1fr)', '2sm': 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' },
@@ -99,7 +103,7 @@ const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
                         }}
                     >
                         {wishlist.length > 0 && wishlist.map((product: ProductType) => (
-                            <Box key={product._id}>
+                            <Box component={'div'} key={product._id}>
                                 <WishlistProduct
                                     product={product}
                                     userId={userId}

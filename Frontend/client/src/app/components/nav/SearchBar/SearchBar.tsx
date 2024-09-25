@@ -66,13 +66,14 @@ const SearchBar = () => {
 
     return (
         <Box
+            component="div"
             ref={searchBarRef}
             sx={{
                 position: 'relative',
                 width: '100%'
             }}
         >
-            <Box sx={{ width: '100%' }}>
+            <Box component="div" sx={{ width: '100%' }}>
                 <Box
                     component="input"
                     type="search"
@@ -113,6 +114,7 @@ const SearchBar = () => {
             )}
             {showResults && results.length > 0 && (
                 <Box
+                    component="div"
                     sx={{
                         position: 'absolute',
                         zIndex: 10,

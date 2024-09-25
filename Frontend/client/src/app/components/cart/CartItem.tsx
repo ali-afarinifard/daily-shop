@@ -17,6 +17,8 @@ import ProductType from "@/types/product";
 
 // ** Components
 import SetQuantity from "../products/SetQuantity";
+
+// ** MUI
 import { Box, Button, Typography } from "@mui/material";
 
 
@@ -30,6 +32,7 @@ const CartItem: React.FC<ItemContentProps> = ({ item }) => {
 
     return (
         <Box
+            component="div"
             sx={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(5, 1fr)',
@@ -43,6 +46,7 @@ const CartItem: React.FC<ItemContentProps> = ({ item }) => {
             }}
         >
             <Box
+                component="div"
                 sx={{
                     gridColumn: 'span 2',
                     justifySelf: 'start',
@@ -53,6 +57,7 @@ const CartItem: React.FC<ItemContentProps> = ({ item }) => {
             >
                 <Link href={`/product/${item._id}`}>
                     <Box
+                        component="div"
                         sx={{
                             position: 'relative',
                             width: '6.4rem',
@@ -73,6 +78,7 @@ const CartItem: React.FC<ItemContentProps> = ({ item }) => {
                 </Link>
 
                 <Box
+                    component="div"
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',
@@ -86,6 +92,7 @@ const CartItem: React.FC<ItemContentProps> = ({ item }) => {
                     </Link>
 
                     <Box
+                        component="div"
                         sx={{
                             color: '#64748b',
                             display: 'flex',
@@ -99,6 +106,7 @@ const CartItem: React.FC<ItemContentProps> = ({ item }) => {
                     </Box>
 
                     <Box
+                        component="div"
                         sx={{
                             width: '4.4rem'
                         }}
@@ -115,6 +123,7 @@ const CartItem: React.FC<ItemContentProps> = ({ item }) => {
                 <Typography variant="body2" sx={{ justifySelf: 'center' }}>{formatPriceToFarsi(item?.price)}</Typography>
             )}
             <Box
+                component="div"
                 sx={{
                     justifySelf: 'center'
                 }}

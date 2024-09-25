@@ -43,6 +43,7 @@ const CategoryList = () => {
 
     return (
         <Box
+            component="div"
             sx={{
                 background: '#f1f5f9',
                 mt: '1rem',
@@ -52,7 +53,15 @@ const CategoryList = () => {
             }}
         >
             <Container>
-                <Box className="flex items-center gap-10 py-1 text-[0.94rem]">
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '2.5rem',
+                        py: '0.25rem',
+                        fontSize: '0.94rem'
+                    }}
+                >
                     <Link href={'/products'}>
                         <CategoryItem
                             label="همه"

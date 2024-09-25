@@ -32,6 +32,7 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <Container>
             <Box
+                component="div"
                 sx={{
                     display: 'flex',
                     flexDirection: { xs: 'column', lg: 'row' },
@@ -42,6 +43,7 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
                 }}
             >
                 <Box
+                    component="div"
                     sx={{
                         display: { xs: 'none', lg: 'block' }
                     }}
@@ -50,6 +52,7 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
                 </Box>
 
                 <Box
+                    component="div"
                     sx={{
                         display: { xs: 'block', lg: 'none' },
                         mt: { xs: '4rem', md: 0 }
@@ -59,6 +62,7 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
                 </Box>
 
                 <Box
+                    component="div"
                     sx={{
                         width: '100%',
                         boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',

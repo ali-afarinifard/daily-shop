@@ -10,6 +10,7 @@ interface CategoryItemProps {
 const CategoryItem: React.FC<CategoryItemProps> = ({ selected, label, centerParent, centerChild }) => {
     return (
         <Box
+            component="div"
             sx={{
                 display: 'flex',
                 alignItems: 'center',

@@ -25,6 +25,7 @@ const SetQuantity: React.FC<SetQtyProps> = ({
 }) => {
     return (
         <Box
+            component="div"
             sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -36,6 +37,7 @@ const SetQuantity: React.FC<SetQtyProps> = ({
             {cardCounter ? null : <Typography variant="body1">تعداد :</Typography>}
 
             <Box
+                component="div"
                 sx={{
                     display: 'flex',
                     flexDirection: {xs: 'column', sm: 'row'},

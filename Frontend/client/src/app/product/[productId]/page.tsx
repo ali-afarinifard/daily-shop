@@ -9,7 +9,7 @@ import { Box } from "@mui/material"
 const ProductPage = () => {
 
     return (
-        <Box>
+        <Box component="div">
             <Container>
                 <ProductDetails/>
             </Container>

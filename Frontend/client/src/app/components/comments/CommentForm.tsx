@@ -79,6 +79,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
 
     return (
         <Box
+            component="div"
             sx={{
                 position: 'sticky',
                 top: '7rem'
@@ -86,6 +87,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
         >
             <Box component="form" onSubmit={handleSubmit}>
                 <Box
+                    component="div"
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',
@@ -93,6 +95,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
                     }}
                 >
                     <Box
+                        component="div"
                         sx={{
                             width: 'fit-content'
                         }}
@@ -101,6 +104,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
                     </Box>
 
                     <Box
+                        component="div"
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
@@ -108,6 +112,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ productId, onCommentAdded }) 
                         }}
                     >
                         <Box
+                            component="div"
                             sx={{
                                 display: 'flex',
                                 alignItems: 'start',

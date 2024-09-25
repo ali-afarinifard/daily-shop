@@ -80,6 +80,7 @@ const ResetAccountForm = () => {
 
     return (
         <Box
+            component="div"
             sx={{
                 width: '100%',
                 position: 'relative'
@@ -88,6 +89,7 @@ const ResetAccountForm = () => {
             <Typography variant="h2" sx={{ textAlign: 'center' }}>بازیابی رمز عبور</Typography>
 
             <Box
+                component="div"
                 sx={{
                     position: 'absolute',
                     left: 0,
@@ -96,6 +98,7 @@ const ResetAccountForm = () => {
             >
                 <Link href={'/login'} sx={{ color: '#2563eb', textDecoration: 'none' }}>
                     <Box
+                        component="div"
                         sx={{
                             width: '2.5rem',
                             height: '2.5rem',
@@ -127,6 +130,7 @@ const ResetAccountForm = () => {
 
                 {/* Email */}
                 <Box
+                    component="div"
                     sx={{
                         width: '100%',
                         position: 'relative',
@@ -180,6 +184,7 @@ const ResetAccountForm = () => {
 
                 {/* New Password */}
                 <Box
+                    component="div"
                     sx={{
                         width: '100%',
                         position: 'relative',
@@ -229,6 +234,7 @@ const ResetAccountForm = () => {
                         <Typography variant='body1' sx={{ fontSize: '1rem' }}>رمز عبور جدید</Typography>
                     </Box>
                     <Box
+                        component="div"
                         sx={{
                             position: 'absolute',
                             left: '0.75rem',
@@ -244,6 +250,7 @@ const ResetAccountForm = () => {
 
                 {/* Confirm Password */}
                 <Box
+                    component="div"
                     sx={{
                         width: '100%',
                         position: 'relative',
@@ -293,6 +300,7 @@ const ResetAccountForm = () => {
                         تایید رمز عبور
                     </Box>
                     <Box
+                        component="div"
                         sx={{
                             position: 'absolute',
                             left: '0.75rem',

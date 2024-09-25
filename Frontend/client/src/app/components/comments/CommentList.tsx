@@ -43,11 +43,12 @@ const CommentList: React.FC<CommentListProps> = ({ productId, commentsUpdated })
 
 
     return (
-        <Box>
+        <Box component="div">
             {comments.length > 0 ? (
                 comments.map(comment => (
-                    <Box key={comment._id}>
+                    <Box component="div" key={comment._id}>
                         <Box
+                            component="div"
                             sx={{
                                 display: 'flex',
                                 flexDirection: 'column',
@@ -55,6 +56,7 @@ const CommentList: React.FC<CommentListProps> = ({ productId, commentsUpdated })
                             }}
                         >
                             <Box
+                                component="div"
                                 sx={{
                                     display: 'flex',
                                     flexDirection: 'column',
@@ -62,6 +64,7 @@ const CommentList: React.FC<CommentListProps> = ({ productId, commentsUpdated })
                                 }}
                             >
                                 <Box
+                                    component="div"
                                     sx={{
                                         display: 'flex',
                                         alignItems: 'center',

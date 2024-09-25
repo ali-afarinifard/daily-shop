@@ -10,6 +10,7 @@ interface HeadingProps {
 const Heading: React.FC<HeadingProps> = ({ title, center, custom = '' }) => {
     return (
         <Box
+            component="div"
             sx={{
                 position: 'relative',
                 textAlign: center ? 'center' : 'start'

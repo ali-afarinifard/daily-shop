@@ -186,6 +186,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
 
     return (
         <Box
+            component="div"
             sx={{
                 width: '100%',
                 height: '100%'
@@ -194,6 +195,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
 
             <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%', height: '100%' }}>
                 <Box
+                    component="div"
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',
@@ -204,6 +206,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
 
                     {/* Inputs */}
                     <Box
+                        component="div"
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
@@ -213,6 +216,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                     >
 
                         <Box
+                            component="div"
                             sx={{
                                 display: 'flex',
                                 alignItems: 'center',
@@ -224,6 +228,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                         >
 
                             <Box
+                                component="div"
                                 sx={{
                                     display: 'flex',
                                     flexDirection: 'column',
@@ -252,6 +257,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                             </Box>
 
                             <Box
+                                component="div"
                                 sx={{
                                     display: 'flex',
                                     flexDirection: 'column',
@@ -283,6 +289,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
 
 
                         <Box
+                            component="div"
                             sx={{
                                 display: 'flex',
                                 flexDirection: { xs: 'column', xl: 'row' },
@@ -293,6 +300,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                         >
 
                             <Box
+                                component="div"
                                 sx={{
                                     display: 'flex',
                                     flexDirection: 'column',
@@ -321,6 +329,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                             </Box>
 
                             <Box
+                                component="div"
                                 sx={{
                                     display: 'flex',
                                     flexDirection: 'column',
@@ -351,6 +360,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                         </Box>
 
                         <Box
+                            component="div"
                             sx={{
                                 display: 'flex',
                                 flexDirection: { xs: 'column', xl: 'row' },
@@ -361,6 +371,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                         >
 
                             <Box
+                                component="div"
                                 sx={{
                                     display: 'flex',
                                     flexDirection: 'column',
@@ -390,6 +401,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                             </Box>
 
                             <Box
+                                component="div"
                                 sx={{
                                     display: 'flex',
                                     flexDirection: 'column',
@@ -419,6 +431,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                             </Box>
 
                             <Box
+                                component="div"
                                 sx={{
                                     display: 'flex',
                                     flexDirection: 'column',
@@ -450,11 +463,13 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
                         </Box>
 
                         <Box
+                            component="div"
                             sx={{
                                 maxWidth: '21.3rem'
                             }}
                         >
                             <Box
+                                component="div"
                                 sx={{
                                     display: 'flex',
                                     flexDirection: 'column',
@@ -487,6 +502,7 @@ const Summary: React.FC<SummaryProps> = ({ user, updateUserInContext }) => {
 
                     {/* Submit BTN */}
                     <Box
+                        component="div"
                         sx={{
                             mt: '2rem',
                             display: 'flex',

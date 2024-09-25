@@ -6,6 +6,7 @@ import OrdersList from "../components/orders/OrdersList"
 const OrdersPage = () => {
     return (
         <Box
+            component="div"
             sx={{
                 pt: '2rem'
             }}

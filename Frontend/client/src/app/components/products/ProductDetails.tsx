@@ -309,9 +309,10 @@ const ProductDetails: React.FC = () => {
                                     </Swiper>
                                 </Box>
 
-                                <Box>
+                                <Box component="div">
                                     {isModalOpen && (
                                         <Box
+                                            component="div"
                                             sx={{
                                                 position: 'fixed',
                                                 inset: 0,
@@ -323,7 +324,8 @@ const ProductDetails: React.FC = () => {
                                                 zIndex: '50'
                                             }}
                                             onClick={closeModal}>
-                                            <Box sx={{ position: 'relative' }}>
+
+                                            <Box sx={{ position: 'relative' }} component="div">
                                                 <Box
                                                     component="img"
                                                     src={selectedImage || ""}
@@ -338,6 +340,7 @@ const ProductDetails: React.FC = () => {
                                                     }}
                                                 />
                                             </Box>
+
                                         </Box>
                                     )}
                                 </Box>
@@ -345,6 +348,7 @@ const ProductDetails: React.FC = () => {
                             </Box>
 
                             <Box
+                                component="div"
                                 sx={{
                                     mt: '1.75rem',
                                     display: 'flex',
@@ -354,6 +358,7 @@ const ProductDetails: React.FC = () => {
                                 }}
                             >
                                 <Box
+                                    component="div"
                                     sx={{
                                         display: 'flex',
                                         flexDirection: 'column',
@@ -361,7 +366,8 @@ const ProductDetails: React.FC = () => {
                                     }}
                                 >
                                     <Typography variant="h1">{product?.title}</Typography>
-                                    <Box sx={{ position: 'relative', width: 'fit-content' }}>
+
+                                    <Box sx={{ position: 'relative', width: 'fit-content' }} component="div">
                                         {/* Display average rating */}
                                         <Rating
                                             value={averageRating || 0}
@@ -369,7 +375,7 @@ const ProductDetails: React.FC = () => {
                                             readOnly
                                             sx={{ direction: 'ltr', fontSize: '1.7rem' }}
                                         />
-                                        <Box sx={{ position: 'absolute', left: '-1.5rem', bottom: '-0.75rem' }}>
+                                        <Box component="div" sx={{ position: 'absolute', left: '-1.5rem', bottom: '-0.75rem' }}>
                                             {averageRating !== null && (
                                                 <Typography sx={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748b', marginLeft: '0.5rem' }}>
                                                     ({averageRating.toFixed(1)})
@@ -380,7 +386,7 @@ const ProductDetails: React.FC = () => {
                                 </Box>
                                 <Typography sx={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                                     {product?.offer ? (
-                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }} component="div">
                                             <Typography sx={{ fontSize: '1.4rem', fontWeight: 700, color: '#94a3b8' }} className="text-offer">
                                                 {formatPriceToFarsi(product?.price)}
                                             </Typography>
@@ -399,6 +405,7 @@ const ProductDetails: React.FC = () => {
                                 </Typography>
 
                                 <Box
+                                    component="div"
                                     sx={{
                                         display: 'flex',
                                         alignItems: 'center',
@@ -415,6 +422,7 @@ const ProductDetails: React.FC = () => {
                                         </>
                                     )}
                                     <Box
+                                        component="div"
                                         sx={{
                                             display: 'flex',
                                             alignItems: 'center',
@@ -444,6 +452,7 @@ const ProductDetails: React.FC = () => {
                                         </Typography>
 
                                         <Box
+                                            component="div"
                                             sx={{
                                                 maxWidth: '18.75rem'
                                             }}
@@ -456,6 +465,7 @@ const ProductDetails: React.FC = () => {
                                         {product?.isStatus ? (
                                             <>
                                                 <Box
+                                                    component="div"
                                                     sx={{
                                                         display: 'flex',
                                                         alignItems: 'center',
@@ -464,6 +474,7 @@ const ProductDetails: React.FC = () => {
                                                     }}
                                                 >
                                                     <Box
+                                                        component="div"
                                                         sx={{
                                                             display: 'flex',
                                                             flexDirection: 'column',
@@ -505,6 +516,7 @@ const ProductDetails: React.FC = () => {
                                                     </Box>
 
                                                     <Box
+                                                        component="div"
                                                         sx={{
                                                             display: 'flex',
                                                             flexDirection: 'column',
@@ -551,6 +563,7 @@ const ProductDetails: React.FC = () => {
                                                 />
 
                                                 <Box
+                                                    component="div"
                                                     sx={{
                                                         maxWidth: '18.75rem'
                                                     }}
@@ -564,11 +577,13 @@ const ProductDetails: React.FC = () => {
                                         ) : (
                                             <>
                                                 <Box
+                                                    component="div"
                                                     sx={{
                                                         maxWidth: '18.75rem'
                                                     }}
                                                 >
                                                     <Box
+                                                        component="div"
                                                         sx={{
                                                             borderRadius: '0.37rem',
                                                             background: '#f43f5e',
@@ -592,7 +607,7 @@ const ProductDetails: React.FC = () => {
                                     </>
                                 )}
 
-                                <Box>
+                                <Box component="div">
                                     {showWishlistMessage ? (
                                         <>
                                             <Typography
@@ -610,6 +625,7 @@ const ProductDetails: React.FC = () => {
                                             </Typography>
 
                                             <Box
+                                                component="div"
                                                 sx={{
                                                     maxWidth: '18.75rem'
                                                 }}
@@ -619,6 +635,7 @@ const ProductDetails: React.FC = () => {
                                         </>
                                     ) : (
                                         <Box
+                                            component="div"
                                             sx={{
                                                 maxWidth: '18.75rem'
                                             }}
@@ -641,6 +658,7 @@ const ProductDetails: React.FC = () => {
                         </Box>
 
                         <Box
+                            component="div"
                             sx={{
                                 mt: '4rem',
                                 width: '100%',
@@ -654,11 +672,13 @@ const ProductDetails: React.FC = () => {
 
 
                         <Box
+                            component="div"
                             sx={{
                                 mt: '2.5rem'
                             }}
                         >
                             <Box
+                                component="div"
                                 sx={{
                                     display: 'flex',
                                     flexDirection: { xs: 'column', '2sm': 'row' },
@@ -667,6 +687,7 @@ const ProductDetails: React.FC = () => {
                                 }}
                             >
                                 <Box
+                                    component="div"
                                     sx={{
                                         width: { xs: '100%', '2sm': '24rem' }
                                     }}
@@ -675,6 +696,7 @@ const ProductDetails: React.FC = () => {
                                 </Box>
 
                                 <Box
+                                    component="div"
                                     sx={{
                                         width: '100%',
                                         mt: '3.6rem'

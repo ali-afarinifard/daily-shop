@@ -14,6 +14,7 @@ interface UserProfileNavItemProps {
 const UserProfileNavItem: React.FC<UserProfileNavItemProps> = ({ selected, icon: Icon, label, custom, onClick }) => {
     return (
         <Box
+            component={'div'}
             sx={{
                 display: 'flex',
                 alignItems: 'center',

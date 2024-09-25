@@ -9,11 +9,13 @@ const Features = () => {
 
     return (
         <Box
+            component="div"
             sx={{
                 mt: '5rem'
             }}
         >
             <Box
+                component="div"
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
