@@ -3,15 +3,20 @@
 import { useContext, useEffect, useState } from 'react';
 import Heading from '../Heading';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { AuthContext } from '@/context/AuthContext';
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FiEye } from "react-icons/fi";
 import { useRegisterMutation } from '@/store/apiSlice';
+import { Box, Button, Link, Typography } from '@mui/material';
 
 
 export default function RegisterPage() {
+
+    const [usernameFocused, setUsernameFocused] = useState(false);
+    const [emailFocused, setEmailFocused] = useState(false);
+    const [passwordFocused, setPasswordFocused] = useState(false);
+
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -97,92 +102,230 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className='w-full'>
+        <Box
+            sx={{
+                width: '100%',
+            }}
+        >
             <Heading title='عضویت در دیجی شاپ' center />
-            <form onSubmit={handleRegister} className='mt-10 flex flex-col gap-3'>
+            <Box
+                component="form"
+                onSubmit={handleRegister}
+                sx={{
+                    mt: '2.5rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.75rem'
+                }}
+            >
 
                 {/* Username */}
-                <div className='w-full relative flex flex-col gap-1'>
-                    <div>
-                        <input
+                <Box
+                    sx={{
+                        width: '100%',
+                        position: 'relative',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '0.25rem'
+                    }}
+                >
+                    <Box>
+                        <Box
+                            component="input"
                             id='username'
                             type="text"
                             autoComplete='off'
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed`}
+                            onFocus={() => setUsernameFocused(true)}
+                            onBlur={(e) => {
+                                if (!e.target.value) setUsernameFocused(false);
+                            }}
+                            sx={{
+                                width: '100%',
+                                p: '1rem',
+                                pt: '1.5rem',
+                                outline: 'none',
+                                background: '#fff',
+                                fontWeight: 700,
+                                border: '2px solid',
+                                borderRadius: '0.37rem',
+                                transition: 'all 0.2s ease-in-out',
+                                borderColor: '#e0e0e0'
+                            }}
                         />
-                        <label
+                        <Box
+                            component="label"
                             htmlFor="username"
-                            className={`absolute text-[0.88rem] duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4`}
+                            sx={{
+                                position: 'absolute',
+                                right: '1rem',
+                                top: usernameFocused || username ? '0.4rem' : '1rem',
+                                transform: usernameFocused || username ? 'scale(0.9)' : 'scale(1)',
+                                transformOrigin: 'top right',
+                                transition: 'all 0.2s ease-in-out',
+                                zIndex: 10,
+                                pointerEvents: 'none'
+                            }}
                         >
-                            نام کاربری
-                        </label>
-                    </div>
-                    {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
-                </div>
+                            <Typography variant='body1' sx={{ fontSize: '1rem' }}>نام کاربری</Typography>
+                        </Box>
+                    </Box>
+                    {errors.username && <Typography variant='body1' sx={{ color: '#ef4444' }}>{errors.username}</Typography>}
+                </Box>
 
                 {/* Email */}
-                <div className='w-full relative flex flex-col gap-1'>
-                    <div>
-                        <input
+                <Box
+                    sx={{
+                        width: '100%',
+                        position: 'relative',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '0.25rem'
+                    }}
+                >
+                    <Box>
+                        <Box
+                            component="input"
                             id='email'
                             type="email"
                             autoComplete='off'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed`}
+                            onFocus={() => setEmailFocused(true)}
+                            onBlur={(e) => {
+                                if (!e.target.value) setEmailFocused(false);
+                            }}
+                            sx={{
+                                width: '100%',
+                                p: '1rem',
+                                pt: '1.5rem',
+                                outline: 'none',
+                                background: '#fff',
+                                fontWeight: 700,
+                                border: '2px solid',
+                                borderRadius: '0.37rem',
+                                transition: 'all 0.2s ease-in-out',
+                                borderColor: '#e0e0e0'
+                            }}
                         />
-                        <label
+                        <Box
+                            component="label"
                             htmlFor="email"
-                            className={`absolute text-[0.88rem] duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4`}
+                            sx={{
+                                position: 'absolute',
+                                right: '1rem',
+                                top: emailFocused || email ? '0.4rem' : '1rem',
+                                transform: emailFocused || email ? 'scale(0.9)' : 'scale(1)',
+                                transformOrigin: 'top right',
+                                transition: 'all 0.2s ease-in-out',
+                                zIndex: 10,
+                                pointerEvents: 'none'
+                            }}
                         >
-                            ایمیل
-                        </label>
-                    </div>
-                    {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-                </div>
+                            <Typography variant='body1' sx={{ fontSize: '1rem' }}>ایمیل</Typography>
+                        </Box>
+                    </Box>
+                    {errors.email && <Typography variant='body1' sx={{ color: '#ef4444' }}>{errors.email}</Typography>}
+                </Box>
 
 
                 {/* Password */}
-                <div className='w-full relative flex flex-col gap-1'>
-                    <div>
-                        <input
+                <Box
+                    sx={{
+                        width: '100%',
+                        position: 'relative',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '0.25rem'
+                    }}
+                >
+                    <Box>
+                        <Box
+                            component="input"
                             id='password'
                             type={showPassword ? "text" : "password"}
                             autoComplete='off'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed`}
+                            onFocus={() => setPasswordFocused(true)}
+                            onBlur={(e) => {
+                                if (!e.target.value) setPasswordFocused(false);
+                            }}
+                            sx={{
+                                width: '100%',
+                                p: '1rem',
+                                pt: '1.5rem',
+                                outline: 'none',
+                                background: '#fff',
+                                fontWeight: 700,
+                                border: '2px solid',
+                                borderRadius: '0.37rem',
+                                transition: 'all 0.2s ease-in-out',
+                                borderColor: '#e0e0e0'
+                            }}
                         />
-                        <label
+                        <Box
+                            component="label"
                             htmlFor="password"
-                            className={`absolute text-[0.88rem] duration-150 transform -translate-y-3 top-5 z-10 origin-[0] right-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4`}
+                            sx={{
+                                position: 'absolute',
+                                right: '1rem',
+                                top: passwordFocused || password ? '0.4rem' : '1rem',
+                                transform: passwordFocused || password ? 'scale(0.9)' : 'scale(1)',
+                                transformOrigin: 'top right',
+                                transition: 'all 0.2s ease-in-out',
+                                zIndex: 10,
+                                pointerEvents: 'none'
+                            }}
                         >
-                            رمز عبور
-                        </label>
-                        <div
-                            className='absolute left-3 top-6 cursor-pointer' // Position the eye icon
-                            onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
+                            <Typography variant='body1' sx={{ fontSize: '1rem' }}>رمز عبور</Typography>
+                        </Box>
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                left: '0.75rem',
+                                top: '1.5rem',
+                                cursor: 'pointer'
+                            }}
+                            onClick={() => setShowPassword(!showPassword)}
                         >
-                            {showPassword ? <FiEye size={20} className='text-slate-400' /> : <FaRegEyeSlash size={20} className='text-slate-400' />} {/* Display eye or eye-slash icon */}
-                        </div>
-                    </div>
-                    {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
-                </div>
+                            {showPassword ? <FiEye size={20} style={{ color: '#94a3b8 ' }} /> : <FaRegEyeSlash size={20} style={{ color: '#94a3b8 ' }} />}
+                        </Box>
+                    </Box>
+                    {errors.password && <Typography variant='body1' sx={{ color: '#ef4444' }}>{errors.password}</Typography>}
+                </Box>
 
 
-                <button
+                <Button
                     type="submit"
-                    className={`disabled:opacity-70 disabled:cursor-not-allowed rounded-md hover:opacity-80 transition w-full border-slate-700 flex items-center justify-center gap-2 bg-slate-700 text-white text-md p-4`}
+                    sx={{
+                        background: '#334155',
+                        borderRadius: '0.37rem',
+                        p: '1rem',
+                        width: '100%',
+                        border: '1px solid',
+                        borderColor: '#334155',
+                        transition: 'all 0.3s ease-in-out',
+                        '&:hover': {
+                            background: '#334155',
+                            opacity: '0.8'
+                        }
+                    }}
                 >
-                    عضویت
-                </button>
+                    <Typography variant='body1' sx={{ color: '#fff' }}>عضویت</Typography>
+                </Button>
 
-                <div className='text-sm text-center mt-2'>
-                    حساب کاربری دارید؟ <Link href={'/login'} className='text-rose-500'>وارد شوید</Link>
-                </div>
-            </form>
-        </div>
+                <Typography
+                    variant='body1'
+                    sx={{
+                        textAlign: 'center',
+                        mt: '0.5rem'
+                    }}
+                >
+                    حساب کاربری دارید؟ <Link href={'/login'} sx={{ color: '#f43f5e', textDecoration: 'none' }}>وارد شوید</Link>
+                </Typography>
+            </Box>
+        </Box>
     );
 }
