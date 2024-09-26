@@ -27,7 +27,7 @@ const CategoryItem: React.FC<CategoryItemProps> = ({ selected, label, centerPare
             }}
         >
             <Typography
-                variant="body2"
+                variant="body1"
                 sx={{
                     textAlign: 'center',
                     wordBreak: 'break-word',

@@ -45,9 +45,9 @@ const SetQuantity: React.FC<SetQtyProps> = ({
                 component="div"
                 sx={{
                     display: 'flex',
-                    flexDirection: {xs: 'column', sm: 'row'},
+                    flexDirection: {xs: 'column', '2sm': 'row'},
                     alignItems: 'center',
-                    gap: {xs: '0.5rem', sm: '1rem'},
+                    gap: {xs: '0.5rem', '2sm': '1rem'},
                     fontSize: '1rem',
                     lineHeight: '1.5rem',
                 }}

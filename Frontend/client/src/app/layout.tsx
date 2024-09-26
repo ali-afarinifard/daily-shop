@@ -52,7 +52,7 @@ export default function RootLayout({
               component="main"
               sx={{
                 flexGrow: '1',
-                mt: '4rem'
+                mt: '4.5rem'
               }}
             >
               {children}

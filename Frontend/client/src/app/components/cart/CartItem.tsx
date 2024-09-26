@@ -52,7 +52,7 @@ const CartItem: React.FC<ItemContentProps> = ({ item }) => {
                     justifySelf: 'start',
                     display: 'flex',
                     gap: { xs: '0.5rem', md: '1rem' },
-                    flexDirection: { xs: 'column', sm: 'row' },
+                    flexDirection: { xs: 'column', '2sm': 'row' },
                 }}
             >
                 <Link href={`/product/${item._id}`}>
@@ -118,9 +118,25 @@ const CartItem: React.FC<ItemContentProps> = ({ item }) => {
                 </Box>
             </Box>
             {item?.offer ? (
-                <Typography variant="body2" sx={{ justifySelf: 'center' }}>{formatPriceToFarsi(item?.offer)}</Typography>
+                <Box component={'div'} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.1rem' }}>
+                    <Typography variant="body2" sx={{ justifySelf: 'center' }}>
+                        {formatPriceToFarsi(item?.offer)}
+                    </Typography>
+
+                    <Typography variant="body2" sx={{ justifySelf: 'center' }}>
+                        تومان
+                    </Typography>
+                </Box>
             ) : (
-                <Typography variant="body2" sx={{ justifySelf: 'center' }}>{formatPriceToFarsi(item?.price)}</Typography>
+                <Box component={'div'} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.1rem' }}>
+                    <Typography variant="body2" sx={{ justifySelf: 'center' }}>
+                        {formatPriceToFarsi(item?.price)}
+                    </Typography>
+
+                    <Typography variant="body2" sx={{ justifySelf: 'center' }}>
+                        تومان
+                    </Typography>
+                </Box>
             )}
             <Box
                 component="div"
@@ -135,9 +151,15 @@ const CartItem: React.FC<ItemContentProps> = ({ item }) => {
                     handleQtyDecrease={() => { handleCartQtyDecrease(item) }}
                 />
             </Box>
-            <Typography variant="body1" sx={{ justifySelf: 'end' }}>
-                {formatPriceToFarsi(item.price * item.quantity)}
-            </Typography>
+            <Box component={'div'} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '0.1rem' }}>
+                <Typography variant="body1">
+                    {formatPriceToFarsi(item.price * item.quantity)}
+                </Typography>
+
+                <Typography variant="body2">
+                    تومان
+                </Typography>
+            </Box>
         </Box>
     );
 };

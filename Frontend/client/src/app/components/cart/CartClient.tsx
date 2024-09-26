@@ -166,7 +166,10 @@ const CartClient = () => {
                     >
                         <Typography variant="body1">جمع سبد خرید</Typography>
 
-                        <Typography variant="body1">{formatPriceToFarsi(cartTotalAmount)}</Typography>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.1rem' }}>
+                            <Typography variant="body1">{formatPriceToFarsi(cartTotalAmount)}</Typography>
+                            <Typography variant="body2">تومان</Typography>
+                        </Box>
                     </Box>
 
                     <Typography variant="body1" sx={{ color: '#64748b', mb: '0.5rem' }}>هزینه پست و ارسال هنگام پرداخت محاسبه می شود</Typography>
