@@ -492,6 +492,7 @@ const ProductDetails: React.FC = () => {
                                                         component="div"
                                                         sx={{
                                                             display: 'flex',
+                                                            alignItems: 'center',
                                                             flexDirection: 'column',
                                                             gap: '0.25rem',
                                                             width: '100%'
@@ -505,6 +506,7 @@ const ProductDetails: React.FC = () => {
                                                                 name="size"
                                                                 value={selectedSize ?? ""}
                                                                 onChange={(e) => setSelectedSize(e.target.value)}
+                                                                displayEmpty
                                                                 sx={{
                                                                     p: '0.5rem',
                                                                     border: '1px solid',
@@ -512,12 +514,16 @@ const ProductDetails: React.FC = () => {
                                                                     borderRadius: '0.37rem',
                                                                     outline: 'none',
                                                                     height: '2.6rem',
+                                                                    '& .MuiOutlinedInput-root': {
+                                                                        boxSizing: 'border-box', // Apply to input root too
+                                                                        height: '100%',
+                                                                    },
                                                                     '&:focus': {
                                                                         borderColor: 'primary.main',
                                                                     }
                                                                 }}
                                                             >
-                                                                <MenuItem value={"انتخاب سایز"} sx={{ fontWeight: '700', fontFamily: 'Vazir' }}>
+                                                                <MenuItem value="" disabled hidden sx={{ fontWeight: '700', fontFamily: 'Vazir' }}>
                                                                     <Typography variant="body1">انتخاب سایز</Typography>
                                                                 </MenuItem>
 
@@ -546,6 +552,7 @@ const ProductDetails: React.FC = () => {
                                                             name="color"
                                                             value={selectedColor ?? ""}
                                                             onChange={(e) => setSelectedColor(e.target.value)}
+                                                            displayEmpty
                                                             sx={{
                                                                 p: '0.5rem',
                                                                 border: '1px solid',
@@ -558,7 +565,7 @@ const ProductDetails: React.FC = () => {
                                                                 }
                                                             }}
                                                         >
-                                                            <MenuItem value={"انتخاب رنگ"} sx={{ fontWeight: '700', fontFamily: 'Vazir' }}>
+                                                            <MenuItem value="" disabled hidden sx={{ fontWeight: '700', fontFamily: 'Vazir' }}>
                                                                 <Typography variant="body1">انتخاب رنگ</Typography>
                                                             </MenuItem>
 
@@ -657,6 +664,8 @@ const ProductDetails: React.FC = () => {
                                         >
                                             <Button
                                                 label="افزودن به لیست علاقه‌مندی‌ها"
+                                                backgroundColor="#f43f5e"
+                                                borderColor="#f43f5e"
                                                 onClick={() => {
                                                     if (productId) {
                                                         handleAddToWishlist(productId);
@@ -664,7 +673,6 @@ const ProductDetails: React.FC = () => {
                                                         console.error("Product ID is undefined");
                                                     }
                                                 }}
-                                                custom="!bg-rose-500 !border-rose-500"
                                             />
                                         </Box>
                                     )}

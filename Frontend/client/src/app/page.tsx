@@ -17,7 +17,7 @@ export default function Home() {
       <Box
         component="div"
         sx={{
-          pt: '2.5rem',
+          pt: '2.2rem',
           mt: { xs: 0, lg: '1.6rem' }
         }}
       >

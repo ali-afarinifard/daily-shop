@@ -34,7 +34,8 @@ const Features = () => {
                     maxWidth: '60rem',
                     textAlign: 'start',
                     mx: 'auto',
-                    lineHeight: '2rem'
+                    lineHeight: '2rem',
+                    fontSize: '1.1rem'
                 }}
             >
                 مشتریان عزیز دیجی شاپ، با توجه به درج دقیق مشخصات هر محصول (جنس و سایز) و نظر به حجم بالای سفارشات، درخواست تعویض و مرجوع به خاطر جنس و سایز پذیرفته نمی شود. لطفا در انتخاب خودتون دقت کنید.
@@ -42,7 +43,8 @@ const Features = () => {
                 <Typography
                 variant="body1"
                     sx={{
-                        mt: '1.75rem'
+                        mt: '1.75rem',
+                        fontSize: '1.1rem'
                     }}
                 >
                     با تشکر از همراهی و همکاری شما

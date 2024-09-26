@@ -15,6 +15,8 @@ interface ButtonProps {
     small?: boolean;
     custom?: string;
     icon?: IconType;
+    backgroundColor?: string;
+    borderColor?: string;
     onClick: (e: React.MouseEvent<HTMLButtonElement>) => void
 };
 
@@ -25,6 +27,8 @@ const Button: React.FC<ButtonProps> = ({
     outline,
     small,
     custom,
+    backgroundColor,
+    borderColor,
     icon: Icon,
     onClick
 }) => {
@@ -39,13 +43,12 @@ const Button: React.FC<ButtonProps> = ({
                 transition: 'all 0.2s ease-in-out',
                 width: '100%',
                 border: '1px solid',
-                borderColor: '#334155',
+                borderColor: borderColor ? borderColor : '#334155',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '0.5rem',
-                background: outline ? '#fff' : '#334155',
-                // p: '0.6rem',
+                background: backgroundColor ? backgroundColor : outline ? '#fff' : '#334155',
                 '&:hover': {
                     opacity: '0.8'
                 }
