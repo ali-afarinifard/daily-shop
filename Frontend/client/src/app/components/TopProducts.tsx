@@ -70,7 +70,7 @@ const TopProducts = () => {
                 <Heading title="پرفروش ترین محصولات" />
             </Box>
 
-            <Box className="relative ___swiper-container mt-10" component="div" sx={{ direction: 'ltr' }}>
+            <Box className="___swiper-container mt-10" component="div" sx={{ direction: 'ltr', position: 'relative' }}>
                 <Swiper
                     loop={products.length > 4}
                     slidesPerView={Math.min(1, products.length)}
@@ -90,7 +90,10 @@ const TopProducts = () => {
                             slidesPerView: 4
                         },
                     }}
-                    className="w-full mySwiper"
+                    style={{
+                        width: '100%'
+                    }}
+                    className="mySwiper"
                 >
                     {products.slice(0, 6).map((product) => (
                         <SwiperSlide key={product._id} dir="rtl">
@@ -100,6 +103,7 @@ const TopProducts = () => {
                 </Swiper>
 
 
+                {/* Arrows */}
                 <Box
                     component="div"
                     sx={{

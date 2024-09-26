@@ -142,7 +142,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                 borderRadius: '0.37rem',
                 overflow: 'hidden',
                 position: 'relative',
-                boxShadow: '2px 10px 9px -2px rgba(0,0,0,0.05);'
+                boxShadow: '2px 10px 9px -2px rgba(0,0,0,0.05)'
             }}
         >
             <Link href={`/product/${product._id}`} sx={{ position: 'relative', textDecoration: 'none' }}>
@@ -279,7 +279,8 @@ const ProductBox: React.FC<ProductBoxProps> = ({ product, user }) => {
                                         <Typography
                                             variant="body2"
                                             sx={{
-                                                color: '#64748b'
+                                                color: '#64748b',
+                                                textDecoration: 'line-through'
                                             }}
                                         >
                                             {formatPriceToFarsi(product.price)}
