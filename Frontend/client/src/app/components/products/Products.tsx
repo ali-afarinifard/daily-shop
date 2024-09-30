@@ -239,12 +239,19 @@ const Products = () => {
                                 count={Math.ceil(filteredProducts.length / itemsPerPage)}
                                 page={currentPage}
                                 onChange={handlePageChange}
-                                variant="outlined"
+                                // variant="outlined"
                                 color="primary"
                                 sx={{
                                     "& .MuiPagination-ul": {
-                                        justifyContent: "start", // Center the pagination
+                                        justifyContent: "center",  // Default center alignment for pagination
                                     },
+                                    "& .Mui-selected": {
+                                        backgroundColor: "#4caf50", // Customize selected item color
+                                    },
+                                    "& .MuiPaginationItem-root": {
+                                        borderRadius: "50%", // Custom item shape (round)
+                                        backgroundColor: "#ededed", // Customize selected item color
+                                    }
                                 }}
                             />
                         </Stack>
